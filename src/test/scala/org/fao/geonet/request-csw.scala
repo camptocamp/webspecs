@@ -69,7 +69,7 @@ object CswXmlUtil {
 }
 case class CswGetRecordsRequest(filter:NodeSeq=Nil,
                                 resultType:ResultType=hits,
-                                outputSchema:OutputSchemas.OutputSchema=OutputSchemas.DublinCore,
+                                outputSchema:OutputSchemas.OutputSchema=OutputSchemas.IsoRecord,
                                 startPosition:Int=1,
                                 maxRecords:Int=50,
                                 elementSetName:ElementSetName = full,
@@ -80,9 +80,8 @@ case class CswGetRecordsRequest(filter:NodeSeq=Nil,
 case class SortBy(key:String,asc:Boolean)
 object OutputSchemas extends Enumeration {
   type OutputSchema = Value
-  val GM03_2Record,own,IsoRecord = Value
-  val DublinCore = Value("ogc")
-  val CheRecord = Value("http://www.geocat.ch/2008/che")
+  val Record = Value("csw:Record")
+  val IsoRecord = Value("csw:IsoRecord")
 }
 case class CswGetByFileId(fileId:String, outputSchema:OutputSchemas.OutputSchema)
   extends AbstractXmlRequest (

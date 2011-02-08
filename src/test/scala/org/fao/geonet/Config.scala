@@ -5,6 +5,7 @@ import collection.JavaConverters._
 import java.net.{InetAddress, HttpURLConnection, URL}
 import java.util.{UUID, Properties}
 import collection.mutable.HashMap
+import scala.xml.Node
 
 class ExceptionChain(first:Throwable, exception:Throwable*) extends Exception(first.getMessage,first) {
   def all = first +: exception
@@ -74,19 +75,15 @@ object Config extends Log {
     }
   }
 
-  lazy val usersList = adminLogin then Get("user.list")
+  lazy val usersList = adminLogin then Get("xml.user.list")
 
-  def findUserIds(r: Response=usersList.assertPassed)(matcher: String => Boolean): Traversable[String] = {
+  def findUserIds(r: Response=usersList.assertPassed)(matcher: Node => Boolean): Traversable[String] = {
     MdRequestUtil.withXml(r) { xml =>
-       val tables = xml \\ "table"
-      val correctTable = tables filter {_ \ "tr" \ "th" nonEmpty}
-      val row = correctTable \ "tr" find { n =>
-        (n \ "td" headOption).exists {td => matcher(td.text.trim)}
-      }
-      row.toList flatMap {_ \\ "@onclick" filter {_.text contains "deleteUser"} flatMap {onclick => Config.extractId(onclick.text)}}
+      val records = xml \\ "record" filter matcher
+      records map {_ \ "id" text}
     }
   }
-  def findUsers(matcher:String => Boolean)(requestBuilder:Traversable[String] => Request) = usersList then {
+  def findUsers(matcher:Node => Boolean)(requestBuilder:Traversable[String] => Request) = usersList then {
     (r: Response) =>
       val ids = findUserIds(r)(matcher)
       requestBuilder(ids)

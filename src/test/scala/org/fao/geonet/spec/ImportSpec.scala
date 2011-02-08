@@ -9,7 +9,7 @@ object ImportSpec extends GeonetworkSpecification {
 
     "import a iso19139.che metadata" in {
       val name = "metadata.iso19139.xml"
-      val importMd = ImportMetadata(name,Config.inputStream("data/"+name),NONE,true)
+      val importMd = ImportMetadata(name,Config.inputStream("data/"+name),NONE,false)
 
       (config.login then importMd trackThen GetMetadataXml() trackThen DeleteMetadata() trackThen GetMetadataXml()) {
         case AccumulatedResponse(importResponse, findResponse,deleteResponse,secondFindResponse) =>

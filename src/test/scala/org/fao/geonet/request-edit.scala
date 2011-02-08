@@ -112,8 +112,8 @@ abstract class Add(_serv:String, id:String, editVersion:String, nodeRef:String, 
     "schema" -> "iso19139.che",
     "currTab" -> "complete"):_*)
 
-  val beforeMetadata = GetMetadataXml(id.toInt, OutputSchemas.CheRecord)
-  val afterMetadata = GetMetadataXml(id.toInt, OutputSchemas.CheRecord)
+  val beforeMetadata = GetMetadataXml(id.toInt, OutputSchemas.IsoRecord)
+  val afterMetadata = GetMetadataXml(id.toInt, OutputSchemas.IsoRecord)
 
   def exec(sideEffect: Option[SideEffect]) = {
     val before = beforeMetadata.exec(sideEffect)

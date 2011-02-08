@@ -70,7 +70,7 @@ object CheckForBrokenXLinksSpec extends StressSpecification(2,24 * 60 * 60 * 100
           ids foreach {
             id =>
              // println("[CheckForBrokenXLinks] requesting md id="+id)
-              (login then CswGetByFileId(id, OutputSchemas.CheRecord)) {
+              (login then CswGetByFileId(id, OutputSchemas.IsoRecord)) {
                 response => withXml(response) {
                   xml =>
                     if (xml \\ "ERROR" nonEmpty) Mediator ! BadMd(id)

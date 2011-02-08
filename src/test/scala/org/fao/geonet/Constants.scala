@@ -6,15 +6,18 @@ import xml.Node
 class Constants(config:Config, val userProfile:UserProfiles.UserProfile) {
   lazy val user = Config.property("user") getOrElse Config.userPrefix+config.specName
   lazy val pass = Config.property("pass") getOrElse UUID.randomUUID.toString.takeRight(8)
-  lazy val groupId = Config.findGroupIds()(_ contains user) match {
-    case ids if ids.isEmpty => throw new IllegalStateException("You must call setUpTestEnv before calling groupId")
-    case ids => ids.head
+  lazy val groupId = Config.property("groupId") getOrElse {
+    Config.findGroupIds()(_ contains user) match {
+      case ids if ids.isEmpty => throw new IllegalStateException("A group needs to be defined for the system to work.  " +
+        "The groups will have the MD created with in it.")
+      case ids => ids.head
+    }
   }
   lazy val userId = Config.findUserIds()(_ contains user) match {
     case ids if ids.isEmpty => throw new IllegalStateException("You must call setUpTestEnv before calling userId")
     case ids => ids.head
   }
-  private def sampleTemplates(filter:Node) = CswGetRecordsRequest(filter, maxRecords = 20, resultType = ResultTypes.results) {
+  private def sampleTemplates(filter:Node) = CswGetRecordsRequest(filter, maxRecords = 20, resultType = ResultTypes.resultsWithSummary) {
       response =>
         Log(Log.Constants, response.xml)
         val ids = response.xml.fold(throw _, _ \\ "info" \ "id")

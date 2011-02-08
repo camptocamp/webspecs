@@ -4,7 +4,7 @@ trait Log {
 
   private object LoggingConfig {
     val all = false
-    val enabled = RequestForm :: Connection :: Headers :: LifeCycle :: Nil
+    val enabled = RequestXml :: RequestForm :: Connection :: Headers :: LifeCycle :: Nil
   }
 
   sealed trait Level

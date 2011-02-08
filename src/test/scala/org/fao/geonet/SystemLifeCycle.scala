@@ -51,14 +51,14 @@ class PredefinedUserLifeCycle extends SystemLifeCycle {
     import Config._
     import config.constants._
 
-    (adminLogin then Login(user, pass)).assertPassed
+    (Login(user, pass)).assertPassed
   }
 
   def tearDown(config: Config) = {
     import Config._
     import config.constants._
 
-    val DeleteMetadata = findUsers(_ contains user) {
+    val DeleteMetadata = findUsers(r => (r \ "username").text.trim == user) {
       case users if users.isEmpty => NoRequest
       case users =>
         val props = users map {id => PropertyIsLike("_owner",id)}
@@ -69,7 +69,7 @@ class PredefinedUserLifeCycle extends SystemLifeCycle {
             response =>
               val ids = response.xml.right.get \\ "info" \ "id"
 
-              ((NoRequest:Request) /: ids){case (req, id) => req then Get("metadata.delete", "id" -> id.text)}
+              ((NoRequest:Request) /: ids){case (req, id) => req then Get("metadata.delete", "uuid" -> id.text)}
           }
           deleteRequest
     }

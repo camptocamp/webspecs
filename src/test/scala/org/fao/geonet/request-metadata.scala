@@ -14,7 +14,7 @@ private[geonet] object MdRequestUtil {
       case req:ImportMetadata =>
         withXml(res){
           xml =>
-            val okNode = (xml \\ "ok").headOption getOrElse {throw new IllegalArgumentException("response does not have an <ok> tag, are you sure the response is from a import metadata request?")}
+            val okNode = (xml \\ "id").headOption getOrElse {throw new IllegalArgumentException("response does not have an <id> tag, are you sure the response is from a import metadata request?")}
 
             val ids = okNode.text.split(";").map{_.trim}.filter{_.nonEmpty}
             creator(ids map {_.toInt} toList)
@@ -60,7 +60,7 @@ object GetEditingMetadata {
 }
 case class GetEditingMetadata(mdId:Int) extends GetRequest("metadata.ext.edit.data", XmlResponseFactory, "id" -> mdId)
 object GetMetadataXml {
-  def apply(schema:OutputSchemas.OutputSchema = OutputSchemas.CheRecord):Response => GetMetadataXml = MdRequestUtil.loadId(id => GetMetadataXml(id,schema))
+  def apply(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord):Response => GetMetadataXml = MdRequestUtil.loadId(id => GetMetadataXml(id,schema))
 }
 case class GetMetadataXml(mdId:Int, schema:OutputSchemas.OutputSchema) extends Request {
   private val getRequest = this
@@ -131,7 +131,7 @@ case class ImportMetadata(fileName:String, data:String, styleSheet:ImportStyleSh
     XmlResponseFactory,
     FieldMPFormPart("insert_mode", "1"),
     FieldMPFormPart("file_type", "single"),
-    FileMPFormPart("mefFile", "application/xml", fileName, data.getBytes("UTF-8").iterator),
+    FileMPFormPart("mefFile", "text/xml", fileName, data.getBytes("UTF-8").iterator),
     FieldMPFormPart("uuidAction", "generateUUID"), //other options: nothing,
     FieldMPFormPart("template", "n"),
     FieldMPFormPart("styleSheet", styleSheet.toString),
