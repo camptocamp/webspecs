@@ -3,9 +3,9 @@ package org.fao.geonet
 import java.util.UUID
 import xml.Node
 
-class Constants(config:Config) {
-  lazy val user = Config.userPrefix+config.specName
-  lazy val pass = UUID.randomUUID.toString.takeRight(8)
+class Constants(config:Config, val userProfile:UserProfiles.UserProfile) {
+  lazy val user = Config.property("user") getOrElse Config.userPrefix+config.specName
+  lazy val pass = Config.property("pass") getOrElse UUID.randomUUID.toString.takeRight(8)
   lazy val groupId = Config.findGroupIds()(_ contains user) match {
     case ids if ids.isEmpty => throw new IllegalStateException("You must call setUpTestEnv before calling groupId")
     case ids => ids.head

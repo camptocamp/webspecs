@@ -31,14 +31,7 @@ object DeleteTestData extends Application {
       req then Get("group.remove", "id" -> gid, "users" -> "delete")}
   }
 
-  val DeleteSharedContacts = DeleteCreated(SharedObjectTypes.contacts,Nil)
-  val DeleteNewExtents = DeleteCreated(SharedObjectTypes.extents,Nil)
-  val DeleteNewFormats = DeleteCreated(SharedObjectTypes.formats,Nil)
-  val DeleteNewKeywords = DeleteCreated(SharedObjectTypes.keywords,Nil)
-  val DeleteNewDeleted = DeleteCreated(SharedObjectTypes.deleted,Nil)
-
-  (Config.adminLogin then DeleteMds then DeleteGroups then DeleteTestFormats() then DeleteNewFormats then DeleteSharedContacts
-      then DeleteNewExtents then DeleteNewKeywords then DeleteNewDeleted) {response =>
+  (Config.adminLogin then DeleteMds /*then DeleteGroups*/) {response =>
     require(response.responseCode == 200, "Obtained a "+response.responseCode+" responseCode when deleting group")
   }
 }

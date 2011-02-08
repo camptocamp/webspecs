@@ -4,7 +4,7 @@ trait Log {
 
   private object LoggingConfig {
     val all = false
-    val enabled = Nil//RequestForm :: Connection :: Headers :: LifeCycle :: Nil
+    val enabled = RequestForm :: Connection :: Headers :: LifeCycle :: Nil
   }
 
   sealed trait Level
@@ -27,5 +27,5 @@ trait Log {
 }
 
 object Log extends Log {
-  def apply(level:Level, msg: => Any) =if(LoggingConfig.all || LoggingConfig.enabled.contains(level)) { write(msg) }
+  def apply(level:Level, msg: => Any) = if(LoggingConfig.all || LoggingConfig.enabled.contains(level)) { write(msg) }
 }

@@ -57,7 +57,11 @@ abstract class AbstractRequest[RF <: Response](responseFactory:ResponseFactory[R
       newEffectFactory
     }
 
-    responseFactory.wrapResponse(Response(this,conn)(finalFactory))
+    try {
+      responseFactory.wrapResponse(Response(this,conn)(finalFactory))
+    } catch {
+      case e => throw new RuntimeException("Failed to request: "+service+" because of "+e.getMessage,e)
+    }
   }
 }
 abstract class AbstractXmlRequest[RF <: Response](_serv:String, responseFactory:ResponseFactory[RF], data:xml.NodeSeq)

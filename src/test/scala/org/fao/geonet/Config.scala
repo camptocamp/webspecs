@@ -20,7 +20,7 @@ object Config extends Log {
   val instances = new HashMap[(UserProfile,String), Config]()
   def apply(userProfile:UserProfile, name:String):Config = synchronized {
     instances.get(userProfile -> name) getOrElse {
-      val config = new Config(userProfile, name)
+      val config = new Config(SystemLifeCycle(),userProfile, name)
       instances.put(userProfile -> name,config)
       config
     }
@@ -120,30 +120,16 @@ def mdSearchXml(props:Traversable[PropertyIsLike]) =
   def inputStream(path:String) = Option(getClass.getClassLoader.getResourceAsStream(path)) getOrElse {throw new IllegalArgumentException(path+" is not an available resource")}
 }
 
-class Config(userProfile:UserProfiles.UserProfile, val specName:String) extends Log {
+class Config(lifeCycle:SystemLifeCycle, userProfile:UserProfiles.UserProfile, val specName:String) extends Log {
   import Config._
 
-  val constants = new Constants(this)
-  import constants._
+  val constants = new Constants(this,userProfile)
 
-  var startDeleted, startContacts, startExtents, startFormats, startKeywords = List[SharedObject]()
   def setUpTestEnv() = {
     try {
       log(LifeCycle, "Setup Test Environment")
 
-      (adminLogin then ListDeletedSharedObjects trackThen ListNonValidatedContacts trackThen ListNonValidatedExtents trackThen ListNonValidatedFormats trackThen ListNonValidatedKeywords) {
-        case AccumulatedResponse(deleted:ListSharedObjectResponse, contacts:ListSharedObjectResponse, extents:ListSharedObjectResponse, formats:ListSharedObjectResponse, keywords:ListSharedObjectResponse) =>
-          startDeleted = deleted.list
-          startContacts = deleted.list
-          startExtents = extents.list
-          startFormats = formats.list
-          startKeywords = keywords.list
-      }
-      val createGroup = (_:Response) => CreateGroup(user)
-      val createUser = (_:Response) => CreateUser(User(username=user, password=pass, profile=userProfile, groups=List(groupId)))
-
-      (adminLogin then createGroup then createUser then Login(user, pass)).assertPassed
-
+      lifeCycle.setup(this)
 
       log(LifeCycle, "Done Setting up Test Environment \r\n\r\n\r\n")
     } catch {
@@ -157,34 +143,10 @@ class Config(userProfile:UserProfiles.UserProfile, val specName:String) extends 
 
 
   def tearDownTestEnv() = {
-    log(LifeCycle, "\r\n\r\n\r\nTearing down Test Environment")
 
-    val DeleteMetadata = findUsers(_ contains user) {
-      case users if users.isEmpty => NoRequest
-      case users =>
-        val props = users map {id => PropertyIsLike("_owner",id)}
-        val csw = XmlRequest("csw",mdSearchXml(props))
-
-        val deleteRequest : Request =
-          csw then {
-            response =>
-              val ids = response.xml.right.get \\ "info" \ "id"
-
-              ((NoRequest:Request) /: ids){case (req, id) => req then Get("metadata.delete", "id" -> id.text)}
-          }
-          deleteRequest
-    }
-
-    val DeleteNewContacts = DeleteCreated(SharedObjectTypes.contacts,startContacts)
-    val DeleteNewExtents = DeleteCreated(SharedObjectTypes.extents,startExtents)
-    val DeleteNewFormats = DeleteCreated(SharedObjectTypes.formats,startFormats)
-    val DeleteNewKeywords = DeleteCreated(SharedObjectTypes.keywords,startKeywords)
-    val DeleteNewDeleted = DeleteCreated(SharedObjectTypes.deleted,startDeleted)
     try {
-    (adminLogin then DeleteMetadata then DeleteGroup(groupId,true) then DeleteTestFormats() then DeleteNewContacts then DeleteNewExtents then DeleteNewExtents then DeleteNewKeywords then DeleteNewDeleted){
-      case response if response.responseCode > 200 => System.err.println("Error occurred during teardown.  Group was not deleted.  ResponseCode = "+response.responseCode)
-      case _ => ()
-    }
+      log(LifeCycle, "\r\n\r\n\r\nTearing down Test Environment")
+      lifeCycle.tearDown(this)
     } catch {
       case e:Throwable =>
         System.err.println("Error occurred during teardown: "+e)
@@ -193,7 +155,7 @@ class Config(userProfile:UserProfiles.UserProfile, val specName:String) extends 
   }
 
   lazy val login = {
-    Login(user,pass){
+    Login(constants.user,constants.pass){
       response =>
         assert(response.responseCode == 200, "Failed to login as user, code: "+response.responseCode)
         response
@@ -201,43 +163,3 @@ class Config(userProfile:UserProfiles.UserProfile, val specName:String) extends 
   }
 }
 
-object DeleteTestFormats {
-  def apply() = ListFormats(Config.TEST_TAG) then { res:Response =>
-    res match {
-      case r:ListFormatResponse =>
-        val deleteRequests = r.list map {f => DeleteFormat(f.id)}
-        Request.chain(deleteRequests)
-      case r => throw new IllegalStateException("needed to follow a ListFormats Request")
-    }
-  }
-}
-object DeleteCreated {
-  def apply(objType:SharedObjectTypes.SharedObjectType,startValues:List[SharedObject]) = {
-    def DeleteOrRejectCommand(obj:SharedObject) = {
-      if(objType == SharedObjectTypes.deleted) {
-        DeleteSharedObject(obj.id,obj.objType)
-      } else {
-        RejectNonValidatedObject(obj.id,obj.objType)
-      }
-    }
-    def DeleteIfNoReferencedMetadata(obj:SharedObject):Response => Request = {
-      case response:ReferencingMetadataResponse if response.list.isEmpty =>
-        DeleteOrRejectCommand(obj)
-      case _  => NoRequest
-    }
-    val ListAndDelete:Response => Request = {
-      case response:ListSharedObjectResponse =>
-        val deleteRequests = ((NoRequest:Request) /: response.list) {
-          case (req,obj) if obj.description contains Config.TEST_TAG =>
-            req then DeleteOrRejectCommand(obj)
-          case (req,obj) if startValues.exists{_.id == obj.id} =>
-            req
-          case (req,obj) =>
-            req then ListReferencingMetadata(obj.id,obj.objType) then DeleteIfNoReferencedMetadata(obj)
-        }
-
-      deleteRequests
-    }
-    ListNonValidated(objType) then ListAndDelete
-  }
-}
