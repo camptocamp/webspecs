@@ -1,6 +1,0 @@
-*.iml
-lib_managed
-out
-project/boot/
-target
-.idea
