@@ -5,17 +5,28 @@ import org.apache.http.{Header, HttpResponse}
 import xml.NodeSeq
 import java.io.InputStream
 import collection.mutable.ArrayBuffer
+import org.apache.http.client.methods.HttpRequestBase
 
 trait Response[+A] {
   def value:A
   def basicValue:BasicHttpValue
-  def modification:Modification
 }
 
-class BasicHttpResponse[+A](val basicValue:BasicHttpValue,val value:A) extends Response[A] {
-  def modification = NoModification
+object EmptyResponse extends Response[Null] {
+  def basicValue = new BasicHttpValue(
+    Right(Array[Byte]()),
+    200,
+    "",
+    Map[String,List[Header]](),
+    Some(0),
+    None,
+    None
+  )
 
+  def value = null
 }
+
+class BasicHttpResponse[+A](val basicValue:BasicHttpValue,val value:A) extends Response[A]
 trait ValueFactory[-In,+Out] {
   def apply[A <: In, B >: Out](request:Request[A,B],in:In,rawValue:BasicHttpValue):Out
 }
