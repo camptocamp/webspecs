@@ -7,7 +7,6 @@ import collection.JavaConverters._
 import org.apache.http.client.methods.{HttpPost, HttpRequestBase, HttpGet}
 import org.apache.http.entity.StringEntity
 import org.apache.http.client.entity.UrlEncodedFormEntity
-import org.apache.http.NameValuePair
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.conn.ClientConnectionManager
 
@@ -42,7 +41,9 @@ trait ExecutionContext {
 
     val response = httpClient.execute(request);
 
-    Log.apply(Log.Headers,"Response Headers:"+response.getAllHeaders.map{h => "("+h.getName+","+h.getValue+")"}.mkString("; "))
+    Log.apply(Log.Headers,"URI after request: "+request.getURI)
+
+    Log.apply(Log.Headers,"Response Headers: "+response.getAllHeaders.map{h => "("+h.getName+","+h.getValue+")"}.mkString("; "))
     httpClient match {
       case client:DefaultHttpClient =>
         val cookies = client.getCookieStore.getCookies.asScala mkString ","
@@ -103,9 +104,9 @@ class ChainedRequest[-A,B,+C] private(first:Request[A,B],second:Function[Respons
 
 abstract class AbstractRequest[-In, +Out]
     (valueFactory:ValueFactory[In,Out]) extends Request[In,Out] {
-  def request:HttpRequestBase
+  def request(in:In):HttpRequestBase
   final def apply (in: In)(implicit context:ExecutionContext) = {
-    val httpResponse = context.execute(request)
+    val httpResponse = context.execute(request(in))
     val basicValue = BasicHttpValue(httpResponse)
     val value = valueFactory(this,in,basicValue)
     val response = new BasicHttpResponse(basicValue,value)
@@ -115,12 +116,13 @@ abstract class AbstractRequest[-In, +Out]
 
 abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:(String,String)*)
   extends AbstractRequest[In,Out](valueFactory) {
-  lazy val request = new HttpGet(Config.resolveURI(uri,params:_*))
+  def request(in:In) = new HttpGet(Config.resolveURI(uri,params:_*))
 }
 
 abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueFactory[In,Out])
   extends AbstractRequest(valueFactory) {
-  override lazy val request = {
+  override def request(in:In) = {
+    Log.apply(Log.RequestXml, xmlData.toString)
     val post = new HttpPost(Config.resolveURI(uri))
     post.setEntity(new StringEntity(xmlData.toString));
     post.setHeader("Content-type", "text/xml");
@@ -134,8 +136,9 @@ abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueF
 
 abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:(String,String)*)
   extends AbstractRequest(valueFactory) {
-  def request = {
+  def request(in:In) = {
     val post = new HttpPost(Config.resolveURI(uri))
+    Log.apply(Log.RequestForm, params mkString ("\t","\n\t",""))
     val formParams = params.map{p => new BasicNameValuePair(p._1,p._2)}.toList
     post.setEntity(new UrlEncodedFormEntity(formParams.asJava,"UTF-8"))
     post
