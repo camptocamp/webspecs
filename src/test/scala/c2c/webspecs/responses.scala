@@ -1,4 +1,4 @@
-package org.fao.geonet
+package c2c.webspecs
 
 import util.control.Exception._
 import org.apache.http.{Header, HttpResponse}

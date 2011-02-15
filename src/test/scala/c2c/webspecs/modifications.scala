@@ -1,4 +1,4 @@
-package org.fao.geonet
+package c2c.webspecs
 
 import org.apache.http.client.methods.HttpRequestBase
 
