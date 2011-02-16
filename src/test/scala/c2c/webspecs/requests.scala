@@ -65,6 +65,7 @@ case class DefaultExecutionContext(val httpClient:HttpClient = new DefaultHttpCl
 trait Request[-In, +Out] {
   def then [A,B] (next: Request[Out,A]) : Request[In, A] = ChainedRequest(this,next)
   def then [A,B] (next: Response[Out] => Request[Out,A]) : Request[In, A] = ChainedRequest(this,next)
+  def trackThen [A,B] (next: Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,next)
   def compose [A,B] (before: Request[A,In]) : Request[A, Out] = ChainedRequest(before,this)
   def apply (in: In)(implicit context:ExecutionContext) : Response[Out]
   def assertPassed(in:In)(implicit context:ExecutionContext):Response[Out] = apply(in) match {
