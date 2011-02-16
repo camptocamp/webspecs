@@ -26,8 +26,10 @@ abstract class StressSpecification(threads:Int,timeout:Long=10 * 60 * 1000) exte
       Futures.future[Either[Throwable,String]] {
         util.control.Exception.allCatch.either {
           println("Starting user simulation "+i)
+          implicit val threadContext = new DefaultExecutionContext()
 
-          validation(request(None))
+          try { validation(request(None)(threadContext)) }
+          finally { threadContext.close }
 
           println("Finished user simulation for "+i)
           i+"has finished"

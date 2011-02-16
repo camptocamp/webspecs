@@ -25,6 +25,7 @@ trait ExecutionContext {
   def httpClient:HttpClient
   val conn: ClientConnectionManager = httpClient.getConnectionManager
   var modifications:List[RequestModification] = Nil
+  def close() = httpClient.getConnectionManager.shutdown
   def execute(request:HttpRequestBase) = {
     modifications foreach {_(request)}
 

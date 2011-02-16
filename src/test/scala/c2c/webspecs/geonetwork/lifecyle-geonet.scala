@@ -1,5 +1,6 @@
 package c2c.webspecs
 package geonetwork
+
 /*
 class SandboxLifeCycle extends SystemLifeCycle[GeonetConfig] {
 
