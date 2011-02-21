@@ -4,15 +4,13 @@ package debug
 
 
 class AccDivCountFactory(polar:Int) extends ValueFactory[Int,Int] {
-  def apply[A <: Any, B >: Int](request: Request[A, B], in: Int, rawValue: BasicHttpValue) =
-    in + polar*XmlValue(rawValue).withXml {_ \\ "div" size}
+  def apply[A <: Any, B >: Int](request: Request[A,  B], in: Int, rawValue: BasicHttpValue) = polar
 }
 case class DivCount(uri:String)
   extends AbstractGetRequest(uri,SelfValueFactory[Any,Int]())
   with ValueFactory[Any,Int] {
 
- def apply[A <: Any, B >: Int](request: Request[A, B], in: Any, rawValue: BasicHttpValue) =
-    XmlValue(rawValue).withXml {_ \\ "div" size}
+ def apply[A <: Any, B >: Int](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = 0
 }
 
 case class DivCountAcc(uri:String,polar:Int) extends AbstractGetRequest[Int,Int](uri,new AccDivCountFactory(polar))
@@ -26,10 +24,14 @@ object AddCookie extends Request[Any,Null] {
 
 object Main extends Application {
   implicit val context = DefaultExecutionContext()
-  val count = (AddCookie then DivCount("http://localhost:43080/geonetwork") then { response =>
-    if(response.value > 5) DivCountAcc("http://localhost:43080/cas/login",-1)
-    else DivCountAcc("http://localhost:43080/cas/login",-1)
-  })(None).value
-  println(count)
+  val req = (AddCookie then DivCount("http://localhost:43080/cas/logout") trackThen DivCountAcc("http://localhost:43080/cas/login",2)
+    then DivCountAcc("http://localhost:43080/cas/login",3) trackThen DivCountAcc("http://localhost:43080/cas/login",4) trackThen DivCountAcc("http://localhost:43080/cas/login",5))
+  val count = req(None) match {
+    case AccumulatedResponse.IncludeLast(one,two,three,four) => println(one.value,two.value,three.value,four.value)
+  }
+/*  val count = (AddCookie then DivCount("http://localhost:43080/cas/logout") trackThen DivCountAcc("http://localhost:43080/cas/login",-1)
+    then DivCountAcc("http://localhost:43080/cas/login",1) then DivCountAcc("http://localhost:43080/cas/login",1) trackThen DivCountAcc("http://localhost:43080/cas/login",1))(None) match {
+    case AccumulatedResponse.IncludeLast(one,two,three) => println(one.value,two.value,three.value)
+  }*/
   context.httpClient.getConnectionManager.shutdown
 }

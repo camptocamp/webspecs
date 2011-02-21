@@ -3,9 +3,6 @@ package c2c.webspecs
 import util.control.Exception._
 import org.apache.http.{Header, HttpResponse}
 import xml.NodeSeq
-import java.io.InputStream
-import collection.mutable.ArrayBuffer
-import org.apache.http.client.methods.HttpRequestBase
 
 trait Response[+A] {
   def value:A
@@ -54,24 +51,13 @@ object BasicHttpValue {
     val responseMessage = getStatusLine.getReasonPhrase
 
     val data = {
-      var in:InputStream = null
       try {
-        in = httpResponse.getEntity.getContent
-        val all = ArrayBuffer[Byte]()
-        val buf = new Array[Byte](contentLength getOrElse (1024 * 1024))
-        var read = in.read(buf)
-        all ++= buf.view.take(read)
-        while(read>0) {
-          read = in.read(buf)
-          if(read > 0)
-          all ++= buf.view.take(read)
-        }
-        Right(all.toArray)
+        import scalax.io.Input._
+        val all = httpResponse.getEntity.getContent.asInput
+        Right(all.byteArray)
       } catch {
         case e if responseCode > 400 => Left(new IllegalStateException("A response code "+responseCode+" was returned by server, message = "+responseMessage))
         case e => Left(e)
-      } finally {
-        if (in != null) in.close
       }
     }
     val headers = getAllHeaders.

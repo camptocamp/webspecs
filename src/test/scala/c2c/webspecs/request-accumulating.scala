@@ -5,38 +5,41 @@ import java.io.IOException
 object AccumulatingRequest {
   import ChainedRequest.ConstantRequestFunction
 
-  def apply[A,B,C](first:Request[A,B],second:Request[B,C],track:Boolean):AccumulatingRequest[A,C] = {
-    new AccumulatingRequestImpl(first,new ConstantRequestFunction(second),track)
+  def apply[A,B,C](first:Request[A,B], trackFirst:Boolean, second:Request[B,C]):AccumulatingRequest[A,C] = {
+    new AccumulatingRequestImpl(first,trackFirst,new ConstantRequestFunction(second))
   }
-  def apply[A,B,C](first:Request[A,B],second:Response[B] => Request[B,C],track:Boolean):AccumulatingRequest[A,C] = {
-    new AccumulatingRequestImpl(first,second,track)
+  def apply[A,B,C](first:Request[A,B], trackFirst:Boolean, second:Response[B] => Request[B,C]):AccumulatingRequest[A,C] = {
+    new AccumulatingRequestImpl(first,trackFirst,second)
   }
 }
 
 trait AccumulatingRequest[-In,+Out] extends Request[In,Out] {
   override def assertPassed(in: In)(implicit context: ExecutionContext):AccumulatedResponse[Out] = super.assertPassed(in).asInstanceOf[AccumulatedResponse[Out]]
-  override def then [A,B] (next: Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,next,false)
-  override def then [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,next,false)
-  override def trackThen [A,B] (next: Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,next,true)
-  override def trackThen [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,next,true)
-
-  override def compose [A,B] (before: Request[A,In]) : AccumulatingRequest[A, Out] = AccumulatingRequest(before,this,false)
+  override def then [A,B] (next: Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,false,next)
+  override def then [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,false,next)
+  override def trackThen [A,B] (next: Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,true,next)
+  override def trackThen [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,true,next)
 
   def apply(in: In)(implicit context: ExecutionContext):AccumulatedResponse[Out]
 }
 
-private class AccumulatingRequestImpl[-A,B,+C](first:Request[A,B], second:Function[Response[B], Request[B,C]]) extends AccumulatingRequest[A,C] {
+private class AccumulatingRequestImpl[-A,B,+C](first:Request[A,B], trackFirst:Boolean,
+                                               second:Response[B] => Request[B,C]) extends AccumulatingRequest[A,C] {
   def apply(in: A)(implicit context: ExecutionContext):AccumulatedResponse[C] = {
-    first.apply(in) match {
+    val result = AccumulatedResponse(first(in))
+
+    result match {
       case response if response.basicValue.responseCode > 399 =>
         val basicValue = response.basicValue
         throw new IOException("Executing "+first+" failed with a "+basicValue.responseCode+" responseCode, message = "+basicValue.responseMessage)//+"\ntext:\n"+response.text)
+      case response if trackFirst =>
+        result.track(second(response).apply(response.value))
       case response =>
-        second(response).apply(response.value)
+        result.dontTrack(second(response).apply(response.value))
     }
   }
 
-  override def toString() = current+" trackThen "+next
+  override def toString() = first+" trackThen "+second
 }
 /*
 private[geonet] class AccumulatingResponseRequest[R1<:Request](previous:Response, request:R1) extends AccumulatingRequest[R1] {
@@ -52,18 +55,23 @@ private[geonet] class AccumulatingResponseRequest[R1<:Request](previous:Response
 */
 
 object AccumulatedResponse {
-  def apply(previous:Response, mostRecent:Response):AccumulatedResponse = {
-    (previous,mostRecent) match {
-      case (previous:AccumulatedResponse, mostRecent) =>
-        val filtered = previous.responses ::: previous.last :: Nil filterNot{_ == EmptyResponse}
-        new AccumulatedResponse(filtered, mostRecent)
-      case (previous, mostRecent) =>
-        new AccumulatedResponse(List(previous),mostRecent)
-    }
+  def apply[A](response:Response[A]):AccumulatedResponse[A] = response match {
+    case response:AccumulatedResponse[A] => response
+    case _ => new AccumulatedResponse(Nil, response)
   }
-  def unapplySeq(response:AccumulatedResponse):Option[Seq[Response]] = Some(response.responses ::: response.last :: Nil)
+  def apply[A](tracked:List[Response[_]],next:Response[A]):AccumulatedResponse[A] = next match {
+    case next:AccumulatedResponse[A] => new AccumulatedResponse(tracked ::: next.tracked, next.last)
+    case _ => new AccumulatedResponse(tracked, next)
+  }
+
+  object Tracked {
+    def unapplySeq[A](response:AccumulatedResponse[A]):Option[Seq[Response[_]]] = Some(response.tracked)
+  }
+  object IncludeLast {
+    def unapplySeq[A](response:AccumulatedResponse[A]):Option[Seq[Response[_]]] = Some(response.tracked ::: response.last :: Nil)
+  }
   object Last {
-    def unapply(response:AccumulatedResponse):Option[Response] = Some(response.last)
+    def unapply[A](response:AccumulatedResponse[A]):Option[Response[A]] = Some(response.last)
   }
 }
 
@@ -72,11 +80,12 @@ class AccumulatedResponse[+A](val tracked:List[Response[_]], val last:Response[A
 
   def value = last.value
 
-  def apply (responseIndex:Int) = responses(responseIndex)
-  def dontTrack(next:Response) = {
-    new AccumulatedResponse(responses,next)
-  }
+  def apply (responseIndex:Int) = tracked(responseIndex)
 
-  override def toString = "AccumulatedResponse("+responses.mkString(",")+")"
+  private def nextTracked(trackLast:Boolean) = if (trackLast) (tracked ::: last :: Nil) filter {_ != EmptyResponse} else tracked
+  def dontTrack[B](next:Response[B]) = AccumulatedResponse (nextTracked(false),next)
+  def track[B](next:Response[B]) = AccumulatedResponse (nextTracked(true),next)
+
+  override def toString = "AccumulatedResponse("+tracked.mkString(",")+")"
 
 }
