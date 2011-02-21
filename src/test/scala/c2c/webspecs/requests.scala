@@ -116,9 +116,12 @@ abstract class AbstractRequest[-In, +Out]
   }
 }
 
-abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:(String,String)*)
+abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
   extends AbstractRequest[In,Out](valueFactory) {
-  def request(in:In) = new HttpGet(Config.resolveURI(uri,params:_*))
+  def request(in:In) = {
+    val stringParams = params.map(p => p._1 -> p._2.toString)
+    new HttpGet(Config.resolveURI(uri,stringParams:_*))
+  }
 }
 
 abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueFactory[In,Out])
@@ -136,16 +139,16 @@ abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueF
   override def toString() = "XmlRequest("+uri+")"
 }
 
-abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:(String,String)*)
+abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
   extends AbstractRequest(valueFactory) {
   def request(in:In) = {
     val post = new HttpPost(Config.resolveURI(uri))
     Log.apply(Log.RequestForm, params mkString ("\t","\n\t",""))
-    val formParams = params.map{p => new BasicNameValuePair(p._1,p._2)}.toList
+    val formParams = params.map{p => new BasicNameValuePair(p._1,p._2.toString)}.toList
     post.setEntity(new UrlEncodedFormEntity(formParams.asJava,"UTF-8"))
     post
   }
 }
-case class GetRequest(uri:String, params:(String,String)*) extends AbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params:_*)
-case class FormPostRequest(override val uri:String, form:(String,String)*) extends AbstractFormPostRequest[Any,XmlValue](uri,XmlValueFactory,form:_*)
+case class GetRequest(uri:String, params:(String,Any)*) extends AbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params:_*)
+case class FormPostRequest(override val uri:String, form:(String,Any)*) extends AbstractFormPostRequest[Any,XmlValue](uri,XmlValueFactory,form:_*)
 case class XmlPostRequest(uri:String, xmlData:xml.NodeSeq) extends AbstractXmlPostRequest[Any,XmlValue](uri,XmlValueFactory)

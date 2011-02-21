@@ -1,7 +1,6 @@
 package c2c.webspecs
 package geonetwork
-
-/*
+           /*
 class SandboxLifeCycle extends SystemLifeCycle[GeonetConfig] {
 
   def setup(config: GeonetConfig) = {
@@ -16,7 +15,7 @@ class SandboxLifeCycle extends SystemLifeCycle[GeonetConfig] {
   def tearDown(config: GeonetConfig) = {
     import config._
 
-    val DeleteMetadata = findUsers(_ contains user) {
+    val DeleteMetadata = findUsers[Any](_ contains user) {
       case users if users.isEmpty => NoRequest
       case users =>
         val props = users map {id => PropertyIsLike("_owner",id)}
@@ -38,7 +37,8 @@ class SandboxLifeCycle extends SystemLifeCycle[GeonetConfig] {
     }
   }
 }
-
+       */
+/*
 class PredefinedUserLifeCycle extends SystemLifeCycle[GeonetConfig] {
   def setup(config: GeonetConfig) = {
     import config._

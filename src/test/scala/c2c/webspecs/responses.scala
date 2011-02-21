@@ -88,7 +88,7 @@ object TextValue {
   }
 }
 trait TextValue {
-  def basicValue:BasicHttpValue
+  protected def basicValue:BasicHttpValue
   lazy val text = basicValue.data match {
     case Right(data) =>
       allCatch[String].either { new String(data, "UTF8") }

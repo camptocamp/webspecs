@@ -52,7 +52,7 @@ class GeonetConfig(lifeCycle:SystemLifeCycle[GeonetConfig], userProfile:UserProf
         row.toList flatMap {_ \\ "@onclick" filter {_.text contains "deleteUser"} flatMap {onclick => extractId(onclick.text)}}
       }
     }
-  def findUsers[Out](matcher:String => Boolean)(requestBuilder:Traversable[String] => Request[Any,Out]) =  {
+  def  findUsers[Out](matcher:String => Boolean)(requestBuilder:Traversable[String] => Request[Any,Out]) =  {
     val ids = findUserIds(usersList)(matcher)
     requestBuilder(ids)
   }
