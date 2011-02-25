@@ -33,11 +33,7 @@ class GeonetConfig(lifeCycle:SystemLifeCycle[GeonetConfig], userProfile:UserProf
   def adminLogin = Login(Properties.get(ADMIN_USER_KEY), Properties.get(ADMIN_USER_PASS))
   lazy val userPrefix = "atest_" + InetAddress.getLocalHost.getHostName+"_"
 
-  def extractId(li: String): Option[String] = {
-    """.*id=(\d+).*?""".r.findFirstMatchIn(li) map {
-      _.group(1)
-    }
-  }
+  def extractId(li: String): Option[String] = XmlUtils.extractId(li)
 
   lazy val usersList = adminLogin then GetRequest("user.list")
 

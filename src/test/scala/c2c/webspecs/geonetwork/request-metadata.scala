@@ -53,6 +53,7 @@ trait MetadataIdValue extends XmlValue {
   def id:String
 }
 trait MetadataValue extends MetadataIdValue
+
 object MetadataViews extends Enumeration {
   type MetadataView = Value
   val xml, simple = Value
