@@ -5,7 +5,7 @@ import xml.NodeSeq
 import java.io.{FileWriter, BufferedWriter}
 import geonetwork.AddSites.{ContactAddSite, AddSite}
 
-trait EditValue extends MetadataIdValue {
+trait EditValue extends IdValue {
   def version:String
 }
 
@@ -98,7 +98,7 @@ class AddNewContact(id:String, editVersion:String, nodeRef:String, addSite:Conta
 
 import MetadataViews.MetadataView
 object StartEditing {
-  def apply(view:MetadataView = MetadataViews.simple):Response[MetadataIdValue] => StartEditing = response => StartEditing(response.value.id,view)
+  def apply(view:MetadataView = MetadataViews.simple):Response[IdValue] => StartEditing = response => StartEditing(response.value.id,view)
 }
 case class StartEditing(mdId:String,view:MetadataView)
   extends AbstractGetRequest[Any,EditValue]("metadata.edit",EditValueFactory, "id" -> mdId,"currTab" -> view.toString)

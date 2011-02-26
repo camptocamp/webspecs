@@ -1,29 +1,11 @@
 package c2c.webspecs
 
-import util.control.Exception._
-import org.apache.http.{Header, HttpResponse}
+
 import xml.NodeSeq
+import org.apache.http.HttpResponse
+import org.apache.http.Header
+import util.control.Exception.allCatch
 
-trait Response[+A] {
-  def value:A
-  def basicValue:BasicHttpValue
-}
-
-object EmptyResponse extends Response[Null] {
-  def basicValue = new BasicHttpValue(
-    Right(Array[Byte]()),
-    200,
-    "",
-    Map[String,List[Header]](),
-    Some(0),
-    None,
-    None
-  )
-
-  def value = null
-}
-
-class BasicHttpResponse[+A](val basicValue:BasicHttpValue,val value:A) extends Response[A]
 trait ValueFactory[-In,+Out] {
   def apply[A <: In, B >: Out](request:Request[A,B],in:In,rawValue:BasicHttpValue):Out
 }
@@ -117,5 +99,16 @@ trait XmlValue extends TextValue {
   }
 
   def withXml[R](f:NodeSeq => R):R = xml.fold(throw _, f)
+}
 
+trait IdValue extends XmlValue {
+  def id:String
+}
+case class ExplicitIdValueFactory(idVal:String) extends ValueFactory[Any,IdValue]{
+  def apply[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = {
+    new XmlValue with IdValue {
+       val basicValue = rawValue
+       val id = idVal
+    }
+  }
 }

@@ -5,10 +5,12 @@ import java.io.{InputStreamReader, BufferedReader, InputStream, File}
 import xml.{Node, Elem, NodeSeq}
 import org.apache.http.entity.mime.content.{FileBody, StringBody}
 
-object MetadataIdValuesFactory {
-  object FromImportOrCreateResult extends ValueFactory[Any,MetadataIdValue]{
-    def apply[A <: Any, B >: MetadataIdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) =
-        new XmlValue with MetadataIdValue {
+trait MetadataValue extends IdValue
+
+object IdValuesFactory {
+  object FromImportOrCreateResult extends ValueFactory[Any,IdValue]{
+    def apply[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) =
+        new XmlValue with IdValue {
           val basicValue = rawValue
           lazy val id = withXml { xml =>
               // early versions < 2.6
@@ -26,9 +28,9 @@ object MetadataIdValuesFactory {
           }
         }
   }
-  object FromEditResult extends ValueFactory[Any,MetadataIdValue]{
-    def apply[A <: Any, B >: MetadataIdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) =
-        new XmlValue with MetadataIdValue {
+  object FromEditResult extends ValueFactory[Any,IdValue]{
+    def apply[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) =
+        new XmlValue with IdValue {
           val basicValue = rawValue
           lazy val id = withXml { xml =>
             val allInput = xml \\ "input"
@@ -40,19 +42,7 @@ object MetadataIdValuesFactory {
           }
         }
   }
-  case class Explicit(idVal:String) extends ValueFactory[Any,MetadataIdValue]{
-    def apply[A <: Any, B >: MetadataIdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = {
-      new XmlValue with MetadataIdValue {
-         val basicValue = rawValue
-         val id = idVal
-      }
-    }
-  }
 }
-trait MetadataIdValue extends XmlValue {
-  def id:String
-}
-trait MetadataValue extends MetadataIdValue
 
 object MetadataViews extends Enumeration {
   type MetadataView = Value
@@ -60,27 +50,27 @@ object MetadataViews extends Enumeration {
 }
 import MetadataViews.MetadataView
 object MetadataRequest {
-  def makeInputBasedMetadataRequest[Out](factory:String => Request[MetadataIdValue,Out]) = new Request[MetadataIdValue,Out] {
-    def apply(in: MetadataIdValue)(implicit context: ExecutionContext) = factory(in.id)(in)
+  def makeInputBasedMetadataRequest[Out](factory:String => Request[IdValue,Out]) = new Request[IdValue,Out] {
+    def apply(in: IdValue)(implicit context: ExecutionContext) = factory(in.id)(in)
   }
 }
 object ShowResultingMetadata {
   def apply(view:MetadataView = MetadataViews.xml) = MetadataRequest.makeInputBasedMetadataRequest(id => ShowMetadata(id,view))
 }
-case class ShowMetadata(mdId:String, view:MetadataView = MetadataViews.xml) extends AbstractGetRequest[Any,MetadataIdValue]("metadata.show", MetadataIdValuesFactory.Explicit(mdId), "id" -> mdId, "currTab" -> view.toString)
+case class ShowMetadata(mdId:String, view:MetadataView = MetadataViews.xml) extends AbstractGetRequest[Any,IdValue]("metadata.show", ExplicitIdValueFactory(mdId), "id" -> mdId, "currTab" -> view.toString)
 object DeleteResultingMetadata {
   def apply() = MetadataRequest.makeInputBasedMetadataRequest(id => DeleteMetadata(id))
 }
 case class DeleteMetadata(mdId:String) extends AbstractGetRequest(
   "metadata.delete",
-  MetadataIdValuesFactory.Explicit(mdId),
+  ExplicitIdValueFactory(mdId),
   "id" -> mdId)
 object GetEditingMetadataFromResult {
   def apply() = MetadataRequest.makeInputBasedMetadataRequest(id => GetEditingMetadata(id))
 }
-case class GetEditingMetadata(mdId:String) extends AbstractGetRequest[Any,MetadataIdValue](
+case class GetEditingMetadata(mdId:String) extends AbstractGetRequest[Any,IdValue](
   "metadata.ext.edit.data",
-  MetadataIdValuesFactory.Explicit(mdId),
+  ExplicitIdValueFactory(mdId),
   "id" -> mdId)
 object GetMetadataXmlFromResult {
   def apply(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord) =
@@ -135,9 +125,9 @@ object ImportMetadata {
 
 }
 case class ImportMetadata(data:File, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean, groupId:String)
-  extends MultiPartFormRequest[Any,MetadataIdValue](
+  extends MultiPartFormRequest[Any,IdValue](
     "mef.import",
-    MetadataIdValuesFactory.FromImportOrCreateResult,
+    IdValuesFactory.FromImportOrCreateResult,
     "insert_mode" -> new StringBody("1"),
     "file_type"-> new StringBody("single"),
     "mefFile" -> new FileBody(data,"application/xml"),
