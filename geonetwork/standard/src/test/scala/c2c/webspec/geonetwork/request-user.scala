@@ -31,8 +31,8 @@ case class User(username:String=(TEST_TAG+UUID.randomUUID.toString.takeRight(5))
     position.formParams("position")) :::
     (if (groups.isEmpty) Nil else List("groups" -> (groups mkString ",")))
 }
-/*
-case class ListUserResponse(user:User, response:Response) extends DecoratingResponse(response.request,response) with XmlResponse {
+
+case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:ExecutionContext) extends XmlValue {
   lazy val id:Option[Int] = withXml{
     xml =>
       val tables = xml \\ "table"
@@ -40,21 +40,18 @@ case class ListUserResponse(user:User, response:Response) extends DecoratingResp
       val row = correctTable \ "tr" find { n =>
         (n \ "td" headOption).exists {_.text.trim == user.username}
       }
-      row.get \\ "@onclick" find {_.text contains "deleteUser"} flatMap {onclick => Config.extractId(onclick.text) map {_.toInt}}
+      row.get \\ "@onclick" find {_.text contains "deleteUser"} flatMap {onclick => XmlUtils.extractId(onclick.text) map {_.toInt}}
   }
 
   lazy val updatedUser:Option[User] = id match {
     case Some(userId) =>
-      (this then GetUser(userId)) {response => response match {
-          case r : GetUserResponse => Some(r.user)
-          case _ => None
-        }
-      }
+      val response = GetUser(userId)(None)(executionContext)
+      Some(response.value.user)
     case None => None
   }
 }
 
-case class GetUserResponse(userId:Int, response:Response) extends DecoratingResponse(response) with XmlResponse {
+case class GetUserValue(userId:Int, basicValue:BasicHttpValue) extends XmlValue {
   lazy val user = withXml { xml =>
     // TODO need another request to get username and profile
     val surname = (xml \\ "surname").text.trim
@@ -76,36 +73,46 @@ case class GetUserResponse(userId:Int, response:Response) extends DecoratingResp
     User("","",surname,name,email,position)
   }
 }
-case class GetUser(userId:Int) extends GetRequest("xml.user.get", new SelfResponseFactory[GetUserResponse](), "id" -> userId.toString, "schema" -> "iso19139.che", "role" -> "author") with ResponseFactory[GetUserResponse] {
-  def wrapResponse(basicResponse: Response) = new GetUserResponse(userId,basicResponse)
+case class GetUser(userId:Int)
+  extends AbstractGetRequest[Any,GetUserValue](
+    "xml.user.get",
+    SelfValueFactory(),
+    "id" -> userId.toString,
+    "schema" -> "iso19139.che",
+    "role" -> "createValue") with ValueFactory[Any,GetUserValue] {
+  override def createValue[A <: Any, B >: GetUserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    new GetUserValue(userId,rawValue)
+  }
 }
 
 case class CreateUser(user:User)
-  extends FormRequest("user.update", new SelfResponseFactory[ListUserResponse](), user.formParams:_*)
-  with ResponseFactory[ListUserResponse] {
+  extends AbstractFormPostRequest(
+    "user.update",
+    SelfValueFactory(),
+    user.formParams:_*)
+  with ValueFactory[Any,UserListValue] {
 
-  def wrapResponse(basicResponse: Response) = ListUserResponse(user,basicResponse)
-}
-object DeleteUser {
-def apply() = (response:Response) => response match {
-    case res:ListUserResponse => new DeleteUser(res.id.get)
-    case AccumulatedResponse.Last(res:ListUserResponse) => new DeleteUser(res.id.get)
+  override def createValue[A <: Any, B >: UserListValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    new UserListValue(user,rawValue,executionContext)
   }
 }
-case class DeleteUser(userId:Int) extends GetRequest("user.remove", XmlResponseFactory, "id" -> userId)
+object DeleteUser {
+def apply() = (response:Response[IdValue]) => new DeleteUser(response.value.id)
+}
+case class DeleteUser(userId:String) extends AbstractGetRequest("user.remove", ExplicitIdValueFactory(userId), "id" -> userId)
 
 object UpdateUser {
   def apply(id:Int, user:User) = new UpdateUser(id,user)
-  def apply(user:User) = (response:Response) => response match {
-    case res:ListUserResponse => new UpdateUser(res.id.get,user:User)
-  }
+  def apply(user:User) = (res:Response[UserListValue]) => new UpdateUser(res.value.id.get,res.value.user)
 }
 
 class UpdateUser(val userId:Int, val user:User)
-  extends FormRequest("user.update", new SelfResponseFactory[ListUserResponse](), user.formParams(userId):_*)
-  with ResponseFactory[ListUserResponse] {
+  extends AbstractFormPostRequest[UserListValue,UserListValue]("user.update", SelfValueFactory(), user.formParams(userId):_*)
+  with ValueFactory[UserListValue,UserListValue] {
 
-  def wrapResponse(basicResponse: Response) = new ListUserResponse(user,basicResponse) {
-    override lazy val id:Option[Int] = Some(userId)
+  def createValue[A <: UserListValue, B >: UserListValue](request: Request[A, B], in: UserListValue, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    new UserListValue(user,rawValue,executionContext) {
+      override lazy val id:Option[Int] = Some(userId)
+    }
   }
-}   */
+}

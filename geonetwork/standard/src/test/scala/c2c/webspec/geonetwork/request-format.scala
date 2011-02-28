@@ -24,7 +24,7 @@ case class ListFormats(searchParam:String="")
     SelfValueFactory[Any,FormatListValue](),
     "name" -> searchParam)
 with ValueFactory[Any,FormatListValue] {
-  override def apply[A <: Any, B >: FormatListValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = {
+  override def createValue[A <: Any, B >: FormatListValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
     new FormatListValue(rawValue)
   }
 }

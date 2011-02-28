@@ -9,7 +9,7 @@ trait MetadataValue extends IdValue
 
 object IdValuesFactory {
   object FromImportOrCreateResult extends ValueFactory[Any,IdValue]{
-    def apply[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) =
+    def createValue[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) =
         new XmlValue with IdValue {
           val basicValue = rawValue
           lazy val id = withXml { xml =>
@@ -29,7 +29,7 @@ object IdValuesFactory {
         }
   }
   object FromEditResult extends ValueFactory[Any,IdValue]{
-    def apply[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) =
+    def createValue[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) =
         new XmlValue with IdValue {
           val basicValue = rawValue
           lazy val id = withXml { xml =>

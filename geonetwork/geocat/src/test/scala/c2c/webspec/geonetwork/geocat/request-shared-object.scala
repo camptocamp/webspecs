@@ -19,8 +19,8 @@ class SharedObjectList(val basicValue:BasicHttpValue,
                        val self:List[SharedObject]) extends SeqProxy[SharedObject] with XmlValue
 
 class SharedObjectListFactory(objType:SharedObjectType) extends ValueFactory[Any,SharedObjectList] {
-  def apply[A <: Any, B >: SharedObjectList](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = {
-    val xmlValue = XmlValueFactory(request,in,rawValue)
+  def createValue[A <: Any, B >: SharedObjectList](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    val xmlValue = XmlValueFactory.createValue(request,in,rawValue,executionContext)
     val list = xmlValue.withXml{
       xml =>
         (xml \\ "record").toList map {
@@ -60,8 +60,8 @@ class ReferencingMetadataList(val basicValue:BasicHttpValue,
 
 object ReferencingMetadataListFactory extends ValueFactory[Any,ReferencingMetadataList] {
 
-  def apply[A <: Any, B >: ReferencingMetadataList](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = {
-    val xmlValue = XmlValueFactory(request,in,rawValue)
+  def createValue[A <: Any, B >: ReferencingMetadataList](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    val xmlValue = XmlValueFactory.createValue(request,in,rawValue,executionContext)
     val list = xmlValue.withXml {
       xml =>
         (xml \\ "record").toList map {

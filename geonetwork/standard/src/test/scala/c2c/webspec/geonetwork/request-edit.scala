@@ -12,7 +12,7 @@ trait EditValue extends IdValue {
 object EditValueFactory extends ValueFactory[Any,EditValue] {
 
 
-  def apply[A <: Any, B >: EditValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = apply(rawValue)
+  def createValue[A <: Any, B >: EditValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = apply(rawValue)
 
   def apply(rawValue: BasicHttpValue) = new EditValue {
     import XmlUtils._

@@ -4,13 +4,13 @@ package debug
 
 
 class AccDivCountFactory(polar:Int) extends ValueFactory[Int,Int] {
-  def apply[A <: Any, B >: Int](request: Request[A,  B], in: Int, rawValue: BasicHttpValue) = polar
+  def createValue[A <: Any, B >: Int](request: Request[A,  B], in: Int, rawValue: BasicHttpValue,executionContext:ExecutionContext) = polar
 }
 case class DivCount(uri:String)
   extends AbstractGetRequest(uri,SelfValueFactory[Any,Int]())
   with ValueFactory[Any,Int] {
 
- def apply[A <: Any, B >: Int](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = 0
+ def createValue[A <: Any, B >: Int](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = 0
 }
 
 case class DivCountAcc(uri:String,polar:Int) extends AbstractGetRequest[Int,Int](uri,new AccDivCountFactory(polar))

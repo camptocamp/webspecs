@@ -7,18 +7,26 @@ import org.apache.http.Header
 import util.control.Exception.allCatch
 
 trait ValueFactory[-In,+Out] {
-  def apply[A <: In, B >: Out](request:Request[A,B],in:In,rawValue:BasicHttpValue):Out
+  def createValue[A <: In, B >: Out](request:Request[A,B],in:In,rawValue:BasicHttpValue,executionContext:ExecutionContext):Out
+}
+
+trait BasicValueFactory[Out] extends ValueFactory[Any,Out] {
+  def createValue[B >: Out](rawValue:BasicHttpValue):Out
+  def createValue[A <: Any, B >: Out](request:Request[A,B],
+                            in:Any,
+                            rawValue:BasicHttpValue,
+                            executionContext:ExecutionContext):Out = createValue(rawValue)
 }
 
 object SelfValueFactory {
   def apply[In,Out]() = new ValueFactory[In,Out]{
-    def apply[A <: In, B >: Out](request:Request[A,B],in:In,rawValue:BasicHttpValue):Out = {
-      request.asInstanceOf[ValueFactory[In,Out]].apply(request,in,rawValue)
+    def createValue[A <: In, B >: Out](request:Request[A,B],in:In,rawValue:BasicHttpValue,executionContext:ExecutionContext):Out = {
+      request.asInstanceOf[ValueFactory[In,Out]].createValue(request,in,rawValue,executionContext)
     }
   }
 }
 object XmlValueFactory extends ValueFactory[Any,XmlValue] {
-  def apply[A <: Any, B >: XmlValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = new XmlValue() {
+  def createValue[A <: Any, B >: XmlValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = new XmlValue() {
     def basicValue = rawValue
   }
 }
@@ -105,7 +113,7 @@ trait IdValue extends XmlValue {
   def id:String
 }
 case class ExplicitIdValueFactory(idVal:String) extends ValueFactory[Any,IdValue]{
-  def apply[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue) = {
+  def createValue[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
     new XmlValue with IdValue {
        val basicValue = rawValue
        val id = idVal
