@@ -18,9 +18,9 @@ case class SharedObject(id:Int,
 class SharedObjectList(val basicValue:BasicHttpValue,
                        val self:List[SharedObject]) extends SeqProxy[SharedObject] with XmlValue
 
-class SharedObjectListFactory(objType:SharedObjectType) extends ValueFactory[Any,SharedObjectList] {
-  def createValue[A <: Any, B >: SharedObjectList](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    val xmlValue = XmlValueFactory.createValue(request,in,rawValue,executionContext)
+class SharedObjectListFactory(objType:SharedObjectType) extends BasicValueFactory[SharedObjectList] {
+  override def createValue(rawValue: BasicHttpValue) = {
+    val xmlValue = XmlValueFactory.createValue(rawValue)
     val list = xmlValue.withXml{
       xml =>
         (xml \\ "record").toList map {
@@ -58,10 +58,10 @@ case class ReferencingMetadata(mdId:Int,title:String,ownerName:String,email:Stri
 class ReferencingMetadataList(val basicValue:BasicHttpValue,
                               val self:List[ReferencingMetadata]) extends SeqProxy[ReferencingMetadata] with XmlValue
 
-object ReferencingMetadataListFactory extends ValueFactory[Any,ReferencingMetadataList] {
+object ReferencingMetadataListFactory extends BasicValueFactory[ReferencingMetadataList] {
 
-  def createValue[A <: Any, B >: ReferencingMetadataList](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    val xmlValue = XmlValueFactory.createValue(request,in,rawValue,executionContext)
+  override def createValue(rawValue: BasicHttpValue) = {
+    val xmlValue = XmlValueFactory.createValue(rawValue)
     val list = xmlValue.withXml {
       xml =>
         (xml \\ "record").toList map {

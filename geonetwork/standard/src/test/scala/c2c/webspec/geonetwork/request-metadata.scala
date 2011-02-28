@@ -8,8 +8,8 @@ import org.apache.http.entity.mime.content.{FileBody, StringBody}
 trait MetadataValue extends IdValue
 
 object IdValuesFactory {
-  object FromImportOrCreateResult extends ValueFactory[Any,IdValue]{
-    def createValue[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) =
+  object FromImportOrCreateResult extends BasicValueFactory[IdValue]{
+    override def createValue(rawValue: BasicHttpValue) =
         new XmlValue with IdValue {
           val basicValue = rawValue
           lazy val id = withXml { xml =>
@@ -28,8 +28,8 @@ object IdValuesFactory {
           }
         }
   }
-  object FromEditResult extends ValueFactory[Any,IdValue]{
-    def createValue[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) =
+  object FromEditResult extends BasicValueFactory[IdValue]{
+    override def createValue(rawValue: BasicHttpValue) =
         new XmlValue with IdValue {
           val basicValue = rawValue
           lazy val id = withXml { xml =>

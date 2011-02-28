@@ -11,7 +11,7 @@ trait ValueFactory[-In,+Out] {
 }
 
 trait BasicValueFactory[Out] extends ValueFactory[Any,Out] {
-  def createValue[B >: Out](rawValue:BasicHttpValue):Out
+  def createValue(rawValue:BasicHttpValue):Out
   def createValue[A <: Any, B >: Out](request:Request[A,B],
                             in:Any,
                             rawValue:BasicHttpValue,
@@ -25,8 +25,8 @@ object SelfValueFactory {
     }
   }
 }
-object XmlValueFactory extends ValueFactory[Any,XmlValue] {
-  def createValue[A <: Any, B >: XmlValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = new XmlValue() {
+object XmlValueFactory extends BasicValueFactory[XmlValue] {
+  def createValue(rawValue:BasicHttpValue) = new XmlValue() {
     def basicValue = rawValue
   }
 }
@@ -112,11 +112,9 @@ trait XmlValue extends TextValue {
 trait IdValue extends XmlValue {
   def id:String
 }
-case class ExplicitIdValueFactory(idVal:String) extends ValueFactory[Any,IdValue]{
-  def createValue[A <: Any, B >: IdValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    new XmlValue with IdValue {
-       val basicValue = rawValue
-       val id = idVal
-    }
+case class ExplicitIdValueFactory(idVal:String) extends BasicValueFactory[IdValue]{
+  def createValue(rawValue: BasicHttpValue) = new XmlValue with IdValue {
+     val basicValue = rawValue
+     val id = idVal
   }
 }

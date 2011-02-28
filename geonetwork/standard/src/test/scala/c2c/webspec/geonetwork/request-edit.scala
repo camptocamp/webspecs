@@ -9,10 +9,10 @@ trait EditValue extends IdValue {
   def version:String
 }
 
-object EditValueFactory extends ValueFactory[Any,EditValue] {
+object EditValueFactory extends BasicValueFactory[EditValue] {
 
 
-  def createValue[A <: Any, B >: EditValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = apply(rawValue)
+  override def createValue(rawValue: BasicHttpValue) = apply(rawValue)
 
   def apply(rawValue: BasicHttpValue) = new EditValue {
     import XmlUtils._

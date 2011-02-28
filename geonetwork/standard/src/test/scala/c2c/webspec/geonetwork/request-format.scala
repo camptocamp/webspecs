@@ -23,10 +23,8 @@ case class ListFormats(searchParam:String="")
     "xml.format.list",
     SelfValueFactory[Any,FormatListValue](),
     "name" -> searchParam)
-with ValueFactory[Any,FormatListValue] {
-  override def createValue[A <: Any, B >: FormatListValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    new FormatListValue(rawValue)
-  }
+with BasicValueFactory[FormatListValue] {
+  override def createValue(rawValue: BasicHttpValue) = new FormatListValue(rawValue)
 }
 
 case class DeleteFormat(id:Int) extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory, "action" -> "DELETE", "id" -> id)

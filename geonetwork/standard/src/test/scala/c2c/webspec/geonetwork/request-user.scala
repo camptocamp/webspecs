@@ -79,10 +79,8 @@ case class GetUser(userId:Int)
     SelfValueFactory(),
     "id" -> userId.toString,
     "schema" -> "iso19139.che",
-    "role" -> "createValue") with ValueFactory[Any,GetUserValue] {
-  override def createValue[A <: Any, B >: GetUserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    new GetUserValue(userId,rawValue)
-  }
+    "role" -> "createValue") with BasicValueFactory[GetUserValue] {
+  override def createValue(rawValue: BasicHttpValue) = new GetUserValue(userId,rawValue)
 }
 
 case class CreateUser(user:User)
