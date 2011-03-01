@@ -1,60 +1,42 @@
 package c2c.webspecs
 package geonetwork
-      /*
-class SandboxLifeCycle extends SystemLifeCycle[GeonetConfig] {
 
-  def setup(config: GeonetConfig) = {
+class SandboxLifeCycle(config:GeonetConfig) extends SystemLifeCycle {
     import config._
+
+  def setup(implicit context: ExecutionContext) = {
 
     val createGroup = CreateGroup(user)
     val createUser = CreateUser(User(username=user, password=pass, profile=userProfile, groups=List(groupId)))
 
-    (adminLogin then createGroup then createUser then Login(user, pass)).assertPassed
+    (adminLogin then createGroup then createUser then Login(user, pass)).assertPassed(None)
   }
 
-  def tearDown(config: GeonetConfig) = {
-    import config._
 
-    val DeleteMetadata = LookupUserId(user)
+  def tearDown(implicit context: ExecutionContext) = {
 
-    (adminLogin then DeleteMetadata then DeleteGroup(groupId,true)){
-      case response if response.responseCode > 200 => System.err.println("Error occurred during teardown.  Group was not deleted.  ResponseCode = "+response.responseCode)
-      case _ => ()
-    }
-  }
-}
-    */
-/*
-class PredefinedUserLifeCycle extends SystemLifeCycle[GeonetConfig] {
-  def setup(config: GeonetConfig) = {
-    import config._
+    val DeleteMetadata = GetUser.fromUserName(user) then DeleteOwnedMetadata
 
-    Login(user, pass).assertPassed
-  }
-
-  def tearDown(config: GeonetConfig) = {
-    import config._
-
-    val DeleteMetadata = findUsers(_ contains user) {
-      case users if users.isEmpty => NoRequest
-      case users =>
-        val props = users map {id => PropertyIsLike("_owner",id)}
-        val csw = XmlRequest("csw",mdSearchXml(props))
-
-        val deleteRequest =
-          csw then {
-            response =>
-              val ids = response.xml.right.get \\ "info" \ "id"
-
-              ((NoRequest:Request) /: ids){case (req, id) => req then GetRequest("metadata.delete", "id" -> id.text)}
-          }
-          deleteRequest
-    }
-
-    (adminLogin then DeleteMetadata){
-      case response if response.responseCode > 200 => System.err.println("Error occurred during teardown.  Group was not deleted.  ResponseCode = "+response.responseCode)
-      case _ => ()
-    }
+    val response = (adminLogin then DeleteMetadata then DeleteGroup(groupId,true))(None)
+    if(response.basicValue.responseCode > 200)
+      throw new AssertionError("Error occurred during teardown.  Group was not deleted.  ResponseCode = "+response.basicValue.responseCode)
   }
 }
-*/
+
+
+class PredefinedUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle {
+  import config._
+  def setup(implicit context: ExecutionContext) = {
+    Login(user, pass).assertPassed(None)
+  }
+
+  def tearDown(implicit context: ExecutionContext) = {
+
+    val DeleteMetadata = GetUser.fromUserName(user) then DeleteOwnedMetadata
+
+    val response = (adminLogin then DeleteMetadata)(None)
+    if(response.basicValue.responseCode > 200)
+      throw new AssertionError("Error occurred during teardown.  Group was not deleted.  ResponseCode = "+response.basicValue.responseCode)
+
+  }
+}

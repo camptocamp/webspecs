@@ -15,15 +15,15 @@ object GeonetConfig extends Log {
   val instances = new HashMap[(UserProfile,String), GeonetConfig]()
   def apply(userProfile:UserProfile, name:String):GeonetConfig = synchronized {
     instances.get(userProfile -> name) getOrElse {
-      val config = new GeonetConfig(SystemLifeCycle(),userProfile, name)
+      val config = new GeonetConfig(userProfile, name)
       instances.put(userProfile -> name,config)
       config
     }
   }
 }
 
-class GeonetConfig(lifeCycle:SystemLifeCycle[GeonetConfig], val userProfile:UserProfiles.UserProfile, specName:String)
-  extends Config(lifeCycle,specName) {
+class GeonetConfig(val userProfile:UserProfiles.UserProfile, specName:String)
+  extends Config(specName) {
 
   def ADMIN_USER_KEY = "admin.user"
   def ADMIN_USER_PASS = "admin.pass"

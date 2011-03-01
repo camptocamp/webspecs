@@ -31,14 +31,15 @@ object Config {
     )
   }
 }
-class Config(lifeCycle:SystemLifeCycle[Config], val specName:String) extends Log {
+class Config(val specName:String) extends Log {
   def inputStream(path:String) = Option(getClass.getClassLoader.getResourceAsStream(path)) getOrElse {throw new IllegalArgumentException(path+" is not an available resource")}
+  val lifeCycle = SystemLifeCycle(this)
 
-  def setUpTestEnv() = {
+  def setUpTestEnv(implicit context:ExecutionContext) = {
     try {
       log(LifeCycle, "Setup Test Environment")
 
-      lifeCycle.setup(this)
+      lifeCycle.setup(context)
 
       log(LifeCycle, "Done Setting up Test Environment \r\n\r\n\r\n")
     } catch {
@@ -51,11 +52,11 @@ class Config(lifeCycle:SystemLifeCycle[Config], val specName:String) extends Log
   }
 
 
-  def tearDownTestEnv() = {
+  def tearDownTestEnv(implicit context:ExecutionContext) = {
 
     try {
       log(LifeCycle, "\r\n\r\n\r\nTearing down Test Environment")
-      lifeCycle.tearDown(this)
+      lifeCycle.tearDown(context)
     } catch {
       case e:Throwable =>
         System.err.println("Error occurred during teardown: "+e)

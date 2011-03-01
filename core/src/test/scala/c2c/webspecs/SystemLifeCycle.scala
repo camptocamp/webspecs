@@ -1,15 +1,31 @@
 package c2c.webspecs
 
-trait SystemLifeCycle[+C <: Config] {
-  def tearDown[A >: C](config:A):Unit
-  def setup[A >: C](config:A):Unit
+import util.control.Exception
+
+/**
+ * Implementation either take a config object as a parameter or no parameters
+ */
+trait SystemLifeCycle {
+  def tearDown(implicit context:ExecutionContext):Unit
+  def setup(implicit context:ExecutionContext):Unit
 }
 
-class NoActionLifeCycle extends SystemLifeCycle[Config] {
-  def setup[A >: Config](config: A) = ()
-  def tearDown[A >: Config](config: A) = ()
+class NoActionLifeCycle extends SystemLifeCycle {
+  def setup(implicit context:ExecutionContext) = ()
+  def tearDown(implicit context:ExecutionContext) = ()
 }
 
 object SystemLifeCycle {
-  def apply[C <: Config]() = Config.loadStrategy[SystemLifeCycle[C]]("lifecycle").fold(throw _, i=>i.newInstance())
+  def apply(config:Config) = {
+    Config.loadStrategy[SystemLifeCycle]("lifecycle").fold(
+      e => {
+        e.printStackTrace(System.err)
+        throw e
+      },
+      i=>{
+        val instance = Exception.allCatch.opt{i.getConstructor(classOf[Config]).newInstance(config)}
+        instance getOrElse {i.newInstance()}
+      }
+    )
+  }
 }

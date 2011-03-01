@@ -85,7 +85,7 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
   }
 }
 
-case class GetUserValue(userId:String, basicValue:BasicHttpValue) extends XmlValue {
+case class GetUserValue(id:String, basicValue:BasicHttpValue) extends XmlValue with IdValue {
   lazy val user = withXml { xml =>
     // TODO need another request to get username and profile
     val surname = (xml \\ "surname").text.trim
@@ -104,7 +104,7 @@ case class GetUserValue(userId:String, basicValue:BasicHttpValue) extends XmlVal
       LocalisedString(Map(en ::: de ::: fr ::: fr ::: it :_*))
     }
     val position = localizedLookup("positionName")
-    User(Some(userId),"","",surname,name,email,position)
+    User(Some(id),"","",surname,name,email,position)
   }
 }
 
@@ -120,25 +120,15 @@ case object ListUsers extends AbstractGetRequest[Any,List[User]]("xml.user.list"
   }
 }
 
-/*object GetUser {
-  def fromUserName(userName:String) {
-    findUsers[Any](_ contains user) {
-      case users if users.isEmpty => NoRequest
-      case users =>
-        val props = users map {id => PropertyIsLike("_owner",id)}
-        val csw = XmlRequest("csw",mdSearchXml(props))
-
-        val deleteRequest : Request =
-          csw then {
-            response =>
-              val ids = response.xml.right.get \\ "info" \ "id"
-
-              ((NoRequest:Request) /: ids){case (req, id) => req then GetRequest("metadata.delete", "id" -> id.text)}
-          }
-          deleteRequest
+object GetUser {
+  def fromUserName(userName:String):Request[Any,GetUserValue] = {
+    ListUsers then {response =>
+      val user = response.value.find{_.username == userName} getOrElse {throw new IllegalArgumentException("Unable to find user with username: "+userName)}
+      val id = user.idOption getOrElse(throw new Error("No ID provided for user "+userName))
+      GetUser(id)
     }
   }
-}  */
+}
 case class GetUser(userId:String)
   extends AbstractGetRequest[Any,GetUserValue](
     "xml.user.get",
