@@ -2,9 +2,9 @@ package c2c.webspecs
 
 
 import xml.NodeSeq
-import org.apache.http.HttpResponse
 import org.apache.http.Header
 import util.control.Exception.allCatch
+import java.net.URI
 
 trait ValueFactory[-In,+Out] {
   def createValue[A <: In, B >: Out](request:Request[A,B],in:In,rawValue:BasicHttpValue,executionContext:ExecutionContext):Out
@@ -26,13 +26,13 @@ object SelfValueFactory {
   }
 }
 object XmlValueFactory extends BasicValueFactory[XmlValue] {
-  def createValue(rawValue:BasicHttpValue) = new XmlValue() {
-    def basicValue = rawValue
-  }
+  def createValue(rawValue:BasicHttpValue) = rawValue.toXmlValue
 }
 object BasicHttpValue {
-  def apply(httpResponse:HttpResponse):BasicHttpValue = {
+  def apply(executionResponse:ExecutionContext.Response):BasicHttpValue = {
+    import executionResponse._
     import httpResponse._
+
     val contentLength = getEntity.getContentLength match {
       case x if x >= 0 => Some(x.toInt)
       case y => None
@@ -52,7 +52,7 @@ object BasicHttpValue {
     }
     val headers = getAllHeaders.
         map{_.getName}.
-        map{name => (name,httpResponse.getHeaders(name).toList)}.toMap
+        map{name => (name.toLowerCase,httpResponse.getHeaders(name).toList)}.toMap
     BasicHttpValue(
       data,
       responseCode,
@@ -60,7 +60,9 @@ object BasicHttpValue {
       headers,
       contentLength,
       Option(getEntity.getContentType) map {_.getValue},
-      Option(getEntity.getContentEncoding) map {_.getValue}
+      Option(getEntity.getContentEncoding) map {_.getValue},
+      finalHost,
+      finalURL
     )
   }
 }
@@ -70,13 +72,20 @@ case class BasicHttpValue(data:Either[Throwable,Array[Byte]],
                           allHeaders: Map[String, List[Header]],
                           contentLength:Option[Int],
                           contentType:Option[String],
-                          contentEncoding:Option[String])
+                          contentEncoding:Option[String],
+                          finalHost:String,
+                          finalURL:Option[URI]) {
+  private val self = this
 
-object TextValue {
-  def apply(basic:BasicHttpValue) = new TextValue {
-    def basicValue = basic
+  def firstHeader(fieldName:String) = allHeaders.get(fieldName) flatMap {_.headOption}
+  def toTextValue = new TextValue {
+    def basicValue = self
+  }
+  def toXmlValue = new XmlValue {
+    def basicValue = self
   }
 }
+
 trait TextValue {
   protected def basicValue:BasicHttpValue
   lazy val text = basicValue.data match {
@@ -85,11 +94,6 @@ trait TextValue {
     case Left(error) => Left(error)
   }
   def withText[R](f:String => R):R = text.fold(throw _, f)
-}
-object XmlValue {
-  def apply(basic:BasicHttpValue) = new XmlValue {
-    def basicValue = basic
-  }
 }
 trait XmlValue extends TextValue {
   lazy val xml:Either[Throwable,NodeSeq] = text match {

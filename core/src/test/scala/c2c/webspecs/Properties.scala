@@ -34,7 +34,7 @@ object Properties {
     val props = load("config.properties") map {
       case (key,value) =>
         val newVal = Option(sysprop(key)) orElse Option(envprop(key)) getOrElse value
-        key -> value
+        key -> newVal
     }
     resolveReferences(props)
   }

@@ -2,7 +2,7 @@ package c2c.webspecs
 package geonetwork
 package stress
 
-object ConcurrentSearchSpec extends StressSpecification(15) {
+object ConcurrentSearchSpec extends StressSpecification(40) {
 
   "Geocat" should {
 

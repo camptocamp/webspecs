@@ -58,13 +58,7 @@ object ShowResultingMetadata {
   def apply(view:MetadataView = MetadataViews.xml) = MetadataRequest.makeInputBasedMetadataRequest(id => ShowMetadata(id,view))
 }
 case class ShowMetadata(mdId:String, view:MetadataView = MetadataViews.xml) extends AbstractGetRequest[Any,IdValue]("metadata.show", ExplicitIdValueFactory(mdId), "id" -> mdId, "currTab" -> view.toString)
-object DeleteResultingMetadata {
-  def apply() = MetadataRequest.makeInputBasedMetadataRequest(id => DeleteMetadata(id))
-}
-case class DeleteMetadata(mdId:String) extends AbstractGetRequest(
-  "metadata.delete",
-  ExplicitIdValueFactory(mdId),
-  "id" -> mdId)
+
 object GetEditingMetadataFromResult {
   def apply() = MetadataRequest.makeInputBasedMetadataRequest(id => GetEditingMetadata(id))
 }

@@ -3,13 +3,33 @@ package geonetwork
 
 import java.util.UUID
 import Properties.TEST_TAG
+import xml.Node
 
 object UserProfiles extends Enumeration {
   type UserProfile = Value
-  val Shared,Editor,UserAdmin,Reviewer,AdminRegisteredUser=Value
+  val Shared,Editor,UserAdmin,Reviewer,Admin,RegisteredUser=Value
 }
 
-case class User(username:String=(TEST_TAG+UUID.randomUUID.toString.takeRight(5)),
+object User {
+  def fromRecord(record:Node) = {
+    def get(name:String) = record \ name text
+    val id = get("id")
+    val username = get("username")
+    val password = get("password")
+    val surname = get("surname")
+    val name = get("name")
+    val profileName = get("profile")
+    val profile = UserProfiles.values.find(_ == profileName) getOrElse {
+      Log(Log.Warning, "Unable to find a profile for profile: "+profileName)
+      UserProfiles.Shared
+    }
+    val email = get("email")
+    User(Some(id),username,password,surname,name,email,profile = profile)
+  }
+}
+
+case class User(val idOption:Option[String]=None,
+                username:String=(TEST_TAG+UUID.randomUUID.toString.takeRight(5)),
                 password:String=TEST_TAG,
                 surname:String=TEST_TAG,
                 name:String=TEST_TAG,
@@ -20,9 +40,11 @@ case class User(username:String=(TEST_TAG+UUID.randomUUID.toString.takeRight(5))
   require(profile == UserProfiles.Shared && groups.nonEmpty || profile != UserProfiles,
      "Shared users are not part of groups: profile="+profile+", groups="+(groups mkString ","))
 
-  def formParams():List[(String,String)] = formParams(None)
-  def formParams(id:Int):List[(String,String)] = formParams(Some(id))
-  def formParams(id: Option[Int]): List[(String, String)] = ("username" -> username ::
+  def id(implicit executionContext:ExecutionContext) = idOption orElse {
+    ListUsers(None).value find {_.username == username}
+  }
+
+  def formParams():List[(String,String)] = ("username" -> username ::
     "password" -> password ::
     "password2" -> password ::
     "name" -> name ::
@@ -33,14 +55,14 @@ case class User(username:String=(TEST_TAG+UUID.randomUUID.toString.takeRight(5))
 }
 
 case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:ExecutionContext) extends XmlValue {
-  lazy val id:Option[Int] = withXml{
+  lazy val id:Option[String] = withXml{
     xml =>
       val tables = xml \\ "table"
       val correctTable = tables filter {_ \ "tr" \ "th" nonEmpty}
       val row = correctTable \ "tr" find { n =>
         (n \ "td" headOption).exists {_.text.trim == user.username}
       }
-      row.get \\ "@onclick" find {_.text contains "deleteUser"} flatMap {onclick => XmlUtils.extractId(onclick.text) map {_.toInt}}
+      row.get \\ "@onclick" find {_.text contains "deleteUser"} flatMap {onclick => XmlUtils.extractId(onclick.text)}
   }
 
   lazy val updatedUser:Option[User] = id match {
@@ -51,7 +73,7 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
   }
 }
 
-case class GetUserValue(userId:Int, basicValue:BasicHttpValue) extends XmlValue {
+case class GetUserValue(userId:String, basicValue:BasicHttpValue) extends XmlValue {
   lazy val user = withXml { xml =>
     // TODO need another request to get username and profile
     val surname = (xml \\ "surname").text.trim
@@ -70,10 +92,42 @@ case class GetUserValue(userId:Int, basicValue:BasicHttpValue) extends XmlValue 
       LocalisedString(Map(en ::: de ::: fr ::: fr ::: it :_*))
     }
     val position = localizedLookup("positionName")
-    User("","",surname,name,email,position)
+    User(Some(userId),"","",surname,name,email,position)
   }
 }
-case class GetUser(userId:Int)
+
+case object ListUsers extends AbstractGetRequest[Any,List[User]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User]] {
+  def createValue(rawValue: BasicHttpValue) = {
+    rawValue.toXmlValue.withXml(xml => {
+      val users = xml \\ "record" map {record =>
+        User.fromRecord(record)
+      }
+
+      users.toList
+    })
+  }
+}
+
+/*object GetUser {
+  def fromUserName(userName:String) {
+    findUsers[Any](_ contains user) {
+      case users if users.isEmpty => NoRequest
+      case users =>
+        val props = users map {id => PropertyIsLike("_owner",id)}
+        val csw = XmlRequest("csw",mdSearchXml(props))
+
+        val deleteRequest : Request =
+          csw then {
+            response =>
+              val ids = response.xml.right.get \\ "info" \ "id"
+
+              ((NoRequest:Request) /: ids){case (req, id) => req then GetRequest("metadata.delete", "id" -> id.text)}
+          }
+          deleteRequest
+    }
+  }
+}  */
+case class GetUser(userId:String)
   extends AbstractGetRequest[Any,GetUserValue](
     "xml.user.get",
     SelfValueFactory(),
@@ -100,17 +154,17 @@ def apply() = (response:Response[IdValue]) => new DeleteUser(response.value.id)
 case class DeleteUser(userId:String) extends AbstractGetRequest("user.remove", ExplicitIdValueFactory(userId), "id" -> userId)
 
 object UpdateUser {
-  def apply(id:Int, user:User) = new UpdateUser(id,user)
+  def apply(id:String, user:User) = new UpdateUser(id,user)
   def apply(user:User) = (res:Response[UserListValue]) => new UpdateUser(res.value.id.get,res.value.user)
 }
 
-class UpdateUser(val userId:Int, val user:User)
-  extends AbstractFormPostRequest[UserListValue,UserListValue]("user.update", SelfValueFactory(), user.formParams(userId):_*)
+class UpdateUser(val userId:String, val user:User)
+  extends AbstractFormPostRequest[UserListValue,UserListValue]("user.update", SelfValueFactory(), user.formParams():_*)
   with ValueFactory[UserListValue,UserListValue] {
 
   def createValue[A <: UserListValue, B >: UserListValue](request: Request[A, B], in: UserListValue, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    new UserListValue(user,rawValue,executionContext) {
-      override lazy val id:Option[Int] = Some(userId)
+    new UserListValue(user.copy(idOption = Some(userId)),rawValue,executionContext) {
+      override lazy val id:Option[String] = Some(userId)
     }
   }
 }

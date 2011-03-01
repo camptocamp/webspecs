@@ -17,6 +17,8 @@ object EmptyResponse extends Response[Null] {
     Map[String,List[Header]](),
     Some(0),
     None,
+    None,
+    "",
     None
   )
 

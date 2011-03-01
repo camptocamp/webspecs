@@ -22,7 +22,7 @@ object GeonetConfig extends Log {
   }
 }
 
-class GeonetConfig(lifeCycle:SystemLifeCycle[GeonetConfig], userProfile:UserProfiles.UserProfile, specName:String)
+class GeonetConfig(lifeCycle:SystemLifeCycle[GeonetConfig], val userProfile:UserProfiles.UserProfile, specName:String)
   extends Config(lifeCycle,specName) {
 
   def ADMIN_USER_KEY = "admin.user"

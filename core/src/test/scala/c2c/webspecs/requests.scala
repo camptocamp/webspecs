@@ -4,11 +4,14 @@ import java.io.IOException
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.client.HttpClient
 import collection.JavaConverters._
-import org.apache.http.client.methods.{HttpPost, HttpRequestBase, HttpGet}
 import org.apache.http.entity.StringEntity
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.conn.ClientConnectionManager
+import org.apache.http.protocol.{BasicHttpContext, HttpContext}
+import org.apache.http.HttpResponse
+import org.apache.http.client.methods.{HttpUriRequest, HttpPost, HttpRequestBase, HttpGet}
+import java.net.URI
 
 object ExecutionContext {
   def apply[R](context:ExecutionContext)(f : ExecutionContext => R):R = {
@@ -19,10 +22,13 @@ object ExecutionContext {
   }
   def withDefault[R] (f : ExecutionContext => R):R =
     apply(DefaultExecutionContext())(f)
+  case class Response(httpResponse:HttpResponse, finalHost:String, finalURL:Option[URI])
 }
+
 trait ExecutionContext {
 
   def httpClient:HttpClient
+  def createHttpContext:() => HttpContext
   val conn: ClientConnectionManager = httpClient.getConnectionManager
   var modifications:List[RequestModification] = Nil
   def close() = httpClient.getConnectionManager.shutdown
@@ -39,8 +45,13 @@ trait ExecutionContext {
         Log.apply(Log.Headers,"Cookies: Not a DefaultHttpClient - "+client.getClass.getName)
     }
 
-
-    val response = httpClient.execute(request);
+    val localContext = createHttpContext()
+    val response = httpClient.execute(request,localContext);
+    val finalHost = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_TARGET_HOST).toString
+    val finalURI = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_REQUEST) match {
+      case req:HttpUriRequest => Some(req.getURI)
+      case _ => None
+    }
 
     Log.apply(Log.Headers,"URI after request: "+request.getURI)
 
@@ -53,11 +64,12 @@ trait ExecutionContext {
         Log.apply(Log.Headers,"Cookies: Not a DefaultHttpClient - "+client.getClass.getName)
     }
 
-    response
+    ExecutionContext.Response(response,finalHost,finalURI)
   }
 }
 
-case class DefaultExecutionContext(val httpClient:HttpClient = new DefaultHttpClient()) extends ExecutionContext {
+case class DefaultExecutionContext(val httpClient:HttpClient = new DefaultHttpClient(),
+                                   val createHttpContext: () => HttpContext = () => new BasicHttpContext) extends ExecutionContext {
   httpClient.getConnectionManager().getSchemeRegistry().register(SSLUtilities.fakeSSLScheme(443))
   httpClient.getConnectionManager().getSchemeRegistry().register(SSLUtilities.fakeSSLScheme(8443))
 }
