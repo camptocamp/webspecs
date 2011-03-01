@@ -5,9 +5,21 @@ import java.util.UUID
 import Properties.TEST_TAG
 import xml.Node
 
-object UserProfiles extends Enumeration {
-  type UserProfile = Value
-  val Shared,Editor,UserAdmin,Reviewer,Admin,RegisteredUser=Value
+object UserProfiles {
+  sealed abstract class UserProfile(val alternatives:String*) {
+    val name = toString()
+    val allNames = name +: alternatives
+  }
+  case object Guest extends UserProfile
+  case object RegisteredUser extends UserProfile
+  case object Editor extends UserProfile
+  case object UserAdmin extends UserProfile
+  case object Reviewer extends UserProfile
+  case object Admin extends UserProfile("Administrator")
+
+  val all = Guest :: RegisteredUser :: Editor :: Reviewer :: UserAdmin :: Admin :: Nil
+
+  def withName(name:String) = all find {_.allNames contains name}
 }
 
 object User {
@@ -19,9 +31,9 @@ object User {
     val surname = get("surname")
     val name = get("name")
     val profileName = get("profile")
-    val profile = UserProfiles.values.find(_ == profileName) getOrElse {
+    val profile = UserProfiles.withName(profileName) getOrElse {
       Log(Log.Warning, "Unable to find a profile for profile: "+profileName)
-      UserProfiles.Shared
+      UserProfiles.Guest
     }
     val email = get("email")
     User(Some(id),username,password,surname,name,email,profile = profile)
@@ -35,9 +47,9 @@ case class User(val idOption:Option[String]=None,
                 name:String=TEST_TAG,
                 email:String=TEST_TAG+"@camptocamp.com",
                 position:LocalisedString=LocalisedString(TEST_TAG),
-                profile:UserProfiles.UserProfile=UserProfiles.Shared,
+                profile:UserProfiles.UserProfile=UserProfiles.Guest,
                 groups:Traversable[String]=Nil) {
-  require(profile == UserProfiles.Shared && groups.nonEmpty || profile != UserProfiles,
+  require(profile == UserProfiles.Guest && groups.nonEmpty || profile != UserProfiles,
      "Shared users are not part of groups: profile="+profile+", groups="+(groups mkString ","))
 
   def id(implicit executionContext:ExecutionContext) = idOption orElse {
