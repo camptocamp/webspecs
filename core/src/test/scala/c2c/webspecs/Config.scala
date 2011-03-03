@@ -44,6 +44,7 @@ class Config(val specName:String) extends Log {
       log(LifeCycle, "Done Setting up Test Environment \r\n\r\n\r\n")
     } catch {
       case e:Throwable =>
+        Log(Log.Error, "Exception occurred during setup:"+e.getMessage+"\n" + e.getStackTraceString)
         util.control.Exception.catching(classOf[Throwable]).either(tearDownTestEnv) match {
           case Right(_) => throw e
           case Left(error:Throwable) => throw new ExceptionChain(e,error)
@@ -59,8 +60,7 @@ class Config(val specName:String) extends Log {
       lifeCycle.tearDown(context)
     } catch {
       case e:Throwable =>
-        System.err.println("Error occurred during teardown: "+e)
-        e.printStackTrace(System.err)
+        Log(Log.Error, "Exception occurred during teardown:"+e.getMessage+"\n" + e.getStackTraceString)
     }
   }
 

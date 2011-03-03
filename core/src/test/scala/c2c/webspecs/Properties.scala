@@ -1,6 +1,6 @@
 package c2c.webspecs
 
-import System.{getProperty => sysprop, getenv => envprop}
+import System.{getProperties,getenv}
 import java.util.{Properties => JProperties}
 import scalax.file.Path
 import collection.JavaConverters._
@@ -31,12 +31,11 @@ object Properties {
       } getOrElse Map[String,String]()
     }
 
-    val props = load("config.properties") map {
-      case (key,value) =>
-        val newVal = Option(sysprop(key)) orElse Option(envprop(key)) getOrElse value
-        key -> newVal
-    }
-    resolveReferences(props)
+    val sysProps = getProperties.asScala /// NEED to load sstem and env properties and add them all to the map
+    val envProps = getenv.asScala /// NEED to load sstem and env properties and add them all to the map
+    val props = load("config.properties")
+    val allProps = props ++ envProps ++ sysProps
+    resolveReferences(allProps)
   }
   private def resolveReferences(map:Map[String,String]) = {
     val Ref = """\$\{(.+?)\}""".r

@@ -7,6 +7,6 @@ import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.params.{HttpClientParams, AuthPolicy}
 
 class LoginService(user:String, pass:String)
-  extends AbstractGetRequest[Any,XmlValue]("user.login",XmlValueFactory, "username" -> user, "password" -> pass) {
+  extends DeprecatedAbstractGetRequest[Any,XmlValue]("user.login",XmlValueFactory, "username" -> user, "password" -> pass) {
   override def toString() = "Login(%s,%s)".format(user,pass)
 }

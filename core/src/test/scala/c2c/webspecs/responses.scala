@@ -8,7 +8,12 @@ trait Response[+A] {
   def value:A
   def basicValue:BasicHttpValue
 }
-
+object Response {
+  def apply[A](value:A) = new Response[A]{
+      def basicValue = EmptyResponse.basicValue
+      def value = value
+    }
+}
 object EmptyResponse extends Response[Null] {
   def basicValue = new BasicHttpValue(
     Right(Array[Byte]()),

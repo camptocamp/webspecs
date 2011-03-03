@@ -113,12 +113,42 @@ trait XmlValue extends TextValue {
   def withXml[R](f:NodeSeq => R):R = xml.fold(throw _, f)
 }
 
-trait IdValue extends XmlValue {
+object Id {
+  def apply(idString:String) = new Id {
+    val id = idString
+  }
+}
+trait Id {
   def id:String
 }
+object IdValue {
+  def apply(in:String,rawValue:BasicHttpValue) = new IdValue {
+    protected def basicValue = rawValue
+    def id = in
+  }
+}
+trait IdValue extends XmlValue with Id
+
 case class ExplicitIdValueFactory(idVal:String) extends BasicValueFactory[IdValue]{
   def createValue(rawValue: BasicHttpValue) = new XmlValue with IdValue {
      val basicValue = rawValue
      val id = idVal
   }
+}
+
+case class PassThroughValueFactory[A]() extends ValueFactory[A,A] {
+  def createValue[B <: A, C >: A]
+                 (request: Request[B, C],
+                  in: A,
+                  rawValue:
+                  BasicHttpValue,
+                  executionContext: ExecutionContext) = in
+}
+
+case class InputTransformerValueFactory[A,B](f:(A,BasicHttpValue) => B) extends ValueFactory[A,B] {
+    def createValue[C <: A, D >: B]
+                 (request: Request[C, D],
+                  in: A,
+                  rawValue:BasicHttpValue,
+                  executionContext: ExecutionContext) = f(in,rawValue)
 }

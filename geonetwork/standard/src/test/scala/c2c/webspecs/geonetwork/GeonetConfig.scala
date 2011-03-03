@@ -90,16 +90,13 @@ def mdSearchXml(props:Traversable[PropertyIsLike]) =
     case ids if ids.isEmpty => throw new IllegalStateException("You must call setUpTestEnv before calling userId")
     case ids => ids.head
   }
-  private def sampleTemplates(filter:Node) = ExecutionContext.withDefault{ context =>
-    implicit val c = context
-    CswGetRecordsRequest(filter, maxRecords = 20, resultType = ResultTypes.results) apply {
-      response:Response[XmlValue] =>
-        val xml = response.value.xml
-        Log(Log.Constants, xml)
-        val ids = xml.fold(throw _, _ \\ "info" \ "id")
-        assert(ids.nonEmpty, "No template metadata found" )
-        ids.toList map {_.text}
-    }
+  private def sampleTemplates(filter:Node):List[String] = ExecutionContext.withDefault{ implicit context =>
+    val xml = CswGetRecordsRequest(filter, maxRecords = 20, resultType = ResultTypes.results)(None).value.xml
+
+    Log(Log.Constants, xml)
+    val ids = xml.fold(throw _, _ \\ "info" \ "id")
+    assert(ids.nonEmpty, "No template metadata found" )
+    ids.toList map {_.text}
   }
   lazy val sampleDataTemplateIds = {
     val isTemplate = PropertyIsEqualTo("_isTemplate","y").xml

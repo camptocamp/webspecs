@@ -19,7 +19,7 @@ class FormatListValue(val basicValue:BasicHttpValue) extends XmlValue {
   }
 }
 case class ListFormats(searchParam:String="")
-  extends AbstractGetRequest[Any,FormatListValue](
+  extends DeprecatedAbstractGetRequest[Any,FormatListValue](
     "xml.format.list",
     SelfValueFactory[Any,FormatListValue](),
     "name" -> searchParam)
@@ -27,4 +27,4 @@ with BasicValueFactory[FormatListValue] {
   override def createValue(rawValue: BasicHttpValue) = new FormatListValue(rawValue)
 }
 
-case class DeleteFormat(id:Int) extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory, "action" -> "DELETE", "id" -> id)
+case class DeleteFormat(id:Int) extends DeprecatedAbstractGetRequest[Any,XmlValue]("format", XmlValueFactory, "action" -> "DELETE", "id" -> id)

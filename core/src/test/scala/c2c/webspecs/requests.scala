@@ -74,11 +74,17 @@ case class DefaultExecutionContext(val httpClient:HttpClient = new DefaultHttpCl
   httpClient.getConnectionManager().getSchemeRegistry().register(SSLUtilities.fakeSSLScheme(8443))
 }
 
+object Request {
+  def const[A](in:A) = new Request[A,A] {
+    def apply(in: A)(implicit context: ExecutionContext) = Response(in)
+  }
+}
 trait Request[-In, +Out] {
   def then [A,B] (next: Request[Out,A]) : Request[In, A] = ChainedRequest(this,next)
   def then [A,B] (next: Response[Out] => Request[Out,A]) : Request[In, A] = ChainedRequest(this,next)
   def trackThen [A,B] (next: Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,true,next)
   def trackThen [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,true,next)
+  def map[A <: In](in:A):Request[A,Out] = Request.const(in) then this
   def apply (in: In)(implicit context:ExecutionContext) : Response[Out]
   def assertPassed(in:In)(implicit context:ExecutionContext):Response[Out] = apply(in) match {
     case response if response.basicValue.responseCode > 399 =>
@@ -128,13 +134,27 @@ abstract class AbstractRequest[-In, +Out]
   }
 }
 
-abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
+@Deprecated
+abstract class DeprecatedAbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
   extends AbstractRequest[In,Out](valueFactory) {
   def request(in:In) = {
     val stringParams = params.map(p => p._1 -> p._2.toString)
     new HttpGet(Config.resolveURI(uri,stringParams:_*))
   }
 }
+abstract class Param[-In](val name:String,val value:In => String)
+case class P(n:String, v:String) extends Param[Any](n, _ => v)
+
+case class InP[-In](n:String,f:In => String) extends Param[In](n,f)
+abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:Param[In]*)
+  extends AbstractRequest[In,Out](valueFactory) {
+  def request(in:In) = {
+    val stringParams = params.map(p => p.name -> p.value(in))
+    new HttpGet(Config.resolveURI(uri,stringParams:_*))
+  }
+}
+
+
 
 abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueFactory[In,Out])
   extends AbstractRequest(valueFactory) {
@@ -161,6 +181,6 @@ abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:Va
     post
   }
 }
-case class GetRequest(uri:String, params:(String,Any)*) extends AbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params:_*)
+case class GetRequest(uri:String, params:(String,Any)*) extends DeprecatedAbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params:_*)
 case class FormPostRequest(override val uri:String, form:(String,Any)*) extends AbstractFormPostRequest[Any,XmlValue](uri,XmlValueFactory,form:_*)
 case class XmlPostRequest(uri:String, xmlData:xml.NodeSeq) extends AbstractXmlPostRequest[Any,XmlValue](uri,XmlValueFactory)

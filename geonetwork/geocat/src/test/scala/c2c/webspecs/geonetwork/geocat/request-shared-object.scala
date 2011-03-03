@@ -41,17 +41,17 @@ class SharedObjectListFactory(objType:SharedObjectType) extends BasicValueFactor
 }
 
 case class ListNonValidated(sharedType:SharedObjectType)
-  extends AbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(sharedType), "type" -> sharedType.toString)
+  extends DeprecatedAbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(sharedType), "type" -> sharedType.toString)
 case object ListNonValidatedContacts
-  extends AbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(contacts), "type" -> contacts.toString)
+  extends DeprecatedAbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(contacts), "type" -> contacts.toString)
 case object ListNonValidatedFormats
-  extends AbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(formats), "type" -> formats.toString)
+  extends DeprecatedAbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(formats), "type" -> formats.toString)
 case object ListNonValidatedExtents
-  extends AbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(extents), "type" -> extents.toString)
+  extends DeprecatedAbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(extents), "type" -> extents.toString)
 case object ListNonValidatedKeywords
-  extends AbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(keywords),"type" -> keywords.toString)
+  extends DeprecatedAbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(keywords),"type" -> keywords.toString)
 case object ListDeletedSharedObjects
-  extends AbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(deleted), "type" -> deleted.toString)
+  extends DeprecatedAbstractGetRequest[Any,SharedObjectList]("reusable.non_validated.list", new SharedObjectListFactory(deleted), "type" -> deleted.toString)
 
 case class ReferencingMetadata(mdId:Int,title:String,ownerName:String,email:String)
 
@@ -78,11 +78,11 @@ object ReferencingMetadataListFactory extends BasicValueFactory[ReferencingMetad
   }
 }
 case class ListReferencingMetadata(sharedObjectId:Int, sharedType:SharedObjectType)
-  extends AbstractGetRequest[Any,ReferencingMetadataList]("reusable.references", ReferencingMetadataListFactory, "id" -> sharedObjectId.toString, "type" -> sharedType.toString)
+  extends DeprecatedAbstractGetRequest[Any,ReferencingMetadataList]("reusable.references", ReferencingMetadataListFactory, "id" -> sharedObjectId.toString, "type" -> sharedType.toString)
 
 case class RejectNonValidatedObject(sharedObjectId:String, sharedType:SharedObjectType, rejectionMessage:String="This is a test script rejecting your object, if this is a mistake please inform the system administrators")
-  extends AbstractGetRequest[Any,IdValue]("reusable.reject", ExplicitIdValueFactory(sharedObjectId), "id" -> sharedObjectId.toString, "type" -> sharedType.toString, "msg" -> rejectionMessage)
+  extends DeprecatedAbstractGetRequest[Any,IdValue]("reusable.reject", ExplicitIdValueFactory(sharedObjectId), "id" -> sharedObjectId.toString, "type" -> sharedType.toString, "msg" -> rejectionMessage)
 case class DeleteSharedObject(sharedObjectId:String, sharedType:SharedObjectType)
-  extends AbstractGetRequest[Any,IdValue]("reusable.delete", ExplicitIdValueFactory(sharedObjectId), "id" -> sharedObjectId.toString, "type" -> sharedType.toString)
+  extends DeprecatedAbstractGetRequest[Any,IdValue]("reusable.delete", ExplicitIdValueFactory(sharedObjectId), "id" -> sharedObjectId.toString, "type" -> sharedType.toString)
 case class ValidateSharedObject(sharedObjectId:String, sharedType:SharedObjectType)
-  extends AbstractGetRequest[Any,IdValue]("reusable.validate", ExplicitIdValueFactory(sharedObjectId), "id" -> sharedObjectId.toString, "type" -> sharedType.toString)
+  extends DeprecatedAbstractGetRequest[Any,IdValue]("reusable.validate", ExplicitIdValueFactory(sharedObjectId), "id" -> sharedObjectId.toString, "type" -> sharedType.toString)

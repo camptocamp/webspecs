@@ -13,10 +13,13 @@ abstract class GeonetworkSpecification(userProfile:UserProfile = Editor) extends
   lazy val UserLogin = config.login
 
 
-  ExecutionContext.withDefault { implicit context =>
-    doBeforeSpec (config.setUpTestEnv)
 
-    doAfterSpec {
+  doBeforeSpec (
+     ExecutionContext.withDefault { implicit context =>config.setUpTestEnv }
+  )
+
+  doAfterSpec {
+    ExecutionContext.withDefault { implicit context =>
       context.close()
       config.tearDownTestEnv
     }

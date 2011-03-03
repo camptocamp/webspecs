@@ -108,7 +108,7 @@ case class GetUserValue(id:String, basicValue:BasicHttpValue) extends XmlValue w
   }
 }
 
-case object ListUsers extends AbstractGetRequest[Any,List[User]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User]] {
+case object ListUsers extends DeprecatedAbstractGetRequest[Any,List[User]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User]] {
   def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml(xml => {
       val users = xml \\ "record" map {record =>
@@ -130,7 +130,7 @@ object GetUser {
   }
 }
 case class GetUser(userId:String)
-  extends AbstractGetRequest[Any,GetUserValue](
+  extends DeprecatedAbstractGetRequest[Any,GetUserValue](
     "xml.user.get",
     SelfValueFactory(),
     "id" -> userId.toString,
@@ -153,7 +153,7 @@ case class CreateUser(user:User)
 object DeleteUser {
 def apply() = (response:Response[IdValue]) => new DeleteUser(response.value.id)
 }
-case class DeleteUser(userId:String) extends AbstractGetRequest("user.remove", ExplicitIdValueFactory(userId), "id" -> userId)
+case class DeleteUser(userId:String) extends DeprecatedAbstractGetRequest("user.remove", ExplicitIdValueFactory(userId), "id" -> userId)
 
 object UpdateUser {
   def apply(id:String, user:User) = new UpdateUser(id,user)

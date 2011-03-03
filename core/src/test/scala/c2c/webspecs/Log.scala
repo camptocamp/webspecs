@@ -8,7 +8,7 @@ trait Log {
   // -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog -Dorg.apache.commons.logging.simplelog.showdatetime=true -Dorg.apache.commons.logging.simplelog.log.org.apache.http=DEBUG -Dorg.apache.commons.logging.simplelog.log.org.apache.http.wire=ERROR
   private object LoggingConfig {
     val all = false
-    val enabled = Warning :: RequestXml :: RequestForm :: Connection :: Headers :: LifeCycle :: Nil
+    val enabled = Error :: Warning :: RequestXml :: RequestForm :: Connection :: Headers :: LifeCycle :: Nil
 
   }
 
@@ -21,6 +21,7 @@ trait Log {
   case object LifeCycle extends Level
   case object Constants extends Level
   case object Warning extends Level
+  case object Error extends Level
 
   protected def log(level:Level, msg: => Any) = {
     if(LoggingConfig.all || LoggingConfig.enabled.contains(level)) {

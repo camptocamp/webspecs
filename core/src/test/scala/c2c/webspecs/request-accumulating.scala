@@ -20,6 +20,10 @@ trait AccumulatingRequest[-In,+Out] extends Request[In,Out] {
   override def trackThen [A,B] (next: Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,true,next)
   override def trackThen [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest[In, A] = AccumulatingRequest(this,true,next)
 
+  override def map[A <: In](in: A) = {
+    AccumulatingRequest(Request.const(in),false,this)
+  }
+
   def apply(in: In)(implicit context: ExecutionContext):AccumulatedResponse[Out]
 }
 

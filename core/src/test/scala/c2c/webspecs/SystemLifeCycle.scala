@@ -16,14 +16,18 @@ class NoActionLifeCycle extends SystemLifeCycle {
 }
 
 object SystemLifeCycle {
-  def apply(config:Config) = {
+  def apply(config:Config):SystemLifeCycle = {
     Config.loadStrategy[SystemLifeCycle]("lifecycle").fold(
       e => {
         e.printStackTrace(System.err)
         throw e
       },
       i=>{
-        val instance = Exception.allCatch.opt{i.getConstructor(classOf[Config]).newInstance(config)}
+        val constructor = i.getConstructors.find{c =>
+          c.getParameterTypes.length == 1 &&
+          c.getParameterTypes.apply(0).isAssignableFrom(config.getClass())
+        }
+        val instance = constructor map {_.newInstance(config).asInstanceOf[SystemLifeCycle]}
         instance getOrElse {i.newInstance()}
       }
     )

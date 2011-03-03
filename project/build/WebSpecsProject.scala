@@ -16,7 +16,7 @@ class WebSpecsProject(info: ProjectInfo) extends ParentProject(info) {
     val scalaioCore = "com.github.scala-incubator.io" %% "core" % "0.2.0-SNAPSHOT" withSources ()
     val scalaioFile = "com.github.scala-incubator.io" %% "file" % "0.2.0-SNAPSHOT" withSources ()
 
-    override def compileOptions = super.compileOptions ++ List(CompileOptions.Unchecked,CompileOptions.Deprecation)
+ //   override def compileOptions = super.compileOptions ++ List(CompileOptions.Unchecked,CompileOptions.Deprecation)
   }
   class GeonetworkSpecProject(info: ProjectInfo) extends ParentProject(info) {
     val standard = project("standard","StandardGeonetwork", core)
