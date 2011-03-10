@@ -3,7 +3,7 @@ package geonetwork
 
 import xml.NodeSeq
 import java.io.{FileWriter, BufferedWriter}
-import geonetwork.AddSites.{ContactAddSite, AddSite}
+import geonetwork.AddSites.{ContactAddSite, AddSite, ExtentAddSite}
 
 trait EditValue extends IdValue {
   def version:String
@@ -94,6 +94,18 @@ object AddNewContact {
   }
 }
 class AddNewContact(id:String, editVersion:String, nodeRef:String, addSite:ContactAddSite)
+  extends Add("metadata.elem.add",id,editVersion, nodeRef, addSite, "child" -> "")
+object AddNewExtent {
+  def apply(addSite:ExtentAddSite=AddSites.extent) = { response:Response[XmlValue] =>
+    response.value.withXml { md =>
+      implicit val allInput = md \\ "input"
+      val nodeRef = XLink.lookupXlinkNodeRef(addSite.toString)(md)
+      import XmlUtils._
+      new AddNewExtent(lookupId, lookupVersion, nodeRef, addSite)
+    }
+  }
+}
+class AddNewExtent(id:String, editVersion:String, nodeRef:String, addSite:ExtentAddSite)
   extends Add("metadata.elem.add",id,editVersion, nodeRef, addSite, "child" -> "")
 
 import MetadataViews.MetadataView

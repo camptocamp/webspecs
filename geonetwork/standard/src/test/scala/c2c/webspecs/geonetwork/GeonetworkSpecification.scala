@@ -2,9 +2,8 @@ package c2c.webspecs
 package geonetwork
 
 
-import org.specs.Specification
+import org.specs._
 import UserProfiles._
-
 
 abstract class GeonetworkSpecification(userProfile:UserProfile = Editor) extends Specification {
   implicit val config = GeonetConfig(userProfile,getClass().getSimpleName)
@@ -15,7 +14,7 @@ abstract class GeonetworkSpecification(userProfile:UserProfile = Editor) extends
 
 
   doBeforeSpec (
-     ExecutionContext.withDefault { implicit context =>config.setUpTestEnv }
+    ExecutionContext.withDefault { implicit context =>config.setUpTestEnv }
   )
 
   doAfterSpec {

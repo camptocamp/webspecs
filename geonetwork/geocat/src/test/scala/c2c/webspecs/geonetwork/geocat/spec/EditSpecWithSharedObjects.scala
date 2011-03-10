@@ -14,16 +14,19 @@ object EditSpecWithSharedObjects extends GeonetworkSpecification {
       val request = (
         config.login then
         create then
-        GetMetadataXml() trackThen
+        GetMetadataXmlFromResult() trackThen
         StartEditing() then
         AddExtentXLink(KantonBern,true) then
-        GetMetadataXml() trackThen
-        DeleteMetadata())
+        GetMetadataXmlFromResult() trackThen
+        DeleteMetadata)
 
       request(None) match {
         case r @ Tracked(originalMd, finalMetadata) =>
-          val originalExtents = withXml(originalMd) { _ \\ "extent"}
-          val finalExtents = withXml(finalMetadata) {_ \\ "extent"}
+
+          val originalXmlValue = originalMd.value.asInstanceOf[XmlValue]
+          val finalMetadataValue = finalMetadata.value.asInstanceOf[XmlValue]
+          val originalExtents = originalXmlValue.withXml { _ \\ "extent"}
+          val finalExtents = finalMetadataValue.withXml {_ \\ "extent"}
 
           finalExtents.size must beGreaterThan (0)
           (originalExtents.size + 1) must beEqualTo (finalExtents.size)
@@ -36,20 +39,6 @@ object EditSpecWithSharedObjects extends GeonetworkSpecification {
 
           (addedExtent \\ "EX_BoundingPolygon") must haveSize (1)
           (addedExtent \\ "EX_GeographicBoundingBox") must haveSize (1)
-      }
-    }
-
-    "create a metadata and add a new contact" in {
-      val Create = CreateMetadata(config,config.sampleDataTemplateIds(0))
-      val request = (
-        config.login then
-        Create then
-        AddNewContact() trackThen
-        DeleteMetadata())
-
-      request(None) match {
-        case r @ Tracked (add) =>
-          add.href must notBeEmpty
       }
     }
   }
