@@ -143,6 +143,9 @@ abstract class DeprecatedAbstractGetRequest[-In, +Out](uri:String,valueFactory:V
   }
 }
 abstract class Param[-In](val name:String,val value:In => String)
+object Param {
+  def mapping[B] = (p:(String,B)) => P(p._1,p._2.toString)
+}
 case class P(n:String, v:String) extends Param[Any](n, _ => v)
 
 case class InP[-In](n:String,f:In => String) extends Param[In](n,f)
@@ -171,7 +174,17 @@ abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueF
   override def toString() = "XmlRequest("+uri+")"
 }
 
-abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
+abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:Param[In]*)
+  extends AbstractRequest(valueFactory) {
+  def request(in:In) = {
+    val post = new HttpPost(Config.resolveURI(uri))
+    Log.apply(Log.RequestForm, params mkString ("\t","\n\t",""))
+    val formParams = params.map{p => new BasicNameValuePair(p.name,p.value(in))}.toList
+    post.setEntity(new UrlEncodedFormEntity(formParams.asJava,"UTF-8"))
+    post
+  }
+}
+abstract class DeprecatedAbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
   extends AbstractRequest(valueFactory) {
   def request(in:In) = {
     val post = new HttpPost(Config.resolveURI(uri))
@@ -181,6 +194,6 @@ abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:Va
     post
   }
 }
-case class GetRequest(uri:String, params:(String,Any)*) extends DeprecatedAbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params:_*)
-case class FormPostRequest(override val uri:String, form:(String,Any)*) extends AbstractFormPostRequest[Any,XmlValue](uri,XmlValueFactory,form:_*)
+case class GetRequest(uri:String, params:(String,Any)*) extends AbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params.map(Param.mapping):_*)
+case class FormPostRequest(override val uri:String, form:(String,Any)*) extends AbstractFormPostRequest[Any,XmlValue](uri,XmlValueFactory,form.map(Param.mapping):_*)
 case class XmlPostRequest(uri:String, xmlData:xml.NodeSeq) extends AbstractXmlPostRequest[Any,XmlValue](uri,XmlValueFactory)

@@ -11,9 +11,9 @@ case object DeleteMetadata extends AbstractGetRequest[Id,IdValue](
 
 case class DeleteMetadataReport(deletedRecordIds:Map[String,BasicHttpResponse[IdValue]])
 
-case object DeleteOwnedMetadata extends Request[Id,DeleteMetadataReport] {
-  override def apply(in: Id)(implicit context: ExecutionContext) = {
-    val props = PropertyIsLike("_owner",in.id)
+case object DeleteOwnedMetadata extends Request[UserRef,DeleteMetadataReport] {
+  override def apply(in: UserRef)(implicit context: ExecutionContext) = {
+    val props = PropertyIsLike("_owner",in.userId)
     val csw = CswGetRecordsRequest(props.xml)
     csw(None).value.withXml{ xml =>
       val ids = xml \\ "info" \ "id" map {_.text}

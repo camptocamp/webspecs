@@ -36,10 +36,14 @@ object User {
       UserProfiles.Guest
     }
     val email = get("email")
-    User(Some(id),username,password,surname,name,email,profile = profile)
+    new User(Some(id),username,password,surname,name,email,profile = profile) with UserRef {
+      lazy val userId = idOption.get
+    }
   }
 }
-
+trait UserRef {
+  def userId:String
+}
 case class User(val idOption:Option[String]=None,
                 username:String=(TEST_TAG+UUID.randomUUID.toString.takeRight(5)),
                 password:String=TEST_TAG,
@@ -52,8 +56,8 @@ case class User(val idOption:Option[String]=None,
   require(profile == UserProfiles.Guest && groups.nonEmpty || profile != UserProfiles,
      "Shared users are not part of groups: profile="+profile+", groups="+(groups mkString ","))
 
-  def id(implicit executionContext:ExecutionContext) = idOption orElse {
-    ListUsers(None).value find {_.username == username}
+  def loadId(implicit executionContext:ExecutionContext):Option[String] = idOption orElse {
+    ListUsers(None).value find {_.username == username} map {_.userId}
   }
 
   def formParams():List[(String,String)] = ("username" -> username ::
@@ -85,8 +89,13 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
   }
 }
 
-case class GetUserValue(id:String, basicValue:BasicHttpValue) extends XmlValue with IdValue {
-  lazy val user = withXml { xml =>
+class UserValue(val user:User, val basicValue:BasicHttpValue) extends XmlValue with UserRef {
+  def userId = user.idOption.get
+  def loadUser(implicit context:ExecutionContext) = GetUser(userId)(None).value.user
+}
+
+class GetUserValue(override val userId:String, basicValue:BasicHttpValue) extends UserValue(null, basicValue) {
+  override val user = withXml { xml =>
     // TODO need another request to get username and profile
     val surname = (xml \\ "surname").text.trim
     val name = (xml \\ "name").text.trim
@@ -104,11 +113,11 @@ case class GetUserValue(id:String, basicValue:BasicHttpValue) extends XmlValue w
       LocalisedString(Map(en ::: de ::: fr ::: fr ::: it :_*))
     }
     val position = localizedLookup("positionName")
-    User(Some(id),"","",surname,name,email,position)
+    User(Some(userId),"","",surname,name,email,position)
   }
 }
 
-case object ListUsers extends DeprecatedAbstractGetRequest[Any,List[User]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User]] {
+case object ListUsers extends DeprecatedAbstractGetRequest[Any,List[User with UserRef]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User with UserRef]] {
   def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml(xml => {
       val users = xml \\ "record" map {record =>
@@ -121,16 +130,16 @@ case object ListUsers extends DeprecatedAbstractGetRequest[Any,List[User]]("xml.
 }
 
 object GetUser {
-  def fromUserName(userName:String):Request[Any,GetUserValue] = {
-    ListUsers then {response =>
+  def fromUserName(userName:String):Request[Any,UserValue] = {
+    ListUsers then {(response:Response[List[User with UserRef]]) =>
       val user = response.value.find{_.username == userName} getOrElse {throw new IllegalArgumentException("Unable to find user with username: "+userName)}
-      val id = user.idOption getOrElse(throw new Error("No ID provided for user "+userName))
+      val id = user.userId
       GetUser(id)
     }
   }
 }
 case class GetUser(userId:String)
-  extends DeprecatedAbstractGetRequest[Any,GetUserValue](
+  extends DeprecatedAbstractGetRequest[Any,UserValue](
     "xml.user.get",
     SelfValueFactory(),
     "id" -> userId.toString,
@@ -140,33 +149,28 @@ case class GetUser(userId:String)
 }
 
 case class CreateUser(user:User)
-  extends AbstractFormPostRequest(
+  extends DeprecatedAbstractFormPostRequest(
     "user.update",
     SelfValueFactory(),
     user.formParams:_*)
-  with ValueFactory[Any,UserListValue] {
+  with ValueFactory[Any,UserValue] {
 
-  override def createValue[A <: Any, B >: UserListValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    new UserListValue(user,rawValue,executionContext)
+  override def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    new UserValue(user,rawValue) {
+      override lazy val userId = user.loadId(executionContext).get
+    }
   }
 }
 object DeleteUser {
-def apply() = (response:Response[IdValue]) => new DeleteUser(response.value.id)
+def apply() = (response:Response[UserRef]) => new DeleteUser(response.value.userId)
 }
 case class DeleteUser(userId:String) extends DeprecatedAbstractGetRequest("user.remove", ExplicitIdValueFactory(userId), "id" -> userId)
 
-object UpdateUser {
-  def apply(id:String, user:User) = new UpdateUser(id,user)
-  def apply(user:User) = (res:Response[UserListValue]) => new UpdateUser(res.value.id.get,res.value.user)
-}
+case class UpdateUser(val user:User)
+  extends DeprecatedAbstractFormPostRequest[UserRef,UserValue]("user.update", SelfValueFactory(), user.formParams():_*)
+  with ValueFactory[UserRef,UserValue] {
 
-class UpdateUser(val userId:String, val user:User)
-  extends AbstractFormPostRequest[UserListValue,UserListValue]("user.update", SelfValueFactory(), user.formParams():_*)
-  with ValueFactory[UserListValue,UserListValue] {
-
-  def createValue[A <: UserListValue, B >: UserListValue](request: Request[A, B], in: UserListValue, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    new UserListValue(user.copy(idOption = Some(userId)),rawValue,executionContext) {
-      override lazy val id:Option[String] = Some(userId)
-    }
+  def createValue[A <: UserRef, B >: UserValue](request: Request[A, B], in: UserRef, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    new UserValue(user.copy(idOption = Some(in.userId)),rawValue)
   }
 }
