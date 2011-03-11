@@ -113,8 +113,8 @@ object ImportStyleSheets extends Enumeration {
   val NONE = Value("_none_")
 }
 object ImportMetadata {
-  def apply (fileName:String, data:String, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean)(implicit config:GeonetConfig):ImportMetadata = {
-     ImportMetadata(new File(fileName), styleSheet,validate,config.groupId)
+  def apply (data:File, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean)(implicit config:GeonetConfig):ImportMetadata = {
+     ImportMetadata(data, styleSheet,validate,config.groupId)
   }
 
 }

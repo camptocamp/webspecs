@@ -35,9 +35,8 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
 
     "Allow creation of shared format and validate it without interfering with others in metadata" in {
       val testDataFileName = "metadata-validate-formats-spec.xml"
-      val testData = XML.load(config.inputStream("data/"+testDataFileName))
 
-      val ImportTestData = ImportMetadata("data/"+testDataFileName,testData.toString,ImportStyleSheets.NONE,false)
+      val ImportTestData = ImportMetadata(config.resourceFile("data/"+testDataFileName),ImportStyleSheets.NONE,false)
 
       val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXmlFromResult())(None).value
       val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
@@ -68,8 +67,8 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
     }
     "Allow creation of shared format and validate it without losing role information" in {
       val testDataFileName = "metadata-validate-contact-138548.xml"
-      val testData = XML.load(config.inputStream("data/"+testDataFileName))
-      val ImportTestData = ImportMetadata("data/"+testDataFileName,testData.toString,ImportStyleSheets.NONE,false);
+
+      val ImportTestData = ImportMetadata(config.resourceFile("data/"+testDataFileName),ImportStyleSheets.NONE,false);
 
       val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXmlFromResult())(None).value
       val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)

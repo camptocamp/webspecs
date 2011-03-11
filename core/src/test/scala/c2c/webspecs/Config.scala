@@ -2,6 +2,7 @@ package c2c.webspecs
 
 import java.net.{InetAddress}
 import util.control.Exception
+import java.io.File
 
 class ExceptionChain(first:Throwable, exception:Throwable*) extends Exception(first.getMessage,first) {
   def all = first +: exception
@@ -32,7 +33,15 @@ object Config {
   }
 }
 class Config(val specName:String) extends Log {
-  def inputStream(path:String) = Option(getClass.getClassLoader.getResourceAsStream(path)) getOrElse {throw new IllegalArgumentException(path+" is not an available resource")}
+  def resourceFile[T](path:String)(implicit resourceBase:Class[T]) = {
+    Option(resourceBase.getClassLoader.getResource(path)).
+      map {url => new File(url.getFile)}.
+      getOrElse {throw new IllegalArgumentException(path+" is not an available resource")}
+  }
+  def resourceStream[T](path:String)(implicit resourceBase:Class[T]) = {
+    Option(resourceBase.getClassLoader.getResourceAsStream(path)).
+      getOrElse {throw new IllegalArgumentException(path+" is not an available resource")}
+  }
   val lifeCycle = SystemLifeCycle(this)
 
   def setUpTestEnv(implicit context:ExecutionContext) = {

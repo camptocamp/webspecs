@@ -8,6 +8,7 @@ import UserProfiles._
 abstract class GeonetworkSpecification(userProfile:UserProfile = Editor) extends Specification {
   implicit val config = GeonetConfig(userProfile,getClass().getSimpleName)
   implicit val context = new DefaultExecutionContext()
+  implicit val resourceBase = getClass
 
   lazy val UserLogin = config.login
 
