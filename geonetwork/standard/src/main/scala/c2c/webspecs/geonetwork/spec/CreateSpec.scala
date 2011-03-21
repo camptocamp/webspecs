@@ -19,12 +19,12 @@ object CreateSpec extends GeonetworkSpecification {
 
       createResponse.basicValue.responseCode must_== 200
       findResponse.basicValue.responseCode must_== 200
-      findResponse.value.asInstanceOf[XmlValue].withXml{md =>
+      findResponse.value.withXml{md =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
         }
       deleteResponse.basicValue.responseCode must_== 200
-      secondFindResponse.value.asInstanceOf[XmlValue].xml.right.toOption must beNone
+      secondFindResponse.value.xml.right.toOption must beNone
     }
 
 
@@ -42,12 +42,12 @@ object CreateSpec extends GeonetworkSpecification {
 
       createResponse.basicValue.responseCode must_== 200
       findResponse.basicValue.responseCode must_== 200
-      findResponse.value.asInstanceOf[XmlValue].withXml{md =>
+      findResponse.value.withXml{md =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
         }
       deleteResponse.basicValue.responseCode must_== 200
-      secondFindResponse.value.asInstanceOf[XmlValue].xml.right.toOption must beNone
+      secondFindResponse.value.xml.right.toOption must beNone
     }
   }
 }

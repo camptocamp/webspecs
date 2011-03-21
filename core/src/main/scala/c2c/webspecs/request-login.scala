@@ -10,7 +10,7 @@ import java.net.URI
 import org.apache.http.client.utils.URIUtils
 
 object Login {
-  def apply(user:String,pass:String):Request[Any,Any] = Config.loadStrategy[Request[Any,Any]]("login") fold (
+  def apply(user:String,pass:String):Request[Any,Nothing] = Config.loadStrategy[Request[Any,Nothing]]("login") fold (
     throw _,
     strategy =>
       strategy.getConstructor(classOf[String],classOf[String]).newInstance(user,pass)

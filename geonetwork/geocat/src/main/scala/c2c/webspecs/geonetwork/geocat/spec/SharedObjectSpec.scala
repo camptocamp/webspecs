@@ -8,21 +8,23 @@ import xml.{NodeSeq, XML}
 object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) {
   "Geocat" should {
     "Allow creation and deletion of shared users" in {
-      (UserLogin then CreateUser(User()))(None).basicValue.responseCode must be_>= (400)
+      val Create = CreateUser(User())
+
+      (UserLogin then Create)(None).basicValue.responseCode must be_>= (400)
 
       val newEmail = "newemail@cc.cc"
 
-      val request = (config.adminLogin then
-        CreateUser(User()) startTrackingThen
-        UpdateUser(User(email=newEmail)) trackThen       // TODO add shared profile
+      val request:AccumulatingRequest2[Any,UserValue,UserValue,IdValue] = (config.adminLogin then
+        Create startTrackingThen
+        UpdateUser(User(email = newEmail)) trackThen        // TODO add shared profile
         DeleteUser())
 
       val (creation, update, deleteUser) = request(None).tuple
       creation.basicValue.responseCode must_== 200
-      creation.value.asInstanceOf[UserValue].user.idOption must beSome
+      creation.value.user.idOption must beSome
 
-      update.value.asInstanceOf[UserValue].user.idOption must beSome
-      update.value.asInstanceOf[UserValue].loadUser.email must_== newEmail  // id does not look up correct id for some reason :(
+      update.value.user.idOption must beSome
+      update.value.loadUser.email must_== newEmail  // id does not look up correct id for some reason :(
 
       deleteUser.basicValue.responseCode must_== 200
     }

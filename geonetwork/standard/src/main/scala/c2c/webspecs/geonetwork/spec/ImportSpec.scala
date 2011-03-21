@@ -22,13 +22,13 @@ object ImportSpec extends GeonetworkSpecification {
       val (importResponse, findResponse, deleteResponse, secondFindResponse) = request(None).tuple
         importResponse.basicValue.responseCode must_== 200
         findResponse.basicValue.responseCode must_== 200
-        findResponse.value.asInstanceOf[XmlValue].withXml { md =>
+        findResponse.value.withXml { md =>
             md \\ "ERROR" must beEmpty
             // TODO better checks
           }
 
         deleteResponse.basicValue.responseCode must_== 200
-        secondFindResponse.asInstanceOf[XmlValue].xml.right.toOption must beNone
+        secondFindResponse.value.xml.right.toOption must beNone
     }
   }
 }

@@ -19,8 +19,8 @@ object EditSpec extends GeonetworkSpecification {
 
 
         val (originalMd, finalMetadata, _) = request(None).tuple
-        val originalXmlValue = originalMd.value.asInstanceOf[XmlValue]
-        val finalMetadataValue = finalMetadata.value.asInstanceOf[XmlValue]
+        val originalXmlValue = originalMd.value
+        val finalMetadataValue = finalMetadata.value
         val originalExtents = originalXmlValue.withXml { _ \\ "extent"}
         val finalExtents = finalMetadataValue.withXml {_ \\ "extent"}
 
@@ -46,7 +46,7 @@ object EditSpec extends GeonetworkSpecification {
         AddNewContact() startTrackingThen
         DeleteMetadata)
 
-        request(None)._1.value.asInstanceOf[AddValue].href must notBeEmpty
+        request(None)._1.value.href must notBeEmpty
     }
   }
 }

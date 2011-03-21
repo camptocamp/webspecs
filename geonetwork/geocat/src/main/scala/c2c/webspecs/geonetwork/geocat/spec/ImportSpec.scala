@@ -23,13 +23,13 @@ object ImportSpec extends GeonetworkSpecification {
       val (importResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
       importResponse.basicValue.responseCode must_== 200
       findResponse.basicValue.responseCode must_== 200
-      findResponse.value.asInstanceOf[XmlValue].withXml{ md  =>
+      findResponse.value.withXml{ md  =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
         }
 
       deleteResponse.basicValue.responseCode must_== 200
-      secondFindResponse.value.asInstanceOf[XmlValue].xml.right.toOption must beNone
+      secondFindResponse.value.xml.right.toOption must beNone
     }
 
     "import a gm03 V2 metadata" in {
@@ -49,13 +49,13 @@ object ImportSpec extends GeonetworkSpecification {
 
       importResponse.basicValue.responseCode must_== 200
       findResponse.basicValue.responseCode must_== 200
-      findResponse.value.asInstanceOf[XmlValue].withXml { md =>
+      findResponse.value.withXml { md =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
         }
 
       deleteResponse.basicValue.responseCode must_== 200
-      secondFindResponse.asInstanceOf[XmlValue].xml.right.toOption must beNone
+      secondFindResponse.value.xml.right.toOption must beNone
     }
 
     "import a iso19139.che metadata" in {
@@ -71,15 +71,16 @@ object ImportSpec extends GeonetworkSpecification {
         GetMetadataXmlFromResult())
 
       val (importResponse, findResponse, deleteResponse, secondFindResponse) = request(None).tuple
+
       importResponse.basicValue.responseCode must_== 200
       findResponse.basicValue.responseCode must_== 200
-      findResponse.value.asInstanceOf[XmlValue].withXml { md =>
+      findResponse.value.withXml { md =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
         }
 
       deleteResponse.basicValue.responseCode must_== 200
-      secondFindResponse.asInstanceOf[XmlValue].xml.right.toOption must beNone
+      secondFindResponse.value.xml.right.toOption must beNone
     }
   }
 }

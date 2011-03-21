@@ -1,4 +1,5 @@
-package c2c.webspecs.geonetwork
+package c2c.webspecs
+package geonetwork
 
 object LocalisedString {
   def apply(en:String,de:String="",fr:String="",it:String=""):LocalisedString = {
@@ -7,5 +8,5 @@ object LocalisedString {
   }
 }
 case class LocalisedString(translations:Map[String,String]) {
-   def formParams(paramName:String)= translations.map{case (key,value) => paramName+key.toUpperCase -> value} toList
+   def formParams(paramName:String)= translations.map{case (key,value) => P(paramName+key.toUpperCase, value)} toList
 }

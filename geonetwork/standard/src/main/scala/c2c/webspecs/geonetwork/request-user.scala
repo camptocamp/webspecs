@@ -60,14 +60,14 @@ case class User(val idOption:Option[String]=None,
     ListUsers(None).value find {_.username == username} map {_.userId}
   }
 
-  def formParams():List[(String,String)] = ("username" -> username ::
-    "password" -> password ::
-    "password2" -> password ::
-    "name" -> name ::
-    "surname" -> surname ::
-    "profile" -> profile.toString ::
+  def formParams():List[Param[Any]] = (P("username", username) ::
+    P("password", password) ::
+    P("password2", password) ::
+    P("name", name) ::
+    P("surname", surname) ::
+    P("profile", profile.toString) ::
     position.formParams("position")) :::
-    (if (groups.isEmpty) Nil else List("groups" -> (groups mkString ",")))
+    (if (groups.isEmpty) Nil else List(P("groups", (groups mkString ","))))
 }
 
 case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:ExecutionContext) extends XmlValue {
@@ -149,7 +149,7 @@ case class GetUser(userId:String)
 }
 
 case class CreateUser(user:User)
-  extends DeprecatedAbstractFormPostRequest(
+  extends AbstractFormPostRequest[Any,UserValue](
     "user.update",
     SelfValueFactory(),
     user.formParams:_*)
@@ -164,10 +164,10 @@ case class CreateUser(user:User)
 object DeleteUser {
 def apply() = (response:Response[UserRef]) => new DeleteUser(response.value.userId)
 }
-case class DeleteUser(userId:String) extends DeprecatedAbstractGetRequest("user.remove", ExplicitIdValueFactory(userId), "id" -> userId)
+case class DeleteUser(userId:String) extends AbstractGetRequest[Any,IdValue]("user.remove", ExplicitIdValueFactory(userId), P("id", userId))
 
 case class UpdateUser(val user:User)
-  extends DeprecatedAbstractFormPostRequest[UserRef,UserValue]("user.update", SelfValueFactory(), user.formParams():_*)
+  extends AbstractFormPostRequest[UserRef,UserValue]("user.update", SelfValueFactory(), user.formParams():_*)
   with ValueFactory[UserRef,UserValue] {
 
   def createValue[A <: UserRef, B >: UserValue](request: Request[A, B], in: UserRef, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {

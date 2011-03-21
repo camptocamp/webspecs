@@ -188,6 +188,7 @@ abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:Va
     post
   }
 }
+@Deprecated
 abstract class DeprecatedAbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
   extends AbstractRequest(valueFactory) {
   def request(in:In) = {
