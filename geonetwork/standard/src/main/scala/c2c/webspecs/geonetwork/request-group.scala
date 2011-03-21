@@ -17,5 +17,5 @@ object CreateGroup {
 case class CreateGroup(group:Group) extends MultiPartFormRequest[Any,XmlValue]("group.update",XmlValueFactory,group.formParams:_*)
 
 case class DeleteGroup(groupId:String,deleteUsers:Boolean)
-  extends DeprecatedAbstractGetRequest("group.remove", XmlValueFactory, "id" -> groupId, "users" -> (if(deleteUsers) "delete" else ""))
+  extends AbstractGetRequest("group.remove", XmlValueFactory, P("id", groupId), P("users", if(deleteUsers) "delete" else ""))
 

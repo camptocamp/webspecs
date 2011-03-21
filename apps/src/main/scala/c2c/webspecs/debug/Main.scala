@@ -7,13 +7,13 @@ class AccDivCountFactory(polar:Int) extends BasicValueFactory[Int] {
   override def createValue(rawValue: BasicHttpValue) = polar
 }
 case class DivCount(uri:String)
-  extends DeprecatedAbstractGetRequest(uri,SelfValueFactory[Any,Int]())
+  extends AbstractGetRequest(uri,SelfValueFactory[Any,Int]())
   with BasicValueFactory[Int] {
 
  override def createValue(rawValue: BasicHttpValue) = 0
 }
 
-case class DivCountAcc(uri:String,polar:Int) extends DeprecatedAbstractGetRequest[Int,Int](uri,new AccDivCountFactory(polar))
+case class DivCountAcc(uri:String,polar:Int) extends AbstractGetRequest[Int,Int](uri,new AccDivCountFactory(polar))
 
 object AddCookie extends Request[Any,Null] {
   def apply(in: Any)(implicit context: ExecutionContext) = {

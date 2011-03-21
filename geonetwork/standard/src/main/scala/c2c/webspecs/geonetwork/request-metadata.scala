@@ -57,15 +57,21 @@ object MetadataRequest {
 object ShowResultingMetadata {
   def apply(view:MetadataView = MetadataViews.xml) = MetadataRequest.makeInputBasedMetadataRequest(id => ShowMetadata(id,view))
 }
-case class ShowMetadata(mdId:String, view:MetadataView = MetadataViews.xml) extends DeprecatedAbstractGetRequest[Any,IdValue]("metadata.show", ExplicitIdValueFactory(mdId), "id" -> mdId, "currTab" -> view.toString)
+case class ShowMetadata(mdId:String, view:MetadataView = MetadataViews.xml)
+  extends AbstractGetRequest[Any,IdValue](
+    "metadata.show",
+    ExplicitIdValueFactory(mdId),
+    P("id", mdId),
+    P("currTab", view.toString))
 
 object GetEditingMetadataFromResult {
   def apply() = MetadataRequest.makeInputBasedMetadataRequest(id => GetEditingMetadata(id))
 }
-case class GetEditingMetadata(mdId:String) extends DeprecatedAbstractGetRequest[Any,IdValue](
+case class GetEditingMetadata(mdId:String) extends AbstractGetRequest[Any,IdValue](
   "metadata.ext.edit.data",
   ExplicitIdValueFactory(mdId),
-  "id" -> mdId)
+  P("id", mdId))
+
 object GetMetadataXmlFromResult {
   def apply(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord) =
     MetadataRequest.makeInputBasedMetadataRequest(id => GetMetadataXml(id,schema))

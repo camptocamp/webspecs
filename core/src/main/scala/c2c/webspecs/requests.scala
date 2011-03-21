@@ -138,14 +138,14 @@ abstract class AbstractRequest[-In, +Out]
   }
 }
 
-@Deprecated
+/*@Deprecated
 abstract class DeprecatedAbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
   extends AbstractRequest[In,Out](valueFactory) {
   def request(in:In) = {
     val stringParams = params.map(p => p._1 -> p._2.toString)
     new HttpGet(Config.resolveURI(uri,stringParams:_*))
   }
-}
+} */
 abstract class Param[-In](val name:String,val value:In => String)
 object Param {
   def mapping[B] = (p:(String,B)) => P(p._1,p._2.toString)

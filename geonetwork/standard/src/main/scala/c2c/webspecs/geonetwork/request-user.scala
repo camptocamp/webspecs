@@ -117,7 +117,7 @@ class GetUserValue(override val userId:String, basicValue:BasicHttpValue) extend
   }
 }
 
-case object ListUsers extends DeprecatedAbstractGetRequest[Any,List[User with UserRef]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User with UserRef]] {
+case object ListUsers extends AbstractGetRequest[Any,List[User with UserRef]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User with UserRef]] {
   def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml(xml => {
       val users = xml \\ "record" map {record =>
@@ -139,12 +139,12 @@ object GetUser {
   }
 }
 case class GetUser(userId:String)
-  extends DeprecatedAbstractGetRequest[Any,UserValue](
+  extends AbstractGetRequest[Any,UserValue](
     "xml.user.get",
     SelfValueFactory(),
-    "id" -> userId.toString,
-    "schema" -> "iso19139.che",
-    "role" -> "createValue") with BasicValueFactory[GetUserValue] {
+    P("id", userId.toString),
+    P("schema", "iso19139.che"),
+    P("role", "createValue")) with BasicValueFactory[GetUserValue] {
   override def createValue(rawValue: BasicHttpValue) = new GetUserValue(userId,rawValue)
 }
 

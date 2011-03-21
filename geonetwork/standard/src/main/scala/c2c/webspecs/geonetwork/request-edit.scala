@@ -24,7 +24,7 @@ object EditValueFactory extends BasicValueFactory[EditValue] {
 }
 
 case class CreateMetadata(constants:GeonetConfig, templateId:String)
-  extends DeprecatedAbstractGetRequest[Any,EditValue]("metadata.create",EditValueFactory,"group" -> constants.groupId, "id" -> templateId)
+  extends AbstractGetRequest[Any,EditValue]("metadata.create",EditValueFactory,P("group", constants.groupId), P("id", templateId))
 
 import xml.{Node, NodeSeq}
 
@@ -113,5 +113,5 @@ object StartEditing {
   def apply(view:MetadataView = MetadataViews.simple):Response[IdValue] => StartEditing = response => StartEditing(response.value.id,view)
 }
 case class StartEditing(mdId:String,view:MetadataView)
-  extends DeprecatedAbstractGetRequest[Any,EditValue]("metadata.edit",EditValueFactory, "id" -> mdId,"currTab" -> view.toString)
+  extends AbstractGetRequest[Any,EditValue]("metadata.edit",EditValueFactory, P("id", mdId),P("currTab", view.toString))
 
