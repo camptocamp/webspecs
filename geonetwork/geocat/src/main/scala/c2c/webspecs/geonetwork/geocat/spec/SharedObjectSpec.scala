@@ -12,25 +12,19 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
 
       val newEmail = "newemail@cc.cc"
 
-      /*config.adminLogin
-      val created = CreateUser(User())(None)
-      val updated = UpdateUser(User(email=newEmail))(created.value)
-      val deleted = DeleteUser(updated.value)()*/
       val request = (config.adminLogin then
-        CreateUser(User()) trackThen
+        CreateUser(User()) startTrackingThen
         UpdateUser(User(email=newEmail)) trackThen       // TODO add shared profile
         DeleteUser())
 
-      request(None) match {
-        case AccumulatedResponse.IncludeLast(creation, update, deleteUser) =>
-          creation.basicValue.responseCode must_== 200
-          creation.value.asInstanceOf[UserValue].user.idOption must beSome
+      val (creation, update, deleteUser) = request(None).tuple
+      creation.basicValue.responseCode must_== 200
+      creation.value.asInstanceOf[UserValue].user.idOption must beSome
 
-          update.value.asInstanceOf[UserValue].user.idOption must beSome
-          update.value.asInstanceOf[UserValue].loadUser.email must_== newEmail  // id does not look up correct id for some reason :(
+      update.value.asInstanceOf[UserValue].user.idOption must beSome
+      update.value.asInstanceOf[UserValue].loadUser.email must_== newEmail  // id does not look up correct id for some reason :(
 
-          deleteUser.basicValue.responseCode must_== 200
-      }
+      deleteUser.basicValue.responseCode must_== 200
     }
 
     "Allow creation of shared format and validate it without interfering with others in metadata" in {

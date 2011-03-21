@@ -2,7 +2,6 @@ package c2c.webspecs
 
 import AccumulatingRequest._
 import ChainedRequest.ConstantRequestFunction
-import java.io.IOException    
     
 
 class AccumulatingRequest1[-In,+T1,+Out](
@@ -39,15 +38,20 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest2
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse1[+T1,+Z](
-    _1:Response[T1],
+case class AccumulatedResponse1[+T1,+Z](
+    val _1:Response[T1],
     val last:Response[Z])
-  extends Tuple1(
-    _1
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value
-    )
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
+    _1,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    last.value
+  )
 }
 
 
@@ -79,7 +83,7 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest3
 
     new AccumulatedResponse2(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]], 
+      trackedResponses(1).asInstanceOf[Response[T2]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -87,18 +91,23 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest3
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse2[+T1,+T2,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
+case class AccumulatedResponse2[+T1,+T2,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
     val last:Response[Z])
-  extends Tuple2(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value
-    )
+    _2,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    last.value
+  )
 }
 
 
@@ -130,8 +139,8 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest4
 
     new AccumulatedResponse3(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -139,21 +148,26 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest4
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse3[+T1,+T2,+T3,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
+case class AccumulatedResponse3[+T1,+T2,+T3,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
     val last:Response[Z])
-  extends Tuple3(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value
-    )
+    _2,
+    _3,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    last.value
+  )
 }
 
 
@@ -185,9 +199,9 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest5
 
     new AccumulatedResponse4(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -195,24 +209,29 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest5
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse4[+T1,+T2,+T3,+T4,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
+case class AccumulatedResponse4[+T1,+T2,+T3,+T4,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
     val last:Response[Z])
-  extends Tuple4(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value
-    )
+    _2,
+    _3,
+    _4,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    last.value
+  )
 }
 
 
@@ -244,10 +263,10 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest6
 
     new AccumulatedResponse5(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -255,27 +274,32 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest6
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse5[+T1,+T2,+T3,+T4,+T5,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
+case class AccumulatedResponse5[+T1,+T2,+T3,+T4,+T5,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
     val last:Response[Z])
-  extends Tuple5(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    last.value
+  )
 }
 
 
@@ -307,11 +331,11 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest7
 
     new AccumulatedResponse6(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -319,30 +343,35 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest7
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse6[+T1,+T2,+T3,+T4,+T5,+T6,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
+case class AccumulatedResponse6[+T1,+T2,+T3,+T4,+T5,+T6,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
     val last:Response[Z])
-  extends Tuple6(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    last.value
+  )
 }
 
 
@@ -374,12 +403,12 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest8
 
     new AccumulatedResponse7(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -387,33 +416,38 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest8
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse7[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
+case class AccumulatedResponse7[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
     val last:Response[Z])
-  extends Tuple7(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    last.value
+  )
 }
 
 
@@ -445,13 +479,13 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest9
 
     new AccumulatedResponse8(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -459,36 +493,41 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest9
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse8[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
+case class AccumulatedResponse8[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
     val last:Response[Z])
-  extends Tuple8(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    last.value
+  )
 }
 
 
@@ -520,14 +559,14 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse9(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -535,39 +574,44 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse9[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
+case class AccumulatedResponse9[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
     val last:Response[Z])
-  extends Tuple9(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    last.value
+  )
 }
 
 
@@ -599,15 +643,15 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse10(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -615,42 +659,47 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse10[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
+case class AccumulatedResponse10[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
     val last:Response[Z])
-  extends Tuple10(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    last.value
+  )
 }
 
 
@@ -682,16 +731,16 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse11(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -699,45 +748,50 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse11[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
+case class AccumulatedResponse11[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
     val last:Response[Z])
-  extends Tuple11(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    last.value
+  )
 }
 
 
@@ -769,17 +823,17 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse12(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -787,48 +841,53 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse12[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
+case class AccumulatedResponse12[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
     val last:Response[Z])
-  extends Tuple12(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    last.value
+  )
 }
 
 
@@ -860,18 +919,18 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse13(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -879,51 +938,56 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse13[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
+case class AccumulatedResponse13[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
     val last:Response[Z])
-  extends Tuple13(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    last.value
+  )
 }
 
 
@@ -955,19 +1019,19 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse14(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -975,54 +1039,59 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse14[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
+case class AccumulatedResponse14[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
     val last:Response[Z])
-  extends Tuple14(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    last.value
+  )
 }
 
 
@@ -1054,20 +1123,20 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse15(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]],
-          trackedResponses(14).asInstanceOf[Response[T15]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]],
+      trackedResponses(14).asInstanceOf[Response[T15]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -1075,57 +1144,62 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse15[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
-        _15:Response[T15],
+case class AccumulatedResponse15[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
+    val _15:Response[T15],
     val last:Response[Z])
-  extends Tuple15(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value,
-          _15.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    _15.value,
+    last.value
+  )
 }
 
 
@@ -1157,21 +1231,21 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse16(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]],
-          trackedResponses(14).asInstanceOf[Response[T15]],
-          trackedResponses(15).asInstanceOf[Response[T16]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]],
+      trackedResponses(14).asInstanceOf[Response[T15]],
+      trackedResponses(15).asInstanceOf[Response[T16]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -1179,60 +1253,65 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse16[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
-        _15:Response[T15],
-        _16:Response[T16],
+case class AccumulatedResponse16[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
+    val _15:Response[T15],
+    val _16:Response[T16],
     val last:Response[Z])
-  extends Tuple16(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15,
-        _16
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value,
-          _15.value,
-          _16.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    _16,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    _15.value,
+    _16.value,
+    last.value
+  )
 }
 
 
@@ -1264,22 +1343,22 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse17(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]],
-          trackedResponses(14).asInstanceOf[Response[T15]],
-          trackedResponses(15).asInstanceOf[Response[T16]],
-          trackedResponses(16).asInstanceOf[Response[T17]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]],
+      trackedResponses(14).asInstanceOf[Response[T15]],
+      trackedResponses(15).asInstanceOf[Response[T16]],
+      trackedResponses(16).asInstanceOf[Response[T17]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -1287,63 +1366,68 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse17[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
-        _15:Response[T15],
-        _16:Response[T16],
-        _17:Response[T17],
+case class AccumulatedResponse17[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
+    val _15:Response[T15],
+    val _16:Response[T16],
+    val _17:Response[T17],
     val last:Response[Z])
-  extends Tuple17(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15,
-        _16,
-        _17
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value,
-          _15.value,
-          _16.value,
-          _17.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    _16,
+    _17,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    _15.value,
+    _16.value,
+    _17.value,
+    last.value
+  )
 }
 
 
@@ -1375,23 +1459,23 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
 
     new AccumulatedResponse18(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]],
-          trackedResponses(14).asInstanceOf[Response[T15]],
-          trackedResponses(15).asInstanceOf[Response[T16]],
-          trackedResponses(16).asInstanceOf[Response[T17]],
-          trackedResponses(17).asInstanceOf[Response[T18]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]],
+      trackedResponses(14).asInstanceOf[Response[T15]],
+      trackedResponses(15).asInstanceOf[Response[T16]],
+      trackedResponses(16).asInstanceOf[Response[T17]],
+      trackedResponses(17).asInstanceOf[Response[T18]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -1399,66 +1483,71 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest1
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse18[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
-        _15:Response[T15],
-        _16:Response[T16],
-        _17:Response[T17],
-        _18:Response[T18],
+case class AccumulatedResponse18[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
+    val _15:Response[T15],
+    val _16:Response[T16],
+    val _17:Response[T17],
+    val _18:Response[T18],
     val last:Response[Z])
-  extends Tuple18(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15,
-        _16,
-        _17,
-        _18
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value,
-          _15.value,
-          _16.value,
-          _17.value,
-          _18.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    _16,
+    _17,
+    _18,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    _15.value,
+    _16.value,
+    _17.value,
+    _18.value,
+    last.value
+  )
 }
 
 
@@ -1490,24 +1579,24 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest2
 
     new AccumulatedResponse19(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]],
-          trackedResponses(14).asInstanceOf[Response[T15]],
-          trackedResponses(15).asInstanceOf[Response[T16]],
-          trackedResponses(16).asInstanceOf[Response[T17]],
-          trackedResponses(17).asInstanceOf[Response[T18]],
-          trackedResponses(18).asInstanceOf[Response[T19]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]],
+      trackedResponses(14).asInstanceOf[Response[T15]],
+      trackedResponses(15).asInstanceOf[Response[T16]],
+      trackedResponses(16).asInstanceOf[Response[T17]],
+      trackedResponses(17).asInstanceOf[Response[T18]],
+      trackedResponses(18).asInstanceOf[Response[T19]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -1515,69 +1604,74 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest2
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse19[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+T19,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
-        _15:Response[T15],
-        _16:Response[T16],
-        _17:Response[T17],
-        _18:Response[T18],
-        _19:Response[T19],
+case class AccumulatedResponse19[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+T19,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
+    val _15:Response[T15],
+    val _16:Response[T16],
+    val _17:Response[T17],
+    val _18:Response[T18],
+    val _19:Response[T19],
     val last:Response[Z])
-  extends Tuple19(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15,
-        _16,
-        _17,
-        _18,
-        _19
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value,
-          _15.value,
-          _16.value,
-          _17.value,
-          _18.value,
-          _19.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    _16,
+    _17,
+    _18,
+    _19,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    _15.value,
+    _16.value,
+    _17.value,
+    _18.value,
+    _19.value,
+    last.value
+  )
 }
 
 
@@ -1609,25 +1703,25 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest2
 
     new AccumulatedResponse20(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]],
-          trackedResponses(14).asInstanceOf[Response[T15]],
-          trackedResponses(15).asInstanceOf[Response[T16]],
-          trackedResponses(16).asInstanceOf[Response[T17]],
-          trackedResponses(17).asInstanceOf[Response[T18]],
-          trackedResponses(18).asInstanceOf[Response[T19]],
-          trackedResponses(19).asInstanceOf[Response[T20]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]],
+      trackedResponses(14).asInstanceOf[Response[T15]],
+      trackedResponses(15).asInstanceOf[Response[T16]],
+      trackedResponses(16).asInstanceOf[Response[T17]],
+      trackedResponses(17).asInstanceOf[Response[T18]],
+      trackedResponses(18).asInstanceOf[Response[T19]],
+      trackedResponses(19).asInstanceOf[Response[T20]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -1635,72 +1729,77 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest2
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse20[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+T19,+T20,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
-        _15:Response[T15],
-        _16:Response[T16],
-        _17:Response[T17],
-        _18:Response[T18],
-        _19:Response[T19],
-        _20:Response[T20],
+case class AccumulatedResponse20[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+T19,+T20,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
+    val _15:Response[T15],
+    val _16:Response[T16],
+    val _17:Response[T17],
+    val _18:Response[T18],
+    val _19:Response[T19],
+    val _20:Response[T20],
     val last:Response[Z])
-  extends Tuple20(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15,
-        _16,
-        _17,
-        _18,
-        _19,
-        _20
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value,
-          _15.value,
-          _16.value,
-          _17.value,
-          _18.value,
-          _19.value,
-          _20.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    _16,
+    _17,
+    _18,
+    _19,
+    _20,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    _15.value,
+    _16.value,
+    _17.value,
+    _18.value,
+    _19.value,
+    _20.value,
+    last.value
+  )
 }
 
 
@@ -1728,26 +1827,26 @@ class AccumulatingRequest21[-In,+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T
 
     new AccumulatedResponse21(
       trackedResponses(0).asInstanceOf[Response[T1]],
-          trackedResponses(1).asInstanceOf[Response[T2]],
-          trackedResponses(2).asInstanceOf[Response[T3]],
-          trackedResponses(3).asInstanceOf[Response[T4]],
-          trackedResponses(4).asInstanceOf[Response[T5]],
-          trackedResponses(5).asInstanceOf[Response[T6]],
-          trackedResponses(6).asInstanceOf[Response[T7]],
-          trackedResponses(7).asInstanceOf[Response[T8]],
-          trackedResponses(8).asInstanceOf[Response[T9]],
-          trackedResponses(9).asInstanceOf[Response[T10]],
-          trackedResponses(10).asInstanceOf[Response[T11]],
-          trackedResponses(11).asInstanceOf[Response[T12]],
-          trackedResponses(12).asInstanceOf[Response[T13]],
-          trackedResponses(13).asInstanceOf[Response[T14]],
-          trackedResponses(14).asInstanceOf[Response[T15]],
-          trackedResponses(15).asInstanceOf[Response[T16]],
-          trackedResponses(16).asInstanceOf[Response[T17]],
-          trackedResponses(17).asInstanceOf[Response[T18]],
-          trackedResponses(18).asInstanceOf[Response[T19]],
-          trackedResponses(19).asInstanceOf[Response[T20]],
-          trackedResponses(20).asInstanceOf[Response[T21]], 
+      trackedResponses(1).asInstanceOf[Response[T2]],
+      trackedResponses(2).asInstanceOf[Response[T3]],
+      trackedResponses(3).asInstanceOf[Response[T4]],
+      trackedResponses(4).asInstanceOf[Response[T5]],
+      trackedResponses(5).asInstanceOf[Response[T6]],
+      trackedResponses(6).asInstanceOf[Response[T7]],
+      trackedResponses(7).asInstanceOf[Response[T8]],
+      trackedResponses(8).asInstanceOf[Response[T9]],
+      trackedResponses(9).asInstanceOf[Response[T10]],
+      trackedResponses(10).asInstanceOf[Response[T11]],
+      trackedResponses(11).asInstanceOf[Response[T12]],
+      trackedResponses(12).asInstanceOf[Response[T13]],
+      trackedResponses(13).asInstanceOf[Response[T14]],
+      trackedResponses(14).asInstanceOf[Response[T15]],
+      trackedResponses(15).asInstanceOf[Response[T16]],
+      trackedResponses(16).asInstanceOf[Response[T17]],
+      trackedResponses(17).asInstanceOf[Response[T18]],
+      trackedResponses(18).asInstanceOf[Response[T19]],
+      trackedResponses(19).asInstanceOf[Response[T20]],
+      trackedResponses(20).asInstanceOf[Response[T21]], 
       lastResponse.asInstanceOf[Response[Out]]
     )
   }
@@ -1755,73 +1854,78 @@ class AccumulatingRequest21[-In,+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse21[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+T19,+T20,+T21,+Z](
-    _1:Response[T1],
-        _2:Response[T2],
-        _3:Response[T3],
-        _4:Response[T4],
-        _5:Response[T5],
-        _6:Response[T6],
-        _7:Response[T7],
-        _8:Response[T8],
-        _9:Response[T9],
-        _10:Response[T10],
-        _11:Response[T11],
-        _12:Response[T12],
-        _13:Response[T13],
-        _14:Response[T14],
-        _15:Response[T15],
-        _16:Response[T16],
-        _17:Response[T17],
-        _18:Response[T18],
-        _19:Response[T19],
-        _20:Response[T20],
-        _21:Response[T21],
+case class AccumulatedResponse21[+T1,+T2,+T3,+T4,+T5,+T6,+T7,+T8,+T9,+T10,+T11,+T12,+T13,+T14,+T15,+T16,+T17,+T18,+T19,+T20,+T21,+Z](
+    val _1:Response[T1],
+    val _2:Response[T2],
+    val _3:Response[T3],
+    val _4:Response[T4],
+    val _5:Response[T5],
+    val _6:Response[T6],
+    val _7:Response[T7],
+    val _8:Response[T8],
+    val _9:Response[T9],
+    val _10:Response[T10],
+    val _11:Response[T11],
+    val _12:Response[T12],
+    val _13:Response[T13],
+    val _14:Response[T14],
+    val _15:Response[T15],
+    val _16:Response[T16],
+    val _17:Response[T17],
+    val _18:Response[T18],
+    val _19:Response[T19],
+    val _20:Response[T20],
+    val _21:Response[T21],
     val last:Response[Z])
-  extends Tuple21(
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
     _1,
-        _2,
-        _3,
-        _4,
-        _5,
-        _6,
-        _7,
-        _8,
-        _9,
-        _10,
-        _11,
-        _12,
-        _13,
-        _14,
-        _15,
-        _16,
-        _17,
-        _18,
-        _19,
-        _20,
-        _21
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      _1.value,
-          _2.value,
-          _3.value,
-          _4.value,
-          _5.value,
-          _6.value,
-          _7.value,
-          _8.value,
-          _9.value,
-          _10.value,
-          _11.value,
-          _12.value,
-          _13.value,
-          _14.value,
-          _15.value,
-          _16.value,
-          _17.value,
-          _18.value,
-          _19.value,
-          _20.value,
-          _21.value
-    )
+    _2,
+    _3,
+    _4,
+    _5,
+    _6,
+    _7,
+    _8,
+    _9,
+    _10,
+    _11,
+    _12,
+    _13,
+    _14,
+    _15,
+    _16,
+    _17,
+    _18,
+    _19,
+    _20,
+    _21,
+    last
+  )
+  
+  def values = (
+    _1.value,
+    _2.value,
+    _3.value,
+    _4.value,
+    _5.value,
+    _6.value,
+    _7.value,
+    _8.value,
+    _9.value,
+    _10.value,
+    _11.value,
+    _12.value,
+    _13.value,
+    _14.value,
+    _15.value,
+    _16.value,
+    _17.value,
+    _18.value,
+    _19.value,
+    _20.value,
+    _21.value,
+    last.value
+  )
 }

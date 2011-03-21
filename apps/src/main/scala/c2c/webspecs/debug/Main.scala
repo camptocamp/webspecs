@@ -24,14 +24,15 @@ object AddCookie extends Request[Any,Null] {
 
 object Main extends Application {
   implicit val context = DefaultExecutionContext()
-  val req = (AddCookie then DivCount("http://localhost:43080/cas/logout") trackThen DivCountAcc("http://localhost:43080/cas/login",2)
-    then DivCountAcc("http://localhost:43080/cas/login",3) trackThen DivCountAcc("http://localhost:43080/cas/login",4) trackThen DivCountAcc("http://localhost:43080/cas/login",5))
-  val count = req(None) match {
-    case AccumulatedResponse.IncludeLast(one,two,three,four) => println(one.value,two.value,three.value,four.value)
-  }
-/*  val count = (AddCookie then DivCount("http://localhost:43080/cas/logout") trackThen DivCountAcc("http://localhost:43080/cas/login",-1)
-    then DivCountAcc("http://localhost:43080/cas/login",1) then DivCountAcc("http://localhost:43080/cas/login",1) trackThen DivCountAcc("http://localhost:43080/cas/login",1))(None) match {
-    case AccumulatedResponse.IncludeLast(one,two,three) => println(one.value,two.value,three.value)
-  }*/
+  val req = (AddCookie then
+    DivCount("http://localhost:43080/cas/logout") startTrackingThen
+    DivCountAcc("http://localhost:43080/cas/login",2) then
+    DivCountAcc("http://localhost:43080/cas/login",3) trackThen
+    DivCountAcc("http://localhost:43080/cas/login",4) trackThen
+    DivCountAcc("http://localhost:43080/cas/login",5))
+  val response = req(None)
+
+  println(response.values)
+
   context.httpClient.getConnectionManager.shutdown
 }

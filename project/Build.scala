@@ -78,15 +78,20 @@ class AccumulatingRequest%8$s[-In,%1s,+Out](
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
 
-class AccumulatedResponse%8$s[%1$s,+Z](
+case class AccumulatedResponse%8$s[%1$s,+Z](
     %5$s,
     val last:Response[Z])
-  extends Tuple%8$s(
-    %6$s
-  ) with AccumulatedResponse[Z] {
-    def values = (
-      %7$s
-    )
+  extends AccumulatedResponse[Z] {
+
+  def tuple = (
+    %6$s,
+    last
+  )
+  
+  def values = (
+    %7$s,
+    last.value
+  )
 }
 """
     val trackThenTemplate = """def trackThen [A,B] (next: Request[Out,A]):AccumulatingRequest%9$s[In,%3$s,Out,A] =
@@ -99,10 +104,10 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest%
       val decTypes = 1 to i map {j => "+T"+j} mkString ","
       val lastType = "T"+i
       val types = 1 to i map {j => "T"+j} mkString ","
-      val responsesVals = 1 to i map {j => "trackedResponses("+(j-1)+").asInstanceOf[Response[T"+j+"]]"} mkString ",\n          "
-      val responseDec = 1 to i map {j => "_"+j+":Response[T"+j+"]"} mkString ",\n        "
-      val tupleDec = 1 to i map {j => "_"+j} mkString ",\n        "
-      val valuesTupleDec = 1 to i map {j => "_"+j+".value"} mkString ",\n          "
+      val responsesVals = 1 to i map {j => "trackedResponses("+(j-1)+").asInstanceOf[Response[T"+j+"]]"} mkString ",\n      "
+      val responseDec = 1 to i map {j => "val _"+j+":Response[T"+j+"]"} mkString ",\n    "
+      val tupleDec = 1 to i map {j => "_"+j} mkString ",\n    "
+      val valuesTupleDec = 1 to i map {j => "_"+j+".value"} mkString ",\n    "
       val trackThen = if (i!=numGenerated) trackThenTemplate.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1)
                       else ""
       template.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1,trackThen)
@@ -112,7 +117,6 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest%
 
 import AccumulatingRequest._
 import ChainedRequest.ConstantRequestFunction
-import java.io.IOException    
     
 """+(code.mkString("\n\n"))
     val file = new java.io.File("core/src/main/scala/c2c/webspecs/generated-accumulated-requests.scala")

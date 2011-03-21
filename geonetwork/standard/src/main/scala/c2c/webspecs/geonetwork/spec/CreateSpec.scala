@@ -2,7 +2,6 @@ package c2c.webspecs
 package geonetwork
 package spec
 
-import AccumulatedResponse._
 
 object CreateSpec extends GeonetworkSpecification {
   "Geocat" should {
@@ -15,19 +14,17 @@ object CreateSpec extends GeonetworkSpecification {
           GetEditingMetadataFromResult() trackThen
           DeleteMetadata trackThen
           GetEditingMetadataFromResult())
-      val result = request(None)
 
-      result match {
-        case IncludeLast(createResponse, findResponse,deleteResponse,secondFindResponse) =>
-          createResponse.basicValue.responseCode must_== 200
-          findResponse.basicValue.responseCode must_== 200
-          findResponse.value.asInstanceOf[XmlValue].withXml{md =>
-              md \\ "ERROR" must beEmpty
-              // TODO better checks
-            }
-          deleteResponse.basicValue.responseCode must_== 200
-          secondFindResponse.value.asInstanceOf[XmlValue].xml.right.toOption must beNone
-      }
+      val (createResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
+
+      createResponse.basicValue.responseCode must_== 200
+      findResponse.basicValue.responseCode must_== 200
+      findResponse.value.asInstanceOf[XmlValue].withXml{md =>
+          md \\ "ERROR" must beEmpty
+          // TODO better checks
+        }
+      deleteResponse.basicValue.responseCode must_== 200
+      secondFindResponse.value.asInstanceOf[XmlValue].xml.right.toOption must beNone
     }
 
 
@@ -41,18 +38,16 @@ object CreateSpec extends GeonetworkSpecification {
           DeleteMetadata trackThen
           GetEditingMetadataFromResult())
 
-      val response = request(None)
-      response match {
-        case IncludeLast(createResponse, findResponse,deleteResponse,secondFindResponse) =>
-          createResponse.basicValue.responseCode must_== 200
-          findResponse.basicValue.responseCode must_== 200
-          findResponse.value.asInstanceOf[XmlValue].withXml{md =>
-              md \\ "ERROR" must beEmpty
-              // TODO better checks
-            }
-          deleteResponse.basicValue.responseCode must_== 200
-          secondFindResponse.value.asInstanceOf[XmlValue].xml.right.toOption must beNone
-      }
+      val (createResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
+
+      createResponse.basicValue.responseCode must_== 200
+      findResponse.basicValue.responseCode must_== 200
+      findResponse.value.asInstanceOf[XmlValue].withXml{md =>
+          md \\ "ERROR" must beEmpty
+          // TODO better checks
+        }
+      deleteResponse.basicValue.responseCode must_== 200
+      secondFindResponse.value.asInstanceOf[XmlValue].xml.right.toOption must beNone
     }
   }
 }
