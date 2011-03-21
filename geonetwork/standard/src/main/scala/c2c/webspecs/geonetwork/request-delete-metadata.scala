@@ -1,9 +1,6 @@
 package c2c.webspecs
 package geonetwork
 
-object DeleteResultingMetadata {
-  def apply() = MetadataRequest.makeInputBasedMetadataRequest(id => DeleteMetadata.map(Id(id)))
-}
 case object DeleteMetadata extends AbstractGetRequest[Id,IdValue](
   "metadata.delete",
   InputTransformerValueFactory[Id,IdValue]((in,raw) => IdValue(in.id,raw) ),

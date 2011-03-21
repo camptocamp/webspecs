@@ -62,8 +62,8 @@ class AccumulatingRequest%8$s[-In,%1s,+Out](
 
 %10$s
 
-  override def map[A <: In](in: A) =
-    new AccumulatingRequest%8$s(last, Elem(Request.const(in),false) +: elems: _*)
+  override def setIn[A <: In](in: A) =
+    new AccumulatingRequest%8$s[Any, %3$s,Out](last, Elem(Request.const(in),false) +: elems: _*)
 
 
   def apply(in: In)(implicit context: ExecutionContext):AccumulatedResponse%8$s[%3$s,Out] = {

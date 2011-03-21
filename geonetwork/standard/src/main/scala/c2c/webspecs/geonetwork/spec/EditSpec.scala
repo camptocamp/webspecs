@@ -11,10 +11,10 @@ object EditSpec extends GeonetworkSpecification {
       val request = (
         config.login then
         createMetadata then
-        GetMetadataXmlFromResult() startTrackingThen
+        GetMetadataXml() startTrackingThen
         StartEditing() then
         addNewExtent then
-        GetMetadataXmlFromResult() trackThen
+        GetMetadataXml() trackThen
         DeleteMetadata)
 
 

@@ -81,8 +81,8 @@ class AccumulatingRequest0[-In,+Out](last:Response[Any] => Request[Any,Out],
     trackThen(new ConstantRequestFunction(next))
   def trackThen [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest1[In,Out,A] =
     new AccumulatingRequest1(next, elems :+ new Elem(last,true) :_*)
-  override def map[A <: In](in: A) =
-    new AccumulatingRequest0(last, Elem(Request.const(in),false) +: elems: _*)
+  override def setIn[A <: In](in: A) =
+    new AccumulatingRequest0[Any,Out](last, Elem(Request.const(in),false) +: elems: _*)
 
 
   def apply(in: In)(implicit context: ExecutionContext):Response[Out] = {

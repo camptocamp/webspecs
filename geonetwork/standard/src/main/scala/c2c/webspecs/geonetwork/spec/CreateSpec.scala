@@ -11,9 +11,9 @@ object CreateSpec extends GeonetworkSpecification {
       val request = (
           config.login then
           createMd startTrackingThen
-          GetEditingMetadataFromResult() trackThen
+          GetEditingMetadata trackThen
           DeleteMetadata trackThen
-          GetEditingMetadataFromResult())
+          GetEditingMetadata)
 
       val (createResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
 
@@ -34,9 +34,9 @@ object CreateSpec extends GeonetworkSpecification {
       val request = (
           config.login then
           createMd startTrackingThen
-          GetEditingMetadataFromResult() trackThen
+          GetEditingMetadata trackThen
           DeleteMetadata trackThen
-          GetEditingMetadataFromResult())
+          GetEditingMetadata)
 
       val (createResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
 

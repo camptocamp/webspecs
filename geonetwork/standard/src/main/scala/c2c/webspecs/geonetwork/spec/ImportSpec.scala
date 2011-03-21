@@ -15,9 +15,9 @@ object ImportSpec extends GeonetworkSpecification {
       val request = (
         UserLogin then
         ImportMd startTrackingThen
-        GetMetadataXmlFromResult() trackThen
+        GetMetadataXml() trackThen
         DeleteMetadata trackThen
-        GetMetadataXmlFromResult())
+        GetMetadataXml())
 
       val (importResponse, findResponse, deleteResponse, secondFindResponse) = request(None).tuple
         importResponse.basicValue.responseCode must_== 200

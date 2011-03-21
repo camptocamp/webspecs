@@ -34,7 +34,7 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
 
       val ImportTestData = ImportMetadata(config.resourceFile("data/"+testDataFileName),ImportStyleSheets.NONE,false)
 
-      val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXmlFromResult())(None).value
+      val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXml())(None).value
       val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
 
       val xlinks = XLink.findAll(originalXml,AddSites.distributionFormat)
@@ -44,7 +44,7 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
 
       val afterValidation = (config.adminLogin then
         ValidateSharedObject(formatId,SharedObjectTypes.formats) then
-        GetMetadataXml(id,OutputSchemas.CheRecord))(None)
+        GetMetadataXml(OutputSchemas.CheRecord).setIn(Id(id)))(None)
 
       afterValidation.value.withXml { xml =>
         val newXlinks = XLink.findAll(xml,AddSites.distributionFormat)
@@ -66,7 +66,7 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
 
       val ImportTestData = ImportMetadata(config.resourceFile("data/"+testDataFileName),ImportStyleSheets.NONE,false);
 
-      val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXmlFromResult())(None).value
+      val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXml())(None).value
       val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
 
       val xlinks = XLink.findAll(originalXml,AddSites.contact)
@@ -75,7 +75,7 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
       val contactId = xlinks(0).id
       val afterValidation = (config.adminLogin
         then ValidateSharedObject(contactId,SharedObjectTypes.contacts) then
-        GetMetadataXml(id,OutputSchemas.CheRecord))(None)
+        GetMetadataXml(OutputSchemas.CheRecord).setIn(Id(id)))(None)
 
       afterValidation.value.withXml { xml =>
         val newXlinks = XLink.findAll(xml,AddSites.contact)

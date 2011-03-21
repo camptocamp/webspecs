@@ -88,7 +88,7 @@ trait Request[-In, +Out] {
     startTrackingThen(new ChainedRequest.ConstantRequestFunction(next))
   def startTrackingThen [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest1[In, Out, A] =
     new AccumulatingRequest1(next, AccumulatingRequest.Elem(this,true))
-  def map[A <: In](in:A):Request[A,Out] = Request.const(in) then this
+  def setIn[A <: In](in:A):Request[Any,Out] = Request.const(in) then this
   def apply (in: In)(implicit context:ExecutionContext) : Response[Out]
   def assertPassed(in:In)(implicit context:ExecutionContext):Response[Out] = apply(in) match {
     case response if response.basicValue.responseCode > 399 =>

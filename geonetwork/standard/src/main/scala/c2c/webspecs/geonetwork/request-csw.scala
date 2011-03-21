@@ -83,14 +83,14 @@ case class CswGetRecordsRequest(filter:NodeSeq=Nil,
                                 maxRecords:Int=50,
                                 elementSetName:ElementSetName = full,
                                 sortBy:Option[SortBy] = None)
-  extends AbstractXmlPostRequest("csw", XmlValueFactory) {
+  extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) {
 
   def xmlData = CswXmlUtil.getRecordsXml( filter, resultType, outputSchema, startPosition, maxRecords, elementSetName,sortBy)
   override def toString() = "CswGetRecordsRequest(<filter>,"+resultType+","+outputSchema+","+startPosition+","+maxRecords+","+elementSetName+")"
 }
 
 case class CswGetByFileId(fileId:String, outputSchema:OutputSchemas.OutputSchema)
-  extends AbstractXmlPostRequest ("csw", XmlValueFactory) {
+  extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) {
 
   def xmlData = CswXmlUtil.getByIdXml(fileId,outputSchema)
   override def toString() = "CswGetByFileId("+fileId+","+outputSchema+")"

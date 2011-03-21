@@ -49,42 +49,39 @@ object MetadataViews extends Enumeration {
   val xml, simple = Value
 }
 import MetadataViews.MetadataView
-object MetadataRequest {
-  def makeInputBasedMetadataRequest[Out](factory:String => Request[IdValue,Out]) = new Request[IdValue,Out] {
-    def apply(in: IdValue)(implicit context: ExecutionContext) = factory(in.id)(in)
-  }
-}
-object ShowResultingMetadata {
-  def apply(view:MetadataView = MetadataViews.xml) = MetadataRequest.makeInputBasedMetadataRequest(id => ShowMetadata(id,view))
-}
-case class ShowMetadata(mdId:String, view:MetadataView = MetadataViews.xml)
-  extends AbstractGetRequest[Any,IdValue](
+
+case class ShowMetadata(view:MetadataView = MetadataViews.xml)
+  extends AbstractGetRequest[Id,IdValue](
     "metadata.show",
-    ExplicitIdValueFactory(mdId),
-    P("id", mdId),
+    InputTransformerValueFactory( (in,basic) =>
+      new XmlValue with IdValue {
+        protected def basicValue = basic
+        def id = in.id
+      }
+    ),
+    InP("id", _.id),
     P("currTab", view.toString))
 
-object GetEditingMetadataFromResult {
-  def apply() = MetadataRequest.makeInputBasedMetadataRequest(id => GetEditingMetadata(id))
-}
-case class GetEditingMetadata(mdId:String) extends AbstractGetRequest[Any,IdValue](
+case object GetEditingMetadata extends AbstractGetRequest[Id,IdValue](
   "metadata.ext.edit.data",
-  ExplicitIdValueFactory(mdId),
-  P("id", mdId))
+  InputTransformerValueFactory((in,basic) =>
+    new IdValue with XmlValue {
+      protected def basicValue = basic
+      def id = in.id
+    }
+  ),
+  InP("id", _.id))
 
-object GetMetadataXmlFromResult {
-  def apply(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord) =
-    MetadataRequest.makeInputBasedMetadataRequest(id => GetMetadataXml(id,schema))
-}
-case class GetMetadataXml(mdId:String, schema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord) extends Request[Any,MetadataValue] {
+case class GetMetadataXml(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord) extends Request[Id,MetadataValue] {
   private val getRequest = this
-  private val csw = CswGetRecordsRequest(PropertyIsEqualTo("_id",mdId.toString).xml,ResultTypes.results,schema)
+  private def csw(id:String) = CswGetRecordsRequest(PropertyIsEqualTo("_id",id).xml,ResultTypes.results,schema)
 
-  override def apply(in: Any)(implicit context: ExecutionContext):Response[MetadataValue] = {
-    new ExtractMdXmlResponse(csw(None))
+  override def apply(in: Id)(implicit context: ExecutionContext):Response[MetadataValue] = {
+    val metadataXml: BasicHttpResponse[XmlValue] = csw(in.id)(None)
+    new ExtractMdXmlResponse(in.id,metadataXml)
   }
 
-  private final class ExtractMdXmlResponse(cswResponse:Response[XmlValue]) extends Response[MetadataValue] {
+  private final class ExtractMdXmlResponse(mdId:String, cswResponse:Response[XmlValue]) extends Response[MetadataValue] {
 
     def basicValue = cswResponse.basicValue
     val value = new MetadataValue {

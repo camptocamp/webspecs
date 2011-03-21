@@ -13,10 +13,10 @@ object EditSpecWithSharedObjects extends GeonetworkSpecification {
       val request = (
         config.login then
         create then
-        GetMetadataXmlFromResult() startTrackingThen
+        GetMetadataXml() startTrackingThen
         StartEditing() then
         AddExtentXLink(KantonBern,true) then
-        GetMetadataXmlFromResult() trackThen
+        GetMetadataXml() trackThen
         DeleteMetadata)
 
       val (originalMd, finalMetadata,_) = request(None).values

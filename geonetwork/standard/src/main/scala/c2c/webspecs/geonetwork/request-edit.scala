@@ -47,8 +47,8 @@ abstract class Add(_serv:String, id:String, editVersion:String, nodeRef:String, 
     "schema" -> "iso19139.che",
     "currTab" -> "complete"):_*)
 
-  val beforeMetadata = GetMetadataXml(id)
-  val afterMetadata = GetMetadataXml(id)
+  val beforeMetadata = GetMetadataXml().setIn(Id(id))
+  val afterMetadata = GetMetadataXml().setIn(Id(id))
 
 
   def apply(in: EditValue)(implicit context: ExecutionContext) = {
