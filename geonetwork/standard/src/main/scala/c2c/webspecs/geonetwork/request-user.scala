@@ -60,7 +60,7 @@ case class User(val idOption:Option[String]=None,
     ListUsers(None).value find {_.username == username} map {_.userId}
   }
 
-  def formParams():List[Param[Any]] = (P("username", username) ::
+  def formParams():List[Param[Any,String]] = (P("username", username) ::
     P("password", password) ::
     P("password2", password) ::
     P("name", name) ::

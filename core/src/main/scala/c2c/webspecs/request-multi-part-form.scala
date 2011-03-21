@@ -4,7 +4,7 @@ import org.apache.http.entity.mime.MultipartEntity
 import org.apache.http.entity.mime.content.ContentBody
 import org.apache.http.client.methods.HttpPost
 
-abstract class MultiPartFormRequest[In,Out](url:String, valueFactory:ValueFactory[In,Out], form:(String,ContentBody)*)
+abstract class MultiPartFormRequest[In,Out](url:String, valueFactory:ValueFactory[In,Out], form:Param[In,ContentBody]*)
   extends AbstractRequest[In,Out](valueFactory) {
 
   require(form.size > 0, "At least one form element is required")
@@ -14,7 +14,11 @@ abstract class MultiPartFormRequest[In,Out](url:String, valueFactory:ValueFactor
 
      val reqEntity = new MultipartEntity()
      form.foreach {part =>
-       reqEntity.addPart(part._1,part._2)
+       {
+         val name: String = part.name
+         val contentBody: ContentBody = part.value(in)
+         reqEntity.addPart(name, contentBody)
+       }
      }
      httppost.setEntity(reqEntity)
 

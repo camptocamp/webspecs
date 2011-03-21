@@ -138,22 +138,14 @@ abstract class AbstractRequest[-In, +Out]
   }
 }
 
-/*@Deprecated
-abstract class DeprecatedAbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
-  extends AbstractRequest[In,Out](valueFactory) {
-  def request(in:In) = {
-    val stringParams = params.map(p => p._1 -> p._2.toString)
-    new HttpGet(Config.resolveURI(uri,stringParams:_*))
-  }
-} */
-abstract class Param[-In](val name:String,val value:In => String)
+abstract class Param[-In,+Out](val name:String,val value:In => Out)
 object Param {
-  def mapping[B] = (p:(String,B)) => P(p._1,p._2.toString)
+  def stringMapping[B] = (p:(String,B)) => P(p._1,p._2.toString)
 }
-case class P(n:String, v:String) extends Param[Any](n, _ => v)
+case class P[+Out](n:String, v:Out) extends Param[Any,Out](n, _ => v)
 
-case class InP[-In](n:String,f:In => String) extends Param[In](n,f)
-abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:Param[In]*)
+case class InP[-In,+Out](n:String,f:In => Out) extends Param[In,Out](n,f)
+abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:Param[In,String]*)
   extends AbstractRequest[In,Out](valueFactory) {
   def request(in:In) = {
     val stringParams = params.map(p => p.name -> p.value(in))
@@ -178,7 +170,7 @@ abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueF
   override def toString() = "XmlRequest("+uri+")"
 }
 
-abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:Param[In]*)
+abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:Param[In,String]*)
   extends AbstractRequest(valueFactory) {
   def request(in:In) = {
     val post = new HttpPost(Config.resolveURI(uri))
@@ -188,17 +180,7 @@ abstract class AbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:Va
     post
   }
 }
-@Deprecated
-abstract class DeprecatedAbstractFormPostRequest[-In, +Out](val uri:String,valueFactory:ValueFactory[In,Out],params:(String,Any)*)
-  extends AbstractRequest(valueFactory) {
-  def request(in:In) = {
-    val post = new HttpPost(Config.resolveURI(uri))
-    Log.apply(Log.RequestForm, params mkString ("\t","\n\t",""))
-    val formParams = params.map{p => new BasicNameValuePair(p._1,p._2.toString)}.toList
-    post.setEntity(new UrlEncodedFormEntity(formParams.asJava,"UTF-8"))
-    post
-  }
-}
-case class GetRequest(uri:String, params:(String,Any)*) extends AbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params.map(Param.mapping):_*)
-case class FormPostRequest(override val uri:String, form:(String,Any)*) extends AbstractFormPostRequest[Any,XmlValue](uri,XmlValueFactory,form.map(Param.mapping):_*)
+
+case class GetRequest(uri:String, params:(String,Any)*) extends AbstractGetRequest[Any,XmlValue](uri,XmlValueFactory,params.map(Param.stringMapping):_*)
+case class FormPostRequest(override val uri:String, form:(String,Any)*) extends AbstractFormPostRequest[Any,XmlValue](uri,XmlValueFactory,form.map(Param.stringMapping):_*)
 case class XmlPostRequest(uri:String, xmlData:xml.NodeSeq) extends AbstractXmlPostRequest[Any,XmlValue](uri,XmlValueFactory)

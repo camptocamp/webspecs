@@ -128,13 +128,13 @@ case class ImportMetadata(data:File, styleSheet:ImportStyleSheets.ImportStyleShe
   extends MultiPartFormRequest[Any,IdValue](
     "mef.import",
     IdValuesFactory.FromImportOrCreateResult,
-    "insert_mode" -> new StringBody("1"),
-    "file_type"-> new StringBody("single"),
-    "mefFile" -> new FileBody(data,"application/xml"),
-    "uuidAction"-> new StringBody("generateUUID"), //other options: nothing,
-    "template"-> new StringBody("n"),
-    "styleSheet"-> new StringBody(styleSheet.toString),
-    "group"-> new StringBody(groupId),
-    "category"-> new StringBody("_none_"),
-    "validate"-> new StringBody(if(validate)"on" else "off")
+    P("insert_mode",  new StringBody("1")),
+    P("file_type",  new StringBody("single")),
+    P("mefFile",  new FileBody(data,"application/xml")),
+    P("uuidAction",  new StringBody("generateUUID")), //other options: nothing,
+    P("template",  new StringBody("n")),
+    P("styleSheet",  new StringBody(styleSheet.toString)),
+    P("group",  new StringBody(groupId)),
+    P("category",  new StringBody("_none_")),
+    P("validate",  new StringBody(if(validate)"on" else "off"))
   )
