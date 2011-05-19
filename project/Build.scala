@@ -10,7 +10,7 @@ object WebSpecsBuild extends Build
 
 	// Declare a project in the root directory of the build with ID "root".
 	// Declare an execution dependency on sub1.
-	lazy val root = Project("root",file(".")) aggregate(core,geonetwork,geocat, apps) settings (commands ++= Seq(
+	lazy val root:Project = Project("root",file(".")) aggregate(core,geonetwork,geocat, apps) settings (commands ++= Seq(
       printState,
   	  runSpec,
   	  generateAccumClasses
@@ -19,21 +19,21 @@ object WebSpecsBuild extends Build
 
   val coreSettings = Defaults.defaultSettings ++ Seq(
     libraryDependencies ++= List(
-      "org.scala-tools.testing" %% "specs" % "1.6.6"  withSources (),
+      "org.specs2" %% "specs2" % "1.3" withSources (),
        "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
        "org.apache.httpcomponents" % "httpclient" % "4.1" withSources (),
        "org.apache.httpcomponents" % "httpmime" % "4.1" withSources (),
-       "com.github.scala-incubator.io" %% "core" % "0.2.0-SNAPSHOT" withSources (),
-       "com.github.scala-incubator.io" %% "file" % "0.2.0-SNAPSHOT" withSources ()
+       "com.github.scala-incubator.io" %% "core" % "0.1.2" withSources (),
+       "com.github.scala-incubator.io" %% "file" % "0.1.2" withSources ()
     )
   )
-	lazy val core = Project("core", file("core"),settings = coreSettings)  
+	lazy val core = Project("core", file("core"),settings = coreSettings, delegates = root::Nil)  
 
-	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")) dependsOn core
+	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard"), delegates = root::Nil) dependsOn core
 
-	lazy val geocat = Project("geocat", file("geonetwork/geocat")) dependsOn geonetwork
+	lazy val geocat = Project("geocat", file("geonetwork/geocat"), delegates = root::Nil) dependsOn geonetwork
 	
-  lazy val apps = Project("apps",file("apps")) dependsOn geocat
+  lazy val apps = Project("apps",file("apps"), delegates = root::Nil) dependsOn geocat
   
   
 	def show[T](s: Seq[T]) =
@@ -47,7 +47,7 @@ object WebSpecsBuild extends Build
 	}
 
   val generateAccumClasses = Command.command("gen-classes") { state =>
-    val template = """
+    val accumlatingRequestTemplate = """
 class AccumulatingRequest%8$s[-In,%1s,+Out](
     last:Response[%2$s] => Request[%2$s,Out],
     elems:Elem*) 
@@ -77,7 +77,8 @@ class AccumulatingRequest%8$s[-In,%1s,+Out](
 
   override def toString() = elems.mkString("(","->",")")+" -> "+last
 }
-
+"""
+  val accumlatingResponseTemplate = """
 case class AccumulatedResponse%8$s[%1$s,+Z](
     %5$s,
     val last:Response[Z])
@@ -87,20 +88,34 @@ case class AccumulatedResponse%8$s[%1$s,+Z](
     %6$s,
     last
   )
-  
+
   def values = (
     %7$s,
     last.value
   )
-}
-"""
-    val trackThenTemplate = """def trackThen [A,B] (next: Request[Out,A]):AccumulatingRequest%9$s[In,%3$s,Out,A] =
+}"""
+
+  val trackThenTemplate = """def trackThen [A,B] (next: Request[Out,A]):AccumulatingRequest%9$s[In,%3$s,Out,A] =
   trackThen(new ConstantRequestFunction(next))
 def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest%9$s[In,%3$s,Out,A] =
   new AccumulatingRequest%9$s[In,%3$s,Out,A](next,elems :+ new Elem(last,true) :_*)
 """
+  val importsTemplate = """package c2c.webspecs
+package generated
+
+import AccumulatingRequest._
+import ChainedRequest.ConstantRequestFunction
+
+"""
+    val dir = new java.io.File("core/src/main/scala/c2c/webspecs/generated/")
+    Option(dir.listFiles).foreach{files => 
+      files.foreach {_.delete()}
+    }
+    dir.delete()
+    dir.mkdirs
+
     val numGenerated = 21
-    val code = 1 to numGenerated map {i =>
+    val packageCode = 1 to numGenerated map {i =>
       val decTypes = 1 to i map {j => "+T"+j} mkString ","
       val lastType = "T"+i
       val types = 1 to i map {j => "T"+j} mkString ","
@@ -110,21 +125,32 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest%
       val valuesTupleDec = 1 to i map {j => "_"+j+".value"} mkString ",\n    "
       val trackThen = if (i!=numGenerated) trackThenTemplate.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1)
                       else ""
-      template.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1,trackThen)
+
+      val filledRequest = accumlatingRequestTemplate.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1,trackThen)
+      val out = new java.io.FileOutputStream(new java.io.File(dir,"AccumulatingRequest"+(i)+".scala"))
+      out.write((importsTemplate+filledRequest).getBytes("UTF8"))
+      out.close
+      
+      val filledResponse = accumlatingResponseTemplate.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1,trackThen)
+      val out2 = new java.io.FileOutputStream(new java.io.File(dir,"AccumulatedResponse"+(i)+".scala"))
+      out2.write((importsTemplate+filledResponse).getBytes("UTF8"))
+      out2.close()
+      
+      val packageSection = """
+  type AccumulatingRequest%2$s[-In,%1$s,+Out] = generated.AccumulatingRequest%2$s[In,%1$s,Out]
+  type AccumulatingResponse%2$s[%1$s,+Z] = generated.AccumulatedResponse%2$s[%1$s,Z]""".format(decTypes.filterNot(_ == '+'),i)
+
+      packageSection
     }
+    val out = new java.io.FileOutputStream(new java.io.File(dir,"../package.scala"))
+    val fullPackageCode = """
+package c2c.webspecs
 
-    val finalCode = """package c2c.webspecs
+package object webspecs {
+"""+(packageCode.mkString("\n"))+"\n}"
 
-import AccumulatingRequest._
-import ChainedRequest.ConstantRequestFunction
-    
-"""+(code.mkString("\n\n"))
-    val file = new java.io.File("core/src/main/scala/c2c/webspecs/generated-accumulated-requests.scala")
-    file.delete()
-    val out = new java.io.FileOutputStream(file)
-    out.write(finalCode.getBytes("UTF8"))
+    out.write(fullPackageCode.getBytes("UTF8"))
     out.close
-    
     state
   }
   val runSpec = Command.args("run-specs","[specPattern]") {(state, args) => 

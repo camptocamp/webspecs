@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="buildScala">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.9.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
