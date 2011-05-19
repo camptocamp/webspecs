@@ -4,6 +4,8 @@ import System.{getProperties,getenv}
 import java.util.{Properties => JProperties}
 import scalax.file.Path
 import collection.JavaConverters._
+import scalax.io.Resource
+import util.control.Exception
 
 object Properties {
 
@@ -12,22 +14,24 @@ object Properties {
   lazy val all:Map[String,String] = {
     def load(file:String):Map[String,String] = {
       val inputStream =
-        if (Path(file).exists) Some(Path(file).inputStream.open)
-        else Option(getClass.getClassLoader.getResourceAsStream(file))
+        if (Path(file).exists) Some(Path(file).inputStream)
+        else Exception.catching(classOf[IllegalArgumentException]).opt(Resource.fromClasspath(file,getClass))
       inputStream map {
-        in =>
-          val p = new JProperties()
-          p.load(in)
-          var propMap = p.asScala.toMap.asInstanceOf[Map[String,String]]
-          propMap.get("@includes") map { includes =>
-            propMap -= "@includes"
-            propMap ++= includes split "," flatMap {load(_)}
+        resource =>
+          resource.acquireAndGet{ in =>
+            val p = new JProperties()
+            p.load(in)
+            var propMap = p.asScala.toMap.asInstanceOf[Map[String,String]]
+            propMap.get("@includes") map { includes =>
+              propMap -= "@includes"
+              propMap ++= includes split "," flatMap {load(_)}
+            }
+            propMap.get("@override") map { overrides =>
+              propMap -= "@override"
+              propMap = (overrides split "," flatMap {load(_)}).toMap ++ propMap
+            }
+          propMap
           }
-          propMap.get("@override") map { overrides =>
-            propMap -= "@override"
-            propMap = (overrides split "," flatMap {load(_)}).toMap ++ propMap
-          }
-        propMap
       } getOrElse Map[String,String]()
     }
 

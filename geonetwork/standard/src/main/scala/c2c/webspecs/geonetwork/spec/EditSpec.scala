@@ -2,8 +2,11 @@ package c2c.webspecs
 package geonetwork
 package spec
 
-object EditSpec extends GeonetworkSpecification {
-  "Geocat" should {
+class EditSpec extends GeonetworkSpecification {def spec =
+
+  "This specification tests editing metadata"                     ^
+    "example 1"                                                   ! success
+/*  "Geocat" should {
 
     "create a metadata and add a shared extent" in {
       val createMetadata = CreateMetadata(config,config.sampleDataTemplateIds(0))
@@ -48,5 +51,5 @@ object EditSpec extends GeonetworkSpecification {
 
         request(None)._1.value.href must notBeEmpty
     }
-  }
+  }  */
 }

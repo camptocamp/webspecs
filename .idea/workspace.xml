@@ -60,7 +60,35 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="GeonetworkSpecification.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/GeonetworkSpecification.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="54" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StressSpecification.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/StressSpecification.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="34" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateSpec.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/CreateSpec.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="38" selection-start="639" selection-end="639" vertical-scroll-proportion="0.48465267">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -74,13 +102,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/request-delete-metadata.scala" />
-        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/request-edit.scala" />
-        <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/requests.scala" />
-        <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/request-accumulating.scala" />
-        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala" />
-        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala" />
-        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/request-metadata.scala" />
         <option value="$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/EditSpecWithSharedObjects.scala" />
         <option value="$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/ImportSpec.scala" />
         <option value="$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/SharedObjectSpec.scala" />
@@ -90,6 +111,13 @@
         <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/package.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/RequestModification.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/AccumulatingRequest.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/Properties.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/suites/SomeApp.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/stress/ConcurrentSearchSpec.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/GeonetworkSpecification.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/CreateSpec.scala" />
       </list>
     </option>
   </component>
@@ -130,14 +158,8 @@
               <option name="myItemId" value="webspecs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webspecs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CoreWebSpec" />
+              <option name="myItemId" value="StandardGeonetwork" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -147,12 +169,18 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="CoreWebSpec" />
+              <option name="myItemId" value="StandardGeonetwork" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="c2c.webspecs" />
+              <option name="myItemId" value="c2c.webspecs.geonetwork" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webspecs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -260,20 +288,45 @@
       <recent name="c2c.webspec.geonetwork.geocat" />
     </key>
   </component>
-  <component name="RunManager" selected="Specs.CreateSpec">
-    <configuration default="false" name="CreateSpec" type="SpecsRunConfiguration" factoryName="Specs" temporary="true">
+  <component name="RunManager" selected="Specs2.CreateSpec">
+    <configuration default="false" name="SomeApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="c2c.webspecs.geonetwork.suites.SomeApp" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
       <module name="StandardGeonetwork" />
-      <setting name="path" value="c2c.webspecs.geonetwork.spec.CreateSpec" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="60738" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method>
+        <option name="Make" enabled="false" />
+        <option name="SBT.BeforeRunTask" enabled="true" action="compile" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <module name="" />
+      <setting name="path" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="packagepath" value="" />
       <setting name="workingDirectory" value="$PROJECT_DIR$" />
-      <setting name="sysFilter" value=".*" />
-      <setting name="exampleFilter" value=".*" />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
       <method>
-        <option name="Make" enabled="false" />
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="SBT.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -371,20 +424,31 @@
         <option name="SBT.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="false" name="RunSpecRunner" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="c2c.webspecs.geonetwork.suites.RunSpecRunner" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="ConcurrentSearchSpec " />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="version" value="false" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+        <option name="SBT.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="false" name="CreateSpec" type="Specs2RunConfiguration" factoryName="Specs2">
       <module name="StandardGeonetwork" />
-      <envs />
+      <setting name="path" value="c2c.webspecs.geonetwork.spec.CreateSpec" />
+      <setting name="vmparams" value="-DdebugLoadClass=true" />
+      <setting name="params" value="32 " />
+      <setting name="packagepath" value="" />
+      <setting name="workingDirectory" value="$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="49825" />
+        <option name="DEBUG_PORT" value="60678" />
         <option name="TRANSPORT" value="0" />
         <option name="LOCAL" value="true" />
       </RunnerSettings>
@@ -393,11 +457,12 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method>
         <option name="Make" enabled="false" />
+        <option name="SBT.BeforeRunTask" enabled="true" action="compile" />
       </method>
     </configuration>
     <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Specs.CreateSpec" />
-      <item index="1" class="java.lang.String" itemvalue="Application.RunSpecRunner" />
+      <item index="0" class="java.lang.String" itemvalue="Application.SomeApp" />
+      <item index="1" class="java.lang.String" itemvalue="Specs2.CreateSpec" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -432,15 +497,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="35" y="22" width="1494" height="885" extended-state="0" />
+    <frame x="35" y="22" width="1885" height="1058" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39969605" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41097307" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39958593" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -448,8 +513,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32941177" sideWeight="0.0" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32978722" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25925925" sideWeight="0.6708075" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32919255" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -505,61 +570,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/request-csw.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="46" selection-start="3774" selection-end="3774" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/requests.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="13" selection-start="4647" selection-end="4647" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="22" selection-start="469" selection-end="469" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="70" selection-start="967" selection-end="967" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/request-metadata.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="110" selection-start="3065" selection-end="3065" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/EditSpecWithSharedObjects.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="22" selection-start="531" selection-end="531" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/ImportSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="73" column="49" selection-start="2213" selection-end="2213" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/SharedObjectSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="168" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.29220778" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/request-edit.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="40" selection-start="1632" selection-end="1632" vertical-scroll-proportion="0.019480519" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/value.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="6" selection-start="3878" selection-end="3878" vertical-scroll-proportion="0.16233766" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/package.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="73" selection-start="211" selection-end="211" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/generated/AccumulatingRequest8.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="6" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0" />
@@ -570,9 +580,100 @@
         <state line="6" column="6" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/RequestModification.scala">
+    <entry file="jar://$PROJECT_DIR$/ivy2/cache/com.github.scala-incubator.io/core_2.9.0/srcs/core_2.9.0-0.1.2-sources.jar!/scalax/io/Resource.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="143" selection-end="143" vertical-scroll-proportion="0.09816754">
+        <state line="442" column="35" selection-start="15938" selection-end="15938" vertical-scroll-proportion="0.3632653">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/Properties.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="114" selection-start="1596" selection-end="1596" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/Config.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="6" selection-start="2543" selection-end="2543" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/ivy2/cache/org.specs2/specs2_2.9.0/srcs/specs2_2.9.0-1.3-sources.jar!/org/specs2/control/Exceptions.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/ivy2/cache/org.specs2/specs2_2.9.0/srcs/specs2_2.9.0-1.3-sources.jar!/org/specs2/reflect/Classes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="112" column="0" selection-start="5296" selection-end="5296" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/ivy2/cache/org.specs2/specs2_2.9.0/srcs/specs2_2.9.0-1.3-sources.jar!/org/specs2/runner/ClassRunner.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="32" selection-start="1242" selection-end="1242" vertical-scroll-proportion="0.6794658">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="5" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="35" selection-start="785" selection-end="785" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/StressSpecification.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="34" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/stress/ConcurrentSearchSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="42" selection-start="294" selection-end="294" vertical-scroll-proportion="0.2180937">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/ivy2/cache/org.specs2/specs2_2.9.0/jars/specs2_2.9.0-1.3.jar!/org/specs2/specification/RegexStep.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="61" selection-start="704" selection-end="710" vertical-scroll-proportion="0.17326732">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/ivy2/cache/org.specs2/specs2_2.9.0/srcs/specs2_2.9.0-1.3-sources.jar!/org/specs2/specification/RegexStep.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="55" selection-start="3009" selection-end="3009" vertical-scroll-proportion="0.33279485">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/GeonetworkSpecification.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="54" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/CreateSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="38" selection-start="639" selection-end="639" vertical-scroll-proportion="0.48465267">
           <folding />
         </state>
       </provider>
@@ -635,12 +736,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Geocat</last-edited>
+          <last-edited>CoreWebSpec</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>
