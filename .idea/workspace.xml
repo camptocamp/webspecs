@@ -70,19 +70,46 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StressSpecification.scala" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/StressSpecification.scala">
+      <file leaf-file-name="EditSpec.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="34" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0">
+            <state line="51" column="53" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateSpec.scala" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="ImportSpec.scala" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="32" column="64" selection-start="1098" selection-end="1098" vertical-scroll-proportion="0.8439898">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateSpec.scala" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/CreateSpec.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="38" selection-start="639" selection-end="639" vertical-scroll-proportion="0.48465267">
+            <state line="16" column="0" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="requests.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/requests.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="87" column="74" selection-start="3737" selection-end="3737" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="request-accumulating.scala" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/request-accumulating.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="80" column="63" selection-start="3080" selection-end="3080" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -102,8 +129,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/EditSpecWithSharedObjects.scala" />
-        <option value="$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/ImportSpec.scala" />
         <option value="$PROJECT_DIR$/geonetwork/geocat/src/main/scala/c2c/webspecs/geonetwork/geocat/spec/SharedObjectSpec.scala" />
         <option value="$PROJECT_DIR$/geonetwork/geocatAcc/src/main/scala/c2c.webspecs.geonetwork.geocat/Acceptance/scala.scala" />
         <option value="$PROJECT_DIR$/geonetwork/geocatAcc/src/main/scala/c2c/webspec/geonetwork/geocat/Acceptance.scala" />
@@ -113,11 +138,13 @@
         <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/AccumulatingRequest.scala" />
         <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/Properties.scala" />
         <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/suites/SomeApp.scala" />
-        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala" />
-        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala" />
         <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/stress/ConcurrentSearchSpec.scala" />
         <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/GeonetworkSpecification.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/requests.scala" />
+        <option value="$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/request-accumulating.scala" />
         <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/CreateSpec.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala" />
+        <option value="$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala" />
       </list>
     </option>
   </component>
@@ -174,6 +201,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="c2c.webspecs.geonetwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webspecs" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StandardGeonetwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="c2c.webspecs.geonetwork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spec" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -497,14 +542,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="35" y="22" width="1885" height="1058" extended-state="6" />
+    <frame x="35" y="22" width="1245" height="778" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="SBT Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41097307" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="SBT Console" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3586006" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39958593" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JavaRebel" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -513,8 +558,8 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25925925" sideWeight="0.6708075" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32919255" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25919732" sideWeight="0.64139944" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -570,16 +615,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/generated/AccumulatingRequest8.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="6" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/generated/AccumulatingRequest1.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="6" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/ivy2/cache/com.github.scala-incubator.io/core_2.9.0/srcs/core_2.9.0-0.1.2-sources.jar!/scalax/io/Resource.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="442" column="35" selection-start="15938" selection-end="15938" vertical-scroll-proportion="0.3632653">
@@ -622,27 +657,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="5" selection-start="59" selection-end="59" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="35" selection-start="785" selection-end="785" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/StressSpecification.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="34" selection-start="200" selection-end="200" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/stress/ConcurrentSearchSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="42" selection-start="294" selection-end="294" vertical-scroll-proportion="0.2180937">
@@ -664,6 +678,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/requests.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="74" selection-start="3737" selection-end="3737" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/scala/c2c/webspecs/request-accumulating.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="63" selection-start="3080" selection-end="3080" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/CreateSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="0" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/StressSpecification.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="34" selection-start="181" selection-end="200" vertical-scroll-proportion="0.2652068">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/GeonetworkSpecification.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="54" selection-start="511" selection-end="511" vertical-scroll-proportion="0.0">
@@ -671,9 +713,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/CreateSpec.scala">
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/EditSpec.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="38" selection-start="639" selection-end="639" vertical-scroll-proportion="0.48465267">
+        <state line="51" column="53" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/geonetwork/standard/src/main/scala/c2c/webspecs/geonetwork/spec/ImportSpec.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="64" selection-start="1098" selection-end="1098" vertical-scroll-proportion="0.8439898">
           <folding />
         </state>
       </provider>

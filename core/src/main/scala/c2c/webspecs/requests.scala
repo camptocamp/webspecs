@@ -1,5 +1,6 @@
 package c2c.webspecs
 
+import accumulating.AccumulatingRequest1
 import java.io.IOException
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.client.HttpClient

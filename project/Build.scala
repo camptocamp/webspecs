@@ -101,13 +101,13 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest%
   new AccumulatingRequest%9$s[In,%3$s,Out,A](next,elems :+ new Elem(last,true) :_*)
 """
   val importsTemplate = """package c2c.webspecs
-package generated
+package accumulating
 
 import AccumulatingRequest._
 import ChainedRequest.ConstantRequestFunction
 
 """
-    val dir = new java.io.File("core/src/main/scala/c2c/webspecs/generated/")
+    val dir = new java.io.File("core/src/main/scala/c2c/webspecs/accumulating/")
     Option(dir.listFiles).foreach{files => 
       files.foreach {_.delete()}
     }
@@ -115,7 +115,7 @@ import ChainedRequest.ConstantRequestFunction
     dir.mkdirs
 
     val numGenerated = 21
-    val packageCode = 1 to numGenerated map {i =>
+   1 to numGenerated foreach {i =>
       val decTypes = 1 to i map {j => "+T"+j} mkString ","
       val lastType = "T"+i
       val types = 1 to i map {j => "T"+j} mkString ","
@@ -136,21 +136,7 @@ import ChainedRequest.ConstantRequestFunction
       out2.write((importsTemplate+filledResponse).getBytes("UTF8"))
       out2.close()
       
-      val packageSection = """
-  type AccumulatingRequest%2$s[-In,%1$s,+Out] = generated.AccumulatingRequest%2$s[In,%1$s,Out]
-  type AccumulatingResponse%2$s[%1$s,+Z] = generated.AccumulatedResponse%2$s[%1$s,Z]""".format(decTypes.filterNot(_ == '+'),i)
-
-      packageSection
     }
-    val out = new java.io.FileOutputStream(new java.io.File(dir,"../package.scala"))
-    val fullPackageCode = """
-package c2c.webspecs
-
-package object webspecs {
-"""+(packageCode.mkString("\n"))+"\n}"
-
-    out.write(fullPackageCode.getBytes("UTF8"))
-    out.close
     state
   }
   val runSpec = Command.args("run-specs","[specPattern]") {(state, args) => 

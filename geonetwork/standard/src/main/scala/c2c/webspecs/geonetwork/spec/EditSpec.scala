@@ -5,10 +5,10 @@ package spec
 class EditSpec extends GeonetworkSpecification {def spec =
 
   "This specification tests editing metadata"                     ^
-    "example 1"                                                   ! success
-/*  "Geocat" should {
+    "create a metadata and add an extent"                         ! addExtent ^
+    "create a metadata and add a new contact"                     ! addContact
 
-    "create a metadata and add a shared extent" in {
+    def addExtent = {
       val createMetadata = CreateMetadata(config,config.sampleDataTemplateIds(0))
       val addNewExtent = AddNewExtent()
       val request = (
@@ -20,19 +20,19 @@ class EditSpec extends GeonetworkSpecification {def spec =
         GetMetadataXml() trackThen
         DeleteMetadata)
 
-
         val (originalMd, finalMetadata, _) = request(None).tuple
         val originalXmlValue = originalMd.value
         val finalMetadataValue = finalMetadata.value
         val originalExtents = originalXmlValue.withXml { _ \\ "extent"}
         val finalExtents = finalMetadataValue.withXml {_ \\ "extent"}
 
-        finalExtents.size must beGreaterThan (0)
-        (originalExtents.size + 1) must beEqualTo (finalExtents.size)
+        (finalExtents.size must beGreaterThan (0)) and
+        ((originalExtents.size + 1) must beEqualTo (finalExtents.size))
 
+/*
         val addedExtent = finalExtents filterNot {originalExtents contains _}
 
-/*          val identifier = addedExtent \\ "MD_Identifier" \\ "CharacterString"
+        val identifier = addedExtent \\ "MD_Identifier" \\ "CharacterString"
         identifier must haveSize (1)
         identifier.text.trim must beEqualTo (addNewExtent.extentId)
 
@@ -41,7 +41,7 @@ class EditSpec extends GeonetworkSpecification {def spec =
 */
     }
 
-    "create a metadata and add a new contact" in {
+    def addContact = {
       val Create = CreateMetadata(config,config.sampleDataTemplateIds(0))
       val request = (
         config.login then
@@ -49,7 +49,6 @@ class EditSpec extends GeonetworkSpecification {def spec =
         AddNewContact() startTrackingThen
         DeleteMetadata)
 
-        request(None)._1.value.href must notBeEmpty
+        request(None)._1.value.href must not be empty
     }
-  }  */
 }

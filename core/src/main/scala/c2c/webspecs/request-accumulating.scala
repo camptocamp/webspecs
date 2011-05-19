@@ -1,6 +1,7 @@
 package c2c.webspecs
 
 import _root_.c2c.webspecs.ChainedRequest.ConstantRequestFunction
+import accumulating.AccumulatingRequest1
 import java.io.IOException
 
 object AccumulatingRequest {

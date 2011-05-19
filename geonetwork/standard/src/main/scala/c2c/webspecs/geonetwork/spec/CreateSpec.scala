@@ -2,28 +2,20 @@ package c2c.webspecs
 package geonetwork
 package spec
 
-import org.specs2.specification.Step
 import org.mockito.internal.matchers.And
+import org.specs2.specification.{Outside, Around, Step}
+import accumulating.AccumulatedResponse3
 
 
 class CreateSpec extends GeonetworkSpecification { def spec =
 
   "This specification test creating metadata"                     ^
-    "create a new metadata document from a template"              ! fromTemplate
-
-
+    "create a new metadata document from a template"              ! fromTemplate ^
+    "create a service metadata from a service metadata template"  ! serviceMd
 
   def fromTemplate = {
-      val createMd = CreateMetadata(config,config.sampleDataTemplateIds(0))
-
-      val request = (
-          config.login then
-          createMd startTrackingThen
-          GetEditingMetadata trackThen
-          DeleteMetadata trackThen
-          GetEditingMetadata)
-
-      val (createResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
+      val (createResponse, findResponse,deleteResponse,secondFindResponse) =
+        createMdRequest(config.sampleDataTemplateIds(0))
 
       (createResponse.basicValue.responseCode must_== 200) and
       (findResponse.basicValue.responseCode must_== 200) and
@@ -34,28 +26,32 @@ class CreateSpec extends GeonetworkSpecification { def spec =
       (deleteResponse.basicValue.responseCode must_== 200) and
       (secondFindResponse.value.xml.right.toOption must beNone)
     }
-      /*
 
-    "create a service metadata from a template" in {
-      val createMd = CreateMetadata(config, config.sampleServiceTemplateIds(0))
+    def serviceMd = {
 
-      val request = (
-          config.login then
-          createMd startTrackingThen
-          GetEditingMetadata trackThen
-          DeleteMetadata trackThen
-          GetEditingMetadata)
+      val (createResponse, findResponse,deleteResponse,secondFindResponse) =
+        createMdRequest(config.sampleServiceTemplateIds(0))
 
-      val (createResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
-
-      createResponse.basicValue.responseCode must_== 200
-      findResponse.basicValue.responseCode must_== 200
-      findResponse.value.withXml{md =>
+      (createResponse.basicValue.responseCode must_== 200) and
+      (findResponse.basicValue.responseCode must_== 200) and
+      (findResponse.value.withXml{md =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
-        }
-      deleteResponse.basicValue.responseCode must_== 200
-      secondFindResponse.value.xml.right.toOption must beNone
-    }
-  }*/
+      }) and
+      (deleteResponse.basicValue.responseCode must_== 200) and
+      (secondFindResponse.value.xml.right.toOption must beNone)
+  }
+
+  def createMdRequest(templateId:String) = {
+    val createMd = CreateMetadata(config, templateId)
+
+    val request = (
+        config.login then
+        createMd startTrackingThen
+        GetEditingMetadata trackThen
+        DeleteMetadata trackThen
+        GetEditingMetadata)
+
+    request(None).tuple
+  }
 }
