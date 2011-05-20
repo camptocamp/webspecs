@@ -3,11 +3,13 @@ package geonetwork
 package spec
 
 import ImportStyleSheets._
+import org.specs2.specification.Step
 
-class ImportSpec extends GeonetworkSpecification {def spec =
+class ImportSpec extends GeonetworkSpecification {def is =
 
-  "This specification tests importing complete metadata files"    ^
-    "import a iso19139 metadata"                                  ! importIso19139
+  "This specification tests importing complete metadata files"    ^ Step(setup) ^
+    "import a iso19139 metadata"                                  ! importIso19139 ^
+                                                                  Step(tearDown)
 
   def importIso19139 = {
       val name = "metadata.iso19139.xml"

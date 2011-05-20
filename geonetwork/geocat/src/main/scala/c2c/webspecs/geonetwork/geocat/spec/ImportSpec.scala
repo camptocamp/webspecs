@@ -4,35 +4,41 @@ package geocat
 package spec
 
 import ImportStyleSheets._
+import org.specs2.specification.Step
 
 object ImportSpec extends GeonetworkSpecification {
-  "Geocat" should {
+  def is =
+  "This specification imports Geocat specific metadata "    ^ Step(setup) ^
+    "import a gm03 V1 metadata"                             ! importGM03 ^
+    "import a gm03 V2 metadata"                             ! importGM03V2 ^
+    "import a iso19139.che metadata"                        ! importISO19139CHE ^
+                                                            Step(tearDown)
 
-    "import a gm03 V1 metadata" in {
-      val name = "metadata.gm03_V1.xml"
-      val ImportMd = ImportMetadata(config.resourceFile("data/"+name),GM03_V1,true)
+  def importGM03 = {
+    val name = "metadata.gm03_V1.xml"
+    val ImportMd = ImportMetadata(config.resourceFile("data/"+name),GM03_V1,true)
 
-      val request = (
-        UserLogin then
-        ImportMd startTrackingThen
-        GetMetadataXml() trackThen
-        DeleteMetadata trackThen
-        GetMetadataXml())
+    val request = (
+      UserLogin then
+      ImportMd startTrackingThen
+      GetMetadataXml() trackThen
+      DeleteMetadata trackThen
+      GetMetadataXml())
 
 
-      val (importResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
-      importResponse.basicValue.responseCode must_== 200
-      findResponse.basicValue.responseCode must_== 200
-      findResponse.value.withXml{ md  =>
-          md \\ "ERROR" must beEmpty
-          // TODO better checks
-        }
+    val (importResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
+    importResponse.basicValue.responseCode must_== 200
+    findResponse.basicValue.responseCode must_== 200
+    findResponse.value.withXml{ md  =>
+        md \\ "ERROR" must beEmpty
+        // TODO better checks
+      }
 
-      deleteResponse.basicValue.responseCode must_== 200
-      secondFindResponse.value.xml.right.toOption must beNone
-    }
+    deleteResponse.basicValue.responseCode must_== 200
+    secondFindResponse.value.xml.right.toOption must beNone
+  }
 
-    "import a gm03 V2 metadata" in {
+  def importGM03V2 = {
       val name = "metadata.gm03_V2.xml"
 
       val ImportMd = ImportMetadata(config.resourceFile("data/"+name),GM03_V1,true)
@@ -58,7 +64,7 @@ object ImportSpec extends GeonetworkSpecification {
       secondFindResponse.value.xml.right.toOption must beNone
     }
 
-    "import a iso19139.che metadata" in {
+    def importISO19139CHE = {
       val name = "metadata.iso19139.che.xml"
 
       val ImportMd = ImportMetadata(config.resourceFile("data/"+name),GM03_V1,true)
@@ -82,5 +88,4 @@ object ImportSpec extends GeonetworkSpecification {
       deleteResponse.basicValue.responseCode must_== 200
       secondFindResponse.value.xml.right.toOption must beNone
     }
-  }
 }

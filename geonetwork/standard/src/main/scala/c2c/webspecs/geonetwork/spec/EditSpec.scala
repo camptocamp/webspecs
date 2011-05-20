@@ -2,11 +2,14 @@ package c2c.webspecs
 package geonetwork
 package spec
 
-class EditSpec extends GeonetworkSpecification {def spec =
+import org.specs2.specification.Step
 
-  "This specification tests editing metadata"                     ^
+class EditSpec extends GeonetworkSpecification {def is =
+
+  "This specification tests editing metadata"                     ^ Step(setup) ^
     "create a metadata and add an extent"                         ! addExtent ^
-    "create a metadata and add a new contact"                     ! addContact
+    "create a metadata and add a new contact"                     ! addContact ^
+                                                                  Step(tearDown)
 
     def addExtent = {
       val createMetadata = CreateMetadata(config,config.sampleDataTemplateIds(0))

@@ -2,7 +2,7 @@ package c2c.webspecs
 package geonetwork
 package stress
 
-class ConcurrentSearchSpec extends StressSpecification(40) {def spec =
+class ConcurrentSearchSpec extends StressSpecification(40) {def is =
 
   "This specification performs multiple concurrent searches"      ^
     "example 1"                                                   ! success

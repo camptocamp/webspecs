@@ -2,56 +2,75 @@ package c2c.webspecs
 package geonetwork
 package spec
 
-import org.mockito.internal.matchers.And
-import org.specs2.specification.{Outside, Around, Step}
 import accumulating.AccumulatedResponse3
+import org.specs2.specification._
+class CreateSpec extends GeonetworkSpecification { def is =
 
+  "This specification tests creating metadata"            ^
+    "from a data template"                                ^  createFromTemplate("data") ^p
+    "from a service template"                             ^  createFromTemplate("service")
 
-class CreateSpec extends GeonetworkSpecification { def spec =
+  def createFromTemplate(templateType:String) =
+                                                                   Step(setup) ^
+      "Given a ${"+templateType+"} metadata template"              ^ SampleTemplate   ^
+      "Creating a new metadata based on that template"             ^ Create           ^
+      "Then the ${create} request should succeed"                  ^ GoodResponseCode ^
+      "And the ${get} request should succeed"                      ^ GoodResponseCode ^
+//      "And the ${delete} request should succeed"                   ^ GoodResponseCode^
+//      "And the created metadata has no error elements"               ^ NoErrors ^
+//      "And the elements in template are in created metadata"         ^ ExpectedElements ^
+                                                                   end^ Step(tearDown)
 
-  "This specification test creating metadata"                     ^
-    "create a new metadata document from a template"              ! fromTemplate ^
-    "create a service metadata from a service metadata template"  ! serviceMd
-
-  def fromTemplate = {
-      val (createResponse, findResponse,deleteResponse,secondFindResponse) =
-        createMdRequest(config.sampleDataTemplateIds(0))
-
-      (createResponse.basicValue.responseCode must_== 200) and
-      (findResponse.basicValue.responseCode must_== 200) and
-      (findResponse.value.withXml{md =>
-          md \\ "ERROR" must beEmpty
-          // TODO better checks
-      }) and
-      (deleteResponse.basicValue.responseCode must_== 200) and
-      (secondFindResponse.value.xml.right.toOption must beNone)
+  object SampleTemplate extends Given[String]{
+    def extract(text: String): String = extract1(text) match {
+      case "service" => "1"//config.sampleServiceTemplateIds(0)
+      case "data" => "2"//config.sampleDataTemplateIds(0)
     }
-
-    def serviceMd = {
-
-      val (createResponse, findResponse,deleteResponse,secondFindResponse) =
-        createMdRequest(config.sampleServiceTemplateIds(0))
-
-      (createResponse.basicValue.responseCode must_== 200) and
-      (findResponse.basicValue.responseCode must_== 200) and
-      (findResponse.value.withXml{md =>
-          md \\ "ERROR" must beEmpty
-          // TODO better checks
-      }) and
-      (deleteResponse.basicValue.responseCode must_== 200) and
-      (secondFindResponse.value.xml.right.toOption must beNone)
   }
 
-  def createMdRequest(templateId:String) = {
-    val createMd = CreateMetadata(config, templateId)
+  object Create extends When[String, AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]] {
+    def extract(templateId: String, text: String) = {
+      val createMd = CreateMetadata(config, templateId)
 
-    val request = (
-        config.login then
-        createMd startTrackingThen
-        GetEditingMetadata trackThen
-        DeleteMetadata trackThen
-        GetEditingMetadata)
+      val request = (
+          config.login then
+          createMd startTrackingThen
+          GetEditingMetadata trackThen
+          DeleteMetadata trackThen
+          GetEditingMetadata)
 
-    request(None).tuple
+      request(None)
+    }
+  }
+
+  object GoodResponseCode extends Then[AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]] {
+    def extract(accumulatedResponse: AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue],
+                text: String) = {
+      val response = extract1(text) match {
+        case "succeed" => accumulatedResponse._1
+        case "get" => accumulatedResponse._2
+        case "delete" => accumulatedResponse._3
+      }
+
+      response.basicValue.responseCode must_== 200
+    }
+  }
+
+  object NoErrors extends Then[AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]] {
+    def extract(accumulatedResponse: AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue],
+                text: String) = {
+      accumulatedResponse._2.value.withXml{md =>
+          md \\ "ERROR" must beEmpty
+          // TODO better checks
+      }
+    }
+  }
+
+  object ExpectedElements extends Then[AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]] {
+    def extract(accumulatedResponse: AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue],
+                text: String) = {
+      // TODO check that elements in template are in created metadata
+      1 must_== 1
+    }
   }
 }

@@ -22,19 +22,13 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
 
   lazy val UserLogin = config.login
 
-  object GeonetworkTestContext extends BeforeAfterEach {
-    def before = ExecutionContext.withDefault {
-      implicit context => config.setUpTestEnv
-    }
 
-    def after = ExecutionContext.withDefault[Unit] {
-      implicit context =>
-        context.close()
-        config.tearDownTestEnv
-    }
+  def setup = ExecutionContext.withDefault {
+    implicit context => config.setUpTestEnv
   }
-
-  def is = GeonetworkTestContext(spec)
-
-  def spec : Fragments
+  def tearDown = ExecutionContext.withDefault[Unit] {
+    implicit context =>
+      context.close()
+      config.tearDownTestEnv
+  }
 }
