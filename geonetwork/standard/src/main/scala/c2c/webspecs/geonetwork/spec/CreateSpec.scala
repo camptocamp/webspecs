@@ -16,17 +16,10 @@ class CreateSpec extends GeonetworkSpecification { def is =
       "Creating a new metadata based on that template"             ^ Create           ^
       "Then the ${create} request should succeed"                  ^ GoodResponseCode ^
       "And the ${get} request should succeed"                      ^ GoodResponseCode ^
-//      "And the ${delete} request should succeed"                   ^ GoodResponseCode^
-//      "And the created metadata has no error elements"               ^ NoErrors ^
-//      "And the elements in template are in created metadata"         ^ ExpectedElements ^
+      "And the ${delete} request should succeed"                   ^ GoodResponseCode^
+      "And the created metadata has no error elements"             ^ NoErrors ^
+      "And the elements in template are in created metadata"       ^ ExpectedElements ^
                                                                    end^ Step(tearDown)
-
-  object SampleTemplate extends Given[String]{
-    def extract(text: String): String = extract1(text) match {
-      case "service" => "1"//config.sampleServiceTemplateIds(0)
-      case "data" => "2"//config.sampleDataTemplateIds(0)
-    }
-  }
 
   object Create extends When[String, AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]] {
     def extract(templateId: String, text: String) = {

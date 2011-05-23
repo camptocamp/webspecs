@@ -5,46 +5,25 @@ import complete.DefaultParsers._
 
 object WebSpecsBuild extends Build
 {
-	// All internal projects must be listed in `projects`.
-	lazy val projects = Seq(root, core, geonetwork, geocat, apps)
-
-	// Declare a project in the root directory of the build with ID "root".
-	// Declare an execution dependency on sub1.
-	lazy val root:Project = Project("root",file(".")) aggregate(core,geonetwork,geocat, apps) settings (commands ++= Seq(
-      printState,
-  	  runSpec,
-  	  generateAccumClasses
-	  )
-	)
-
-  val coreSettings = Defaults.defaultSettings ++ Seq(
-    libraryDependencies ++= List(
-      "org.specs2" %% "specs2" % "1.3" withSources (),
-       "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
-       "org.apache.httpcomponents" % "httpclient" % "4.1" withSources (),
-       "org.apache.httpcomponents" % "httpmime" % "4.1" withSources (),
-       "com.github.scala-incubator.io" %% "core" % "0.1.2" withSources (),
-       "com.github.scala-incubator.io" %% "file" % "0.1.2" withSources ()
-    )
-  )
-	lazy val core = Project("core", file("core"),settings = coreSettings, delegates = root::Nil)  
-
-	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard"), delegates = root::Nil) dependsOn core
-
-	lazy val geocat = Project("geocat", file("geonetwork/geocat"), delegates = root::Nil) dependsOn geonetwork
+	lazy val projects = Seq(root, shared, core, geonetwork, geocat, apps)
+  
+	lazy val shared = Project("shared", file("shared-build-config"))
 	
-  lazy val apps = Project("apps",file("apps"), delegates = root::Nil) dependsOn geocat
+	lazy val root:Project = Project("root",file(".")) aggregate(core,geonetwork,geocat, apps) settings (commands ++= Seq(generateAccumClasses))
+	
+	lazy val core = Project("core", file("core")) delegateTo shared
+
+	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")) dependsOn core delegateTo shared
+
+	lazy val geocat = Project("geocat", file("geonetwork/geocat")) dependsOn geonetwork delegateTo shared
+	
+  lazy val apps = Project("apps",file("apps")) dependsOn geocat delegateTo shared
   
   
 	def show[T](s: Seq[T]) =
 		s.map("'" + _ + "'").mkString("[", ", ", "]")
 
-	def printState = Command.command("print-state") { state =>
-		import state._
-		println(state.getClass())
 
-		state
-	}
 
   val generateAccumClasses = Command.command("gen-classes") { state =>
     val accumlatingRequestTemplate = """
@@ -139,13 +118,5 @@ import ChainedRequest.ConstantRequestFunction
     }
     state
   }
-  val runSpec = Command.args("run-specs","[specPattern]") {(state, args) => 
-    val extracted = Project.extract(state)
-    import extracted._
-/*    for{cp <- fullClasspath 
-        r <- runner } {
-          r.run("c2c.webspecs.geonetwork.suites.RunSpecRunner",cp,Nil,log)
-    }
-*/    state
-  }
+
 }

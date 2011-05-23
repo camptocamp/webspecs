@@ -6,7 +6,8 @@ import org.specs2._
 import specification._
 import UserProfiles._
 import c2c.webspecs.ExecutionContext
-
+import accumulating.AccumulatedResponse3
+import java.net.{HttpURLConnection, URL}
 
 abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extends Specification {
   implicit val config = GeonetConfig(userProfile, getClass().getSimpleName)
@@ -30,5 +31,13 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
     implicit context =>
       context.close()
       config.tearDownTestEnv
+  }
+
+
+  object SampleTemplate extends Given[String]{
+    def extract(text: String): String = extract1(text) match {
+      case "service" => config.sampleServiceTemplateIds(0)
+      case "data" => config.sampleDataTemplateIds(0)
+    }
   }
 }
