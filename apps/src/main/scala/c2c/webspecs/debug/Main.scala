@@ -22,7 +22,7 @@ object AddCookie extends Request[Any,Null] {
   }
 }
 
-object Main extends Application {
+object Main extends App {
   implicit val context = DefaultExecutionContext()
   val req = (AddCookie then
     DivCount("http://localhost:43080/cas/logout") startTrackingThen

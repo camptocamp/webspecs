@@ -46,8 +46,8 @@ trait AccumulatingRequest[-In,+Out] extends Request[In,Out] {
 
     val resultData =
       (foldInitData /: elems) {
-        case (resultData, Elem(requestFactory:RequestFactory,track)) =>
-          processRequest(resultData,requestFactory,track)
+        case (rData, Elem(requestFactory:RequestFactory,track)) =>
+          processRequest(rData,requestFactory,track)
       }
 
     processRequest(resultData,last.asInstanceOf[RequestFactory],false);

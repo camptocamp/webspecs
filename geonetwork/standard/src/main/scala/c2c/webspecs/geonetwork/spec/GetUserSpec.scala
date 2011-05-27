@@ -8,6 +8,7 @@ class GetUserSpec extends GeonetworkSpecification { def is =
 
   "This specification tests editing metadata"                     ^ Step(setup) ^
     "Given a request listing all user's ids"                      ^ AllUsers ^
+    "At least one user exists"                                  ^ AdminUserExists ^
     "All users should be accessible"                              ^ UserIsAccessible ^
                                                                   Step(tearDown)
 
@@ -17,11 +18,17 @@ class GetUserSpec extends GeonetworkSpecification { def is =
     }
   }
 
+  object AdminUserExists extends Then[List[String]] {
+
+    def extract(userIds: List[String], text: String) =
+      userIds aka "userIds" must not beEmpty
+  }
+
   object UserIsAccessible extends Then[List[String]] {
     def makeRequest(id:String) =
-      (config.adminLogin then GetUser(id))(None).basicValue must_== 200
+      (config.adminLogin then GetUser(id))(None) must have200ResponseCode
 
-    def extract(userIds: List[String], text: String): Result = {
+    def extract(userIds: List[String], text: String) = {
       val seed: Result = Success(): Result
       (userIds foldLeft seed) {
         case (result,next) =>

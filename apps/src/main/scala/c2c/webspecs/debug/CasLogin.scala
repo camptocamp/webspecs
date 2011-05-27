@@ -1,7 +1,7 @@
 package c2c.webspecs
 package debug
 
-object CasLogin extends Application {
+object CasLogin extends App {
   ExecutionContext.withDefault {context =>
     implicit val c = context
     new CasLogin("jeichar","jeichar")(None).value.withXml{xml =>

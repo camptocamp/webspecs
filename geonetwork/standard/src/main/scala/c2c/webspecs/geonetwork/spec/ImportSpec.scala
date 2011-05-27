@@ -8,13 +8,14 @@ import org.specs2.specification.Step
 class ImportSpec extends GeonetworkSpecification {def is =
 
   "This specification tests importing complete metadata files"    ^ Step(setup) ^
-    "import a iso19139 metadata"                                  ! importIso19139 ^
+    "import a ${iso19139} metadata"                               ! importIso19139 ^
                                                                   Step(tearDown)
 
   def importIso19139 = {
       val name = "metadata.iso19139.xml"
 
-      val ImportMd = ImportMetadata(config.resourceFile("data/"+name),GM03_V1,true)
+      val (data,content) = ImportMetadata.importDataFromClassPath("/data/"+name,classOf[ImportSpec])
+      val ImportMd = ImportMetadata.findGroupId(content,GM03_V1,true)
 
       val request = (
         UserLogin then
@@ -25,13 +26,13 @@ class ImportSpec extends GeonetworkSpecification {def is =
 
       val (importResponse, findResponse, deleteResponse, secondFindResponse) = request(None).tuple
 
-      (importResponse.basicValue.responseCode must_== 200) and
-      (findResponse.basicValue.responseCode must_== 200) and
+      (importResponse must have200ResponseCode) and
+      (findResponse must have200ResponseCode) and
       (findResponse.value.withXml { md =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
       }) and
-      (deleteResponse.basicValue.responseCode must_== 200) and
-      (secondFindResponse.value.xml.right.toOption must be none)
+      (deleteResponse must have200ResponseCode) and
+      (secondFindResponse.value.xml must beLeft)
     }
 }

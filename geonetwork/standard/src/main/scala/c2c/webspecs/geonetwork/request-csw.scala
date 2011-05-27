@@ -2,11 +2,13 @@ package c2c.webspecs
 package geonetwork
 
 case class SortBy(key:String,asc:Boolean)
-object OutputSchemas extends Enumeration {
-  type OutputSchema = Value
-  val GM03_2Record,own,IsoRecord = Value
-  val DublinCore = Value("ogc")
-  val CheRecord = Value("http://www.geocat.ch/2008/che")
+object OutputSchemas {
+  abstract class  OutputSchema (val name:String) {
+    override def toString: String = name
+  }
+  case object Record extends OutputSchema("csw:Record")
+  case object IsoRecord extends OutputSchema("csw:IsoRecord")
+  val DublinCore = Record
 }
 case class PropertyIsLike(name:String,literal:String) {
   val xml =
@@ -39,6 +41,9 @@ object ElementSetNames extends Enumeration {
 import ResultTypes._
 import ElementSetNames._
 import xml.{NodeSeq, Node}
+import xml.Elem
+import geonetwork.DomainProperties.DomainProperty
+import geonetwork.DomainParameters.DomainParameter
 
 object CswXmlUtil {
   def getByIdXml(fileId:String, outputSchema:OutputSchemas.OutputSchema) =
@@ -78,7 +83,7 @@ object CswXmlUtil {
 
 case class CswGetRecordsRequest(filter:NodeSeq=Nil,
                                 resultType:ResultType=hits,
-                                outputSchema:OutputSchemas.OutputSchema=OutputSchemas.DublinCore,
+                                outputSchema:OutputSchemas.OutputSchema=OutputSchemas.IsoRecord,
                                 startPosition:Int=1,
                                 maxRecords:Int=50,
                                 elementSetName:ElementSetName = full,
@@ -94,6 +99,54 @@ case class CswGetByFileId(fileId:String, outputSchema:OutputSchemas.OutputSchema
 
   def xmlData = CswXmlUtil.getByIdXml(fileId,outputSchema)
   override def toString() = "CswGetByFileId("+fileId+","+outputSchema+")"
+}
+
+trait DomainParam {val name:String}
+object DomainProperties {
+  abstract class DomainProperty(val name:String) extends DomainParam
+  case object Title extends DomainProperty("Title")
+  case object Subject extends DomainProperty("Subject")
+  case object Owner extends DomainProperty("_owner")
+  case object TopicCategory extends DomainProperty("topicCat")
+  case object Type extends DomainProperty("Type")
+
+}
+object DomainParameters {
+  abstract class DomainParameter(val name:String) extends DomainParam
+  case object DescribeRecordOutputFormat extends DomainParameter("DescribeRecord.outputFormat")
+  case object GetRecordsResultType extends DomainParameter("GetRecords.resultType")
+
+}
+case class CswGetDomain(firstParam:DomainParam, params:DomainParam*)
+  extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) {
+
+  val (propertyNames, parameterNames) = {
+    val (propertyNames, parameterNames) = params.partition(_.isInstanceOf[DomainProperty])
+    firstParam match {
+      case p:DomainParameter =>
+        (propertyNames, p +: parameterNames)
+      case p:DomainProperty =>
+        (p +: propertyNames, parameterNames)
+    }
+  }
+
+  def xmlData =
+    <csw:GetDomain xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW">
+      {
+        if(propertyNames.nonEmpty) {
+          <csw:PropertyName>{propertyNames.map{_.name}.mkString(",")}</csw:PropertyName>
+        } else {
+          NodeSeq.Empty
+        }
+      }
+      {
+        if(parameterNames.nonEmpty) {
+          <csw:ParameterName>{parameterNames.map{_.name}.mkString(",")}</csw:ParameterName>
+        } else {
+          NodeSeq.Empty
+        }
+      }
+    </csw:GetDomain>
 }
 
 

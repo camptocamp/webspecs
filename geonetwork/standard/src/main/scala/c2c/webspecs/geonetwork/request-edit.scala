@@ -96,7 +96,8 @@ object AddNewContact {
 class AddNewContact(id:String, editVersion:String, nodeRef:String, addSite:ContactAddSite)
   extends Add("metadata.elem.add",id,editVersion, nodeRef, addSite, "child" -> "")
 object AddNewExtent {
-  def apply(addSite:ExtentAddSite=AddSites.extent) = { response:Response[XmlValue] =>
+  def apply(addSite:ExtentAddSite=AddSites.extent): (Response[XmlValue]) => AddNewExtent = {
+    response:Response[XmlValue] =>
     response.value.withXml { md =>
       implicit val allInput = md \\ "input"
       val nodeRef = XLink.lookupXlinkNodeRef(addSite.toString)(md)

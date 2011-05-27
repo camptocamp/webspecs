@@ -9,9 +9,9 @@ trait Response[+A] {
   def basicValue:BasicHttpValue
 }
 object Response {
-  def apply[A](value:A) = new Response[A]{
-      def basicValue = EmptyResponse.basicValue
-      def value = value
+  def apply[A](constValue:A) = new Response[A]{
+      val basicValue = EmptyResponse.basicValue
+      val value = constValue
     }
 }
 object EmptyResponse extends Response[Null] {

@@ -47,7 +47,7 @@ class Config(val specName:String) extends Log {
   def setUpTestEnv(implicit context:ExecutionContext) = {
 
     log(LifeCycle, "Setup Test Environment")
-/*    try {
+    try {
 
       lifeCycle.setup(context)
 
@@ -59,19 +59,18 @@ class Config(val specName:String) extends Log {
           case Right(_) => throw e
           case Left(error:Throwable) => throw new ExceptionChain(e,error)
         }
-    }   */
+    }
   }
 
 
   def tearDownTestEnv(implicit context:ExecutionContext) = {
-         /*
     try {
       log(LifeCycle, "\r\n\r\n\r\nTearing down Test Environment")
       lifeCycle.tearDown(context)
     } catch {
       case e:Throwable =>
         Log(Log.Error, "Exception occurred during teardown:"+e.getMessage+"\n" + e.getStackTraceString)
-    }    */
+    }
   }
 
 }

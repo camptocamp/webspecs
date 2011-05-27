@@ -41,7 +41,9 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
 
     val testDataFileName = "metadata-validate-formats-spec.xml"
 
-    val ImportTestData = ImportMetadata(config.resourceFile("data/"+testDataFileName),ImportStyleSheets.NONE,false)
+    val (_,content) = ImportMetadata.importDataFromClassPath("data/"+testDataFileName, getClass)
+
+    val ImportTestData = ImportMetadata.findGroupId(content,ImportStyleSheets.NONE,false)
 
     val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXml())(None).value
     val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
@@ -54,7 +56,7 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
 
     val afterValidation = (config.adminLogin then
       ValidateSharedObject(formatId,SharedObjectTypes.formats) then
-      GetMetadataXml(OutputSchemas.CheRecord).setIn(Id(id)))(None)
+      GetMetadataXml(CheRecord).setIn(Id(id)))(None)
 
     afterValidation.value.withXml { xml =>
       val newXlinks = XLink.findAll(xml,AddSites.distributionFormat)
@@ -74,7 +76,8 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
   def createAndValidateKeepRole = {
     val testDataFileName = "metadata-validate-contact-138548.xml"
 
-    val ImportTestData = ImportMetadata(config.resourceFile("data/"+testDataFileName),ImportStyleSheets.NONE,false);
+    val (_,content) = ImportMetadata.importDataFromClassPath("data/"+testDataFileName, getClass)
+    val ImportTestData = ImportMetadata.findGroupId(content,ImportStyleSheets.NONE,false);
 
     val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXml())(None).value
     val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
@@ -85,7 +88,7 @@ object SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) 
     val contactId = xlinks(0).id
     val afterValidation = (config.adminLogin
       then ValidateSharedObject(contactId,SharedObjectTypes.contacts) then
-      GetMetadataXml(OutputSchemas.CheRecord).setIn(Id(id)))(None)
+      GetMetadataXml(CheRecord).setIn(Id(id)))(None)
 
     afterValidation.value.withXml { xml =>
       val newXlinks = XLink.findAll(xml,AddSites.contact)

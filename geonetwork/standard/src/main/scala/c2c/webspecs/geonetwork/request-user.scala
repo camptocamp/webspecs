@@ -97,11 +97,14 @@ class UserValue(val user:User, val basicValue:BasicHttpValue) extends XmlValue w
 class GetUserValue(override val userId:String, basicValue:BasicHttpValue) extends UserValue(null, basicValue) {
   override val user = withXml { xml =>
     // TODO need another request to get username and profile
-    val surname = (xml \\ "surname").text.trim
-    val name = (xml \\ "name").text.trim
-    val email = (xml \\ "email").text.trim
+    val record = (xml \ "response" \ "record")
+    val username = (record \\ "username").text.trim
+    val password = (record \\ "password").text.trim
+    val surname = (record \\ "surname").text.trim
+    val name = (record \\ "name").text.trim
+    val email = (record \\ "email").text.trim
     def localizedLookup(tagName:String)= {
-      val tag = xml \\ tagName
+      val tag = record \\ tagName
       def translation(langCode:String) = {
         val t = tag \\ "LocalisedCharacterString" find {n => (n \\ "@locale" text) == langCode.toUpperCase}
         t.map(t => langCode.toUpperCase -> t.text).toList
@@ -113,7 +116,7 @@ class GetUserValue(override val userId:String, basicValue:BasicHttpValue) extend
       LocalisedString(Map(en ::: de ::: fr ::: fr ::: it :_*))
     }
     val position = localizedLookup("positionName")
-    User(Some(userId),"","",surname,name,email,position)
+    User(Some(userId),username,password,surname,name,email,position)
   }
 }
 
@@ -140,11 +143,9 @@ object GetUser {
 }
 case class GetUser(userId:String)
   extends AbstractGetRequest[Any,UserValue](
-    "xml.user.get",
+    "user.get!",
     SelfValueFactory(),
-    P("id", userId.toString),
-    P("schema", "iso19139.che"),
-    P("role", "createValue")) with BasicValueFactory[GetUserValue] {
+    P("id", userId.toString)) with BasicValueFactory[GetUserValue] {
   override def createValue(rawValue: BasicHttpValue) = new GetUserValue(userId,rawValue)
 }
 
@@ -152,7 +153,7 @@ case class CreateUser(user:User)
   extends AbstractFormPostRequest[Any,UserValue](
     "user.update",
     SelfValueFactory(),
-    user.formParams:_*)
+    (P("operation", "newuser") :: user.formParams):_*)
   with ValueFactory[Any,UserValue] {
 
   override def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {

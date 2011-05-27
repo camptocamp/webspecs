@@ -3,6 +3,7 @@ package geonetwork
 
 
 import org.specs2._
+import matcher.Matcher
 import specification._
 import UserProfiles._
 import c2c.webspecs.ExecutionContext
@@ -33,11 +34,6 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
       config.tearDownTestEnv
   }
 
-
-  object SampleTemplate extends Given[String]{
-    def extract(text: String): String = extract1(text) match {
-      case "service" => config.sampleServiceTemplateIds(0)
-      case "data" => config.sampleDataTemplateIds(0)
-    }
-  }
+  def haveResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
+  def have200ResponseCode = haveResponseCode(200)
 }

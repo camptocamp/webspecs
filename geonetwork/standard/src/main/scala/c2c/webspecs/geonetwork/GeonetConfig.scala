@@ -31,40 +31,15 @@ class GeonetConfig(val userProfile:UserProfiles.UserProfile, specName:String)
   def login = Login(user,pass)
 
   def adminLogin = Login(Properties.get(ADMIN_USER_KEY), Properties.get(ADMIN_USER_PASS))
-  lazy val userPrefix = "atest_" + InetAddress.getLocalHost.getHostName+"_"
+  lazy val userPrefix = "atest_" + UUID.randomUUID.toString.takeRight(8) +"_"
 
   def extractId(li: String): Option[String] = XmlUtils.extractId(li)
 
-  lazy val usersList = adminLogin then GetRequest("user.list")
-
-  def findUserIds(req: Request[Any,XmlValue]=usersList)(matcher: String => Boolean): Traversable[String] =
-    ExecutionContext.withDefault { context =>
-      req(None)(context).value.withXml{ xml =>
-        val tables = xml \\ "table"
-        val correctTable = tables filter {_ \ "tr" \ "th" nonEmpty}
-        val row = correctTable \ "tr" find { n =>
-          (n \ "td" headOption).exists {td => matcher(td.text.trim)}
-        }
-        row.toList flatMap {_ \\ "@onclick" filter {_.text contains "deleteUser"} flatMap {onclick => extractId(onclick.text)}}
-      }
-    }
-  def  findUsers[Out](matcher:String => Boolean)(requestBuilder:Traversable[String] => Request[Any,Out]) =  {
-    val ids = findUserIds(usersList)(matcher)
-    requestBuilder(ids)
+  lazy val usersList: List[User with UserRef] = ExecutionContext.withDefault{c =>
+    val l = (adminLogin then ListUsers)(None)(c).value
+    l
   }
-
-  lazy val groupsList = adminLogin then GetRequest("group.list")
-  def findGroupIds(req:Request[Any,XmlValue] = groupsList)(matcher:String => Boolean) =
-    ExecutionContext.withDefault {context =>
-      implicit val c = context
-      val value = req(None).value
-      val deleteButton = value.text.right.get.lines.dropWhile(l => !matcher(l)).dropWhile(l => !l.contains("delete1"))
-      (deleteButton flatMap {line => extractId(line).iterator} toTraversable)
-    }
-  def findGroups[Out](matcher:String => Boolean)(creator: Traversable[String] => Request[Any,Out]) = {
-    val ids = findGroupIds(groupsList)(matcher)
-    creator(ids)
-  }
+  lazy val groupsList:List[GroupValue] = ExecutionContext.withDefault{c => (adminLogin then ListGroups)(None)(c).value}
 
 def mdSearchXml(props:Traversable[PropertyIsLike]) =
     <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType="results" startPosition="1" maxRecords="100">
@@ -82,14 +57,29 @@ def mdSearchXml(props:Traversable[PropertyIsLike]) =
 
   lazy val user = Properties("user") getOrElse userPrefix+specName
   lazy val pass = Properties("pass") getOrElse UUID.randomUUID.toString.takeRight(8)
-  lazy val groupId = findGroupIds()(_ contains user) match {
-    case ids if ids.isEmpty => throw new IllegalStateException("You must call setUpTestEnv before calling groupId")
-    case ids => ids.head
+
+  lazy val groupId:String = group.id
+
+  lazy val group = findGroupFromProperty getOrElse findUsersGroup
+
+  private lazy val findGroupFromProperty = Properties("group").flatMap {name =>
+    groupsList.find(_.name == name)
   }
-  lazy val userId = findUserIds()(_ contains user) match {
-    case ids if ids.isEmpty => throw new IllegalStateException("You must call setUpTestEnv before calling userId")
-    case ids => ids.head
+
+  private lazy val findUsersGroup:GroupValue = ExecutionContext.withDefault{ implicit c =>
+    val groups = (GetUserGroups.setIn(userId).apply(None)).value
+    val group = groups.find{_.name == user} orElse {groups.find{_.id.toInt > 1}}
+    group getOrElse {
+      throw new IllegalStateException("A group was not found that matches the userYou must call setUpTestEnv before calling groupId")
+    }
   }
+
+  lazy val userId = usersList.find(_.username == user).map{user =>
+    user.userId
+  } getOrElse {
+    throw new IllegalStateException("You must call setUpTestEnv before calling userId")
+  }
+
   private def sampleTemplates(filter:Node):List[String] = ExecutionContext.withDefault{ implicit context =>
     val xml = CswGetRecordsRequest(filter, maxRecords = 20, resultType = ResultTypes.results)(None).value.xml
 

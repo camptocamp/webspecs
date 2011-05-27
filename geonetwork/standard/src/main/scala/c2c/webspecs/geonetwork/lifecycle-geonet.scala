@@ -2,14 +2,16 @@ package c2c.webspecs
 package geonetwork
 
 class SandboxLifeCycle(config:GeonetConfig) extends SystemLifeCycle {
-    import config._
+  import config._
 
   def setup(implicit context: ExecutionContext) = {
 
-    val createGroup = CreateGroup(user)
+    val createGroup = CreateGroup(new Group(user))
+    val groupId = (adminLogin then createGroup).assertPassed(None).value.id
     val createUser = CreateUser(User(username=user, password=pass, profile=userProfile, groups=List(groupId)))
 
-    (adminLogin then createGroup then createUser then Login(user, pass)).assertPassed(None)
+    val request = (createUser then Login(user, pass))
+    request.assertPassed(None)
   }
 
 

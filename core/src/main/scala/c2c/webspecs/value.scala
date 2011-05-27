@@ -103,7 +103,12 @@ trait XmlValue extends TextValue {
 
         val error = xml \\ "ExceptionReport" \ "Exception" \ "ExceptionText"
         if(error.nonEmpty) {
-          throw new IllegalStateException("Server response contained ExceptionReport: "+error.text.replace("&lt;","<").replace("&gt;",">"))
+          val report = error.text.replace("&lt;", "<").replace("&gt;", ">") match {
+            case "ogc" => xml \\ "ExceptionReport" \ "Exception"
+            case text => text
+          }
+
+          throw new IllegalStateException("Server response contained ExceptionReport: "+report)
         }
         xml
       }

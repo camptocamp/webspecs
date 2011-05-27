@@ -12,8 +12,7 @@ class CreateSpec extends GeonetworkSpecification { def is =
 
   def createFromTemplate(templateType:String) =
                                                                    Step(setup) ^
-      "Given a ${"+templateType+"} metadata template"              ^ SampleTemplate   ^
-      "Creating a new metadata based on that template"             ^ Create           ^
+      "Create a ${"+templateType+"} metadata       "               ^ Create   ^
       "Then the ${create} request should succeed"                  ^ GoodResponseCode ^
       "And the ${get} request should succeed"                      ^ GoodResponseCode ^
       "And the ${delete} request should succeed"                   ^ GoodResponseCode^
@@ -21,8 +20,13 @@ class CreateSpec extends GeonetworkSpecification { def is =
       "And the elements in template are in created metadata"       ^ ExpectedElements ^
                                                                    end^ Step(tearDown)
 
-  object Create extends When[String, AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]] {
-    def extract(templateId: String, text: String) = {
+  object Create extends Given[AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]] {
+    def extract(text: String): AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue] = {
+      val templateId = extract1(text) match {
+        case "service" => config.sampleServiceTemplateIds(0)
+        case "data" => config.sampleDataTemplateIds(0)
+      }
+
       val createMd = CreateMetadata(config, templateId)
 
       val request = (
@@ -45,7 +49,7 @@ class CreateSpec extends GeonetworkSpecification { def is =
         case "delete" => accumulatedResponse._3
       }
 
-      response.basicValue.responseCode must_== 200
+      response must have200ResponseCode
     }
   }
 

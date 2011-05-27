@@ -8,6 +8,8 @@ import org.apache.http.protocol.HttpContext
 import org.apache.http.{HttpStatus, Header, HttpResponse, HttpRequest}
 import java.net.URI
 import org.apache.http.client.utils.URIUtils
+import org.apache.http.auth.{AuthScope, UsernamePasswordCredentials}
+import java.lang.IllegalStateException
 
 object Login {
   def apply(user:String,pass:String):Request[Any,Nothing] = Config.loadStrategy[Request[Any,Nothing]]("login") fold (
@@ -16,10 +18,21 @@ object Login {
       strategy.getConstructor(classOf[String],classOf[String]).newInstance(user,pass)
   )
 }
+
+class GeonetworkLoginService(user:String, pass:String) extends GetRequest("user.login", "username" -> user, "password" -> pass)
+
 class BasicAuthLogin(user:String, pass:String) extends Request[Any,Null] {
   def apply (in: Any)(implicit context:ExecutionContext) = {
     import AuthPolicy._
-    context.httpClient.getParams.setParameter(AuthPNames.TARGET_AUTH_PREF, BASIC :: Nil asJava);
+    context.httpClient match {
+      case client:DefaultHttpClient =>
+        client.getParams.setParameter(AuthPNames.TARGET_AUTH_PREF, BASIC :: DIGEST :: Nil asJava)
+        val cred = new UsernamePasswordCredentials(user,pass)
+        client.getCredentialsProvider.setCredentials(AuthScope.ANY,cred)
+      case _ =>
+        throw new IllegalStateException(getClass.getSimpleName+" does not apply to "+context.httpClient.getClass.getName)
+    }
+
     EmptyResponse
   }
 
