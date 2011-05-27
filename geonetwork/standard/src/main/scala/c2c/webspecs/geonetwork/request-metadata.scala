@@ -17,15 +17,14 @@ object IdValuesFactory {
           val basicValue = rawValue
           lazy val id = withXml { xml =>
               // early versions < 2.6
-              val okNode = (xml \\ "ok").headOption getOrElse {throw new IllegalArgumentException("response does not have an <ok> tag, are you sure the response is from a import metadata request?")}
+              val okNode = (xml \\ "ok").headOption
 
               // more recent versions > 2.6
-              val idNode = (xml \\ "id").headOption getOrElse {throw new IllegalArgumentException("response does not have an <id> tag, are you sure the response is from a import metadata request?")}
+              val idNode = (xml \\ "id").headOption
 
-              def parse(nodes:NodeSeq) = okNode.text.split(";").map{_.trim}.filter{_.nonEmpty}
-              val idStrings = parse(okNode) ++ parse(idNode)
+              val nodes = (okNode orElse idNode).map{_.text.split(";").map{_.trim}.filter{_.nonEmpty}}.toList.flatten
 
-              idStrings.headOption getOrElse {
+              nodes.headOption getOrElse {
                   throw new IllegalStateException("Expected to find an id or ok element. Does the response come from a create or import request?")
               }
           }
@@ -111,19 +110,19 @@ case class GetMetadataXml(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoR
     }
   }
 }
-object ImportStyleSheets extends Enumeration {
-  type ImportStyleSheet = Value
-  val GM03_V1 = Value("GM03-to-ISO19139CHE.xsl")
-  val GM03_V2 = Value("GM03_2-to-ISO19139CHE.xsl")
-  val ISO = Value("ISO19139-to-ISO19139CHE.xsl")
-  val NONE = Value("_none_")
+object ImportStyleSheets {
+  abstract class ImportStyleSheet(val name:String) {
+    override def toString: String = name
+  }
+  case object ISO extends ImportStyleSheet("ISO19139-to-ISO19139CHE.xsl")
+  case object NONE extends ImportStyleSheet("_none_")
 }
 object ImportMetadata {
   def importData (resource:URL,fileName:String="") = {
     val string = Resource.fromURL(resource).slurpString(Codec.UTF8)
 
     val name =
-      if (fileName == null) Path.fromString(resource.getFile).name
+      if (fileName.trim() == "") Path.fromString(resource.getFile).name
       else fileName
 
     (string, new ByteArrayBody(string.getBytes(Codec.UTF8.charSet),"application/xml",name))
