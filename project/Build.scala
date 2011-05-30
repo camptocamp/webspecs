@@ -5,26 +5,70 @@ import complete.DefaultParsers._
 
 object WebSpecsBuild extends Build
 {
-	lazy val projects = Seq(root, shared, core, geonetwork, geocat, apps)
+
+  val coreResolvers = Seq(
+    "Mapfish Repo" at "http://dev.mapfish.org/maven/repository",
+    ScalaToolsSnapshots
+  )
+
+  val sharedSettings = Seq(
+    resolvers ++= coreResolvers,
+    scalaVersion := "2.9.0-1",
+    organization := "com.c2c",
+    version := "1.0-SNAPSHOT"
+  )
   
-	lazy val shared = Project("shared", file("shared-build-config"))
-	
-	lazy val root:Project = Project("root",file(".")) aggregate(core,geonetwork,geocat, apps) settings (commands ++= Seq(generateAccumClasses))
-	
-	lazy val core = Project("core", file("core")) delegateTo shared
+  // ------------------------------ Root Project ------------------------------ //
+	lazy val root:Project = Project("root",file(".")).
+	  aggregate(core,geonetwork,geocat, selenium, apps)
 
-	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")) dependsOn core delegateTo shared
+  // ------------------------------ Core Project ------------------------------ //
 
-	lazy val geocat = Project("geocat", file("geonetwork/geocat")) dependsOn geonetwork delegateTo shared
-	
-  lazy val apps = Project("apps",file("apps")) dependsOn geocat delegateTo shared
+  val coreDependencies = Seq(
+    "org.specs2" %% "specs2" % "1.4-SNAPSHOT" withSources (),
+    "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
+    "org.apache.httpcomponents" % "httpclient" % "4.1" withSources (),
+    "org.apache.httpcomponents" % "httpmime" % "4.1" withSources (),
+    "com.github.scala-incubator.io" %% "core" % "0.2.0-SNAPSHOT" withSources (),
+    "com.github.scala-incubator.io" %% "file" % "0.2.0-SNAPSHOT" withSources ()
+  )
   
+  val coreSettings = Seq[Setting[_]](
+	  libraryDependencies ++= coreDependencies,
+	  commands ++= Seq(generateAccumClasses))
+	
+	lazy val core = Project("core", file("core")).settings( sharedSettings ++ coreSettings :_*)
   
-	def show[T](s: Seq[T]) =
-		s.map("'" + _ + "'").mkString("[", ", ", "]")
+  // ------------------------------ Geonetwork Project ------------------------------ //
+	 
+	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")).
+	  dependsOn(core).settings(sharedSettings:_*)
+	  
+  // ------------------------------ Geocat Project ------------------------------ //
 
+	lazy val geocat = Project("geocat", file("geonetwork/geocat")) dependsOn geonetwork settings (sharedSettings:_*)
 
+  // ------------------------------ Selenium Project ------------------------------ //
+	
+  val seleniumVersion = "0.9.7376"
+  val seleniumDependencies = Seq(
+      "org.seleniumhq.webdriver" % "webdriver-htmlunit" % seleniumVersion withSources (),
+      "org.seleniumhq.webdriver" % "webdriver-common" % seleniumVersion withSources (),
+      "org.seleniumhq.webdriver" % "webdriver-chrome" % seleniumVersion withSources (),
+      "org.seleniumhq.webdriver" % "webdriver-firefox" % seleniumVersion withSources (),
+      "org.seleniumhq.webdriver" % "webdriver-support" % seleniumVersion withSources ()
+    )
+  val seleniumSettings = Seq[Setting[_]](
+      resolvers ++= coreResolvers,
+  	  libraryDependencies ++= seleniumDependencies)
+  
+  lazy val selenium = Project("selenium",file("selenium")) dependsOn core settings (sharedSettings ++ seleniumSettings :_*)
 
+  // ------------------------------ Apps Project ------------------------------ //
+  lazy val apps = Project("apps",file("apps")) dependsOn geocat settings (sharedSettings:_*)
+  
+  // ------------------------------ GenerateAccumClasses Command (Part of Core) ------------------------------ //
+  
   val generateAccumClasses = Command.command("gen-classes") { state =>
     val accumlatingRequestTemplate = """
 class AccumulatingRequest%8$s[-In,%1s,+Out](
