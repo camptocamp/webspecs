@@ -3,10 +3,11 @@ package geonetwork
 package geocat
 package spec
 
-import ImportStyleSheets._
+import GeocatImportStyleSheets._
 import org.specs2.specification.Step
 
-object ImportSpec extends GeonetworkSpecification {
+object
+ImportSpec extends GeonetworkSpecification {
   def is =
   "This specification imports Geocat specific metadata "    ^ Step(setup) ^
     "import a gm03 V1 metadata"                             ! importGM03 ^

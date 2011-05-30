@@ -1,5 +1,6 @@
 package c2c.webspecs
 package geonetwork
+package geocat
 package spec
 
 import ImportStyleSheets._
