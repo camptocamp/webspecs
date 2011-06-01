@@ -2,7 +2,10 @@ package c2c.webspecs.geonetwork.spec
 
 import org.specs2.specification.{Then, Given, Step}
 import org.specs2.execute.{Success, Result}
-import c2c.webspecs.geonetwork.{GetUser, ListUsers, GeonetworkSpecification}
+import org.specs2.matcher.Expectable
+import c2c.webspecs.geonetwork._
+import javax.management.remote.rmi._RMIConnection_Stub
+import sun.misc.Request
 
 class GetUserSpec extends GeonetworkSpecification { def is =
 
@@ -12,28 +15,31 @@ class GetUserSpec extends GeonetworkSpecification { def is =
     "All users should be accessible"                              ^ UserIsAccessible ^
                                                                   Step(tearDown)
 
-  object AllUsers extends Given[List[String]] {
-    def extract(text: String): List[String] = {
-      (config.adminLogin then ListUsers)(None).value map {_.userId}
+  object AllUsers extends Given[List[User with UserRef]] {
+    def extract(text: String) = {
+      (config.adminLogin then ListUsers)(None).value
     }
   }
 
-  object AdminUserExists extends Then[List[String]] {
+  object AdminUserExists extends Then[List[User with UserRef]] {
 
-    def extract(userIds: List[String], text: String) =
-      userIds aka "userIds" must not beEmpty
+    def extract(users : List[User with UserRef], text: String) =
+      {
+        val expectable = users.map{_.userId} aka "users"
+        (expectable must not beEmpty) and
+        (users.map{_.username} must contain ("admin"))
+      }
   }
 
-  object UserIsAccessible extends Then[List[String]] {
-    def makeRequest(id:String) =
-      (config.adminLogin then GetUser(id))(None) must have200ResponseCode
+  object UserIsAccessible extends Then[List[User with UserRef]] {
 
-    def extract(userIds: List[String], text: String) = {
-      val seed: Result = Success(): Result
-      (userIds foldLeft seed) {
+    def extract(users: List[User with UserRef], text: String) = {
+      val request = (users foldLeft config.adminLogin) {
         case (result,next) =>
-          result and makeRequest(next)
+          result then GetUser(next.userId)
       }
+      request(None) must have200ResponseCode
+
     }
   }
 }

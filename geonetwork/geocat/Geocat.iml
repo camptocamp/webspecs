@@ -9,7 +9,7 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/target/scala-2.9.0.final/classes" />
+    <output url="file://$MODULE_DIR$/target/scala-2.9.0.1/classes" />
     <output-test url="file://$MODULE_DIR$/target/scala-2.9.0.final/test-classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">

@@ -44,7 +44,7 @@ class CreateSpec extends GeonetworkSpecification { def is =
     def extract(accumulatedResponse: AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue],
                 text: String) = {
       val response = extract1(text) match {
-        case "succeed" => accumulatedResponse._1
+        case "create" => accumulatedResponse._1
         case "get" => accumulatedResponse._2
         case "delete" => accumulatedResponse._3
       }
