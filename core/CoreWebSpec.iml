@@ -63,7 +63,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../ivy2/cache/com.github.jsuereth.scala-arm/scala-arm_2.8.1/jars/scala-arm_2.8.1-0.2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../ivy2/local/com.github.jsuereth.scala-arm/scala-arm_2.9.0/0.2/jars/scala-arm_2.9.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -211,18 +211,18 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../ivy2/local/org.specs2/specs2_2.9.0/1.4-SNAPSHOT/jars/specs2_2.9.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../ivy2/cache/org.specs2/specs2_2.9.0-1/jars/specs2_2.9.0-1-1.4-SNAPSHOT.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/../ivy2/local/org.specs2/specs2_2.9.0/1.4-SNAPSHOT/srcs/specs2_2.9.0-sources.jar!/" />
+          <root url="jar://$MODULE_DIR$/../ivy2/cache/org.specs2/specs2_2.9.0-1/srcs/specs2_2.9.0-1-1.4-SNAPSHOT-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../ivy2/cache/org.specs2/specs2-scalaz-core_2.9.0/jars/specs2-scalaz-core_2.9.0-6.0.RC2.jar!/" />
+          <root url="jar://$MODULE_DIR$/../ivy2/cache/org.specs2/specs2-scalaz-core_2.9.0-1/jars/specs2-scalaz-core_2.9.0-1-6.0.RC2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

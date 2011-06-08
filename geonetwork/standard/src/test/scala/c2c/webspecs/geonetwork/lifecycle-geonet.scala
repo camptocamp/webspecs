@@ -28,7 +28,7 @@ class SandboxLifeCycle(config:GeonetConfig) extends SystemLifeCycle {
 class CreateAsNeededUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle {
   import config._
   def setup(implicit context: ExecutionContext) = {
-    Login(user, pass).assertPassed(None)
+   // Login(user, pass).assertPassed(None)
   }
 
   def tearDown(implicit context: ExecutionContext) = {
