@@ -10,7 +10,6 @@ import xml.{XML, NodeSeq}
 
 class EditSpec extends GeonetworkSpecification { def is =
 
-  sequential ^
   "This specification tests editing metadata"                     ^ Step(setup) ^
     "based on a data template"                                    ^  addExtent("data") ^
     "based on a service template"                                 ^  addExtent("service")
@@ -20,9 +19,9 @@ class EditSpec extends GeonetworkSpecification { def is =
 
 
   def addExtent(templateType:String) =
-      "Create a ${"+templateType+"} metadata"                      ^ Create(AddNewExtent())   ^
-      "And the ${update} metadata request should succeed"          ^ GoodResponseCode ^
-      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode^
+      "Import a ${"+templateType+"} "                              ^ EditExtent.give   ^
+      "And the ${update} metadata request should succeed"          ^ GoodResponseCode.then ^
+      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode.then ^
       "There must be one extra extent"                             ^ HaveNewExtent ^
       "The new extent must have 1 Geographic Extent"               ^ HasGeographicBoundingBox ^
       "The new extent must have 1 Geographic Identifier"           ^ HasGeographicIdentifier ^
@@ -30,16 +29,17 @@ class EditSpec extends GeonetworkSpecification { def is =
                                                                    end
 
   def addContact(templateType:String) =
-      "Create a ${"+templateType+"} metadata"                      ^ Create(AddNewContact())   ^
-      "And the ${update} metadata request should succeed"          ^ GoodResponseCode ^
-      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode^
-      "There must be one extra extent"                             ^ HaveNewContact ^
+      "Import a ${"+templateType+"} metadata"                      ^ EditContact.give   ^
+      "And the ${update} metadata request should succeed"          ^ GoodResponseCode.then ^
+      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode.then ^
+      "There must be one new contact"                              ^ HaveNewContact ^
                                                                    end
 
-  case class Create[A <: Add](added:Response[EditValue] => Add)
-    extends Given[(NodeSeq,AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue])] {
-
-    def extract(text: String) = {
+  type EditResponse = AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue]
+  val EditExtent = edit(AddNewExtent())  
+  val EditContact = edit(AddNewContact())
+  
+  def edit[A <: Add](added:Response[EditValue] => Add) = (text: String) => {
       val fileName = extract1(text) match {
         case "service" => "/data/wfs-service-metadata-template.xml"
         case "data" => "/data/vector-metadata-template.xml"
@@ -56,14 +56,10 @@ class EditSpec extends GeonetworkSpecification { def is =
         GetMetadataXml() trackThen
         DeleteMetadata)
 
-      (XML.loadString(data),request(None))
+      (XML.loadString(data):NodeSeq,request(None))
     }
-  }
 
-  object GoodResponseCode extends Then[(NodeSeq,AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue])] {
-
-    def extract(data: (NodeSeq,AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue]),
-                text: String) = {
+  val GoodResponseCode = (data: (NodeSeq,EditResponse), text: String) => {
       val (_,accumulatedResponse) = data
       val response = extract1(text) match {
         case "update" => accumulatedResponse._1
@@ -72,8 +68,6 @@ class EditSpec extends GeonetworkSpecification { def is =
 
       response must have200ResponseCode
     }
-  }
-
 
   object HaveNewExtent extends ExtentThen {
     def check(originalExtents: NodeSeq, finalExtents: NodeSeq, addedExtent: NodeSeq): Result = {
@@ -106,8 +100,8 @@ class EditSpec extends GeonetworkSpecification { def is =
     }
   }
 
-  abstract class ExtentThen extends Then[(NodeSeq,AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue])] {
-    def extract(data: (NodeSeq,AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue]),
+  abstract class ExtentThen extends Then[(NodeSeq,EditResponse)] {
+    def extract(data: (NodeSeq,EditResponse),
                 text: String) = {
       val (originalXmlValue,accumulatedResponse) = data
 
@@ -126,8 +120,8 @@ class EditSpec extends GeonetworkSpecification { def is =
     def check(originalExtents:NodeSeq, finalExtents:NodeSeq,addedExtent:NodeSeq):Result
   }
 
-  abstract class ContactThen extends Then[(NodeSeq,AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue])] {
-    def extract(data: (NodeSeq,AccumulatedResponse3[IdValue,AddValue, MetadataValue, IdValue]),
+  abstract class ContactThen extends Then[(NodeSeq,EditResponse)] {
+    def extract(data: (NodeSeq,EditResponse),
                 text: String) = {
       val (originalXmlValue,accumulatedResponse) = data
 

@@ -3,6 +3,7 @@ package geonetwork
 
 
 import actors.Futures
+import org.specs2.execute.Result
 
 /**
  * Only one stress spec should be run at a time or the number of threads will not be correct
@@ -20,8 +21,8 @@ abstract class StressSpecification(threads:Int,timeout:Long=10 * 60 * 1000) exte
       }
     })
   }
-  def run[B](request:Request[Any,B]):Unit = validate(request)(_=>())
-  def validate[B](request:Request[Any,B])(validation:Response[B] => Any):Unit = {
+  def run[B](request:Request[Any,B]):Result = validate(request)(_=>())
+  def validate[B](request:Request[Any,B])(validation:Response[B] => Any):Result = {
     val futures = 1 to threads map { i =>
       Futures.future[Either[Throwable,String]] {
         util.control.Exception.allCatch.either {
@@ -55,8 +56,6 @@ abstract class StressSpecification(threads:Int,timeout:Long=10 * 60 * 1000) exte
       err.println("Successes: "+(finishedResults.size - failures.size)+" Failures:"+(failures.size)+" out of "+finishedResults.size)
     }
 
-    results must haveSize (futures.size)
-    failures must beEmpty
-
+    (results must haveSize (futures.size)) and (failures must beEmpty)
   }
 }

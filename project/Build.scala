@@ -20,12 +20,20 @@ object WebSpecsBuild extends Build
   
   // ------------------------------ Root Project ------------------------------ //
 	lazy val root:Project = Project("root",file(".")).
-	  aggregate(core,geonetwork,geocat, selenium, apps)
+	  aggregate(core,geonetwork,geocat, selenium, apps).
+	  settings(
+	   commands += runSpec
+	  )
 
+  lazy val runSpec = Command.command("run-spec") { state =>
+    val classpath = Keys.fullClasspath in apps
+    println(classpath)
+    state
+  }
   // ------------------------------ Core Project ------------------------------ //
 
   val coreDependencies = Seq(
-    "org.specs2" %% "specs2" % "1.4-SNAPSHOT" withSources (),
+    "org.specs2" %% "specs2" % "1.4" withSources (),
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     "org.apache.httpcomponents" % "httpclient" % "4.1" withSources (),
     "org.apache.httpcomponents" % "httpmime" % "4.1" withSources (),
@@ -42,11 +50,12 @@ object WebSpecsBuild extends Build
   // ------------------------------ Geonetwork Project ------------------------------ //
 	 
 	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")).
-	  dependsOn(core).settings(sharedSettings:_*)
+	  dependsOn(core % "test->test").settings(sharedSettings:_*)
 	  
   // ------------------------------ Geocat Project ------------------------------ //
 
-	lazy val geocat = Project("geocat", file("geonetwork/geocat")) dependsOn geonetwork settings (sharedSettings:_*)
+	lazy val geocat = Project("geocat", file("geonetwork/geocat")).
+	  dependsOn (geonetwork % "test->test") settings (sharedSettings:_*)
 
   // ------------------------------ Selenium Project ------------------------------ //
 	
@@ -62,10 +71,13 @@ object WebSpecsBuild extends Build
       resolvers ++= coreResolvers,
   	  libraryDependencies ++= seleniumDependencies)
   
-  lazy val selenium = Project("selenium",file("selenium")) dependsOn core settings (sharedSettings ++ seleniumSettings :_*)
+  lazy val selenium = Project("selenium",file("selenium")).
+    dependsOn(core % "test->test").
+    settings (sharedSettings ++ seleniumSettings :_*)
 
   // ------------------------------ Apps Project ------------------------------ //
-  lazy val apps = Project("apps",file("apps")) dependsOn geocat settings (sharedSettings:_*)
+  lazy val apps = Project("apps",file("apps")).
+    dependsOn (geocat % "compile->test") settings (sharedSettings:_*)
   
   // ------------------------------ GenerateAccumClasses Command (Part of Core) ------------------------------ //
   

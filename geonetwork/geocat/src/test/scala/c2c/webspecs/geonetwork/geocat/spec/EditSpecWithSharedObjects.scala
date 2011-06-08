@@ -6,7 +6,7 @@ package spec
 import StandardSharedExtents.KantonBern
 import org.specs2.specification.Step
 
-object EditSpecWithSharedObjects extends GeonetworkSpecification { def is =
+class EditSpecWithSharedObjects extends GeonetworkSpecification { def is =
   "This specification edits a metadata by adding shared objects"    ^ Step(setup) ^
     "create a metadata and add a shared extent"                     ! addExtent ^
                                                                     Step(tearDown)
