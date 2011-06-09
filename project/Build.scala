@@ -55,21 +55,20 @@ object WebSpecsBuild extends Build
   // ------------------------------ Geocat Project ------------------------------ //
 
 	lazy val geocat = Project("geocat", file("geonetwork/geocat")).
-	  dependsOn (geonetwork % "test->test") settings (sharedSettings:_*)
+	  dependsOn (core % "test->test", geonetwork % "test->test") settings (sharedSettings:_*)
 
   // ------------------------------ Selenium Project ------------------------------ //
 	
   val seleniumVersion = "0.9.7376"
   val seleniumDependencies = Seq(
-      "org.seleniumhq.webdriver" % "webdriver-htmlunit" % seleniumVersion withSources (),
-      "org.seleniumhq.webdriver" % "webdriver-common" % seleniumVersion withSources (),
-      "org.seleniumhq.webdriver" % "webdriver-chrome" % seleniumVersion withSources (),
-      "org.seleniumhq.webdriver" % "webdriver-firefox" % seleniumVersion withSources (),
-      "org.seleniumhq.webdriver" % "webdriver-support" % seleniumVersion withSources ()
+    "org.seleniumhq.selenium" % "selenium-remote-control" % "2.0rc2" withSources
     )
   val seleniumSettings = Seq[Setting[_]](
       resolvers ++= coreResolvers,
-  	  libraryDependencies ++= seleniumDependencies)
+      resolvers += ("Selenium" at "http://repo1.maven.org/maven2/"),
+  	  libraryDependencies ++= seleniumDependencies,
+      libraryDependencies ++= coreDependencies
+  )
   
   lazy val selenium = Project("selenium",file("selenium")).
     dependsOn(core % "test->test").

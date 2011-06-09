@@ -1,35 +1,177 @@
 /*
- * Format for Selenium Remote Control Java client.
+ * Format for Selenium Remote Control Scala client.
  */
 
 var subScriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader);
 subScriptLoader.loadSubScript('chrome://selenium-ide/content/formats/remoteControl.js', this);
 
+this.startsWith = function (s,e) {
+    return (s.match("^\\s*" + e));
+};
+
+this.trim = function (s) {
+    return (s.replace(/^[\s\xA0]+/, "").replace(/[\s\xA0]+$/, ""));
+};
+
 this.name = "scala-specs2";
 
+// contain the spec functions to add after spec definition
+this.functions = [];
+// the specification declarations
+this.specs=[];
+// Since there is not good way to create a function name we will
+// reuse the same name with an index
+this.functionIndex = 1;
+// if defined then the current function being constructed
+this.currentFunction = undefined;
+// the type of the last command processed.
+// Types are:  
+//   undefined (initial state), 
+//   spec
+//   assert
+//   other
+this.lastCommand = undefined;
+
+// If defined the spec comment under construction
+this.specDec = undefined;
+
+function endFunction() {
+    if (this.currentFunction !== undefined) {
+        if (this.lastCommand !== 'assert') {
+            this.currentFunction += indents(2) + "success\n";
+        }
+        this.currentFunction += indents(1) + "}";
+        this.functions.push(this.currentFunction);
+        this.currentFunction = undefined;
+    }
+}
+
+function repeat(c, n) {
+	var str = "";
+	for (var i = 0; i < n; i++) {
+		str += c;
+	}
+	return str;
+}
+
+function handleSpecDeclaration(code) {
+    var spec,spaces;
+
+    if (this.lastCommand === 'spec') {
+        this.specs.push(this.specDec);
+    } 
+
+    this.lastCommand = 'spec';
+    // this is a spec comment
+    spec = indents(2) + '"' + trim(code.substr(1)) + '"';
+    spaces = options.rightColumnIndent - spec.length;
+    this.specDec = spec + repeat(" ", spaces);
+}
+
+function processCommand(command, code) {
+    
+    
+    var methodName;
+    
+    if (this.lastCommand === undefined && !startsWith(code, "//-")) {
+        handleSpecDeclaration("- "+options.initialSpec);
+    } 
+    
+    if (this.specDec !== undefined) {
+        methodName = this.name.replace(/ |\+|-|\|/g, '_') + "_" + this.functionIndex;
+        this.functionIndex += 1;
+        this.specDec += "! " + methodName;
+
+        if (command.command.match(/^(verify|assert)/)) {
+            this.lastCommand = 'assert';
+        } else {
+            this.lastCommand = 'other';
+        }
+
+        this.currentFunction = 
+            indents(1) + "def " + methodName + " = {\n"+
+            indents(2) + "import selenium._\n" +
+            indents(2) + code + "\n";
+        
+        this.specs.push(this.specDec);
+        this.specDec = undefined;
+    } else {
+        this.currentFunction += indents(2) + code + "\n";
+    }
+
+}
+
+this.formatCommands = function (commands) {
+    commands = filterForRemoteControl(commands);
+	if (this.lastIndent == null) {
+		this.lastIndent = '';
+	}
+	for (var i = 0; i < commands.length; i++) {
+		var line = null;
+		var command = commands[i];
+		if (command.type == 'line') {
+			line = command.line;
+		} else if (command.type == 'command') {
+			line = formatCommand(command);
+			if (line != null) line = addIndent(line);
+			command.line = line;
+		} else if (command.type == 'comment') {
+		    if(startsWith(command.comment, '-')) {
+		        endFunction();
+                handleSpecDeclaration(command.comment);
+	        } else {
+	            line = this.formatComment(command);
+    			if (line != null) {
+    			    line = addIndent(line);    			    
+			    }
+            }
+
+			command.line = line;
+		}
+		command.charIndex = this.commandCharIndex;
+		if (line != null) {
+			updateIndent(line);
+            processCommand(command, line);
+			this.commandCharIndex += line.length;
+		}
+	}
+	
+	if (this.currentFunction !== undefined) {
+	    this.endFunction();
+	}
+	var closeStep = 
+	    "^\n" + 
+	    repeat(" ",options.rightColumnIndent) + "Step(selenium.stop()) ^\n" +
+	    repeat(" ",options.rightColumnIndent) + "end\n"
+	    
+	result = specs.join(" ^\n") + closeStep + "\n\n" + functions.join("\n\n");
+	return result;
+}
+
+function formatComment(comment) {
+    return comment.comment.replace(/.+/mg, function(str) {
+            return "// " + str;
+        });
+}
 function useSeparateEqualsForArray() {
     return false;
 }
 
 function testMethodName(testName) {
-    return "test" + capitalize(testName);
+    return capitalize(testName).replace(/ /g,"_");
 }
 
 function assertTrue(expression) {
     return expression.toString()+" must beTrue";
 }
 
-function verifyTrue(expression) {
-    return "verifyTrue(" + expression.toString() + ");";
-}
+this.verifyTrue = assertTrue;
 
 function assertFalse(expression) {
     return expression.toString() + "must beFalse";
 }
 
-function verifyFalse(expression) {
-    return "verifyFalse(" + expression.toString() + ");";
-}
+this.verifyFalse = assertFalse;
 
 function assignToVariable(type, variable, expression) {
     return "val " + variable + " = " + expression.toString();
@@ -44,7 +186,7 @@ function joinExpression(expression) {
 }
 
 function waitFor(expression) {
-    return "waitFor("+expression.setup+","+expression.toString+")"
+    return "waitFor("+expression.setup+","+expression.toString+")";
 }
 
 function assertOrVerifyFailure(line, isAssert) {
@@ -59,9 +201,7 @@ Equals.prototype.assert = function() {
     return  this.e1.toString() + " must_== " + this.e2.toString();
 };
 
-Equals.prototype.verify = function() {
-    return "verifyEquals(" + this.e1.toString() + ", " + this.e2.toString() + ");";
-};
+Equals.prototype.verify = Equals.assert
 
 NotEquals.prototype.toString = function() {
     return this.e1.toString() + " != " + this.e2.toString() ;
@@ -71,20 +211,18 @@ NotEquals.prototype.assert = function() {
     return this.e1.toString() + " must_!= " + this.e2.toString();
 };
 
-NotEquals.prototype.verify = function() {
-    return "verifyNotEquals(" + this.e1.toString() + ", " + this.e2.toString() + ");";
-};
+NotEquals.prototype.verify = NotEquals.assert
 
 RegexpMatch.prototype.toString = function() {
-  return this.expression + " =~ \"\"\""" + this.pattern + "\"\"\"";
+  return this.expression + " =~ \"\"\"" + this.pattern + "\"\"\"";
 };
 
 function pause(milliseconds) {
-    return "Thread.sleep(" + parseInt(milliseconds, 10) + ");";
+    return "Thread.sleep(" + parseInt(milliseconds, 10) + ")";
 }
 
 function echo(message) {
-    return "println(" + xlateArgument(message) + ");";
+    return "println(" + xlateArgument(message) + ")";
 }
 
 function statement(expression) {
@@ -93,9 +231,12 @@ function statement(expression) {
 
 function array(value) {
     var str = 'Array(';
-    for (var i = 0; i < value.length; i++) {
+    var i = 0;
+    for (i = 0; i < value.length; i++) {
         str += string(value[i]);
-        if (i < value.length - 1) str += ", ";
+        if (i < value.length - 1) {
+          str += ", ";
+        }
     }
     str += ')';
     return str;
@@ -107,29 +248,22 @@ function nonBreakingSpace() {
 
 CallSelenium.prototype.toString = function() {
     var result = '';
+    var i = 0;
     if (this.negative) {
         result += '!';
     }
-    if (options.receiver) {
-        result += options.receiver + '.';
-    }
-    result += this.message;
+    result += "`" + this.message + "`";
     result += '(';
-    for (var i = 0; i < this.args.length; i++) {
+    for (i = 0; i < this.args.length; i++) {
         result += this.args[i];
         if (i < this.args.length - 1) {
             result += ', ';
         }
     }
     result += ')';
+    
     return result;
 };
-
-function formatComment(comment) {
-    return comment.comment.replace(/.+/mg, function(str) {
-            return "// " + str;
-        });
-}
 
 /**
  * Returns a string representing the suite for this formatter language.
@@ -141,28 +275,38 @@ function formatSuite(testSuite, filename) {
     var suiteClass = /^(\w+)/.exec(filename)[1];
     suiteClass = suiteClass[0].toUpperCase() + suiteClass.substring(1);
     
-    var formattedSuite = "import junit.framework.Test;\n"
-        + "import junit.framework.TestSuite;\n"
+    var formattedSuite = "package "+options.packageName+"\n"
         + "\n"
-        + "public class " + suiteClass + " {\n"
+        + "import org.specs2._\n"
         + "\n"
-        + indents(1) + "public static Test suite() {\n"
-        + indents(2) + "TestSuite suite = new TestSuite();\n";
-        
-    for (var i = 0; i < testSuite.tests.length; ++i) {
-        var testClass = testSuite.tests[i].getTitle();
-        formattedSuite += indents(2)
-            + "suite.addTestSuite(" + testClass + ".class);\n";
-    }
-
-    formattedSuite += indents(2) + "return suite;\n"
+        + "class " + suiteClass + " extends SpecificationsFinder {def is=\n"
+        + "\n"
+        + indents(1) + "specs.foldLeft(\""+testSuite.tests[i].getTitle()+"\".title) {\n"
+        + indents(2) + "(res,cur) => res ^ link(cur)\n"
         + indents(1) + "}\n"
         + "\n"
-        + indents(1) + "public static void main(String[] args) {\n"
-        + indents(2) + "junit.textui.TestRunner.run(suite());\n"
+        + indents(1) + "def specs = List(\n";
+    var i = 0;
+    var testClass;
+    for (i = 0; i < testSuite.tests.length; ++i) {
+        testClass = testSuite.tests[i].getTitle();
+        formattedSuite += indents(2) + "classOf[" + testClass + "]";
+        if(i+1 < testSuite.tests.length) {
+            formattedSuite += ",";
+        }
+        formattedSuite += "\n";
+    }
+    
+    formattedSuite += indents(1) + ")\n"
+        + "}\n"
+        + "\n"
+        + "object "+suiteClass+" {\n"
+        + "\n"
+        + indents(1) + "def main(args:Array[String]) {\n"
+        + indents(2) + "specs2.html.start(\"${packageName}."+suiteClass+"\")\n"
         + indents(1) + "}\n"
         + "}\n";
-    
+
     return formattedSuite;
 }
 
@@ -170,41 +314,31 @@ this.options = {
     receiver: "selenium",
     environment: "*chrome",
     packageName: "com.example.tests",
-    superClass: "SeleneseTestCase",
-    indent: 'tab',
-    initialIndents: '2'
+    indent: '2',
+    initialIndents: '0',
+    rightColumnIndent: 60,
+    seleniumDriver: "Firefox",
+    initialSpec: "The selenium script should succeed"
 };
 
 options.header =
-    "package ${packageName};\n" +
+    "package ${packageName}\n" +
     "\n" +
-    "import org.openqa.selenium.firefox.FirefoxDriver;\n" +
-    "import org.openqa.selenium.WebDriverBackedSelenium;\n" +
-    "import org.junit.After;\n" +
-    "import org.junit.Before;\n" +
-    "import org.junit.Test;\n" +
-    "import java.util.regex.Pattern;\n" +
+    "import org.specs2._\n" +
+    "import matcher.ThrownExpectations\n" +
+    "import specification.Step\n" +
+    "import org.openqa.selenium.WebDriverBackedSelenium\n" +
     "\n" +
-    "public class ${className} extends ${superClass} {\n" + 
-    indents(1) + "@Before\n" +
-    indents(1) + "public void setUp() throws Exception {\n" +
-    indents(2) + "WebDriver driver = new FirefoxDriver();\n" +
-    indents(2) + 'String baseUrl = "${baseURL}";\n' +
-    indents(2) + 'Selenium selenium = new WebDriverBackedSelenium(driver, baseUrl);\n' +
-    indents(2) + "selenium.start();\n" +
-    indents(1) + "}\n" +
+    "class `${className}` extends Specification with ThrownExpectations { \n" +
+    "\n"+
+    indents(1) + "lazy val selenium = initSelenium(\"${baseURL}\", new ${seleniumDriver}())\n" +
     "\n" +
-    indents(1) + "@Test\n" +
-    indents(1) + "public void ${methodName}() throws Exception {\n";
-
+    indents(1) + "def is = \n" + 
+    indents(1) + "sequential                                        ^"
+    indents(1) + "\"This specification tests ${methodName}\"        ^ Step(() => selenium) ^ \n";
+    
 options.footer =
-    indents(1) + "}\n" +
-    "\n" +
-    indents(1) + "@After\n" +
-    indents(1) + "public void tearDown() throws Exception {\n" +
-    indents(2) + "selenium.stop();\n" +
-    indents(1) + "}\n" +
-    "}\n";
+    "\n}\n";
 
 this.configForm = 
     '<description>Variable for Selenium instance</description>' +
@@ -212,6 +346,15 @@ this.configForm =
     '<description>Environment</description>' +
     '<textbox id="options_environment" />' +
     '<description>Package</description>' +
-    '<textbox id="options_packageName" />' +
-    '<description>Superclass</description>' +
-    '<textbox id="options_superClass" />';
+    '<textbox id="options_packageName" />'+
+    '<description>Default Specification Text</description>' +
+    '<textbox id="options_initialSpec" />'+
+    '<description>Selenium Driver</description>' +
+    '<menulist id="options_seleniumDriver" >' +
+    '<menupopup>' +
+    '<menuitem label="Firefox" value="org.openqa.selenium.firefox.FirefoxDriver"/>' +
+    '<menuitem label="Chrome" value="org.openqa.selenium.chrome.ChromeDriver"/>' +
+    '<menuitem label="IE" value="org.openqa.selenium.ie.InternetExplorerDriver"/>' +
+    '<menuitem label="HtmlUnit" value="org.openqa.selenium.htmlunit.HtmlUnitDriver"/>' +
+    '</menupopup>' +
+    '</menulist>';

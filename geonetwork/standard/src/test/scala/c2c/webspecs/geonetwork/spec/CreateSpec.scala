@@ -43,9 +43,9 @@ class CreateSpec extends GeonetworkSpecification { def is =
 
   val GoodResponseCode = (createResponse: CreateResponse, text: String) => {
       val response = extract1(text) match {
-        case "create" => accumulatedResponse._1
-        case "get" => accumulatedResponse._2
-        case "delete" => accumulatedResponse._3
+        case "create" => createResponse._1
+        case "get" => createResponse._2
+        case "delete" => createResponse._3
       }
 
       response must have200ResponseCode

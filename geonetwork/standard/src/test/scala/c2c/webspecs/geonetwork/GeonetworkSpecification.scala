@@ -3,12 +3,9 @@ package geonetwork
 
 
 import org.specs2._
-import matcher.Matcher
 import specification._
 import UserProfiles._
 import c2c.webspecs.ExecutionContext
-import accumulating.AccumulatedResponse3
-import java.net.{HttpURLConnection, URL}
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.matcher.MatchResult
@@ -60,13 +57,20 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
       def extract(text: String):A = function(text)
     }
   }
-    
+
+  implicit def resultFunctionToAsWhen[A,B](function:Function2[A,String,B])= new {
+    def when = new When[A,B]("") {
+     def extract(given: A,text: String) = function(given,text)
+    }
+  }
+
   
   implicit def resultFunctionToAsThen[A](function:Function2[A,String,Result])= new {
     def then = new Then[A]("") {
      def extract(given: A,text: String) = function(given,text)
     }
   }
+
   implicit def matchResultFunctionToAsThen[A](function:Function2[A,String,MatchResult[_]])= new {
 	  def then = new Then[A]("") {
 		  def extract(given: A,text: String) = function(given,text)

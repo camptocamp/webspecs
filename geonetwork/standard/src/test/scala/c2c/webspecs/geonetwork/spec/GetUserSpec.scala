@@ -1,4 +1,5 @@
-package c2c.webspecs.geonetwork.spec
+package c2c.webspecs.geonetwork
+package spec
 
 import org.specs2.specification.{ Then, Given, Step }
 import org.specs2.execute.{ Success, Result }
@@ -11,21 +12,25 @@ class GetUserSpec extends GeonetworkSpecification() {
     "This specification tests editing metadata"                           ^ Step(setup) ^
       "Given a request listing all user's ids"                            ^ AllUsers.give ^
       "At least the one user exists"                                      ^ NotEmpty.then ^
+      "The Admin user must be a user"                                     ^ AdminUserExists.then ^
       "All users should be accessible"                                    ^ UserIsAccessible.then ^
       Step(tearDown)
 
-  type AllUsersOutput = List[User with UserRef]
+  type AllUsersResponse = List[User with UserRef]
   val AllUsers = 
     (text: String) => (config.adminLogin then ListUsers)(None).value
 
-  val AdminUserExists =
-    (userIds: List[String], text: String) => userIds aka "userIds" must contain (Properties.get(config.ADMIN_USER_KEY))
+  val NotEmpty =
+    (users: AllUsersResponse, text: String) => users aka "users" must not beEmpty
 
-  val UserIsAccessible = (userIds: List[String], text: String) => {
+  val AdminUserExists =
+    (users: AllUsersResponse, text: String) => users.map{_.username} aka "users" must contain (Properties.get(config.ADMIN_USER_KEY))
+
+  val UserIsAccessible = (userIds: AllUsersResponse, text: String) => {
     val seed: Result = Success(): Result
     (userIds foldLeft seed) {
       case (result, next) =>
-        result and makeRequest(next)
+        result and makeRequest(next.userId)
     }
   }
 
