@@ -4,6 +4,8 @@ resolvers += {
   Resolver.url("Typesafe Repository", typesafeRepoUrl)(pattern)
 }
 
+resolvers += "mapfish dev" at "http://dev.mapfish.org/maven/repository/"
+
 libraryDependencies <<= (libraryDependencies, sbtVersion) { (deps, version) => 
   deps :+ ("com.typesafe.sbteclipse" % "sbteclipse_2.8.1" % "1.0.1" extra("sbtversion" -> version))
   deps :+ ("org.sbtidea" % "xsbt-idea_2.8.1" % "0.1")

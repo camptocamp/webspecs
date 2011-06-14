@@ -96,7 +96,6 @@ class AccumulatingRequest%8$s[-In,%1s,+Out](
   override def setIn[A <: In](in: A) =
     new AccumulatingRequest%8$s[Any, %3$s,Out](last, Elem(Request.const(in),false) +: elems: _*)
 
-
   def apply(in: In)(implicit context: ExecutionContext):AccumulatedResponse%8$s[%3$s,Out] = {
     val ResultData(lastResponse,trackedResponses) = doApply(in,last.asInstanceOf[RequestFactory],elems)
 

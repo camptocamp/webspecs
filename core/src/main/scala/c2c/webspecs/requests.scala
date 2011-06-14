@@ -91,7 +91,7 @@ trait Request[-In, +Out] {
     new AccumulatingRequest1(next, AccumulatingRequest.Elem(this,true))
   def setIn[A <: In](in:A):Request[Any,Out] = Request.const(in) then this
   def apply (in: In)(implicit context:ExecutionContext) : Response[Out]
-  def assertPassed(in:In)(implicit context:ExecutionContext):Response[Out] = apply(in) match {
+  def assertPassed(in:In)(implicit context:ExecutionContext) = apply(in) match {
     case response if response.basicValue.responseCode > 399 =>
       throw new AssertionError(toString+" did not complete correctly, reponseCode="+
         response.basicValue.responseCode+" message: "+
