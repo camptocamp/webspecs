@@ -64,16 +64,9 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
     }
   }
 
-  
-  implicit def resultFunctionToAsThen[A](function:Function2[A,String,Result])= new {
+  implicit def resultFunctionToAsThen[A,R <% Result](function:Function2[A,String,R])= new {
     def then = new Then[A]("") {
      def extract(given: A,text: String) = function(given,text)
     }
-  }
-
-  implicit def matchResultFunctionToAsThen[A](function:Function2[A,String,MatchResult[_]])= new {
-	  def then = new Then[A]("") {
-		  def extract(given: A,text: String) = function(given,text)
-	  }
   }
 }

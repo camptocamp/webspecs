@@ -4,6 +4,7 @@ package spec
 
 import accumulating.AccumulatedResponse3
 import org.specs2.specification._
+
 class CreateSpec extends GeonetworkSpecification { def is =
 
   "This specification tests creating metadata"            ^

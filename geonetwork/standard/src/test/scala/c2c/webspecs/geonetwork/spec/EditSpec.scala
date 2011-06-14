@@ -20,7 +20,8 @@ class EditSpec extends GeonetworkSpecification { def is =
 
   def addExtent(templateType:String) =
       "Import a ${"+templateType+"} "                              ^ EditExtent.give   ^
-      "And the ${update} metadata request should succeed"          ^ GoodResponseCode.then ^
+      "The ${import} request should succeed"                       ^ GoodResponseCode.then ^
+      "the ${update} metadata request should succeed"              ^ GoodResponseCode.then ^
       "And the get ${new} metadata request should succeed"         ^ GoodResponseCode.then ^
       "There must be one extra extent"                             ^ HaveNewExtent ^
       "The new extent must have 1 Geographic Extent"               ^ HasGeographicBoundingBox ^
@@ -62,8 +63,9 @@ class EditSpec extends GeonetworkSpecification { def is =
   val GoodResponseCode = (data: (NodeSeq,EditResponse), text: String) => {
       val (_,accumulatedResponse) = data
       val response = extract1(text) match {
-        case "update" => accumulatedResponse._1
-        case "new" => accumulatedResponse._2
+        case "import" => accumulatedResponse._2
+        case "update" => accumulatedResponse._2
+        case "new" => accumulatedResponse._3
       }
 
       response must have200ResponseCode
