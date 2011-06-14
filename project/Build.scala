@@ -1,6 +1,5 @@
 import sbt._
 import Keys._
-import complete.DefaultParsers._
 
 
 object WebSpecsBuild extends Build
@@ -11,25 +10,22 @@ object WebSpecsBuild extends Build
     ScalaToolsSnapshots
   )
 
-  val sharedSettings = Seq(
+  lazy val runTestSuite = TaskKey[Unit]("run-test-suite", "Run the main test suite for the current project")
+  lazy val runTask = fullRunTask(runTestSuite , Test, "specs2.html", "c2c.webspecs.suite.AllSpecs")
+
+  val sharedSettings = Seq[Setting[_]](
     resolvers ++= coreResolvers,
     scalaVersion := "2.9.0-1",
     organization := "com.c2c",
-    version := "1.0-SNAPSHOT"
+    version := "1.0-SNAPSHOT",
+    runTask
   )
   
   // ------------------------------ Root Project ------------------------------ //
 	lazy val root:Project = Project("root",file(".")).
 	  aggregate(core,geonetwork,geocat, selenium, apps).
-	  settings(
-	   commands += runSpec
-	  )
+    settings(publishArtifact := false)
 
-  lazy val runSpec = Command.command("run-spec") { state =>
-    val classpath = Keys.fullClasspath in apps
-    println(classpath)
-    state
-  }
   // ------------------------------ Core Project ------------------------------ //
 
   val coreDependencies = Seq(
@@ -55,7 +51,7 @@ object WebSpecsBuild extends Build
   // ------------------------------ Geocat Project ------------------------------ //
 
 	lazy val geocat = Project("geocat", file("geonetwork/geocat")).
-	  dependsOn (core % "test->test", geonetwork % "test->test") settings (sharedSettings:_*)
+	  dependsOn (core % "test->test", geonetwork % "test->test", selenium) settings (sharedSettings:_*)
 
   // ------------------------------ Selenium Project ------------------------------ //
 	
@@ -74,10 +70,11 @@ object WebSpecsBuild extends Build
     dependsOn(core % "test->test").
     settings (sharedSettings ++ seleniumSettings :_*)
 
-  // ------------------------------ Apps Project ------------------------------ //
+  // ------------------------------ Suites Project ------------------------------ //
   lazy val apps = Project("apps",file("apps")).
-    dependsOn (geocat % "compile->test") settings (sharedSettings:_*)
-  
+    dependsOn (geocat % "compile->test").
+    settings (sharedSettings:_*)
+
   // ------------------------------ GenerateAccumClasses Command (Part of Core) ------------------------------ //
   
   val generateAccumClasses = Command.command("gen-classes") { state =>

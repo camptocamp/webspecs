@@ -1,12 +1,11 @@
-package c2c.webspecs.geonetwork.geocat.spec
+package c2c.webspecs.suite
 
 import org.specs2.Specification
 import org.specs2.SpecificationWithJUnit
 import org.specs2.runner.SpecificationsFinder
 import c2c.webspecs.geonetwork.spec.{AllGeonetworkSpecifications,CreateSpec,EditSpec,GetUserSpec}
 
-class AllGeocatSpecifications extends SpecificationWithJUnit with SpecificationsFinder { def is =
-
+class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is =
     examplesLinks("All Workpackages")
 
     def examplesLinks(t: String) = {
@@ -19,7 +18,6 @@ class AllGeocatSpecifications extends SpecificationWithJUnit with Specifications
     }
 
 }
-
 
 class WP2 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
