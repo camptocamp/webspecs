@@ -25,15 +25,17 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   }
 
   lazy val UserLogin = config.login
+  lazy val fixtures:Traversable[Fixture] = Nil
 
-
-  def setup = ExecutionContext.withDefault {
-    implicit context => config.setUpTestEnv
+  def setup = ExecutionContext.withDefault { context2 =>
+    config.setUpTestEnv(context2)
+    fixtures.foreach{_.create(config, context2)}
   }
   def tearDown = ExecutionContext.withDefault[Unit] {
-    implicit context =>
+    context2 =>
       context.close()
-      config.tearDownTestEnv
+      fixtures.foreach{_.create(config, context2)}
+      config.tearDownTestEnv (context2)
   }
 
   def haveResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
@@ -69,4 +71,5 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
      def extract(given: A,text: String) = function(given,text)
     }
   }
+
 }

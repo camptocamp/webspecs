@@ -1,12 +1,14 @@
 resolvers += {
   val typesafeRepoUrl = new java.net.URL("http://repo.typesafe.com/typesafe/ivy-releases")
-  val pattern = Patterns(false, "[organisation]/[module]/[sbtversion]/[revision]/[type]s/[module](-[classifier])-[revision].[ext]")
-  Resolver.url("Typesafe Repository", typesafeRepoUrl)(pattern)
+  Resolver.url("Typesafe Repository", typesafeRepoUrl)(Resolver.ivyStylePatterns)
 }
 
-resolvers += "mapfish dev" at "http://dev.mapfish.org/maven/repository/"
+resolvers += {
+  val mapfishRepoUrl = new java.net.URL("http://dev.mapfish.org/ivy2")
+  Resolver.url("Mapfish Ivy Repository", mapfishRepoUrl)(Resolver.ivyStylePatterns)
+}
 
 libraryDependencies <<= (libraryDependencies, sbtVersion) { (deps, version) => 
-  deps :+ ("com.typesafe.sbteclipse" % "sbteclipse_2.8.1" % "1.0.1" extra("sbtversion" -> version))
+  deps :+ ("com.typesafe.sbteclipse" % "sbteclipse_2.8.1" % "1.1" extra("sbtversion" -> version))
   deps :+ ("org.sbtidea" % "xsbt-idea_2.8.1" % "0.1")
 }

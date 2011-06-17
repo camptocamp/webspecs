@@ -85,11 +85,19 @@ trait Request[-In, +Out] {
     ChainedRequest(this,next)
   def then [A,B] (next: Response[Out] => Request[Out,A]) : Request[In, A] =
     ChainedRequest(this,next)
+  def vThen [A,B] (next: Out => Request[Out,A]) : Request[In, A] =
+    this then (r => next(r.value))
   def startTrackingThen [A,B] (next: Request[Out,A]) : AccumulatingRequest1[In, Out, A] =
     startTrackingThen(new ChainedRequest.ConstantRequestFunction(next))
   def startTrackingThen [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest1[In, Out, A] =
     new AccumulatingRequest1(next, AccumulatingRequest.Elem(this,true))
   def setIn[A <: In](in:A):Request[Any,Out] = Request.const(in) then this
+  def map[A] (mapping: Out => A):Request[In,A] = {
+    val outer = this;
+    new Request[In,A] {
+      def apply(in: In)(implicit context: ExecutionContext) = outer(in).map(mapping)
+    }
+  }
   def apply (in: In)(implicit context:ExecutionContext) : Response[Out]
   def assertPassed(in:In)(implicit context:ExecutionContext) = apply(in) match {
     case response if response.basicValue.responseCode > 399 =>
@@ -146,6 +154,8 @@ object Param {
 case class P[+Out](n:String, v:Out) extends Param[Any,Out](n, _ => v)
 
 case class InP[-In,+Out](n:String,f:In => Out) extends Param[In,Out](n,f)
+case class IdP[In](n:String) extends Param[In,In](n,in => in)
+
 abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:Param[In,String]*)
   extends AbstractRequest[In,Out](valueFactory) {
   def request(in:In) = {

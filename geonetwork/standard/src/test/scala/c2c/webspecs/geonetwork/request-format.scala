@@ -2,29 +2,41 @@ package c2c.webspecs
 package geonetwork
 
 case class Format(id:Int, name:String, version:String)
-class FormatListValue(val basicValue:BasicHttpValue) extends XmlValue {
-  private val Parser = """(.*?)\[(.*?)\]""".r
-  lazy val formatList = withXml {xml=>
-    (xml \\ "li").toList map {li =>
-      val id = XLink.id(li).get.toInt
-      val text = li.text.trim
 
-      val (name,version) = text match {
-        case Parser(name,version) => name -> version
-        case name => name -> ""
+/**
+ * Lists all formats that match the input pattern.
+ */
+object ListFormats
+  extends AbstractGetRequest[String,List[Format]](
+    "xml.format.list",
+    SelfValueFactory[String,List[Format]],
+    IdP("name"))
+  with BasicValueFactory[List[Format]] {
+
+  override def createValue(rawValue: BasicHttpValue) = {
+    val Parser = """(.*?)\[(.*?)\]""".r
+    rawValue.toXmlValue.withXml {xml=>
+      (xml \\ "li").toList map {li =>
+        val id = XLink.id(li).get.toInt
+        val text = li.text.trim
+
+        val (name,version) = text match {
+          case Parser(name,version) => name -> version
+          case name => name -> ""
+        }
+        Format(id,name.trim,version.trim)
       }
-      val validated = (li \\ "@alt" text).trim.nonEmpty
-      Format(id,name.trim,version.trim)
     }
   }
 }
-case class ListFormats(searchParam:String="")
-  extends AbstractGetRequest[Any,FormatListValue](
-    "xml.format.list",
-    SelfValueFactory[Any,FormatListValue](),
-    P("name", searchParam))
-with BasicValueFactory[FormatListValue] {
-  override def createValue(rawValue: BasicHttpValue) = new FormatListValue(rawValue)
-}
 
-case class DeleteFormat(id:String) extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory, P("action", "DELETE"), P("id", id))
+/**
+ * Delete format. input is the id of the format to delete
+ *
+ */
+object DeleteFormat extends AbstractGetRequest[String,XmlValue]("format", XmlValueFactory, P("action", "DELETE"), IdP("id")) {
+  def apply(name:String,version:String):Request[Any,XmlValue] = {
+    throw new RuntimeException("not implemented yet")
+    //ListFormats.map(allFormats => allFormats.headOption.map(format.id)) valueThen { id => }
+    }
+}

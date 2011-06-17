@@ -4,17 +4,16 @@ import Keys._
 
 object WebSpecsBuild extends Build
 {
-
-  val coreResolvers = Seq(
-    "Mapfish Repo" at "http://dev.mapfish.org/maven/repository",
-    ScalaToolsSnapshots
-  )
+  lazy val mapfishResolver = {
+    val mapfishRepoUrl = new java.net.URL("http://dev.mapfish.org/ivy2")
+    Resolver.url("Mapfish Ivy Repository", mapfishRepoUrl)(Resolver.ivyStylePatterns)
+  }
 
   lazy val runTestSuite = TaskKey[Unit]("run-test-suite", "Run the main test suite for the current project")
   lazy val runTask = fullRunTask(runTestSuite , Test, "specs2.html", "c2c.webspecs.suite.AllSpecs")
 
   val sharedSettings = Seq[Setting[_]](
-    resolvers ++= coreResolvers,
+    resolvers += mapfishResolver,
     scalaVersion := "2.9.0-1",
     organization := "com.c2c",
     version := "1.0-SNAPSHOT",
@@ -31,10 +30,9 @@ object WebSpecsBuild extends Build
   val coreDependencies = Seq(
     "org.specs2" %% "specs2" % "1.4" withSources (),
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
-    "org.apache.httpcomponents" % "httpclient" % "4.1" withSources (),
-    "org.apache.httpcomponents" % "httpmime" % "4.1" withSources (),
-    "com.github.scala-incubator.io" %% "core" % "0.2.0-SNAPSHOT" withSources (),
-    "com.github.scala-incubator.io" %% "file" % "0.2.0-SNAPSHOT" withSources ()
+    "org.apache.httpcomponents" % "httpclient" % "4.1" withSources,
+    "org.apache.httpcomponents" % "httpmime" % "4.1" withSources,
+    "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0-SNAPSHOT"
   )
   
   val coreSettings = Seq[Setting[_]](
@@ -60,7 +58,7 @@ object WebSpecsBuild extends Build
     "org.seleniumhq.selenium" % "selenium-remote-control" % "2.0rc2" withSources
     )
   val seleniumSettings = Seq[Setting[_]](
-      resolvers ++= coreResolvers,
+      resolvers += mapfishResolver,
       resolvers += ("Selenium" at "http://repo1.maven.org/maven2/"),
   	  libraryDependencies ++= seleniumDependencies,
       libraryDependencies ++= coreDependencies
