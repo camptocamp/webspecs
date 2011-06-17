@@ -1,5 +1,4 @@
-package c2c.webspecs
-package geonetwork
+package c2c.webspecs.geonetwork.geocat
 
 case class Format(id:Int, name:String, version:String)
 
@@ -29,6 +28,8 @@ object ListFormats
     }
   }
 }
+
+class AddFormat(name:String,version:String) extends AbstractGetRequest[Any,Format]("")
 
 /**
  * Delete format. input is the id of the format to delete
