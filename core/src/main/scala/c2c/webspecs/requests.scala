@@ -28,44 +28,59 @@ object ExecutionContext {
 
 trait ExecutionContext {
 
+  var currentUser:Option[(String,ExecutionContext.Response)] = None
+
   def httpClient:HttpClient
   def createHttpContext:() => HttpContext
   val conn: ClientConnectionManager = httpClient.getConnectionManager
   var modifications:List[RequestModification] = Nil
   def close() = httpClient.getConnectionManager.shutdown
-  def execute(request:HttpRequestBase) = {
-    modifications foreach {_(request)}
+  def execute(request:HttpRequestBase) = request match {
+    case r:LoginRequest if currentUser.exists {_._1 == r.user} =>
+      currentUser.get._2
+    case _ =>
+      modifications foreach {_(request)}
 
-    Log.apply(Log.Connection,"Executing "+request.getMethod+": "+request.getURI)
-    Log.apply(Log.Headers,"Headers:"+request.getAllHeaders.map{h => "("+h.getName+","+h.getValue+")"}.mkString("; "))
-    httpClient match {
-      case client:DefaultHttpClient =>
-        val cookies = client.getCookieStore.getCookies.asScala mkString ","
-        Log.apply(Log.Headers,"Cookies: "+cookies)
-      case client =>
-        Log.apply(Log.Headers,"Cookies: Not a DefaultHttpClient - "+client.getClass.getName)
-    }
+      Log.apply(Log.Connection,"Executing "+request.getMethod+": "+request.getURI)
+      Log.apply(Log.Headers,"Headers:"+request.getAllHeaders.map{h => "("+h.getName+","+h.getValue+")"}.mkString("; "))
 
-    val localContext = createHttpContext()
-    val response = httpClient.execute(request,localContext);
-    val finalHost = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_TARGET_HOST).toString
-    val finalURI = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_REQUEST) match {
-      case req:HttpUriRequest => Some(req.getURI)
-      case _ => None
-    }
+      httpClient match {
+        case client:DefaultHttpClient =>
+          val cookies = client.getCookieStore.getCookies.asScala mkString ","
+          Log.apply(Log.Headers,"Cookies: "+cookies)
+        case client =>
+          Log.apply(Log.Headers,"Cookies: Not a DefaultHttpClient - "+client.getClass.getName)
+      }
 
-    Log.apply(Log.Headers,"URI after request: "+request.getURI)
+      val localContext = createHttpContext()
+      val response = httpClient.execute(request,localContext);
+      val finalHost = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_TARGET_HOST).toString
+      val finalURI = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_REQUEST) match {
+        case req:HttpUriRequest => Some(req.getURI)
+        case _ => None
+      }
 
-    Log.apply(Log.Headers,"Response Headers: "+response.getAllHeaders.map{h => "("+h.getName+","+h.getValue+")"}.mkString("; "))
-    httpClient match {
-      case client:DefaultHttpClient =>
-        val cookies = client.getCookieStore.getCookies.asScala mkString ","
-        Log.apply(Log.Headers,"Cookies after request: "+cookies)
-      case client =>
-        Log.apply(Log.Headers,"Cookies: Not a DefaultHttpClient - "+client.getClass.getName)
-    }
+      Log.apply(Log.Headers,"URI after request: "+request.getURI)
+      Log.apply(Log.Headers,"Response Headers: "+response.getAllHeaders.map{h => "("+h.getName+","+h.getValue+")"}.mkString("; "))
 
-    ExecutionContext.Response(response,finalHost,finalURI)
+      httpClient match {
+        case client:DefaultHttpClient =>
+          val cookies = client.getCookieStore.getCookies.asScala mkString ","
+          Log.apply(Log.Headers,"Cookies after request: "+cookies)
+        case client =>
+          Log.apply(Log.Headers,"Cookies: Not a DefaultHttpClient - "+client.getClass.getName)
+      }
+
+      val finalResponse = ExecutionContext.Response(response,finalHost,finalURI)
+
+      request match {
+        case r:LoginRequest =>
+          currentUser = Some((r.user, finalResponse))
+        case _ =>
+          ()
+      }
+
+      finalResponse
   }
 }
 
@@ -154,7 +169,7 @@ object Param {
 case class P[+Out](n:String, v:Out) extends Param[Any,Out](n, _ => v)
 
 case class InP[-In,+Out](n:String,f:In => Out) extends Param[In,Out](n,f)
-case class IdP[In](n:String) extends Param[In,In](n,in => in)
+case class IdP[In](n:String) extends Param[In,String](n,in => in.toString)
 
 abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:Param[In,String]*)
   extends AbstractRequest[In,Out](valueFactory) {

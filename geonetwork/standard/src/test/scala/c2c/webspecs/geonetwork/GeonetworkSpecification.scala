@@ -30,17 +30,19 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   def setup = ExecutionContext.withDefault { context2 =>
     config.setUpTestEnv(context2)
     fixtures.foreach{_.create(config, context2)}
+    config.login(None)
   }
   def tearDown = ExecutionContext.withDefault[Unit] {
     context2 =>
       context.close()
-      fixtures.foreach{_.create(config, context2)}
+      fixtures.foreach{_.delete(config, context2)}
       config.tearDownTestEnv (context2)
   }
 
   def haveResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
   def have200ResponseCode = haveResponseCode(200)
-  
+  val a200ResponseThen = (r:Response[Any], _:String) => r must have200ResponseCode
+
   /* Support for creating given and then's */
   object Extracts extends RegexStep[Unit, Any]("")
   def extract1(text:String) = Extracts.extract1(text)
@@ -69,6 +71,9 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   implicit def resultFunctionToAsThen[A,R <% Result](function:Function2[A,String,R])= new {
     def then = new Then[A]("") {
      def extract(given: A,text: String) = function(given,text)
+    }
+    def narrow[B <: A] = new Then[B] {
+      def extract(given: B,text: String) = function(given,text)
     }
   }
 

@@ -19,9 +19,15 @@ object Login {
   )
 }
 
-class GeonetworkLoginService(user:String, pass:String) extends GetRequest("user.login", "username" -> user, "password" -> pass)
+trait LoginRequest {
+  def user:String
+}
 
-class BasicAuthLogin(user:String, pass:String) extends Request[Any,Null] {
+class GeonetworkLoginService(val user:String, pass:String)
+  extends GetRequest("user.login", "username" -> user, "password" -> pass)
+  with LoginRequest
+
+class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] with LoginRequest{
   def apply (in: Any)(implicit context:ExecutionContext) = {
     import AuthPolicy._
     context.httpClient match {
@@ -42,7 +48,7 @@ class BasicAuthLogin(user:String, pass:String) extends Request[Any,Null] {
 /**
  * Requires property casURL
  */
-class CasLogin(user:String, pass:String) extends Request[Any,XmlValue] {
+class CasLogin(val user:String, pass:String) extends Request[Any,XmlValue] with LoginRequest {
   def apply(in: Any)(implicit context: ExecutionContext) = {
 
     // note redirecting is required for cas login to work and must be left on
