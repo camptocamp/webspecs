@@ -22,7 +22,7 @@ object WebSpecsBuild extends Build
   
   // ------------------------------ Root Project ------------------------------ //
 	lazy val root:Project = Project("root",file(".")).
-	  aggregate(core,geonetwork,geocat, selenium, apps).
+	  aggregate(core,geonetwork,geocat, selenium, apps,docsProj).
     settings(publishArtifact := false)
 
   // ------------------------------ Core Project ------------------------------ //
@@ -72,6 +72,21 @@ object WebSpecsBuild extends Build
   lazy val apps = Project("apps",file("apps")).
     dependsOn (geocat % "compile->test").
     settings (sharedSettings:_*)
+
+  // ------------------------------ Docs Project ------------------------------ //
+  val docsSettings = Seq[Setting[_]](
+      sourceDirectories := Seq(
+        core.base / "src/main/scala",
+        geonetwork.base / "src/main/scala",
+        geocat.base / "src/main/scala",
+        core.base / "src/test/scala",
+        geonetwork.base / "src/test/scala",
+        geocat.base / "src/test/scala"
+      )
+    )
+  lazy val docsProj:Project = Project("docsProj", file("docsProj")).
+    dependsOn (geocat % "compile->test").
+    settings(sharedSettings ++ docsSettings :_*)
 
   // ------------------------------ GenerateAccumClasses Command (Part of Core) ------------------------------ //
   

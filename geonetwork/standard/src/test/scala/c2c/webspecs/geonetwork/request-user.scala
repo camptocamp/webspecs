@@ -6,7 +6,7 @@ import Properties.TEST_TAG
 import xml.Node
 
 object UserProfiles {
-  sealed abstract class UserProfile(val alternatives:String*) {
+  abstract class UserProfile(val alternatives:String*) {
     val name = toString()
     val allNames = name +: alternatives
   }
