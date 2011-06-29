@@ -24,15 +24,15 @@ object GeonetworkFixture {
       (config.adminLogin then DeleteUser(id))(None)(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
-      val user = User(
+      val userReq = User(
         username = username,
         email = email,
         name = name,
         surname=lastname,
         password = username,
         profile = profile)
-      val formats = (config.adminLogin then CreateUser(user))(None)(context)
-      _id = formats.value.userId
+      val user = (config.adminLogin then CreateUser(userReq))(None)(context)
+      _id = user.value.userId
     }
   }
 

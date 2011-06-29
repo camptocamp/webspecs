@@ -17,7 +17,7 @@ object UserProfiles {
   case object Reviewer extends UserProfile
   case object Admin extends UserProfile("Administrator")
 
-  val all = Guest :: RegisteredUser :: Editor :: Reviewer :: UserAdmin :: Admin :: Nil
+  var all = Guest :: RegisteredUser :: Editor :: Reviewer :: UserAdmin :: Admin :: Nil
 
   def withName(name:String) = all find {_.allNames contains name}
 }
@@ -56,6 +56,16 @@ case class User(val idOption:Option[String]=None,
   require(profile == UserProfiles.Guest && groups.nonEmpty || profile != UserProfiles,
      "Shared users are not part of groups: profile="+profile+", groups="+(groups mkString ","))
 
+  def this(user:User) = this(
+    idOption = user.idOption,
+    username = user.username,
+    password = user.password,
+    surname = user.surname,
+    name = user.name,
+    email = user.email,
+    position = user.position,
+    profile = user.profile,
+    groups = user.groups)
   def loadId(implicit executionContext:ExecutionContext):Option[String] = idOption orElse {
     ListUsers(None).value find {_.username == username} map {_.userId}
   }
@@ -65,6 +75,7 @@ case class User(val idOption:Option[String]=None,
     P("password2", password) ::
     P("name", name) ::
     P("surname", surname) ::
+    P("email", email) ::
     P("profile", profile.toString) ::
     position.formParams("position")) :::
     (if (groups.isEmpty) Nil else List(P("groups", (groups mkString ","))))

@@ -75,16 +75,12 @@ object WebSpecsBuild extends Build
 
   // ------------------------------ Docs Project ------------------------------ //
   val docsSettings = Seq[Setting[_]](
-      sourceDirectories := Seq(
-        core.base / "src/main/scala",
-        geonetwork.base / "src/main/scala",
-        geocat.base / "src/main/scala",
-        core.base / "src/test/scala",
-        geonetwork.base / "src/test/scala",
-        geocat.base / "src/test/scala"
-      )
+      sources in Compile <<=
+        (sources in (core,Compile),
+        sources in (geonetwork,Test),
+        sources in (geocat,Test)) map { _ ++ _ ++ _ filterNot {_.getPath matches """(\S+accumulating.Accumulat\S+\d+\.scala)"""}}
     )
-  lazy val docsProj:Project = Project("docsProj", file("docsProj")).
+  lazy val docsProj:Project = Project("documentation", file("docsProj")).
     dependsOn (geocat % "compile->test").
     settings(sharedSettings ++ docsSettings :_*)
 
