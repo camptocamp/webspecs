@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>c2c.webspecs.geonetwork.geocat</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../lib/package_big.png" />
+        <p id="owner"><a name="c2c" class="extype" href="../../../package.html">c2c</a>.<a name="c2c.webspecs" class="extype" href="../../package.html">webspecs</a>.<a name="c2c.webspecs.geonetwork" class="extype" href="../package.html">geonetwork</a></p>
+        <h1>geocat</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <span class="name">geocat</span>
+        
+        
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.AddFormat" data-isabs="false">
+      <a id="AddFormat:AddFormat"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AddFormat.html"><span class="name">AddFormat</span></a>
+        
+        <span class="params">(<span name="name">name: String</span>, <span name="version">version: String</span>)</span><span class="result"> extends AbstractGetRequest[Any, XmlValue] with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Ad a new format with given name and version.</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.AddXLink" data-isabs="false">
+      <a id="AddXLink:AddXLink"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="AddXLink.html"><span class="name">AddXLink</span></a>
+        
+        <span class="result"> extends Add</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.DeleteSharedObject" data-isabs="false">
+      <a id="DeleteSharedObject:DeleteSharedObject"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="DeleteSharedObject.html"><span class="name">DeleteSharedObject</span></a>
+        
+        <span class="params">(<span name="sharedObjectId">sharedObjectId: String</span>, <span name="sharedType">sharedType: SharedObjectType</span>)</span><span class="result"> extends AbstractGetRequest[Any, IdValue] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ExtentSummary" data-isabs="false">
+      <a id="ExtentSummary:ExtentSummary"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ExtentSummary.html"><span class="name">ExtentSummary</span></a>
+        
+        <span class="params">(<span name="id">id: String</span>, <span name="href">href: URL</span>, <span name="desc">desc: Localized</span>, <span name="validated">validated: Boolean</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.Format" data-isabs="false">
+      <a id="Format:Format"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Format.html"><span class="name">Format</span></a>
+        
+        <span class="params">(<span name="id">id: Int</span>, <span name="name">name: String</span>, <span name="version">version: String</span>, <span name="validated">validated: Boolean</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListNonValidated" data-isabs="false">
+      <a id="ListNonValidated:ListNonValidated"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ListNonValidated.html"><span class="name">ListNonValidated</span></a>
+        
+        <span class="params">(<span name="sharedType">sharedType: SharedObjectType</span>)</span><span class="result"> extends AbstractGetRequest[Any, SharedObjectList] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListReferencingMetadata" data-isabs="false">
+      <a id="ListReferencingMetadata:ListReferencingMetadata"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ListReferencingMetadata.html"><span class="name">ListReferencingMetadata</span></a>
+        
+        <span class="params">(<span name="sharedObjectId">sharedObjectId: Int</span>, <span name="sharedType">sharedType: SharedObjectType</span>)</span><span class="result"> extends AbstractGetRequest[Any, ReferencingMetadataList] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.Localized" data-isabs="false">
+      <a id="Localized:Localized"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Localized.html"><span class="name">Localized</span></a>
+        
+        <span class="params">(<span name="translation">translation: Map[String, String]</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represents the translations of an item
+</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ReferencingMetadata" data-isabs="false">
+      <a id="ReferencingMetadata:ReferencingMetadata"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ReferencingMetadata.html"><span class="name">ReferencingMetadata</span></a>
+        
+        <span class="params">(<span name="mdId">mdId: Int</span>, <span name="title">title: String</span>, <span name="ownerName">ownerName: String</span>, <span name="email">email: String</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ReferencingMetadataList" data-isabs="false">
+      <a id="ReferencingMetadataList:ReferencingMetadataList"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="ReferencingMetadataList.html"><span class="name">ReferencingMetadataList</span></a>
+        
+        <span class="result"> extends SeqProxy[ReferencingMetadata] with XmlValue</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.RejectNonValidatedObject" data-isabs="false">
+      <a id="RejectNonValidatedObject:RejectNonValidatedObject"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="RejectNonValidatedObject.html"><span class="name">RejectNonValidatedObject</span></a>
+        
+        <span class="params">(<span name="sharedObjectId">sharedObjectId: String</span>, <span name="sharedType">sharedType: SharedObjectType</span>, <span name="rejectionMessage">rejectionMessage: String</span>)</span><span class="result"> extends AbstractGetRequest[Any, IdValue] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.SearchExtent" data-isabs="false">
+      <a id="SearchExtent:SearchExtent"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="SearchExtent.html"><span class="name">SearchExtent</span></a>
+        
+        <span class="params">(<span name="numResults">numResults: Int</span>, <span name="property">property: String</span>, <span name="format">format: Value</span>)</span><span class="result"> extends AbstractGetRequest[String, List[ExtentSummary]] with BasicValueFactory[List[ExtentSummary]] with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Search for an Extent
+</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.SharedObject" data-isabs="false">
+      <a id="SharedObject:SharedObject"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="SharedObject.html"><span class="name">SharedObject</span></a>
+        
+        <span class="params">(<span name="id">id: Int</span>, <span name="url">url: Option[URL]</span>, <span name="description">description: String</span>, <span name="objType">objType: SharedObjectType</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.SharedObjectList" data-isabs="false">
+      <a id="SharedObjectList:SharedObjectList"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="SharedObjectList.html"><span class="name">SharedObjectList</span></a>
+        
+        <span class="result"> extends SeqProxy[SharedObject] with XmlValue</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.SharedObjectListFactory" data-isabs="false">
+      <a id="SharedObjectListFactory:SharedObjectListFactory"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="SharedObjectListFactory.html"><span class="name">SharedObjectListFactory</span></a>
+        
+        <span class="result"> extends BasicValueFactory[SharedObjectList]</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ValidateSharedObject" data-isabs="false">
+      <a id="ValidateSharedObject:ValidateSharedObject"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ValidateSharedObject.html"><span class="name">ValidateSharedObject</span></a>
+        
+        <span class="params">(<span name="sharedObjectId">sharedObjectId: String</span>, <span name="sharedType">sharedType: SharedObjectType</span>)</span><span class="result"> extends AbstractGetRequest[Any, IdValue] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.Validateable" data-isabs="true">
+      <a id="Validateable:Validateable"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Validateable.html"><span class="name">Validateable</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Objects implementing this can have either validated or invalidated state
+</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.revisionExtent" data-isabs="true">
+      <a id="revisionExtent:revisionExtent"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="revisionExtent.html"><span class="name">revisionExtent</span></a>
+        
+        <span class="result"> extends ExtentAddSite</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>abstract </dd></dl></div>
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.AddExtentXLink" data-isabs="false">
+      <a id="AddExtentXLink:AddExtentXLink"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="AddExtentXLink$.html"><span class="name">AddExtentXLink</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.CheRecord" data-isabs="false">
+      <a id="CheRecord:CheRecord"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="CheRecord$.html"><span class="name">CheRecord</span></a>
+        
+        <span class="result"> extends OutputSchema with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.DeleteFormat" data-isabs="false">
+      <a id="DeleteFormat:DeleteFormat"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="DeleteFormat$.html"><span class="name">DeleteFormat</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[Int, XmlValue]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Delete format.</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ExtentFormat" data-isabs="false">
+      <a id="ExtentFormat:ExtentFormat"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ExtentFormat$.html"><span class="name">ExtentFormat</span></a>
+        
+        <span class="result"> extends Enumeration</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.GM03_Record" data-isabs="false">
+      <a id="GM03_Record:GM03_Record"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="GM03_Record$.html"><span class="name">GM03_Record</span></a>
+        
+        <span class="result"> extends OutputSchema with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.GeocatConstants" data-isabs="false">
+      <a id="GeocatConstants:GeocatConstants"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="GeocatConstants$.html"><span class="name">GeocatConstants</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Contain some constants that don't fit in an enumeration or is too much work to put in one
+</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.GeocatFixture" data-isabs="false">
+      <a id="GeocatFixture:GeocatFixture"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="GeocatFixture$.html"><span class="name">GeocatFixture</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Fixtures that only apply in Geocat
+</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.GeocatImportStyleSheets" data-isabs="false">
+      <a id="GeocatImportStyleSheets:GeocatImportStyleSheets"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="GeocatImportStyleSheets$.html"><span class="name">GeocatImportStyleSheets</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.GeocatListUsers" data-isabs="false">
+      <a id="GeocatListUsers:GeocatListUsers"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="GeocatListUsers$.html"><span class="name">GeocatListUsers</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[String, List[User with UserRef with Validateable]] with BasicValueFactory[List[User with UserRef with Validateable]]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">shared.</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.GetFormat" data-isabs="false">
+      <a id="GetFormat:GetFormat"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="GetFormat$.html"><span class="name">GetFormat</span></a>
+        
+        <span class="result"> extends Request[Int, Format]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Get xml for the format with the id passed as input
+</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListDeletedSharedObjects" data-isabs="false">
+      <a id="ListDeletedSharedObjects:ListDeletedSharedObjects"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ListDeletedSharedObjects$.html"><span class="name">ListDeletedSharedObjects</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[Any, SharedObjectList] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListFormats" data-isabs="false">
+      <a id="ListFormats:ListFormats"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ListFormats$.html"><span class="name">ListFormats</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[String, List[Format]] with BasicValueFactory[List[Format]]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Lists all formats that match the input pattern.</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListNonValidatedContacts" data-isabs="false">
+      <a id="ListNonValidatedContacts:ListNonValidatedContacts"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ListNonValidatedContacts$.html"><span class="name">ListNonValidatedContacts</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[Any, SharedObjectList] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListNonValidatedExtents" data-isabs="false">
+      <a id="ListNonValidatedExtents:ListNonValidatedExtents"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ListNonValidatedExtents$.html"><span class="name">ListNonValidatedExtents</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[Any, SharedObjectList] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListNonValidatedFormats" data-isabs="false">
+      <a id="ListNonValidatedFormats:ListNonValidatedFormats"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ListNonValidatedFormats$.html"><span class="name">ListNonValidatedFormats</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[Any, SharedObjectList] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ListNonValidatedKeywords" data-isabs="false">
+      <a id="ListNonValidatedKeywords:ListNonValidatedKeywords"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ListNonValidatedKeywords$.html"><span class="name">ListNonValidatedKeywords</span></a>
+        
+        <span class="result"> extends AbstractGetRequest[Any, SharedObjectList] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.ReferencingMetadataListFactory" data-isabs="false">
+      <a id="ReferencingMetadataListFactory:ReferencingMetadataListFactory"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="ReferencingMetadataListFactory$.html"><span class="name">ReferencingMetadataListFactory</span></a>
+        
+        <span class="result"> extends BasicValueFactory[ReferencingMetadataList]</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.SharedObjectTypes" data-isabs="false">
+      <a id="SharedObjectTypes:SharedObjectTypes"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="SharedObjectTypes$.html"><span class="name">SharedObjectTypes</span></a>
+        
+        <span class="result"> extends Enumeration</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.SharedUserProfile" data-isabs="false">
+      <a id="SharedUserProfile:SharedUserProfile"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="SharedUserProfile$.html"><span class="name">SharedUserProfile</span></a>
+        
+        <span class="result"> extends UserProfile with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The extra user in Geocat to flag a shared user
+</p>
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.StandardSharedExtents" data-isabs="false">
+      <a id="StandardSharedExtents:StandardSharedExtents"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="StandardSharedExtents$.html"><span class="name">StandardSharedExtents</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="c2c.webspecs.geonetwork.geocat.spec" data-isabs="false">
+      <a id="spec:spec"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="spec/package.html"><span class="name">spec</span></a>
+        
+        
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+
+        
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>
