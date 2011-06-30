@@ -26,15 +26,15 @@ class AccessKeywords extends GeonetworkSpecification { def is =
   val containWater = (response:ListResponse, _:String) =>
     response.value.find(_.value contains "Hydrograf") must not be (None)
 
-  val locales = List("fr","en","de")
-  val keywordInIso = (_:String) => GetIsoKeyword(GeocatConstants.INSPIRE_THESAURUS, locales)("http://rdfdata.eionet.europa.eu/inspirethemes/themes/26"):Response[IsoKeyword]
+  val locales = List("FR","EN","DE")
+  val keywordInIso = () => GetIsoKeyword(GeocatConstants.INSPIRE_THESAURUS, locales)("http://rdfdata.eionet.europa.eu/inspirethemes/themes/26"):Response[IsoKeyword]
   val i200Response = a200ResponseThen.narrow[Response[IsoKeyword]]
   val isoTranslation = (response:Response[IsoKeyword]) => {
     val languages = response.value.labels.keys
 
     (
-      (languages.toList must_== locales) and
-      (response.value.labels must havePair("EN" -> "geographic information system"))
+      (languages.toList must haveTheSameElementsAs (locales)) and
+      (response.value.labels must havePair("EN" -> "Atmospheric conditions"))
     )
   }
 

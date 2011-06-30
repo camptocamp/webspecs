@@ -50,7 +50,7 @@ class KeywordFactory(thesaurus:String) extends ValueFactory[String,IsoKeyword] {
       keywordXml =>
         val translationNodes = keywordXml \\ "LocalisedCharacterString"
         val translations = translationNodes.toSeq.map{n =>
-          (n \\ "@locale" text, n.text)
+          ((n \\ "@locale" text).drop(1), n.text)
         }
         IsoKeyword(uri,thesaurus, Map(translations:_*))
     }
