@@ -11,7 +11,7 @@ class AccessContacts extends GeonetworkSpecification { def is =
 
   "This specification tests accessing shared users"     ^ Step(setup) ^
     "Listing all users"                                 ^ listContacts.give ^
-      "Should suceed with a 200 response"                ^ l200Response ^
+      "Should succeed with a 200 response"                ^ l200Response ^
       "Should show user name"                            ^ listUserNames.then    ^
       "Should list emails"                               ^ listEmails.then   ^
       "Should list names"                                ^ listNames.then   ^
@@ -19,7 +19,7 @@ class AccessContacts extends GeonetworkSpecification { def is =
       "Should list validation"                           ^ listValidation.then   ^
                                                          end ^
     "Gettings a user in iso xml"                         ^ contactInIso.give  ^
-      "Should suceed with a 200 response"                ^ i200Response      ^
+      "Should succeed with a 200 response"                ^ i200Response      ^
       "Should show name"                                 ^ isoName.then      ^
       "Should have surname"                                ^ isoLastName.then   ^
                                                            Step(tearDown)    ^
@@ -31,21 +31,22 @@ class AccessContacts extends GeonetworkSpecification { def is =
   def find[U](list:ListUserResponse)(map: User with UserRef with Validateable => U) = { list.value.find(_.userId == userFixture.id).map(map)}
   val listContacts = (_:String) => GeocatListUsers(""):ListUserResponse
   val l200Response = a200ResponseThen.narrow[ListUserResponse]
-  val listUserNames = (response:ListUserResponse, _:String) => {
+
+  val listUserNames = (response:ListUserResponse, _:String) =>
     response.value.map{_.username} must contain (userFixture.username)
-  }
-  val listNames = (response:ListUserResponse, _:String) => {
+
+  val listNames = (response:ListUserResponse, _:String) =>
     find(response)(_.name) must beSome(userFixture.name)
-  }
-  val listProfiles = (response:ListUserResponse, _:String) => {
+
+  val listProfiles = (response:ListUserResponse, _:String) =>
     find(response)(_.profile) must beSome(userFixture.profile)
-  }
-  val listEmails = (response:ListUserResponse, _:String) => {
+
+  val listEmails = (response:ListUserResponse, _:String) =>
     find(response)(_.email) must beSome(userFixture.email)
-  }
-  val listValidation= (response:ListUserResponse, _:String) => {
+
+  val listValidation= (response:ListUserResponse, _:String) =>
     find(response)(_.validated) must beSome(true)
-  }
+
 
   val contactInIso = (s:String) =>
     (GetRequest("xml.user.get","id" -> userFixture.id)(None)):Response[XmlValue]

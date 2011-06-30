@@ -9,13 +9,13 @@ import c2c.webspecs.{XmlValue, Response}
 class AccessFormats extends GeonetworkSpecification { def is =
   "This specification tests accessing shared formats"    ^ Step(setup) ^
     "Listing all formats"                                ^ listFormats.give ^
-      "Should suceed with a 200 response"                ^ l200Response ^
+      "Should succeed with a 200 response"                ^ l200Response ^
       "Should show format name"                          ^ listNames.then    ^
       "Should have version"                              ^ listVersions.then   ^
       "Should indicate validation"                       ^ listValidations.then ^
                                                          end ^
     "Gettings a format in iso xml"                       ^ formatInIso.give  ^
-      "Should suceed with a 200 response"                ^ i200Response      ^
+      "Should succeed with a 200 response"                ^ i200Response      ^
       "Should show name"                                 ^ isoName.then      ^
       "Should have version"                              ^ isoVersion.then   ^
                                                            Step(tearDown)    ^

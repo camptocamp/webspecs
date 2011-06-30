@@ -166,7 +166,12 @@ abstract class Param[-In,+Out](val name:String,val value:In => Out)
 object Param {
   def stringMapping[B] = (p:(String,B)) => P(p._1,p._2.toString)
 }
-case class P[+Out](n:String, v:Out) extends Param[Any,Out](n, _ => v)
+case class P[+Out](n:String, v:Out) extends Param[Any,Out](n, _ => v) {
+  def this(pair:(String,Out)) = this(pair._1,pair._2)
+}
+case class SP(n:String, v:Any) extends Param[Any,String](n, _ => v.toString) {
+  def this(pair:(String,Any)) = this(pair._1,pair._2)
+}
 
 case class InP[-In,+Out](n:String,f:In => Out) extends Param[In,Out](n,f)
 case class IdP[In](n:String) extends Param[In,String](n,in => in.toString)

@@ -41,7 +41,7 @@ case object GroupValueListFactory extends BasicValueFactory[List[GroupValue]] {
   }
 }
 case class CreateGroup(group:Group)
-  extends MultiPartFormRequest[Any,GroupValue](
+  extends AbstractMultiPartFormRequest[Any,GroupValue](
     "group.update!",
     SelfValueFactory(),
     group.formParams:_*

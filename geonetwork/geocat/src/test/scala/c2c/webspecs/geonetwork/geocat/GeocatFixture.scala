@@ -10,7 +10,7 @@ import c2c.webspecs.ExecutionContext
  * Fixtures that only apply in Geocat
  */
 object GeocatFixture {
-  def format = new Fixture {
+  def format = new Fixture[GeonetConfig] {
     val name = "WebSpecs"
     val version = UUID.randomUUID().toString
     private var _id:Int = -1

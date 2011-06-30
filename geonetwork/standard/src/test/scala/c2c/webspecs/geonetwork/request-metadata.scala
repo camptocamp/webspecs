@@ -135,7 +135,7 @@ object ImportMetadata {
   }
 }
 case class ImportMetadata(data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean, groupId:String)
-  extends MultiPartFormRequest[Any,IdValue](
+  extends AbstractMultiPartFormRequest[Any,IdValue](
     "mef.import",
     IdValuesFactory.FromImportOrCreateResult,
     P("insert_mode",  new StringBody("1")),

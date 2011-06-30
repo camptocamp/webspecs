@@ -1,16 +1,11 @@
-package c2c.webspecs.geonetwork
+package c2c.webspecs
+package geonetwork
 
 import c2c.webspecs.ExecutionContext
 import java.util.UUID
 
-trait Fixture {
-  def create(config: GeonetConfig, context: ExecutionContext): Unit
-
-  def delete(config: GeonetConfig, context: ExecutionContext): Unit
-}
-
 object GeonetworkFixture {
-  def user(requiredProfile:UserProfiles.UserProfile = UserProfiles.Editor) = new Fixture {
+  def user(requiredProfile:UserProfiles.UserProfile = UserProfiles.Editor) = new Fixture[GeonetConfig] {
     val profile = requiredProfile
     val name = "Web"
     val lastname = "Specs"
@@ -35,6 +30,4 @@ object GeonetworkFixture {
       _id = user.value.userId
     }
   }
-
-
 }

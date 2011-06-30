@@ -74,14 +74,15 @@ object WebSpecsBuild extends Build
     settings (sharedSettings:_*)
 
   // ------------------------------ Docs Project ------------------------------ //
+  lazy val Docs = config("docs") extend (Test)
   val docsSettings = Seq[Setting[_]](
-      sources in Compile <<=
+      sources in Docs <<=
         (sources in (core,Compile),
         sources in (geonetwork,Test),
         sources in (geocat,Test)) map { _ ++ _ ++ _ filterNot {_.getPath matches """(\S+accumulating.Accumulat\S+\d+\.scala)"""}}
     )
   lazy val docsProj:Project = Project("documentation", file("docsProj")).
-    dependsOn (geocat % "compile->test").
+    dependsOn(core % "compile -> test").
     settings(sharedSettings ++ docsSettings :_*)
 
   // ------------------------------ GenerateAccumClasses Command (Part of Core) ------------------------------ //

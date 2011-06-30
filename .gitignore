@@ -1,2 +1,7 @@
 target
 project/boot
+.project
+.classpath
+.idea_modules
+.idea
+.project
