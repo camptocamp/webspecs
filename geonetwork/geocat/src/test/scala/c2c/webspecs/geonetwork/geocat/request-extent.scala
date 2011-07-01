@@ -26,13 +26,14 @@ case class SearchExtent(numResults:Int = 25,
           val href = feature \\ "@href" text
           val desc = parseLanguages(feature \\ "desc")
           val validated = !href.contains("typename=gn:non_validated")
-          ExtentSummary(id,new URL(href), desc,validated)
+          val fullHref = "http://"+Properties.testServer+href
+          ExtentSummary(id,new URL(fullHref), desc,validated)
         }
     }
   }
 
   private def parseLanguages(node:NodeSeq) = {
-    val values = (node \\ "_").toList map {node => node.label -> node.text}
+    val values = (node \ "_").toList map {n => n.label.toLowerCase -> n.text}
     Localized(Map(values:_*))
   }
 }

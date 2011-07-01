@@ -462,7 +462,7 @@
             <gco:CharacterString>kurztitel</gco:CharacterString>
             <gmd:PT_FreeText>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">titre court</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#FR">titre court</gmd:LocalisedCharacterString>    so
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:alternateTitle>

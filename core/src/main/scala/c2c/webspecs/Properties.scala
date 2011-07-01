@@ -41,7 +41,7 @@ import java.lang.IllegalArgumentException
 object Properties {
 
   def TEST_TAG = "{automated_test_metadata}"
-  def TEST_URL_KEY = "test.server"
+  lazy val testServer = apply("test.server") getOrElse "localhost:8080"
   lazy val all:Map[String,String] = {
     val sysProps = getProperties.asScala /// NEED to load sstem and env properties and add them all to the map
     val envProps = getenv.asScala /// NEED to load sstem and env properties and add them all to the map
