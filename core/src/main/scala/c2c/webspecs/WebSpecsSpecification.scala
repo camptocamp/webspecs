@@ -26,9 +26,11 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
       config.tearDownTestEnv (context2)
   }
 
-  def haveResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
-  def have200ResponseCode = haveResponseCode(200)
-  val a200ResponseThen = (r:Response[Any], _:String) => r must have200ResponseCode
+  def haveAResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
+  def beAResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
+  def haveA200ResponseCode = haveAResponseCode(200)
+  def beA200ResponseCode = haveAResponseCode(200)
+  val a200ResponseThen = (r:Response[Any], _:String) => r must haveA200ResponseCode
 
   /* Support for creating given and then's */
   object Extracts extends RegexStep[Unit, Any]("")

@@ -49,7 +49,7 @@ class CreateSpec extends GeonetworkSpecification { def is =
         case "delete" => createResponse._3
       }
 
-      response must have200ResponseCode
+      response must haveA200ResponseCode
     }
 
   val NoErrors = (createResponse: CreateResponse, text: String) => {
