@@ -35,6 +35,6 @@ class GetUserSpec extends GeonetworkSpecification() {
   }
 
   private def makeRequest(id: String) =
-    (config.adminLogin then GetUser(id))(None) must have200ResponseCode
+    (config.adminLogin then GetUser(id))(None) must haveA200ResponseCode
 
 }

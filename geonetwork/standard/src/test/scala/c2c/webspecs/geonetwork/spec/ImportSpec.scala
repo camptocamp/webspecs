@@ -26,13 +26,13 @@ class ImportSpec extends GeonetworkSpecification {def is =
 
       val (importResponse, findResponse, deleteResponse, secondFindResponse) = request(None).tuple
 
-      (importResponse must have200ResponseCode) and
-      (findResponse must have200ResponseCode) and
+      (importResponse must haveA200ResponseCode) and
+      (findResponse must haveA200ResponseCode) and
       (findResponse.value.withXml { md =>
           md \\ "ERROR" must beEmpty
           // TODO better checks
       }) and
-      (deleteResponse must have200ResponseCode) and
+      (deleteResponse must haveA200ResponseCode) and
       (secondFindResponse.value.xml must beLeft)
     }
 }

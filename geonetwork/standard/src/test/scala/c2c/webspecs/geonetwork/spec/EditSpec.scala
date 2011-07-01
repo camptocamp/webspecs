@@ -68,7 +68,7 @@ class EditSpec extends GeonetworkSpecification { def is =
         case "new" => accumulatedResponse._3
       }
 
-      response must have200ResponseCode
+      response must haveA200ResponseCode
     }
 
   object HaveNewExtent extends ExtentThen {
