@@ -31,7 +31,6 @@ class AccessKeywords extends GeonetworkSpecification { def is =
   val i200Response = a200ResponseThen.narrow[Response[IsoKeyword]]
   val isoTranslation = (response:Response[IsoKeyword]) => {
     val languages = response.value.labels.keys
-
     (
       (languages.toList must haveTheSameElementsAs (locales)) and
       (response.value.labels must havePair("EN" -> "Atmospheric conditions"))

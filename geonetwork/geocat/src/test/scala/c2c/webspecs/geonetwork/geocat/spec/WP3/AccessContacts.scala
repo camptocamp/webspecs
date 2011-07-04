@@ -9,9 +9,9 @@ import geonetwork.UserRef
 
 class AccessContacts extends GeonetworkSpecification { def is =
 
-  "This specification tests accessing shared users"     ^ Step(setup) ^
-    "Listing all users"                                 ^ listContacts.give ^
-      "Should succeed with a 200 response"                ^ l200Response ^
+  "This specification tests accessing shared users"      ^ Step(setup) ^
+    "Listing all users"                                  ^ listContacts.give ^
+      "Should succeed with a 200 response"               ^ l200Response ^
       "Should show user name"                            ^ listUserNames.then    ^
       "Should list emails"                               ^ listEmails.then   ^
       "Should list names"                                ^ listNames.then   ^
@@ -19,9 +19,9 @@ class AccessContacts extends GeonetworkSpecification { def is =
       "Should list validation"                           ^ listValidation.then   ^
                                                          end ^
     "Gettings a user in iso xml"                         ^ contactInIso.give  ^
-      "Should succeed with a 200 response"                ^ i200Response      ^
+      "Should succeed with a 200 response"               ^ i200Response      ^
       "Should show name"                                 ^ isoName.then      ^
-      "Should have surname"                                ^ isoLastName.then   ^
+      "Should have surname"                              ^ isoLastName.then   ^
                                                            Step(tearDown)    ^
     "UserFixture should be deleted"                      ! fixtureIsGone
 

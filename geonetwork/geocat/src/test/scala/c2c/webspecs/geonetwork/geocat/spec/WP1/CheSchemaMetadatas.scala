@@ -34,7 +34,7 @@ class CheSchemaMetadatas  extends GeonetworkSpecification {  def is =
   val getInsertedMdId = (idRes:Response[IdValue]) => {
     val xmlResponse = GetRequest("xml.metadata.get", "id" -> idRes.value.id)(None)
     xmlResponse.value.withXml{md =>
-      // TODO : add some checks on the added MD
+
       val node = (md \\ "citation"  \ "CI_Citation" \ "title" \ "CharacterString").text  ;
       val abstractText = (md \\ "abstract").text.trim
 

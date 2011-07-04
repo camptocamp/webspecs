@@ -8,7 +8,7 @@ class GeonetworkURIResolver extends UriResolver{
       val paramString = params.map{e=>e._1+"="+e._2}.mkString("&")
       service+sep+paramString
     } else {
-      val baseURL = Properties(Properties.TEST_URL_KEY) getOrElse "localhost:8080/geonetwork/srv/"
+      val baseURL = Properties.testServer
       val locale = Properties(GeonetConfig.LOCALE_KEY) getOrElse "eng"
       val serviceUrl = "http:/" :: baseURL :: "geonetwork/srv" :: locale :: service :: Nil mkString "/"
 
