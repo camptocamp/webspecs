@@ -16,12 +16,7 @@ class CheSchemaMetadatas  extends GeonetworkSpecification {  def is =
   "This specification tests using the iso19139.CHE schema"                  ^ Step(setup)               ^
     "Inserting a CHE metadata"                                              ^ importISO19139CCHE.give  ^
     "Should suceed with a 200 response"                                     ^ import200Response         ^
-       "Should returned the id of the inserted MD"                          ^ getInsertedMdId.then           ^
-                                                                            end
-
-  "Getting the previously inserted CHE metadata"                            ^ GetMetadataXml.give    ^
-    "Should suceed with a 200 response"                                     ^ i200XmlResponse      ^
-    "Should return the MD in XML"                                           ^ VerifyMetadataXml.then      ^
+       "Should return the id of the inserted MD"                            ^ getInsertedMdId.then           ^
                                                                             Step(tearDown)
 
   val importISO19139CCHE = (_:String) => {
@@ -33,20 +28,17 @@ class CheSchemaMetadatas  extends GeonetworkSpecification {  def is =
   }
   val GetMetadataXml = () => null.asInstanceOf[Response[XmlValue]]
 
-  val i200XmlResponse = a200ResponseThen.narrow[Response[XmlValue]]
-
-  val i200Response = a200ResponseThen.narrow[Response[XmlValue]]
-
-  val VerifyMetadataXml = (r:Response[XmlValue]) => pending
-
   val import200Response = a200ResponseThen.narrow[Response[IdValue]]
 
 
   val getInsertedMdId = (idRes:Response[IdValue]) => {
     val xmlResponse = GetRequest("xml.metadata.get", "id" -> idRes.value.id)(None)
     xmlResponse.value.withXml{md =>
-      val node = md \\ "some elem to check for"
-      node must not beEmpty
+      // TODO : add some checks on the added MD
+      val node = (md \\ "citation"  \ "CI_Citation" \ "title" \ "CharacterString").text  ;
+      val abstractText = (md \\ "abstract").text.trim
+
+        ((node must_== "COmprehenisve Test") and (abstractText must_== "xx"))
     }
   }
 }
