@@ -5,31 +5,38 @@ package spec.WP3
 
 import org.specs2.specification.Step
 
-class AccessExtents extends GeonetworkSpecification { def is =
+class AccessExtentsSpec extends GeonetworkSpecification { def is =
 
   "This specification tests accessing shared extent"           ^ Step(setup) ^
-    "Searching extends for '${berne}' in ${gmd_bbox} format"   ^ listExtents.give ^
+    "Searching extends for '${berne}' in ${gmd_bbox} format"   ^ listExtents.toGiven ^
       "Should succeed with a 200 response"                     ^ l200Response ^
-      "Should find bern"                                       ^ findBernResult.then    ^
-      "Should show href"                                       ^ listhref.then    ^
-      "Should show localized desc"                             ^ listLocalizedDesc.then    ^
-      "Should have ${gmd_bbox} format in uri"                  ^ formatCheck.then    ^
-      "Should indicate validated"                              ^ listValidated.then    ^
+      "Should find ${Bern}"                                    ^ findExtentResult.toThen    ^
+      "Should show href"                                       ^ listhref.toThen    ^
+      "Should show localized desc"                             ^ listLocalizedDesc.toThen    ^
+      "Should have ${gmd_bbox} format in uri"                  ^ formatCheck.toThen    ^
+      "Should indicate validated"                              ^ listValidated.toThen    ^
                                                                  end^
-    "Searching extends for '${be}' in ${gmd_complete} format"  ^ listExtents.give ^
-      "Should find bern"                                       ^ findBernResult.then    ^
-      "Should have ${gmd_complete} format in uri"              ^ formatCheck.then    ^
+    "Searching extends for '${be}' in ${gmd_complete} format"  ^ listExtents.toGiven ^
+      "Should find ${Bern}"                                    ^ findExtentResult.toThen    ^
+      "Should have ${gmd_complete} format in uri"              ^ formatCheck.toThen    ^
                                                                  end ^
-    "Gettings a ${gmd_bbox} extent in iso xml"                  ^ extentInIso.give  ^
-      "Should succeed with a 200 response"                     ^ i200Response      ^
-      "Should show name"                                       ^ bboxExtent.then      ^
-      "Should show translations"                               ^ haveDesc.then   ^
+    "Searching extends for '${Be}' in ${gmd_polygon} format"  ^ listExtents.toGiven ^
+      "Should find ${Bern}"                                   ^ findExtentResult.toThen    ^
+      "Should have ${gmd_polygon} format in uri"              ^ formatCheck.toThen    ^
                                                                  end ^
-    "Gettings a ${gmd_complete} extent in iso xml"                     ^ extentInIso.give  ^
+    "Searching extends for '${Graubünden}' in ${gmd_polygon} format"  ^ listExtents.toGiven ^
+      "Should find ${Graubünden}"                              ^ findExtentResult.toThen    ^
+                                                                 end ^
+    "Gettings a ${gmd_bbox} extent in iso xml"                 ^ extentInIso.toGiven  ^
       "Should succeed with a 200 response"                     ^ i200Response      ^
-      "Should show name"                                       ^ bboxExtent.then      ^
-      "Should show name"                                       ^ polygonExtent.then      ^
-      "Should show translations"                               ^ haveDesc.then   ^ end ^
+      "Should have bbox Extent"                                ^ bboxExtent.toThen      ^
+      "Should have description"                                ^ haveDesc.toThen   ^
+                                                                 end ^
+    "Gettings a ${gmd_complete} extent in iso xml"             ^ extentInIso.toGiven  ^
+      "Should succeed with a 200 response"                     ^ i200Response      ^
+      "Should have bbox Extent"                                ^ bboxExtent.toThen      ^
+      "Should have polygon extent"                             ^ polygonExtent.toThen      ^
+      "Should have description"                                ^ haveDesc.toThen   ^ end ^
                                                            Step(tearDown)
   type ListResponse = Response[List[ExtentSummary]]
 
@@ -39,7 +46,13 @@ class AccessExtents extends GeonetworkSpecification { def is =
   }
   def findBern[U](response:ListResponse)(mapping: ExtentSummary => U) = response.value.find(_.id == "351").map(mapping)
   val l200Response = a200ResponseThen.narrow[ListResponse]
-  val findBernResult = (response:ListResponse, _:String) => response.value.map(_.id) must contain ("351")
+  val findExtentResult = (response:ListResponse, s:String) => {
+    val id = extract1(s).toLowerCase match {
+      case "bern" => "351"
+      case "graubünden" => "18"
+    }
+    response.value.map(_.id) must contain (id)
+  }
   val listhref = (response:ListResponse, _:String) => {
     val uri = findBern(response)(_.href.toString).get
     (uri must contain("http://localhost:8080/geonetwork/srv/fr/xml.extent.get?wfs=default&format=")) and

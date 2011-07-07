@@ -12,12 +12,12 @@ import c2c.webspecs.{XmlValue, Response, IdValue, GetRequest}
  * Time: 16:06
  */
 
-class CheSchemaMetadatas  extends GeonetworkSpecification {  def is =
-                                                                            sequential                  ^
+class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
+
   "This specification tests using the iso19139.CHE schema"                  ^ Step(setup)               ^
-    "Inserting a CHE metadata"                                              ^ importISO19139CCHE.give   ^
+    "Inserting a CHE metadata"                                              ^ importISO19139CCHE.toGiven   ^
     "Should suceed with a 200 response"                                     ^ import200Response         ^
-       "Should return the MD"                                               ^ getInsertedMd.then      ^
+       "Should return the MD"                                               ^ getInsertedMd.toThen      ^
                                                                             Step(tearDown)
 
   val importISO19139CCHE = (_:String) => {
