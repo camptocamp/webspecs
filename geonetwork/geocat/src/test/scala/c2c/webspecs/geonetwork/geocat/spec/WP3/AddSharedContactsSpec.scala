@@ -4,16 +4,16 @@ package geocat
 package spec.WP3
 
 import org.specs2._
-import execute.Result
 import specification._
 import java.util.UUID
-import scala.xml.Node
+import scala.xml.NodeSeq
 
 class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   "This specification tests creating shared contacts by passing in updated contact xml"                         ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
-    "Should have 200 result"                                                                                    ^ a200ResponseThen.narrow[Result[Node]] ^
-    "Should an xlink href"                                                                                      ^ hrefInElement.asThen ^
+    "Should have 200 result"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
+    "Contact node should have an xlink href"                                                                    ^ hrefInElement.toThen ^
+    "xlink href should retrieve the full contact"                                                               ^ xlinkGetElement.toThen ^
     "Will result in a new shared contact"                                                                       ! newContact  ^
     "Will result in a new parent contact"                                                                       ! newParent   ^
                                                                                                                   end ^
@@ -21,7 +21,13 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
                                                                                                                   Step(tearDown)
 
   val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML))(None)
-  val hrefInElement = (result:Result[Node]) => result.value \\ "contact" must  \\("@href")
+  val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "contact" @@ "xlink:href") must not beEmpty
+  val xlinkGetElement = (result:Response[NodeSeq]) => {
+    val href = (result.value \\ "contact" @@ "xlink:href")(0)
+    val xlink = GetRequest(href)(None)
+    (xlink must haveA200ResponseCode) and
+      (xlink.value.withXml{_ \\ "individualLastName" map (_.text.trim) must contain (contactFirstName,parentFirstName)})
+  }
 
   def newContact = GeocatListUsers(contactFirstName).value.find(_.name == contactFirstName) must beSome
   def newParent = GeocatListUsers(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome

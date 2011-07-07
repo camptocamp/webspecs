@@ -4,6 +4,9 @@ package geocat
 
 import java.net.URL
 import collection.SeqProxy
+import xml.{NodeSeq, Node}
+import org.apache.http.entity.mime.content.StringBody
+import java.nio.charset.Charset
 
 object SharedObjectTypes extends Enumeration {
   type SharedObjectType = Value
@@ -108,3 +111,16 @@ case class ValidateSharedObject(sharedObjectId:String, sharedType:SharedObjectTy
     ExplicitIdValueFactory(sharedObjectId),
     P("id", sharedObjectId.toString),
     P("type", sharedType.toString))
+
+case class ProcessSharedObject(xmlData:Node, addOnly:Boolean=false,defaultLang:String="EN")
+  extends AbstractMultiPartFormRequest[Any,NodeSeq](
+    "reusable.object.process",
+    SelfValueFactory[Any,NodeSeq](),
+    P("xml", new StringBody(xmlData.toString,"text/xml",Charset.forName("UTF-8"))),
+    P("addOnly", new StringBody(addOnly.toString)),
+    P(defaultLang, new StringBody("EN"))
+  )
+  with BasicValueFactory[NodeSeq]{
+  def createValue(rawValue: BasicHttpValue): NodeSeq = rawValue.toXmlValue.withXml(x => x)
+
+}

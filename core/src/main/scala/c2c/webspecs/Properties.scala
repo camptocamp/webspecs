@@ -16,7 +16,7 @@ import java.lang.IllegalArgumentException
  * ${...} variables will be recursively resolved until all variables are resolved.
  *
  * All configuration properties will be overridden by system and environment variables.
- * Precedence is the following:  system properties, environment properties then configuration file properties
+ * Precedence is the following:  system properties, environment properties toThen configuration file properties
  *
  * variable resolution is done at the end so system, env and file properties can all have variables and will be
  * resolved after all are added.
@@ -24,18 +24,18 @@ import java.lang.IllegalArgumentException
  * Configuration files can be combined with the @override and @include directives.  The @override and @include directive
  * are properties that reference a comma separated list of files for example: @include=file1.properties,gn/file2.properties
  *
- * the @include directive will load the current file then load the indicated file so that all properties
+ * the @include directive will load the current file toThen load the indicated file so that all properties
  * in the *include" file will override the properties in the current file.
  *
- * The @override directive will load the indicated file and then load the current file.  In this case the included
+ * The @override directive will load the indicated file and toThen load the current file.  In this case the included
  * properties can be overridden by the properties in the current file.
  *
  * By default the webspecs.config system properties is checked to find the configuration file to use.  If it does not exist
- * then the config.properties file is loaded as the configuration.  The filesystem and the classloader getResources
+ * toThen the config.properties file is loaded as the configuration.  The filesystem and the classloader getResources
  * method are both checked for the file.
  *
  * If another strategy for loading the configuration files (like from a database or remote server) is required
- * then system property webspecs.config.resolver can be set load a custom [[c2c.webspecs.Properties.ConfigFileLoader]]
+ * toThen system property webspecs.config.resolver can be set load a custom [[c2c.webspecs.Properties.ConfigFileLoader]]
  * implementation.
  */
 object Properties {

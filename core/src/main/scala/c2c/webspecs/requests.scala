@@ -13,6 +13,7 @@ import org.apache.http.protocol.{BasicHttpContext, HttpContext}
 import org.apache.http.HttpResponse
 import org.apache.http.client.methods.{HttpUriRequest, HttpPost, HttpRequestBase, HttpGet}
 import java.net.URI
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager
 
 object ExecutionContext {
   def apply[R](context:ExecutionContext)(f : ExecutionContext => R):R = {
@@ -84,10 +85,12 @@ trait ExecutionContext {
   }
 }
 
-case class DefaultExecutionContext(val httpClient:HttpClient = new DefaultHttpClient(),
+case class DefaultExecutionContext(val httpClient:HttpClient = new DefaultHttpClient(new ThreadSafeClientConnManager()),
                                    val createHttpContext: () => HttpContext = () => new BasicHttpContext) extends ExecutionContext {
   httpClient.getConnectionManager().getSchemeRegistry().register(SSLUtilities.fakeSSLScheme(443))
   httpClient.getConnectionManager().getSchemeRegistry().register(SSLUtilities.fakeSSLScheme(8443))
+  httpClient.getConnectionManager().asInstanceOf[ThreadSafeClientConnManager].setDefaultMaxPerRoute(10)
+  httpClient.getConnectionManager().asInstanceOf[ThreadSafeClientConnManager].setMaxTotal(50)
 }
 
 object Request {

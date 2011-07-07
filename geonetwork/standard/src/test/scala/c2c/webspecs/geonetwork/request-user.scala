@@ -176,7 +176,7 @@ case class CreateUser(user:User)
 object DeleteUser {
 def apply() = (response:Response[UserRef]) => new DeleteUser(response.value.userId)
 }
-case class DeleteUser(userId:String) extends AbstractGetRequest[Any,IdValue]("user.remove", ExplicitIdValueFactory(userId), P("id", userId))
+case class DeleteUser(userId:String) extends AbstractGetRequest[Any,IdValue]("user.remove", ExplicitIdValueFactory(userId), IdP("id"))
 
 case class UpdateUser(val user:User)
   extends AbstractFormPostRequest[UserRef,UserValue]("user.update", SelfValueFactory(), user.formParams():_*)

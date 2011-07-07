@@ -19,10 +19,10 @@ class EditSpec extends GeonetworkSpecification { def is =
 
 
   def addExtent(templateType:String) =
-      "Import a ${"+templateType+"} "                              ^ EditExtent.give   ^
-      "The ${import} request should succeed"                       ^ GoodResponseCode.then ^
-      "the ${update} metadata request should succeed"              ^ GoodResponseCode.then ^
-      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode.then ^
+      "Import a ${"+templateType+"} "                              ^ EditExtent.toGiven   ^
+      "The ${import} request should succeed"                       ^ GoodResponseCode.toThen ^
+      "the ${update} metadata request should succeed"              ^ GoodResponseCode.toThen ^
+      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode.toThen ^
       "There must be one extra extent"                             ^ HaveNewExtent ^
       "The new extent must have 1 Geographic Extent"               ^ HasGeographicBoundingBox ^
       "The new extent must have 1 Geographic Identifier"           ^ HasGeographicIdentifier ^
@@ -30,9 +30,9 @@ class EditSpec extends GeonetworkSpecification { def is =
                                                                    end
 
   def addContact(templateType:String) =
-      "Import a ${"+templateType+"} metadata"                      ^ EditContact.give   ^
-      "And the ${update} metadata request should succeed"          ^ GoodResponseCode.then ^
-      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode.then ^
+      "Import a ${"+templateType+"} metadata"                      ^ EditContact.toGiven   ^
+      "And the ${update} metadata request should succeed"          ^ GoodResponseCode.toThen ^
+      "And the get ${new} metadata request should succeed"         ^ GoodResponseCode.toThen ^
       "There must be one new contact"                              ^ HaveNewContact ^
                                                                    end
 

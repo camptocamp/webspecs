@@ -13,12 +13,12 @@ class CreateSpec extends GeonetworkSpecification { def is =
 
   def createFromTemplate(templateType:String) =
                                                                    Step(setup) ^
-      "Create a ${"+templateType+"} metadata       "               ^ Create.give   ^
-      "Then the ${create} request should succeed"                  ^ GoodResponseCode.then ^
-      "And the ${get} request should succeed"                      ^ GoodResponseCode.then ^
-      "And the ${delete} request should succeed"                   ^ GoodResponseCode.then ^
-      "And the created metadata has no error elements"             ^ NoErrors.then ^
-      "And the elements in template are in created metadata"       ^ ExpectedElements.then ^
+      "Create a ${"+templateType+"} metadata       "               ^ Create.toGiven   ^
+      "Then the ${create} request should succeed"                  ^ GoodResponseCode.toThen ^
+      "And the ${get} request should succeed"                      ^ GoodResponseCode.toThen ^
+      "And the ${delete} request should succeed"                   ^ GoodResponseCode.toThen ^
+      "And the created metadata has no error elements"             ^ NoErrors.toThen ^
+      "And the elements in template are in created metadata"       ^ ExpectedElements.toThen ^
                                                                    end^ Step(tearDown)
 
   type CreateResponse = AccumulatedResponse3[EditValue, IdValue, IdValue, IdValue]

@@ -10,10 +10,10 @@ class GetUserSpec extends GeonetworkSpecification() {
   def is =
 
     "This specification tests editing metadata"                           ^ Step(setup) ^
-      "Given a request listing all user's ids"                            ^ AllUsers.give ^
-      "At least the one user exists"                                      ^ NotEmpty.then ^
-      "The Admin user must be a user"                                     ^ AdminUserExists.then ^
-      "All users should be accessible"                                    ^ UserIsAccessible.then ^
+      "Given a request listing all user's ids"                            ^ AllUsers.toGiven ^
+      "At least the one user exists"                                      ^ NotEmpty.toThen ^
+      "The Admin user must be a user"                                     ^ AdminUserExists.toThen ^
+      "All users should be accessible"                                    ^ UserIsAccessible.toThen ^
       Step(tearDown)
 
   type AllUsersResponse = List[User with UserRef]

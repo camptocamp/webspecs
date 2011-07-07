@@ -3,6 +3,7 @@ package c2c.webspecs
 import org.specs2.Specification
 import org.specs2.specification.{Then, When, Given, RegexStep}
 import org.specs2.execute.Result
+import xml.{Node, NodeSeq}
 
 /**
  * Contains methods commons to many WebSpecs Specifications
@@ -32,7 +33,7 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   def beA200ResponseCode = haveAResponseCode(200)
   val a200ResponseThen = (r:Response[Any], _:String) => r must haveA200ResponseCode
 
-  /* Support for creating given and then's */
+  /* Support for creating given and toThen's */
   object Extracts extends RegexStep[Unit, Any]("")
   def extract1(text:String) = Extracts.extract1(text)
   def extract2(text:String) = Extracts.extract2(text)
@@ -46,29 +47,29 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   def extractAll(text:String) = Extracts.extractAll(text)
 
   implicit def functionToAsGiven[A](function:Function1[String,A]) = new {
-    def give = new Given[A] {
+    def toGiven = new Given[A] {
       def extract(text: String):A = function(text)
     }
   }
   implicit def functionToAsGiven[A](function:Function0[A]) = new {
-    def give = new Given[A] {
+    def toGiven = new Given[A] {
       def extract(text: String):A = function()
     }
   }
 
   implicit def resultFunctionToAsWhen[A,B](function:Function2[A,String,B])= new {
-    def when = new When[A,B]("") {
+    def toWhen = new When[A,B]("") {
      def extract(given: A,text: String) = function(given,text)
     }
   }
   implicit def resultFunctionToAsWhen[A,B](function:Function1[A,B])= new {
-    def when = new When[A,B]("") {
+    def toWhen = new When[A,B]("") {
      def extract(given: A,text: String) = function(given)
     }
   }
 
   implicit def resultFunctionToAsThen[A,R <% Result](function:Function2[A,String,R])= new {
-    def then = new Then[A]("") {
+    def toThen = new Then[A]("") {
      def extract(given: A,text: String) = function(given,text)
     }
     def narrow[B <: A] = new Then[B] {
@@ -76,11 +77,14 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     }
   }
   implicit def resultFunctionToAsThen[A,R <% Result](function:Function1[A,R])= new {
-    def then = new Then[A]("") {
+    def toThen = new Then[A]("") {
      def extract(given: A,text: String) = function(given)
     }
     def narrow[B <: A] = new Then[B] {
       def extract(given: B,text: String) = function(given)
     }
+  }
+  implicit def addAttributeSelector[N <% NodeSeq](seq:N) = new {
+    def @@(name:String) = seq.flatMap(_.attributes.asAttrMap.get(name))
   }
 }
