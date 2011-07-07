@@ -85,6 +85,9 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     }
   }
   implicit def addAttributeSelector[N <% NodeSeq](seq:N) = new {
-    def @@(name:String) = seq.flatMap(_.attributes.asAttrMap.get(name))
+    def \@(name:String) = seq.flatMap(_.attributes.asAttrMap.get(name))
+  }
+  implicit def addAttributeSelector(node:Node) = new {
+    def @@(name:String) = node.attributes.asAttrMap.get(name)
   }
 }

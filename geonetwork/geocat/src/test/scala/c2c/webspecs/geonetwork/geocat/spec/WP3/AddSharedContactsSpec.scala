@@ -9,7 +9,7 @@ import java.util.UUID
 import scala.xml.NodeSeq
 
 class AddSharedContactsSpec extends GeonetworkSpecification { def is =
-  "This specification tests creating shared contacts by passing in updated contact xml"                         ^ Step(setup) ^ t ^
+  "This specification tests creating shared contacts by passing in a contact xml"                               ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
     "Should have 200 result"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
     "Contact node should have an xlink href"                                                                    ^ hrefInElement.toThen ^
@@ -21,9 +21,9 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
                                                                                                                   Step(tearDown)
 
   val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML))(None)
-  val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "contact" @@ "xlink:href") must not beEmpty
+  val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "contact" \@ "xlink:href") must not beEmpty
   val xlinkGetElement = (result:Response[NodeSeq]) => {
-    val href = (result.value \\ "contact" @@ "xlink:href")(0)
+    val href = (result.value \\ "contact" \@ "xlink:href")(0)
     val xlink = GetRequest(href)(None)
     (xlink must haveA200ResponseCode) and
       (xlink.value.withXml{_ \\ "individualLastName" map (_.text.trim) must contain (contactFirstName,parentFirstName)})
