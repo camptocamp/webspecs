@@ -49,7 +49,8 @@ class AccessContactsSpec extends GeonetworkSpecification { def is =
 
   val hasNameInData = (response:ListUserResponse) => {
     import userFixture.{name => fixName}
-    find(response)(c => (c.name contains fixName) || (c.surname contains fixName) || (c.email contains fixName) || (c.username contains fixName)) must beSome
+    val usersMissingExpectedData = response.value.filterNot(c => (c.name contains fixName) || (c.surname contains fixName) || (c.email contains fixName) || (c.username contains fixName))
+    usersMissingExpectedData must beEmpty
   }
 
   val contactInIso = (s:String) =>

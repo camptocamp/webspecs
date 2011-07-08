@@ -17,7 +17,8 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
     "Will result in a new shared contact"                                                                       ! newContact  ^
     "Will result in a new parent contact"                                                                       ! newParent   ^
                                                                                                                   end ^
-                                                                                                                  Step(deleteNewContacts) ^
+    "Deleting all contacts"                                                                                     ^ Step(deleteNewContacts) ^
+    "must ensure that the contact is in fact correctly deleted"                                                 ! noContacts ^
                                                                                                                   Step(tearDown)
 
   val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML))(None)
@@ -25,15 +26,25 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     val href = (result.value \\ "contact" \@ "xlink:href")(0)
     val xlink = GetRequest(href)(None)
+
     (xlink must haveA200ResponseCode) and
       (xlink.value.withXml{_ \\ "individualLastName" map (_.text.trim) must contain (contactFirstName,parentFirstName)})
+
+    pending
   }
 
   def newContact = GeocatListUsers(contactFirstName).value.find(_.name == contactFirstName) must beSome
   def newParent = GeocatListUsers(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
 
-  def deleteNewContacts = GeocatListUsers("FirstName*automated*").value.foreach{c => DeleteUser(c.userId)(None)}
-
+  def deleteNewContacts = {
+    config.adminLogin(None)
+    (GeocatListUsers(contactId).value ++ GeocatListUsers(parentId).value).foreach{c =>
+      assert(c.name contains "FirstName*automated*", c.userId+" -> "+c.username+" was to be deleted but is not part of the automated testing")
+      val response = (DeleteUser(c.userId))(None)
+      assert(response.basicValue.responseCode == 200, "DeleteUser("+c.userId+" had a "+response.basicValue.responseCode +" response code")
+    }
+  }
+  def noContacts = (GeocatListUsers(contactId).value ++ GeocatListUsers(parentId).value) must beEmpty
   lazy val contactId = UUID.randomUUID().toString
   lazy val parentId = UUID.randomUUID().toString
   lazy val contactFirstName = contactId+"FirstName*automated*"

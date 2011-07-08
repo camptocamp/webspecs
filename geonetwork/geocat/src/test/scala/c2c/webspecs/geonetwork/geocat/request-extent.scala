@@ -7,22 +7,32 @@ import java.net.URL
 import xml.NodeSeq
 
 object Extents {
-  abstract class TypeName(val name:String)
+  abstract class TypeName(val name:String) {
+    override def toString: String = name
+  }
   case object NonValidated extends TypeName("gn:non_validated")
   case object Countries extends TypeName("gn:countries")
   case object Validated extends TypeName("gn:gemeindenBB")
   case object Gemeinden extends TypeName("gn:kantoneBB")
   case object Kantone extends TypeName("gn:xlinks")
 
-  val All = Seq(NonValidated, Countries, Validated,Gemeinden, Kantone)
+  val AllTypeNames = Seq(NonValidated, Countries, Validated,Gemeinden, Kantone)
+
+  abstract class Property(val name:String) {
+    override def toString: String = name
+  }
+  case object IdProperty extends Property("id")
+  case object DescProperty extends Property("desc")
 }
+
+import Extents._
 /**
  * Search for an Extent
  */
 case class SearchExtent(numResults:Int = 25,
-                        property:String = "desc",
+                        property:Property = DescProperty,
                         format:ExtentFormat.Value = ExtentFormat.gmd_bbox,
-                        typeName:Seq[Extents.TypeName] = Extents.All)
+                        typeName:Seq[Extents.TypeName] = AllTypeNames)
   extends AbstractGetRequest[String,List[ExtentSummary]]("extent.search.list!", SelfValueFactory[String,List[ExtentSummary]],
     IdP("pattern"),
     SP("numResults", numResults),

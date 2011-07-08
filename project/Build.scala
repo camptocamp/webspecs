@@ -28,7 +28,7 @@ object WebSpecsBuild extends Build
   // ------------------------------ Core Project ------------------------------ //
 
   val coreDependencies = Seq(
-    "org.specs2" %% "specs2" % "1.4" withSources (),
+    "org.specs2" %% "specs2" % "1.5" withSources (),
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     "org.apache.httpcomponents" % "httpclient" % "4.1" withSources,
     "org.apache.httpcomponents" % "httpmime" % "4.1" withSources,

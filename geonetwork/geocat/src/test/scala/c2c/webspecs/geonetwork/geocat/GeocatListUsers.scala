@@ -15,7 +15,9 @@ import c2c.webspecs.{BasicHttpValue, BasicValueFactory, AbstractGetRequest}
 object GeocatListUsers
   extends AbstractGetRequest[String,List[User with UserRef with Validateable]](
     "shared.user.list!",
-    SelfValueFactory())
+    SelfValueFactory(),
+    IdP("name")
+  )
   with BasicValueFactory[List[User with UserRef with Validateable]] {
   def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml(xml => {

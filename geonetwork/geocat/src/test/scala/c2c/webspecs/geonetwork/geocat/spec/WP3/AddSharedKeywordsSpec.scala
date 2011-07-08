@@ -17,7 +17,8 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
     "xlink href should retrieve the full keyword"                                                                ^ xlinkGetElement.toThen ^
     "Will result in a new shared keyword"                                                                        ! newKeyword ^
                                                                                                                   end ^
-                                                                                                                  Step(deleteNewKeyword) ^
+    "Deleted new keyword"                                                                                        ^ Step(deleteNewKeyword) ^
+    "Must correctly delete said keyword"                                                                         ! noKeyword
                                                                                                                   Step(tearDown)
 
   val keywordAdd = () => (config.adminLogin then ProcessSharedObject(keywordXML))(None)
@@ -42,7 +43,7 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
   def newKeyword = Search(deValue).value.find(_.value == deValue) must beSome
 
   def deleteNewKeyword = Search(deValue).value.foreach{c => DeleteKeyword(NON_VALIDATED_THESAURUS,"",c.id)}
-
+  def noKeyword = Search(deValue).value must beEmpty
   lazy val uuid = UUID.randomUUID().toString
   lazy val deValue = uuid+"de*automated*"
   lazy val enValue = uuid+"en*automated*"

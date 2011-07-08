@@ -16,7 +16,8 @@ class AddSharedFormatSpec extends GeonetworkSpecification { def is =
     "xlink href should retrieve the full format"                                                                ^ xlinkGetElement.toThen ^
     "Will result in a new shared format"                                                                        ! newFormat  ^
                                                                                                                   end ^
-                                                                                                                  Step(deleteNewFormat) ^
+    "Deleting new format"                                                                                       ^ Step(deleteNewFormat) ^
+    "Must correctly remove that format from the system"                                                         ! noFormat ^
                                                                                                                   Step(tearDown)
 
   val formatAdd = () => (config.adminLogin then ProcessSharedObject(formatXML))(None)
@@ -31,6 +32,7 @@ class AddSharedFormatSpec extends GeonetworkSpecification { def is =
   def newFormat = ListFormats(formatName).value.find(_.name == formatName) must beSome
 
   def deleteNewFormat = ListFormats(formatName).value.foreach{c => DeleteFormat(c.id)}
+  def noFormat = ListFormats(formatName).value must beEmpty
 
   lazy val uuid = UUID.randomUUID().toString
   lazy val formatName = uuid+"name*automated*"
