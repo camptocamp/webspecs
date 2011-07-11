@@ -7,7 +7,11 @@ import org.specs2._
 import specification._
 import java.util.UUID
 import scala.xml.NodeSeq
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+
+@RunWith(classOf[JUnitRunner]) 
 class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   "This specification tests creating shared contacts by passing in a contact xml"                               ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
@@ -27,7 +31,7 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   val originalOrg = "swisstopo"
   val newOrg = "camptocamp"
   var href:String = _
-  val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML(true,originalOrg)) startTrackingThen UserLogin)(None)._1
+  val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML(true,originalOrg), addOnly=true) startTrackingThen UserLogin)(None)._1
   val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "contact" \@ "xlink:href") must not beEmpty
   val xlinkGetElement = (result:Response[NodeSeq]) => {
 
@@ -45,8 +49,9 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   def newParent = GeocatListUsers(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
 
   val updateContact = () => {
+    val id = GeocatListUsers(contactFirstName).value.find(_.name == contactFirstName).get.userId
     val xml =
-      <gmd:contact xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed" xlink:role="http://www.geonetwork.org/non_valid_obj" xlink:href="http://localhost:8080/geonetwork/srv/eng/xml.user.get?id=9&amp;schema=iso19139.che&amp;role=originator" gco:isotype="gmd:CI_ResponsibleParty" gco:isoType="gmd:CI_ResponsibleParty" xmlns:che="http://www.geocat.ch/2008/che" xmlns:xalan="http://xml.apache.org/xalan" xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" >
+      <gmd:contact xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed" xlink:role="http://www.geonetwork.org/non_valid_obj" xlink:href={"http://localhost:8080/geonetwork/srv/eng/xml.user.get?id="+id+"&amp;schema=iso19139.che&amp;role=originator"} gco:isotype="gmd:CI_ResponsibleParty" gco:isoType="gmd:CI_ResponsibleParty" xmlns:che="http://www.geocat.ch/2008/che" xmlns:xalan="http://xml.apache.org/xalan" xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" >
         {contactXML(false,newOrg).child}
         </gmd:contact>
     (config.adminLogin then UpdateSharedObject(xml) startTrackingThen UserLogin)(None)._1

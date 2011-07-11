@@ -6,6 +6,7 @@ import collection.mutable.HashMap
 import java.net.InetAddress
 import java.util.UUID
 import xml.Node
+import c2c.webspecs.login.LoginRequest
 
 object GeonetConfig extends Log {
 
@@ -28,9 +29,9 @@ class GeonetConfig(val userProfile:UserProfiles.UserProfile, specName:String)
   def ADMIN_USER_KEY = "admin.user"
   def ADMIN_USER_PASS = "admin.pass"
 
-  def login = Login(user,pass)
+  def login = LoginRequest(user,pass)
 
-  def adminLogin = Login(Properties.get(ADMIN_USER_KEY), Properties.get(ADMIN_USER_PASS))
+  def adminLogin = LoginRequest(Properties.get(ADMIN_USER_KEY), Properties.get(ADMIN_USER_PASS))
   lazy val userPrefix = "atest_" + UUID.randomUUID.toString.takeRight(8) +"_"
 
   def extractId(li: String): Option[String] = XmlUtils.extractId(li)

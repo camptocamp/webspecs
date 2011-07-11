@@ -5,3 +5,4 @@ project/boot
 .idea_modules
 .idea
 .project
+.scala_dependencies

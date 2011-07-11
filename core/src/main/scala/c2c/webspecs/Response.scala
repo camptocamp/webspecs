@@ -21,20 +21,4 @@ object Response {
       val value = constValue
     }
 }
-object EmptyResponse extends Response[Null] {
-  def basicValue = new BasicHttpValue(
-    Right(Array[Byte]()),
-    200,
-    "",
-    Map[String,List[Header]](),
-    Some(0),
-    None,
-    None,
-    "",
-    None
-  )
 
-  def value = null
-}
-
-class BasicHttpResponse[+A](val basicValue:BasicHttpValue,val value:A) extends Response[A]

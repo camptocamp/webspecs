@@ -8,6 +8,3 @@ object RequestModification {
   }
 }
 trait RequestModification extends Function1[HttpRequestBase,Unit]
-object NoModification extends RequestModification {
-   def apply(request:HttpRequestBase) = ()
-}
