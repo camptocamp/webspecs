@@ -46,8 +46,8 @@ import geonetwork.DomainProperties.DomainProperty
 import geonetwork.DomainParameters.DomainParameter
 
 object CswXmlUtil {
-  def getByIdXml(fileId:String, outputSchema:OutputSchemas.OutputSchema) =
-    <csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" outputSchema={outputSchema.toString}>
+  def getByIdXml(fileId:String, resultType:ResultType, outputSchema:OutputSchemas.OutputSchema) =
+    <csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType={resultType.toString} outputSchema={outputSchema.toString}>
       <csw:Id>{fileId}</csw:Id>
     </csw:GetRecordById>
 
@@ -94,10 +94,13 @@ case class CswGetRecordsRequest(filter:NodeSeq=Nil,
   override def toString() = "CswGetRecordsRequest(<filter>,"+resultType+","+outputSchema+","+startPosition+","+maxRecords+","+elementSetName+")"
 }
 
-case class CswGetByFileId(fileId:String, outputSchema:OutputSchemas.OutputSchema)
+case class CswGetByFileId(
+    fileId:String, 
+    outputSchema:OutputSchemas.OutputSchema,
+    resultType:ResultType=results)
   extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) {
 
-  def xmlData = CswXmlUtil.getByIdXml(fileId,outputSchema)
+  def xmlData = CswXmlUtil.getByIdXml(fileId,resultType,outputSchema)
   override def toString() = "CswGetByFileId("+fileId+","+outputSchema+")"
 }
 

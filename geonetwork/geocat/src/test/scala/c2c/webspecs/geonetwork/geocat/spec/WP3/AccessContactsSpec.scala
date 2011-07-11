@@ -10,7 +10,7 @@ import geonetwork.UserRef
 class AccessContactsSpec extends GeonetworkSpecification { def is =
 
   "This specification tests accessing shared users"      ^ Step(setup) ^
-    "Listing all users ${ }"                             ^ searchContacts.toGiven ^
+    "Listing all users ${*}"                             ^ searchContacts.toGiven ^
       "Should succeed with a 200 response"               ^ l200Response ^
       "Should show user name"                            ^ listUserNames.toThen    ^
       "Should list emails"                               ^ listEmails.toThen   ^
@@ -34,7 +34,7 @@ class AccessContactsSpec extends GeonetworkSpecification { def is =
   type ListUserResponse = Response[List[User with UserRef with Validateable]]
 
   def find[U](list:ListUserResponse)(map: User with UserRef with Validateable => U) = { list.value.find(_.userId == userFixture.id).map(map)}
-  val searchContacts = (s:String) => GeocatListUsers(extract1(s)):ListUserResponse
+  val searchContacts = (s:String) => GeocatListUsers(extract1(s).replace('*',' ').trim()):ListUserResponse
   val l200Response = a200ResponseThen.narrow[ListUserResponse]
 
   val listUserNames = (response:ListUserResponse) => response.value.map{_.username} must contain (userFixture.username)

@@ -22,6 +22,7 @@ trait Log {
   case object Constants extends Level
   case object Warning extends Level
   case object Error extends Level
+  case object Plugins extends Level
 
   protected def log(level:Level, msg: => Any) = {
     if(LoggingConfig.all || LoggingConfig.enabled.contains(level)) {

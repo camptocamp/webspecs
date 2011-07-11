@@ -14,6 +14,7 @@ object WebSpecsBuild extends Build
 
   val sharedSettings = Seq[Setting[_]](
     resolvers += mapfishResolver,
+    resolvers += ScalaToolsSnapshots,
     scalaVersion := "2.9.0-1",
     organization := "com.c2c",
     version := "1.0-SNAPSHOT",
@@ -28,7 +29,7 @@ object WebSpecsBuild extends Build
   // ------------------------------ Core Project ------------------------------ //
 
   val coreDependencies = Seq(
-    "org.specs2" %% "specs2" % "1.5" withSources (),
+    "org.specs2" %% "specs2" % "1.6-SNAPSHOT" withSources (),
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     "org.apache.httpcomponents" % "httpclient" % "4.1" withSources,
     "org.apache.httpcomponents" % "httpmime" % "4.1" withSources,
@@ -70,7 +71,7 @@ object WebSpecsBuild extends Build
 
   // ------------------------------ Suites Project ------------------------------ //
   lazy val apps = Project("apps",file("apps")).
-    dependsOn (geocat % "compile->test").
+    dependsOn (geocat % "compile->test",geonetwork % "compile->test").
     settings (sharedSettings:_*)
 
   // ------------------------------ Docs Project ------------------------------ //
