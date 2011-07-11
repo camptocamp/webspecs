@@ -68,6 +68,6 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
     val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text)
     val md = CswGetByFileId(fileId, OutputSchemas.IsoRecord)(None)
     (md must haveA200ResponseCode) and
-      (md.value.withXml {_ \\ "Record" must not beEmpty})
+      (md.value.withXml {_ \\ "GetRecordByIdResponse" must not beEmpty})
   }
 }
