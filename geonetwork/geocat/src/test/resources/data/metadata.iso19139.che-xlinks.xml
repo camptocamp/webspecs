@@ -12,7 +12,7 @@
 	<gmd:hierarchyLevel xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<gmd:MD_ScopeCode codeListValue="dataset" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode"/>
 	</gmd:hierarchyLevel>
-	<gmd:contact >
+	<gmd:contact xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.geocat.ch:80/geonetwork/srv/eng/xml.user.get?id=666&amp;schema=iso19139.che&amp;role=pointOfContact" xlink:title="" xlink:role="">
 		<che:CHE_CI_ResponsibleParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:CI_ResponsibleParty">
 			<gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
 				<gmd:PT_FreeText>
@@ -211,7 +211,7 @@
 					</gmd:textGroup>
 				</gmd:PT_FreeText>
 			</gmd:abstract>
-			<gmd:descriptiveKeywords >
+			<gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.geocat.ch/geonetwork/srv/eng/xml.keyword.get?thesaurus=external._none_.gemet&amp;id=http%3A//www.eionet.europa.eu/gemet/concept/12166&amp;amp;locales=FR,DE,IT,EN" xlink:title="" xlink:role="">
 				<gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
 					<gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
 						<gmd:PT_FreeText>
@@ -240,7 +240,7 @@
 			<gmd:topicCategory>
 				<gmd:MD_TopicCategoryCode>elevation</gmd:MD_TopicCategoryCode>
 			</gmd:topicCategory>
-			<gmd:extent>
+			<gmd:extent xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.geocat.ch:80/geonetwork/srv/eng/xml.extent.get?wfs=default&amp;format=gmd_complete&amp;typename=gn:gemeindenBB&amp;id=707&amp;extentTypeCode=true" xlink:title="" xlink:role="">
 				<gmd:EX_Extent>
 					<gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
 						<gco:CharacterString>Saules (BE)</gco:CharacterString>

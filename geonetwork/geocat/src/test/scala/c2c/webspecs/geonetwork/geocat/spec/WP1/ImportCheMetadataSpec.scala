@@ -8,21 +8,18 @@ import c2c.webspecs.geonetwork.ImportStyleSheets.NONE
 import c2c.webspecs.geonetwork._
 import c2c.webspecs.{XmlValue, Response, IdValue, GetRequest}
 import accumulating._
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
-/**
- * Created by IntelliJ IDEA.
- * User: pmauduit
- * Date: 28/06/11
- * Time: 16:06
- */
-
+@RunWith(classOf[JUnitRunner]) 
 class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
 
   "This specification tests using the iso19139.CHE schema"                  ^ Step(setup)               ^
     "Inserting a CHE metadata"                                              ^ importISO19139CCHE.toGiven   ^
     "Should suceed with a 200 response"                                     ^ import200Response         ^
     "And the new metadata should be accessible via xml.metadata.get"        ^ getInsertedMd.toThen      ^
-    "As well as via csw getRecord"                                          ^ cswGetInsertedMd.toThen      ^
+    "As well as via csw getRecordById"                                      ^ cswGetInsertedMd.toThen      ^
+    "As well as via csw getRecord"                                          ^ cswGetInsertedMdByCswGetRecord.toThen      ^
                                                                             Step(tearDown)
 
   type ImportResponseType = AccumulatedResponse1[IdValue, XmlValue]
@@ -31,7 +28,9 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
     val name = "metadata.iso19139.che.xml"
     val (_,content) = ImportMetadata.importDataFromClassPath("/data/"+name, getClass)
     val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
-    val GetMdRequest = (resp:Response[IdValue]) => GetRequest("xml.metadata.get", "id" -> resp.value.id)
+    val GetMdRequest = (resp:Response[IdValue]) => { 
+      GetRequest("xml.metadata.get", "id" -> resp.value.id)
+    }
 
     (ImportMd startTrackingThen GetMdRequest)(ImportStyleSheets.NONE):ImportResponseType
   }
@@ -65,9 +64,19 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
   }
 
   val cswGetInsertedMd = (response:ImportResponseType) => {
-    val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text)
+    val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
     val md = CswGetByFileId(fileId, OutputSchemas.IsoRecord)(None)
     (md must haveA200ResponseCode) and
-      (md.value.withXml {_ \\ "Record" must not beEmpty})
+      (md.value.withXml {_ \\ "GetRecordByIdResponse" must not beEmpty})
+  }
+  
+  val cswGetInsertedMdByCswGetRecord = (response:ImportResponseType) => {
+    val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
+    val filter = PropertyIsEqualTo("title", "title").xml
+	val md = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.IsoRecord, resultType = ResultTypes.results)(None)
+	val xml = md.value.withXml {xml => xml}
+	(md must haveA200ResponseCode) and
+		((xml \\ "SearchResults" \@ "numberofrecordsreturned").head.trim must_== "1") and
+		(xml \\ "Record" must not beEmpty)
   }
 }

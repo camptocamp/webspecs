@@ -24,6 +24,9 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
     "Updating an existing contact with new XML which does not have the parent contact"                          ^ updateContact.toGiven ^
       "must result in the contact retrieved from the xlink also not having the parent"                          ^ noParent.toThen ^
                                                                                                                   endp^
+    "Adding same user should return same xlink"										                            ^ Step(contactAdd) ^
+      "must result in the contact retrieved from the xlink also not having the parent"                          ! newContact ^
+                                                                                                                  endp^
     "Deleting all contacts"                                                                                     ^ Step(deleteNewContacts) ^
       "must ensure that the contact is in fact correctly deleted"                                                 ! noContacts ^
                                                                                                                   Step(tearDown)
@@ -31,7 +34,7 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   val originalOrg = "swisstopo"
   val newOrg = "camptocamp"
   var href:String = _
-  val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML(true,originalOrg), addOnly=true) startTrackingThen UserLogin)(None)._1
+  val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML(true,originalOrg)) startTrackingThen UserLogin)(None)._1
   val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "contact" \@ "xlink:href") must not beEmpty
   val xlinkGetElement = (result:Response[NodeSeq]) => {
 
@@ -45,7 +48,7 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
 
   }
 
-  def newContact = GeocatListUsers(contactFirstName).value.find(_.name == contactFirstName) must beSome
+  def newContact = GeocatListUsers(contactFirstName).value.filter(_.name == contactFirstName) must haveSize(1)
   def newParent = GeocatListUsers(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
 
   val updateContact = () => {

@@ -124,12 +124,12 @@ case class ProcessSharedObject(xmlData:Node, addOnly:Boolean=false,defaultLang:S
   def createValue(rawValue: BasicHttpValue): NodeSeq = rawValue.toXmlValue.withXml(x => x)
 
 }
-case class UpdateSharedObject(xmlData:Node, addOnly:Boolean=false,defaultLang:String="EN")
+case class UpdateSharedObject(xmlData:Node,defaultLang:String="EN")
   extends AbstractMultiPartFormRequest[Any,NodeSeq](
     "reusable.object.update",
     SelfValueFactory[Any,NodeSeq](),
     P("xml", new StringBody(xmlData.toString,"text/xml",Charset.forName("UTF-8"))),
-    P("addOnly", new StringBody(addOnly.toString)),
+    P("addOnly", new StringBody("false")),
     P(defaultLang, new StringBody("EN"))
   )
   with BasicValueFactory[NodeSeq]{
