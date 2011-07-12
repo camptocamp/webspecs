@@ -1,12 +1,12 @@
 package c2c.webspecs
 import scala.xml.NodeSeq
+import scala.xml.XML
 import scala.util.control.Exception.allCatch
 trait XmlValue extends TextValue {
-  lazy val xml:Either[Throwable,NodeSeq] = text match {
+  def parse(parser : String => NodeSeq):Either[Throwable,NodeSeq] = text match {
     case Right(text) =>
       allCatch[NodeSeq].either {
-        val xml = TagSoupFactoryAdapter.loadString(text)
-
+    	val xml = parser(text)
         val error = xml \\ "ExceptionReport" \ "Exception" \ "ExceptionText"
         if(error.nonEmpty) {
           val report = error.text.replace("&lt;", "<").replace("&gt;", ">") match {
@@ -20,7 +20,10 @@ trait XmlValue extends TextValue {
       }
     case Left(error) => Left(error)
   }
-
+  lazy val html = parse(TagSoupFactoryAdapter.loadString)
+  lazy val xml  = parse(XML.loadString)
+  
   def withXml[R](f:NodeSeq => R):R = xml.fold(throw _, f)
+  def withHtml[R](f:NodeSeq => R):R = html.fold(throw _, f)
+  def getXml = xml.fold(throw _, xml => xml)
 }
-
