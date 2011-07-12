@@ -19,7 +19,7 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
     "Should suceed with a 200 response"                                     ^ import200Response         ^
     "And the new metadata should be accessible via xml.metadata.get"        ^ getInsertedMd.toThen      ^
     "As well as via csw getRecordById"                                      ^ cswGetInsertedMd.toThen      ^
-    "As well as via csw getRecord"                                          ^ cswGetInsertedMdByCswGetRecord.toThen      ^
+    "As well as via csw getRecords"                                          ^ cswGetInsertedMdByCswGetRecords.toThen      ^
                                                                             Step(tearDown)
 
   type ImportResponseType = AccumulatedResponse1[IdValue, XmlValue]
@@ -68,13 +68,13 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
       (md.value.withXml {_ \\ "GetRecordByIdResponse" must not beEmpty})
   }
   
-  val cswGetInsertedMdByCswGetRecord = (response:ImportResponseType) => {
+  val cswGetInsertedMdByCswGetRecords = (response:ImportResponseType) => {
     val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
-    val filter = PropertyIsEqualTo("title", "title").xml
+    val filter = PropertyIsEqualTo("Identifier", fileId).xml
 	val md = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.IsoRecord, resultType = ResultTypes.results)(None)
 	val xml = md.value.withXml {xml => xml}
 	(md must haveA200ResponseCode) and
-		((xml \\ "SearchResults" \@ "numberofrecordsreturned").head.trim must_== "1") and
-		(xml \\ "Record" must not beEmpty)
+		((xml \\ "SearchResults" \@ "numberofrecordsreturned").head.trim.toInt must be_>= (1)) and
+		(xml \\ "CHE_MD_Metadata" must not beEmpty)
   }
 }
