@@ -51,7 +51,13 @@ object CswXmlUtil {
       <csw:Id>{fileId}</csw:Id>
     </csw:GetRecordById>
 
-  def getRecordsXml(filter:NodeSeq, resultType:ResultType, outputSchema:OutputSchemas.OutputSchema, startPosition:Int, maxRecords:Int, elementSetName:ElementSetName,sortBy:Option[SortBy]) = {
+  def getRecordsXml(filter:NodeSeq=Nil,
+                    resultType:ResultType=hits,
+                    outputSchema:OutputSchemas.OutputSchema=OutputSchemas.IsoRecord,
+                    startPosition:Int=1,
+                    maxRecords:Int=50,
+                    elementSetName:ElementSetName = full,
+                    sortBy:Option[SortBy] = None) = {
     <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType={resultType.toString}
                     startPosition={startPosition.toString} maxRecords={maxRecords.toString} outputSchema={outputSchema.toString}>
       <csw:Query typeNames="csw:Record">
