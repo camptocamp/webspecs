@@ -4,19 +4,22 @@ package geonetwork
 import java.util.UUID
 import Properties.TEST_TAG
 import xml.Node
-trait UserProfileValue
-object UserProfiles extends Enum {
-  type EnumVal = UserProfile
-  abstract class UserProfile(override val aliases:String*) extends UserProfileValue with Value {
+
+object UserProfiles {
+   abstract class UserProfile(val alternatives:String*) {
     val name = toString()
+    val allNames = name +: alternatives
   }
-  val pluginClass = classOf[UserProfileValue]
   case object Guest extends UserProfile
   case object RegisteredUser extends UserProfile
   case object Editor extends UserProfile
   case object UserAdmin extends UserProfile
   case object Reviewer extends UserProfile
   case object Admin extends UserProfile("Administrator")
+
+  var all = Guest :: RegisteredUser :: Editor :: Reviewer :: UserAdmin :: Admin :: Nil
+
+  def withName(name:String) = all find {_.allNames contains name}
 }
 
 object User {

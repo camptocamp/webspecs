@@ -74,7 +74,7 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
 	val md = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.IsoRecord, resultType = ResultTypes.results)(None)
 	val xml = md.value.getXml
 	(md must haveA200ResponseCode) and
-		((xml \\ "SearchResults" \@ "numberofrecordsreturned").head.trim.toInt must be_>= (1)) and
+		((xml \\ "SearchResults" \@ "numberOfRecordsReturned").head.trim.toInt must be_>= (1)) and
 		(xml \\ "CHE_MD_Metadata" must not beEmpty)
   }
 }

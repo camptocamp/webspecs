@@ -7,4 +7,5 @@ import c2c.webspecs.geonetwork.UserProfiles
  */
 case object SharedUserProfile extends UserProfiles.UserProfile {
   override def toString: String = "Shared"
+  UserProfiles.all = this :: UserProfiles.all
 }

@@ -6,7 +6,10 @@ package spec.WP3
 import org.specs2.specification.Step
 import org.specs2.execute.Result
 import c2c.webspecs.{XmlValue, Response}
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+@RunWith(classOf[JUnitRunner]) 
 class AccessFormatsSpec extends GeonetworkSpecification { def is =
   "This specification tests accessing shared formats"                              ^ Step(setup) ^
     "Listing all formats (search for ${ })"                                         ^ listFormats.toGiven ^
