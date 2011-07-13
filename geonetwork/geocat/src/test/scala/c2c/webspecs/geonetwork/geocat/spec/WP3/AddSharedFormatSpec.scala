@@ -42,7 +42,15 @@ class AddSharedFormatSpec extends GeonetworkSpecification { def is =
   def newFormat = ListFormats(formatName).value.find(_.name == formatName) must beSome
 
   val updateFormat = () => {
-    val response = (UpdateSharedObject(formatXML(updatedVersion)) startTrackingThen ListFormats.setIn(formatName))(None)
+    val id = ListFormats(formatName).value.find(_.name == formatName).get.id
+    val xml = 
+      <gmd:resourceFormat
+    		xmlns:xlink="http://www.w3.org/1999/xlink" 
+    		xlink:href={"http://localhost:8080/geonetwork/srv/eng/xml.format.get?id="+id}
+    		xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd">
+    	{formatXML(updatedVersion).child}
+      </gmd:resourceFormat>
+    val response = (UpdateSharedObject(xml) startTrackingThen ListFormats.setIn(formatName))(None)
     assert(response.last.value.size == 1, "A unique format was expected")
     response._1.map{_ => response.last.value.head}
   }

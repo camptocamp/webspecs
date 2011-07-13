@@ -6,7 +6,7 @@ import scala.xml.Elem
 
 case class GetMetadataXml(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord) extends Request[Id,MetadataValue] {
   private val getRequest = this
-  private def csw(id:String) = CswGetRecordsRequest(PropertyIsEqualTo("_id",id).xml,ResultTypes.results,schema)
+  private def csw(id:String) = CswGetRecordsRequest(PropertyIsEqualTo("geonetworkId",id).xml,ResultTypes.results,schema)
 
   override def apply(in: Id)(implicit context: ExecutionContext):Response[MetadataValue] = {
     val metadataXml: BasicHttpResponse[XmlValue] = csw(in.id)(None)

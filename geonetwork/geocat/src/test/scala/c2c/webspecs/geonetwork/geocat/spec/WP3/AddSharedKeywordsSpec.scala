@@ -50,10 +50,21 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
       xml \\ nodeName find {_ @@ "locale" == Some(locale)} map (_.text) aka repr must beSome(expected)}
 
   def Search = SearchKeywords(List(NON_VALIDATED_THESAURUS))
-  def onlyKeywordInstance = Search(deValue).value.filter(_.value == deValue) must haveSize(1)
+  def onlyKeywordInstance = Search(frValue).value.filter(_.value == frValue) must haveSize(1)
 
   val updateKeyword = () => {
-    val response = (UpdateSharedObject(keywordXML(newDeValue)) startTrackingThen Search.setIn(frValue))(None)
+    val uri = Search(frValue).value.head.encodedURI
+    val xml = 
+      <gmd:descriptiveKeywords
+    		xmlns:xlink="http://www.w3.org/1999/xlink" 
+    		xlink:href={"http://localhost:8080/geonetwork/srv/eng/xml.keyword.get?thesaurus="+NON_VALIDATED_THESAURUS+"&id="+uri+"&locales=FR,DE,IT,EN"}
+    		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    		xmlns:gco="http://www.isotc211.org/2005/gco" 
+    		xmlns:gmd="http://www.isotc211.org/2005/gmd">
+    		{keywordXML(newDeValue).child}
+      </gmd:descriptiveKeywords>
+ 
+    val response = (UpdateSharedObject(xml) startTrackingThen Search.setIn(frValue))(None)
     assert(response.last.value.size == 1, "Expected a single keyword with "+frValue)
     val keyword = response.last.value.head
     val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr"))(keyword.encodedURI)

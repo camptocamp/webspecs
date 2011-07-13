@@ -26,4 +26,5 @@ trait XmlValue extends TextValue {
   def withXml[R](f:NodeSeq => R):R = xml.fold(throw _, f)
   def withHtml[R](f:NodeSeq => R):R = html.fold(throw _, f)
   def getXml = xml.fold(throw _, xml => xml)
+  def getHtml = html.fold(throw _, xml => xml)
 }

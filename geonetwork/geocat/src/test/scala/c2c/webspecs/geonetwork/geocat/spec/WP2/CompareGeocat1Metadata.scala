@@ -9,6 +9,8 @@ import xml.NodeSeq
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.matcher.MustThrownMatchers
+import scala.xml.transform.BasicTransformer
+import scala.xml.Node
 
 @RunWith(classOf[JUnitRunner])
 class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatchers {
@@ -51,13 +53,24 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
 
   }
 
-  def compareToNewVersion(md: NodeSeq) = {
-    val mdIds = (md \\ "info" \ "id").map(_.text.toInt)
+  def compareToNewVersion(md: Node) = {
+    val mdIds = (md \\ "info" \ "id").map(_.text)
     println(mdIds mkString "\n")
 
     assert(mdIds.size == 1)
 
-    //GetMetadataXml(CheRecord) must 
-
+    val mdFromGeocatWithoutInfoInfoXml = RemoveInfo(md)
+    
+    GetMetadataXml(CheRecord)(Id(mdIds.head)).value.getXml must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml)
+  }
+  
+  object RemoveInfo extends BasicTransformer{
+    override def transform(n:Node) = {
+      if(n.namespace == "geonet") {
+        Nil
+      } else {
+        n
+      }
+    }
   }
 }
