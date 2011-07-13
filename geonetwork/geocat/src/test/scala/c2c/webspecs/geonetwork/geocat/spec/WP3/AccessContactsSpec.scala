@@ -74,7 +74,7 @@ class AccessContactsSpec extends GeonetworkSpecification { def is =
   def fixtureIsGone =
     ExecutionContext.withDefault{c =>
       val response = (config.login then GetRequest("xml.user.get", "id" -> userFixture.id))(None)(c).value
-      response.withXml(_ \\ "record" must beEmpty)
+      response.withHtml(_ \\ "record" must beEmpty)
     }
 
   lazy val userFixture = GeonetworkFixture.user(SharedUserProfile)

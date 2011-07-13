@@ -2,6 +2,7 @@ package c2c.webspecs
 package geonetwork
 package spec
 
+import edit._
 import accumulating.AccumulatedResponse3
 import org.specs2.specification._
 

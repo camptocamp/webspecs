@@ -3,6 +3,7 @@ package geonetwork
 package geocat
 package spec
 
+import edit._
 import StandardSharedExtents.KantonBern
 import org.specs2.specification.Step
 

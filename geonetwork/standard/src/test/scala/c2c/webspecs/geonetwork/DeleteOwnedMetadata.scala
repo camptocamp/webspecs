@@ -1,12 +1,7 @@
 package c2c.webspecs
 package geonetwork
-
-case object DeleteMetadata extends AbstractGetRequest[Id,IdValue](
-  "metadata.delete",
-  InputTransformerValueFactory[Id,IdValue]((in,raw) => IdValue(in.id,raw) ),
-  InP("id", id => id.id))
-
-case class DeleteMetadataReport(deletedRecordIds:Map[String,BasicHttpResponse[IdValue]])
+import c2c.webspecs.geonetwork.csw.PropertyIsLike
+import c2c.webspecs.geonetwork.csw.CswGetRecordsRequest
 
 case object DeleteOwnedMetadata extends Request[UserRef,DeleteMetadataReport] {
   override def apply(in: UserRef)(implicit context: ExecutionContext) = {

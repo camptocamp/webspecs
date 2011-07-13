@@ -2,6 +2,7 @@ package c2c.webspecs
 package geonetwork
 package spec
 
+import edit._
 import org.specs2.specification.{Then, Given, Step}
 import org.specs2.execute.Result
 import geonetwork.ImportMetadata

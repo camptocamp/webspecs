@@ -8,10 +8,6 @@ import org.apache.http.auth.params.AuthPNames
 import org.apache.http.auth.UsernamePasswordCredentials
 import org.apache.http.auth.AuthScope
 
-class GeonetworkLoginService(val user:String, pass:String)
-  extends GetRequest("user.login", "username" -> user, "password" -> pass)
-  with LoginRequest
-
 class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] with LoginRequest{
   def apply (in: Any)(implicit context:ExecutionContext) = {
     import AuthPolicy._

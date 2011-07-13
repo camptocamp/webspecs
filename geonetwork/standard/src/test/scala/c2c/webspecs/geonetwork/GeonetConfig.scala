@@ -7,6 +7,7 @@ import java.net.InetAddress
 import java.util.UUID
 import xml.Node
 import c2c.webspecs.login.LoginRequest
+import csw._
 
 object GeonetConfig extends Log {
 

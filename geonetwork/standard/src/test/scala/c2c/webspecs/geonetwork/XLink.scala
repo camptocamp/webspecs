@@ -2,6 +2,7 @@ package c2c.webspecs
 package geonetwork
 
 import xml.{NodeSeq, Node}
+import edit.AddSites
 
 object XLink {
   def apply(node:Node):XLink = {

@@ -15,11 +15,11 @@ import org.specs2.runner.JUnitRunner
 @RunWith(classOf[JUnitRunner]) 
 class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
   "This specification tests creating shared extent by passing in a extent xml snippet"                           ^ Step(setup) ^
-  /*  "This subfragment tests a gmd_complete extent with exclude extent type code"                                 ^ testExtent(ExtentFormat.gmd_complete,0) ^ p ^
+    "This subfragment tests a gmd_complete extent with exclude extent type code"                                 ^ testExtent(ExtentFormat.gmd_complete,0) ^ p ^
     "This subfragment tests a gmd_bbox extent with exclude extent type code"                                     ^ testExtent(ExtentFormat.gmd_bbox,0) ^ p ^
     "This subfragment tests a gmd_complete extent with include extent type code"                                 ^ testExtent(ExtentFormat.gmd_complete,1) ^ p ^
     "This subfragment tests a gmd_bbox extent with exclude extent type code"                                     ^ testExtent(ExtentFormat.gmd_bbox,1) ^ p ^
-*/    "This subfragment tests updating an existing extent"														 ^ updateExtentSpec ^ 
+    "This subfragment tests updating an existing extent"														 ^ updateExtentSpec ^ 
                                                                                                                    Step(tearDown)
 
   def testExtent(format:ExtentFormat.Value,code:Int):Fragments = {
@@ -33,14 +33,13 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
 
   }
 
-	def updateExtentSpec:Fragments = {
-	  "First import a known extent (${gmd_bbox} ${0})"														   ^ extentAdd.toGiven ^
-	  "Then update the extent to have a new geometry"															   ^ updateGeom.toWhen ^
-	  "The request should suceed with a 200 result"																   ^ a200ResponseThen.narrow[Response[XmlValue]] ^
-	  "The resulting extent should have the new geometry"														   ^ newBBox.toThen ^ end ^
-	  "Deleting the extent"                                                                                        ^ Step(deleteNewExtent)
-	}
-	
+  def updateExtentSpec:Fragments = {
+    "First import a known extent (${gmd_bbox} ${0})"														   ^ extentAdd.toGiven ^
+    "Then update the extent to have a new geometry"								 							   ^ updateGeom.toWhen ^
+    "The request should suceed with a 200 result"															   ^ a200ResponseThen.narrow[Response[XmlValue]] ^
+    "The resulting extent should have the new geometry"														   ^ newBBox.toThen ^ end ^
+    "Deleting the extent"                                                                                      ^ Step(deleteNewExtent)
+  }
 
   val extentAdd = (s:String) => {
     val (format,code) = extract2(s)
@@ -116,12 +115,10 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
   val updateGeom = (addResponse:Response[NodeSeq]) => {
     val href = addResponse.value \\ "extent" \@ "xlink:href" head
     
-    val extent = GetRequest(href)(0).value.withXml(i=>i)
-    
     val ID = """.*id=(\d*?)&.*""".r
     val ID(id) = href
     
-    val noHrefXml = extentXML(bbox(0,bbox1));
+    val noHrefXml = extentXML(bbox(0,bbox2));
     
     val xml =     
       <gmd:extent
@@ -135,21 +132,6 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
     
     val updateResponse = (UpdateSharedObject(xml) startTrackingThen GetRequest(href))(None)
     
-    val ex2 = updateResponse.value.withXml{i=>i}
-    
-    println((xml \\ "westBoundLongitude").text.trim,
-    		(xml \\ "southBoundLatitude").text.trim,
-    		(xml \\ "eastBoundLongitude").text.trim,
-    		(xml \\ "northBoundLatitude").text.trim)
-    println((ex2 \\ "westBoundLongitude").text.trim,
-    		(ex2 \\ "southBoundLatitude").text.trim,
-    		(ex2 \\ "eastBoundLongitude").text.trim,
-    		(ex2 \\ "northBoundLatitude").text.trim)
-	println((extent \\ "westBoundLongitude").text.trim,
-			(extent \\ "southBoundLatitude").text.trim,
-			(extent \\ "eastBoundLongitude").text.trim,
-			(extent \\ "northBoundLatitude").text.trim)
-
     updateResponse._1.map{_ => updateResponse.last.value}
   }
 

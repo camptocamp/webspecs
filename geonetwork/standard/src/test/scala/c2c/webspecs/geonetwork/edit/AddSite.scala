@@ -1,4 +1,6 @@
-package c2c.webspecs.geonetwork
+package c2c.webspecs
+package geonetwork
+package edit
 
 object AddSites {
   val gmd = "gmd"

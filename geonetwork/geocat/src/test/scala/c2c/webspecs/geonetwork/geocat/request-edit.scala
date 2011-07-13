@@ -2,6 +2,7 @@ package c2c.webspecs
 package geonetwork
 package geocat
 
+import edit._
 import AddSites.{AddSite,ExtentAddSite}
 import XmlUtils.{lookupId,lookupVersion}
 

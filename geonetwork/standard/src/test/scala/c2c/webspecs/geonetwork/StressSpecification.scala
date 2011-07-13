@@ -4,11 +4,12 @@ package geonetwork
 
 import actors.Futures
 import org.specs2.execute.Result
+import UserProfiles._
 
 /**
  * Only one stress spec should be run at a time or the number of threads will not be correct
  */
-abstract class StressSpecification(threads:Int,timeout:Long=10 * 60 * 1000) extends GeonetworkSpecification {
+abstract class StressSpecification(threads:Int,userProfile: UserProfile = Editor, timeout:Long=10 * 60 * 1000) extends GeonetworkSpecification(userProfile) {
   System.setProperty("actors.maxPoolSize",threads.toString)
   System.setProperty("actors.corePoolSize",threads.toString)
 
