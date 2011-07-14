@@ -11,7 +11,7 @@ class AccessContactsSpec extends GeonetworkSpecification { def is =
 
   "This specification tests accessing shared users"      ^ Step(setup) ^
     "Listing all users ${*}"                             ^ searchContacts.toGiven ^
-      "Should succeed with a 200 response"               ^ l200Response ^
+      "Should be a successful http request (200 response code)"               ^ l200Response ^
       "Should show user name"                            ^ listUserNames.toThen    ^
       "Should list emails"                               ^ listEmails.toThen   ^
       "Should list names"                                ^ listNames.toThen   ^
@@ -19,12 +19,12 @@ class AccessContactsSpec extends GeonetworkSpecification { def is =
       "Should list validation"                           ^ listValidation.toThen   ^
                                                            end ^
     "Gettings a user in iso xml"                         ^ contactInIso.toGiven  ^
-      "Should succeed with a 200 response"               ^ i200Response      ^
+      "Should be a successful http request (200 response code)"               ^ i200Response      ^
       "Should show name"                                 ^ isoName.toThen      ^
       "Should have surname"                              ^ isoLastName.toThen   ^
                                                            end ^
     "Searching for ${"+userFixture.name+"}"              ^ searchContacts.toGiven  ^
-      "Should succeed with a 200 response"               ^ l200Response      ^
+      "Should be a successful http request (200 response code)"               ^ l200Response      ^
       "Should list all users with that name"             ^ hasNameInData.toThen   ^
                                                            end ^
                                                            Step(tearDown)    ^

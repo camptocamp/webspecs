@@ -9,7 +9,7 @@ class AccessExtentsSpec extends GeonetworkSpecification { def is =
 
   "This specification tests accessing shared extent"           ^ Step(setup) ^
     "Searching extends for '${berne}' in ${gmd_bbox} format"   ^ listExtents.toGiven ^
-      "Should succeed with a 200 response"                     ^ l200Response ^
+      "Should be a successful http request (200 response code)"                     ^ l200Response ^
       "Should find ${Bern}"                                    ^ findExtentResult.toThen    ^
       "Should show href"                                       ^ listhref.toThen    ^
       "Should show localized desc"                             ^ listLocalizedDesc.toThen    ^
@@ -28,12 +28,12 @@ class AccessExtentsSpec extends GeonetworkSpecification { def is =
       "Should find ${Graubünden}"                              ^ findExtentResult.toThen    ^
                                                                  end ^
     "Gettings a ${gmd_bbox} extent in iso xml"                 ^ extentInIso.toGiven  ^
-      "Should succeed with a 200 response"                     ^ i200Response      ^
+      "Should be a successful http request (200 response code)"                     ^ i200Response      ^
       "Should have bbox Extent"                                ^ bboxExtent.toThen      ^
       "Should have description"                                ^ haveDesc.toThen   ^
                                                                  end ^
     "Gettings a ${gmd_complete} extent in iso xml"             ^ extentInIso.toGiven  ^
-      "Should succeed with a 200 response"                     ^ i200Response      ^
+      "Should be a successful http request (200 response code)"                     ^ i200Response      ^
       "Should have bbox Extent"                                ^ bboxExtent.toThen      ^
       "Should have polygon extent"                             ^ polygonExtent.toThen      ^
       "Should have description"                                ^ haveDesc.toThen   ^ end ^

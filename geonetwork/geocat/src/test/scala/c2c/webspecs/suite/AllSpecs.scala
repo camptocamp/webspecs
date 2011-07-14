@@ -32,7 +32,8 @@ class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
         classOf[AddSharedContactsSpec],
         classOf[AddSharedExtentsSpec],
         classOf[AddSharedKeywordsSpec],
-        classOf[AddSharedFormatSpec]
+        classOf[AddSharedFormatSpec],
+        classOf[ImportSpecialExtents]
       ).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }

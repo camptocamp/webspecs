@@ -13,17 +13,17 @@ import org.specs2.runner.JUnitRunner
 class AccessFormatsSpec extends GeonetworkSpecification { def is =
   "This specification tests accessing shared formats"                              ^ Step(setup) ^
     "Listing all formats (search for ${ })"                                         ^ listFormats.toGiven ^
-      "Should succeed with a 200 response"                                         ^ l200Response ^
+      "Should be a successful http request (200 response code)"                                         ^ l200Response ^
       "Should show format name"                                                    ^ listNames.toThen    ^
       "Should have version"                                                        ^ listVersions.toThen   ^
       "Should indicate validation"                                                 ^ listValidations.toThen ^
                                                                                      end ^
     "Searching for ${"+formatFixture.name.toLowerCase+"}"                          ^ listFormats.toGiven ^
-      "Should succeed with a 200 response"                                         ^ l200Response ^
+      "Should be a successful http request (200 response code)"                                         ^ l200Response ^
       "Should returns results that all contain "+formatFixture.name                ^ allNames.toThen    ^
                                                                                      end ^
     "Gettings a format in iso xml"                                                 ^ formatInIso.toGiven  ^
-      "Should succeed with a 200 response"                                          ^ i200Response      ^
+      "Should be a successful http request (200 response code)"                                          ^ i200Response      ^
       "Should show name"                                                           ^ isoName.toThen      ^
       "Should have version"                                                        ^ isoVersion.toThen   ^
                                                                                      Step(tearDown)    ^

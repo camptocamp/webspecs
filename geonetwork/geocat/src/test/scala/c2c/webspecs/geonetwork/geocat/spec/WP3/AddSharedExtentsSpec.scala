@@ -11,7 +11,6 @@ import scala.xml.{Node, NodeSeq}
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
-
 @RunWith(classOf[JUnitRunner]) 
 class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
   "This specification tests creating shared extent by passing in a extent xml snippet"                           ^ Step(setup) ^

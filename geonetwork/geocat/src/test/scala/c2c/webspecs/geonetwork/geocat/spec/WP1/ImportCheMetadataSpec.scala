@@ -29,9 +29,8 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
     val name = "metadata.iso19139.che.xml"
     val (_,content) = ImportMetadata.importDataFromClassPath("/data/"+name, getClass)
     val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
-    val GetMdRequest = (resp:Response[IdValue]) => GetRequest("xml.metadata.get", "id" -> resp.value.id)
-
-    (ImportMd startTrackingThen GetMdRequest)(ImportStyleSheets.NONE):ImportResponseType
+    
+    (ImportMd startTrackingThen GetRawMetadataXml)(ImportStyleSheets.NONE):ImportResponseType
   }
 
   val import200Response = a200ResponseThen.narrow[ImportResponseType]

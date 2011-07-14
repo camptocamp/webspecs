@@ -12,19 +12,19 @@ class AccessKeywordsSpec extends GeonetworkSpecification { def is =
 
   "This specification tests accessing shared keyword"                           ^ Step(setup) ^
     "Searching  ${"+GeocatConstants.INSPIRE_THESAURUS+"} for keyword ${Hydrograf}"                                  ^ searchForKeyword.toGiven ^
-      "Should succeed with a 200 response"                                  ^ l200Response ^
+      "Should be a successful http request (200 response code)"                                  ^ l200Response ^
       "Should show all contain ${Hydrograf} in one of the translations"     ^ containKeyword.toThen    ^
                                                                               end ^
     "Searching  ${"+GeocatConstants.GEMET_THESAURUS+"} for keyword ${water}"                                  ^ searchForKeyword.toGiven ^
-          "Should succeed with a 200 response"                                ^ l200Response ^
+          "Should be a successful http request (200 response code)"                                ^ l200Response ^
       "Should show all contain ${water} in one of the translations"       ^ containKeyword.toThen    ^
                                                                             end ^
     "Searching  ${"+GeocatConstants.GEMET_THESAURUS+"} for keyword ${WATER}"                                  ^ searchForKeyword.toGiven ^
-          "Should succeed with a 200 response"                                ^ l200Response ^
+          "Should be a successful http request (200 response code)"                                ^ l200Response ^
       "Should show all contain ${water} in one of the translations"       ! pending    ^
                                                                             end ^
     "Gettings a keyword in iso xml"                                       ^ keywordInIso.toGiven  ^
-      "Should succeed with a 200 response"                                ^ i200Response      ^
+      "Should be a successful http request (200 response code)"                                ^ i200Response      ^
       "Should show translations"                                          ^ isoTranslation.toThen   ^
                                                                             Step(tearDown)
 

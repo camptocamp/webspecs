@@ -61,7 +61,7 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
 
     val mdFromGeocatWithoutInfoInfoXml = RemoveInfo(md)
     
-    GetMetadataXml(CheRecord)(Id(mdIds.head)).value.getXml must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml)
+    GetRawMetadataXml(Id(mdIds.head)).value.getXml must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml)
   }
   
   object RemoveInfo extends BasicTransformer{
