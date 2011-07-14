@@ -7,5 +7,5 @@ case class DeleteKeyword(thesaurus:String, namespace:String, code:String)
     XmlValueFactory,
     SP("pThesaurus" -> thesaurus),
     SP("namespace" -> namespace),
-    SP("code", code)
+    SP("id"-> code)
   )

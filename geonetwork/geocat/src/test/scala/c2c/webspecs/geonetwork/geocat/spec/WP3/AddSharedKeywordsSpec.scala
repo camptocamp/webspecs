@@ -76,7 +76,8 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
     		(resp.value.label("FR") aka "french translation" must_== frValue) and
     		(resp.value.label("EN") aka "english translation" must_== enValue)
   
-  def deleteNewKeyword = Search(frValue).value.foreach{c => DeleteKeyword(NON_VALIDATED_THESAURUS,"",c.id)}
+  def deleteNewKeyword = Search(frValue).value.foreach{c => 
+    DeleteKeyword(NON_VALIDATED_THESAURUS,c.encodedNamespace,c.encodedCode)(None)}
   def noKeyword = Search(frValue).value must beEmpty
   lazy val uuid = UUID.randomUUID().toString
   lazy val deValue = uuid+"de*automated*"
