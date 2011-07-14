@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:xalan="http://xml.apache.org/xalan" xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" gco:isoType="gmd:MD_Metadata">
   <gmd:fileIdentifier>
     <gco:CharacterString>ba0f5504-406c-4d8b-8669-ff21b77bd753</gco:CharacterString>
@@ -8,10 +7,10 @@
     <gco:CharacterString>deu</gco:CharacterString>
   </gmd:language>
   <gmd:characterSet>
-    <gmd:MD_CharacterSetCode codeListValue="utf8" codeList="./resources/codeList.xml#MD_CharacterSetCode" />
+    <gmd:MD_CharacterSetCode codeListValue="utf8" codeList="./resources/codeList.xml#MD_CharacterSetCode"/>
   </gmd:characterSet>
   <gmd:hierarchyLevel>
-    <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode" />
+    <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode"/>
   </gmd:hierarchyLevel>
   <gmd:hierarchyLevelName>
     <gco:CharacterString>xx</gco:CharacterString>
@@ -26,70 +25,70 @@
         </gmd:PT_FreeText>
       </gmd:organisationName>
       <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-        <gco:CharacterString />
+        <gco:CharacterString/>
       </gmd:positionName>
       <gmd:contactInfo>
         <gmd:CI_Contact>
           <gmd:phone>
             <che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
               <gmd:voice gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:voice>
               <gmd:facsimile gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:facsimile>
               <che:directNumber>
                 <gco:CharacterString>+41319632423</gco:CharacterString>
               </che:directNumber>
               <che:mobile gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:mobile>
             </che:CHE_CI_Telephone>
           </gmd:phone>
           <gmd:address>
             <che:CHE_CI_Address gco:isoType="gmd:CI_Address">
               <gmd:city gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:city>
               <gmd:administrativeArea gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:administrativeArea>
               <gmd:postalCode gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:postalCode>
               <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:country>
               <gmd:electronicMailAddress gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:electronicMailAddress>
               <che:streetName gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:streetName>
               <che:streetNumber gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:streetNumber>
               <che:addressLine gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:addressLine>
               <che:postBox gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:postBox>
             </che:CHE_CI_Address>
           </gmd:address>
           <gmd:onlineResource>
             <gmd:CI_OnlineResource>
               <gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-                <gmd:URL />
+                <gmd:URL/>
               </gmd:linkage>
               <gmd:protocol>
                 <gco:CharacterString>text/html</gco:CharacterString>
               </gmd:protocol>
               <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:name>
               <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:description>
             </gmd:CI_OnlineResource>
           </gmd:onlineResource>
@@ -102,7 +101,7 @@
         </gmd:CI_Contact>
       </gmd:contactInfo>
       <gmd:role>
-        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="originator" />
+        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="originator"/>
       </gmd:role>
       <che:individualFirstName>
         <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
@@ -111,7 +110,7 @@
         <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
       </che:individualLastName>
       <che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-        <gco:CharacterString />
+        <gco:CharacterString/>
       </che:organisationAcronym>
       <che:parentResponsibleParty>
         <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
@@ -149,10 +148,10 @@
                     <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                   </gmd:facsimile>
                   <che:directNumber gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:directNumber>
                   <che:mobile gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:mobile>
                 </che:CHE_CI_Telephone>
               </gmd:phone>
@@ -200,10 +199,10 @@
                     <gco:CharacterString>text/html</gco:CharacterString>
                   </gmd:protocol>
                   <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:name>
                   <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:description>
                 </gmd:CI_OnlineResource>
               </gmd:onlineResource>
@@ -216,7 +215,7 @@
             </gmd:CI_Contact>
           </gmd:contactInfo>
           <gmd:role>
-            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
           </gmd:role>
           <che:individualFirstName>
             <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -295,7 +294,7 @@
       <gmd:axisDimensionProperties>
         <gmd:MD_Dimension>
           <gmd:dimensionName>
-            <gmd:MD_DimensionNameTypeCode codeListValue="column" codeList="./resources/codeList.xml#MD_DimensionNameTypeCode" />
+            <gmd:MD_DimensionNameTypeCode codeListValue="column" codeList="./resources/codeList.xml#MD_DimensionNameTypeCode"/>
           </gmd:dimensionName>
           <gmd:dimensionSize>
             <gco:Integer>20</gco:Integer>
@@ -306,7 +305,7 @@
         </gmd:MD_Dimension>
       </gmd:axisDimensionProperties>
       <gmd:cellGeometry>
-        <gmd:MD_CellGeometryCode codeListValue="area" codeList="./resources/codeList.xml#MD_CellGeometryCode" />
+        <gmd:MD_CellGeometryCode codeListValue="area" codeList="./resources/codeList.xml#MD_CellGeometryCode"/>
       </gmd:cellGeometry>
       <gmd:transformationParameterAvailability>
         <gco:Boolean>1</gco:Boolean>
@@ -351,7 +350,7 @@
       <gmd:axisDimensionProperties>
         <gmd:MD_Dimension>
           <gmd:dimensionName>
-            <gmd:MD_DimensionNameTypeCode codeListValue="track" codeList="./resources/codeList.xml#MD_DimensionNameTypeCode" />
+            <gmd:MD_DimensionNameTypeCode codeListValue="track" codeList="./resources/codeList.xml#MD_DimensionNameTypeCode"/>
           </gmd:dimensionName>
           <gmd:dimensionSize>
             <gco:Integer>100</gco:Integer>
@@ -362,7 +361,7 @@
         </gmd:MD_Dimension>
       </gmd:axisDimensionProperties>
       <gmd:cellGeometry>
-        <gmd:MD_CellGeometryCode codeListValue="point" codeList="./resources/codeList.xml#MD_CellGeometryCode" />
+        <gmd:MD_CellGeometryCode codeListValue="point" codeList="./resources/codeList.xml#MD_CellGeometryCode"/>
       </gmd:cellGeometry>
       <gmd:transformationParameterAvailability>
         <gco:Boolean>0</gco:Boolean>
@@ -386,7 +385,7 @@
       <gmd:axisDimensionProperties>
         <gmd:MD_Dimension>
           <gmd:dimensionName>
-            <gmd:MD_DimensionNameTypeCode codeListValue="sample" codeList="./resources/codeList.xml#MD_DimensionNameTypeCode" />
+            <gmd:MD_DimensionNameTypeCode codeListValue="sample" codeList="./resources/codeList.xml#MD_DimensionNameTypeCode"/>
           </gmd:dimensionName>
           <gmd:dimensionSize>
             <gco:Integer>100</gco:Integer>
@@ -397,7 +396,7 @@
         </gmd:MD_Dimension>
       </gmd:axisDimensionProperties>
       <gmd:cellGeometry>
-        <gmd:MD_CellGeometryCode codeListValue="area" codeList="./resources/codeList.xml#MD_CellGeometryCode" />
+        <gmd:MD_CellGeometryCode codeListValue="area" codeList="./resources/codeList.xml#MD_CellGeometryCode"/>
       </gmd:cellGeometry>
       <gmd:transformationParameterAvailability>
         <gco:Boolean>1</gco:Boolean>
@@ -407,12 +406,12 @@
   <gmd:spatialRepresentationInfo>
     <gmd:MD_VectorSpatialRepresentation>
       <gmd:topologyLevel>
-        <gmd:MD_TopologyLevelCode codeListValue="fullPlanarGraph" codeList="./resources/codeList.xml#MD_TopologyLevelCode" />
+        <gmd:MD_TopologyLevelCode codeListValue="fullPlanarGraph" codeList="./resources/codeList.xml#MD_TopologyLevelCode"/>
       </gmd:topologyLevel>
       <gmd:geometricObjects>
         <gmd:MD_GeometricObjects>
           <gmd:geometricObjectType>
-            <gmd:MD_GeometricObjectTypeCode codeListValue="surface" codeList="./resources/codeList.xml#MD_GeometricObjectTypeCode" />
+            <gmd:MD_GeometricObjectTypeCode codeListValue="surface" codeList="./resources/codeList.xml#MD_GeometricObjectTypeCode"/>
           </gmd:geometricObjectType>
           <gmd:geometricObjectCount>
             <gco:Integer>100</gco:Integer>
@@ -451,10 +450,10 @@
       <gmd:citation>
         <gmd:CI_Citation>
           <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
-            <gco:CharacterString>COmprehenisve Test</gco:CharacterString>
+            <gco:CharacterString>Comprehenisve Test</gco:CharacterString>
             <gmd:PT_FreeText>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">COmprehenisve Test</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#FR">Comprehenisve Test</gmd:LocalisedCharacterString>
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:title>
@@ -462,7 +461,7 @@
             <gco:CharacterString>kurztitel</gco:CharacterString>
             <gmd:PT_FreeText>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">titre court</gmd:LocalisedCharacterString>    so
+                <gmd:LocalisedCharacterString locale="#FR">titre court</gmd:LocalisedCharacterString>
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:alternateTitle>
@@ -472,7 +471,7 @@
                 <gco:Date>2009-01-06</gco:Date>
               </gmd:date>
               <gmd:dateType>
-                <gmd:CI_DateTypeCode codeListValue="creation" codeList="./resources/codeList.xml#CI_DateTypeCode" />
+                <gmd:CI_DateTypeCode codeListValue="creation" codeList="./resources/codeList.xml#CI_DateTypeCode"/>
               </gmd:dateType>
             </gmd:CI_Date>
           </gmd:date>
@@ -530,10 +529,10 @@
                         <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                       </gmd:facsimile>
                       <che:directNumber gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:directNumber>
                       <che:mobile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:mobile>
                     </che:CHE_CI_Telephone>
                   </gmd:phone>
@@ -581,10 +580,10 @@
                         <gco:CharacterString>text/html</gco:CharacterString>
                       </gmd:protocol>
                       <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:name>
                       <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:description>
                     </gmd:CI_OnlineResource>
                   </gmd:onlineResource>
@@ -597,7 +596,7 @@
                 </gmd:CI_Contact>
               </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="author" />
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="author"/>
               </gmd:role>
               <che:individualFirstName>
                 <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -615,7 +614,7 @@
             </che:CHE_CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
           <gmd:presentationForm>
-            <gmd:CI_PresentationFormCode codeListValue="documentDigital" codeList="./resources/codeList.xml#CI_PresentationFormCode" />
+            <gmd:CI_PresentationFormCode codeListValue="documentDigital" codeList="./resources/codeList.xml#CI_PresentationFormCode"/>
           </gmd:presentationForm>
           <gmd:series>
             <gmd:CI_Series>
@@ -679,7 +678,7 @@
         <gco:CharacterString>gute arbeit</gco:CharacterString>
       </gmd:credit>
       <gmd:status>
-        <gmd:MD_ProgressCode codeListValue="historicalArchive" codeList="./resources/codeList.xml#MD_ProgressCode" />
+        <gmd:MD_ProgressCode codeListValue="historicalArchive" codeList="./resources/codeList.xml#MD_ProgressCode"/>
       </gmd:status>
       <gmd:pointOfContact>
         <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
@@ -697,7 +696,7 @@
             </gmd:PT_FreeText>
           </gmd:organisationName>
           <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-            <gco:CharacterString />
+            <gco:CharacterString/>
           </gmd:positionName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
@@ -710,10 +709,10 @@
                     <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                   </gmd:facsimile>
                   <che:directNumber gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:directNumber>
                   <che:mobile gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:mobile>
                 </che:CHE_CI_Telephone>
               </gmd:phone>
@@ -723,7 +722,7 @@
                     <gco:CharacterString>Wabern</gco:CharacterString>
                   </gmd:city>
                   <gmd:administrativeArea gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:administrativeArea>
                   <gmd:postalCode>
                     <gco:CharacterString>3084</gco:CharacterString>
@@ -741,10 +740,10 @@
                     <gco:CharacterString>264</gco:CharacterString>
                   </che:streetNumber>
                   <che:addressLine gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:addressLine>
                   <che:postBox gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:postBox>
                 </che:CHE_CI_Address>
               </gmd:address>
@@ -761,10 +760,10 @@
                     <gco:CharacterString>text/html</gco:CharacterString>
                   </gmd:protocol>
                   <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:name>
                   <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:description>
                 </gmd:CI_OnlineResource>
               </gmd:onlineResource>
@@ -772,15 +771,15 @@
                 <gco:CharacterString>08h30 - 11h00 / 14h00 - 16h00 GMT+1</gco:CharacterString>
               </gmd:hoursOfService>
               <gmd:contactInstructions gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:contactInstructions>
             </gmd:CI_Contact>
           </gmd:contactInfo>
           <gmd:role>
-            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact" />
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
           </gmd:role>
           <che:individualFirstName gco:nilReason="missing">
-            <gco:CharacterString />
+            <gco:CharacterString/>
           </che:individualFirstName>
           <che:individualLastName>
             <gco:CharacterString>{automated_test_metadata}2</gco:CharacterString>
@@ -797,7 +796,7 @@
       <gmd:resourceMaintenance>
         <che:CHE_MD_MaintenanceInformation gco:isoType="gmd:MD_MaintenanceInformation">
           <gmd:maintenanceAndUpdateFrequency>
-            <gmd:MD_MaintenanceFrequencyCode codeListValue="annually" codeList="./resources/codeList.xml#MD_MaintenanceFrequencyCode" />
+            <gmd:MD_MaintenanceFrequencyCode codeListValue="annually" codeList="./resources/codeList.xml#MD_MaintenanceFrequencyCode"/>
           </gmd:maintenanceAndUpdateFrequency>
           <gmd:dateOfNextUpdate>
             <gco:Date>2020-10-10</gco:Date>
@@ -806,7 +805,7 @@
             <gts:TM_PeriodDuration xmlns:gts="http://www.isotc211.org/2005/gts">P1Y2M3DT2H5M1S</gts:TM_PeriodDuration>
           </gmd:userDefinedMaintenanceFrequency>
           <gmd:updateScope>
-            <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode" />
+            <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode"/>
           </gmd:updateScope>
           <gmd:updateScopeDescription>
             <gmd:MD_ScopeDescription>
@@ -833,70 +832,70 @@
                 </gmd:PT_FreeText>
               </gmd:organisationName>
               <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:positionName>
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:phone>
                     <che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
                       <gmd:voice gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:voice>
                       <gmd:facsimile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:facsimile>
                       <che:directNumber>
                         <gco:CharacterString>+41319632423</gco:CharacterString>
                       </che:directNumber>
                       <che:mobile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:mobile>
                     </che:CHE_CI_Telephone>
                   </gmd:phone>
                   <gmd:address>
                     <che:CHE_CI_Address gco:isoType="gmd:CI_Address">
                       <gmd:city gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:city>
                       <gmd:administrativeArea gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:administrativeArea>
                       <gmd:postalCode gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:postalCode>
                       <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:country>
                       <gmd:electronicMailAddress gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:electronicMailAddress>
                       <che:streetName gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:streetName>
                       <che:streetNumber gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:streetNumber>
                       <che:addressLine gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:addressLine>
                       <che:postBox gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:postBox>
                     </che:CHE_CI_Address>
                   </gmd:address>
                   <gmd:onlineResource>
                     <gmd:CI_OnlineResource>
                       <gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-                        <gmd:URL />
+                        <gmd:URL/>
                       </gmd:linkage>
                       <gmd:protocol>
                         <gco:CharacterString>text/html</gco:CharacterString>
                       </gmd:protocol>
                       <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:name>
                       <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:description>
                     </gmd:CI_OnlineResource>
                   </gmd:onlineResource>
@@ -909,7 +908,7 @@
                 </gmd:CI_Contact>
               </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="processor" />
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="processor"/>
               </gmd:role>
               <che:individualFirstName>
                 <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
@@ -918,7 +917,7 @@
                 <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
               </che:individualLastName>
               <che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:organisationAcronym>
               <che:parentResponsibleParty>
                 <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
@@ -956,10 +955,10 @@
                             <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                           </gmd:facsimile>
                           <che:directNumber gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </che:directNumber>
                           <che:mobile gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </che:mobile>
                         </che:CHE_CI_Telephone>
                       </gmd:phone>
@@ -1007,10 +1006,10 @@
                             <gco:CharacterString>text/html</gco:CharacterString>
                           </gmd:protocol>
                           <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </gmd:name>
                           <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </gmd:description>
                         </gmd:CI_OnlineResource>
                       </gmd:onlineResource>
@@ -1023,7 +1022,7 @@
                     </gmd:CI_Contact>
                   </gmd:contactInfo>
                   <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
                   </gmd:role>
                   <che:individualFirstName>
                     <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -1132,70 +1131,70 @@
                 </gmd:PT_FreeText>
               </gmd:organisationName>
               <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:positionName>
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:phone>
                     <che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
                       <gmd:voice gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:voice>
                       <gmd:facsimile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:facsimile>
                       <che:directNumber>
                         <gco:CharacterString>+41319632423</gco:CharacterString>
                       </che:directNumber>
                       <che:mobile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:mobile>
                     </che:CHE_CI_Telephone>
                   </gmd:phone>
                   <gmd:address>
                     <che:CHE_CI_Address gco:isoType="gmd:CI_Address">
                       <gmd:city gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:city>
                       <gmd:administrativeArea gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:administrativeArea>
                       <gmd:postalCode gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:postalCode>
                       <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:country>
                       <gmd:electronicMailAddress gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:electronicMailAddress>
                       <che:streetName gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:streetName>
                       <che:streetNumber gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:streetNumber>
                       <che:addressLine gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:addressLine>
                       <che:postBox gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:postBox>
                     </che:CHE_CI_Address>
                   </gmd:address>
                   <gmd:onlineResource>
                     <gmd:CI_OnlineResource>
                       <gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-                        <gmd:URL />
+                        <gmd:URL/>
                       </gmd:linkage>
                       <gmd:protocol>
                         <gco:CharacterString>text/html</gco:CharacterString>
                       </gmd:protocol>
                       <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:name>
                       <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:description>
                     </gmd:CI_OnlineResource>
                   </gmd:onlineResource>
@@ -1208,7 +1207,7 @@
                 </gmd:CI_Contact>
               </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact" />
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
               </gmd:role>
               <che:individualFirstName>
                 <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
@@ -1217,7 +1216,7 @@
                 <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
               </che:individualLastName>
               <che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:organisationAcronym>
               <che:parentResponsibleParty>
                 <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
@@ -1255,10 +1254,10 @@
                             <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                           </gmd:facsimile>
                           <che:directNumber gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </che:directNumber>
                           <che:mobile gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </che:mobile>
                         </che:CHE_CI_Telephone>
                       </gmd:phone>
@@ -1306,10 +1305,10 @@
                             <gco:CharacterString>text/html</gco:CharacterString>
                           </gmd:protocol>
                           <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </gmd:name>
                           <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </gmd:description>
                         </gmd:CI_OnlineResource>
                       </gmd:onlineResource>
@@ -1322,7 +1321,7 @@
                     </gmd:CI_Contact>
                   </gmd:contactInfo>
                   <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
                   </gmd:role>
                   <che:individualFirstName>
                     <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -1366,10 +1365,10 @@
             </gmd:PT_FreeText>
           </gmd:useLimitation>
           <gmd:accessConstraints>
-            <gmd:MD_RestrictionCode codeListValue="patent" codeList="./resources/codeList.xml#MD_RestrictionCode" />
+            <gmd:MD_RestrictionCode codeListValue="patent" codeList="./resources/codeList.xml#MD_RestrictionCode"/>
           </gmd:accessConstraints>
           <gmd:useConstraints>
-            <gmd:MD_RestrictionCode codeListValue="otherRestrictions" codeList="./resources/codeList.xml#MD_RestrictionCode" />
+            <gmd:MD_RestrictionCode codeListValue="otherRestrictions" codeList="./resources/codeList.xml#MD_RestrictionCode"/>
           </gmd:useConstraints>
           <gmd:otherConstraints xsi:type="gmd:PT_FreeText_PropertyType">
             <gco:CharacterString>andere rechtliche Einschränkungen</gco:CharacterString>
@@ -1392,7 +1391,7 @@
             </gmd:PT_FreeText>
           </gmd:useLimitation>
           <gmd:classification>
-            <gmd:MD_ClassificationCode codeList="./resources/codeList.xml#MD_ClassificationCode" codeListValue="secret" />
+            <gmd:MD_ClassificationCode codeList="./resources/codeList.xml#MD_ClassificationCode" codeListValue="secret"/>
           </gmd:classification>
           <gmd:userNote xsi:type="gmd:PT_FreeText_PropertyType">
             <gco:CharacterString>erklärung sicherheitseinschränkung</gco:CharacterString>
@@ -1433,7 +1432,7 @@
                     <gco:Date>1111-01-01</gco:Date>
                   </gmd:date>
                   <gmd:dateType>
-                    <gmd:CI_DateTypeCode codeListValue="revision" codeList="./resources/codeList.xml#CI_DateTypeCode" />
+                    <gmd:CI_DateTypeCode codeListValue="revision" codeList="./resources/codeList.xml#CI_DateTypeCode"/>
                   </gmd:dateType>
                 </gmd:CI_Date>
               </gmd:date>
@@ -1452,15 +1451,15 @@
             </gmd:MD_Identifier>
           </gmd:aggregateDataSetIdentifier>
           <gmd:associationType>
-            <gmd:DS_AssociationTypeCode codeListValue="stereoMate" codeList="http://www.isotc211.org/2005/resources/codeList.xml#DS_AssociationTypeCode" />
+            <gmd:DS_AssociationTypeCode codeListValue="stereoMate" codeList="http://www.isotc211.org/2005/resources/codeList.xml#DS_AssociationTypeCode"/>
           </gmd:associationType>
           <gmd:initiativeType>
-            <gmd:DS_InitiativeTypeCode codeListValue="experiment" codeList="http://www.isotc211.org/2005/resources/codeList.xml#DS_InitiativeTypeCode" />
+            <gmd:DS_InitiativeTypeCode codeListValue="experiment" codeList="http://www.isotc211.org/2005/resources/codeList.xml#DS_InitiativeTypeCode"/>
           </gmd:initiativeType>
         </gmd:MD_AggregateInformation>
       </gmd:aggregationInfo>
       <gmd:spatialRepresentationType>
-        <gmd:MD_SpatialRepresentationTypeCode codeListValue="paperMap" codeList="./resources/codeList.xml#MD_SpatialRepresentationTypeCode" />
+        <gmd:MD_SpatialRepresentationTypeCode codeListValue="paperMap" codeList="./resources/codeList.xml#MD_SpatialRepresentationTypeCode"/>
       </gmd:spatialRepresentationType>
       <gmd:spatialResolution>
         <gmd:MD_Resolution>
@@ -1487,7 +1486,7 @@
         <gco:CharacterString>fra</gco:CharacterString>
       </gmd:language>
       <gmd:characterSet>
-        <gmd:MD_CharacterSetCode codeListValue="utf8" codeList="./resources/codeList.xml#MD_CharacterSetCode" />
+        <gmd:MD_CharacterSetCode codeListValue="utf8" codeList="./resources/codeList.xml#MD_CharacterSetCode"/>
       </gmd:characterSet>
       <gmd:topicCategory>
         <gmd:MD_TopicCategoryCode>intelligenceMilitary</gmd:MD_TopicCategoryCode>
@@ -1500,6 +1499,91 @@
           </gmd:textGroup>
         </gmd:PT_FreeText>
       </gmd:environmentDescription>
+      <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml">
+        <gmd:EX_Extent>
+          <gmd:temporalElement>
+            <gmd:EX_SpatialTemporalExtent>
+              <gmd:extent>
+                <gml:TimePeriod>
+                   <gml:begin>2003-02-13T12:28-08:00</gml:begin>
+                   <gml:end>2003-02-13T12:30-08:00</gml:end>
+                 </gml:TimePeriod>
+                </gmd:extent>
+              <gmd:spatialExtent>
+                <gmd:EX_Extent>
+                  <gmd:description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                    <gco:CharacterString>Renan (BE)</gco:CharacterString>
+                  </gmd:description>
+                  <gmd:geographicElement>
+                    <gmd:EX_GeographicDescription>
+                      <gmd:geographicIdentifier>
+                        <gmd:MD_Identifier>
+                          <gmd:code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                            <gco:CharacterString>Renan (BE)</gco:CharacterString>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmd:geographicIdentifier>
+                    </gmd:EX_GeographicDescription>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_BoundingPolygon>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:polygon>
+                        <gml:MultiSurface gml:id="Neb34cc5dc1d34bd08405ebf13d1565ef">
+                          <gml:surfaceMember>
+                            <gml:Polygon gml:id="N09101de3a34e427dae73e1e62cadc4f1">
+                              <gml:exterior>
+                                <gml:LinearRing>
+                                  <gml:posList>6.867 47.085 6.872 47.103 6.881 47.108 6.886 47.124 6.901 47.121 6.911 47.122 6.934 47.136 6.938 47.129 6.931 47.125 6.939 47.11 6.927 47.109 6.918 47.105 6.886 47.092 6.867 47.085</gml:posList>
+                                </gml:LinearRing>
+                              </gml:exterior>
+                            </gml:Polygon>
+                          </gml:surfaceMember>
+                        </gml:MultiSurface>
+                      </gmd:polygon>
+                    </gmd:EX_BoundingPolygon>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_GeographicBoundingBox>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:westBoundLongitude>
+                        <gco:Decimal>6.867</gco:Decimal>
+                      </gmd:westBoundLongitude>
+                      <gmd:eastBoundLongitude>
+                        <gco:Decimal>6.939</gco:Decimal>
+                      </gmd:eastBoundLongitude>
+                      <gmd:southBoundLatitude>
+                        <gco:Decimal>47.085</gco:Decimal>
+                      </gmd:southBoundLatitude>
+                      <gmd:northBoundLatitude>
+                        <gco:Decimal>47.136</gco:Decimal>
+                      </gmd:northBoundLatitude>
+                    </gmd:EX_GeographicBoundingBox>
+                  </gmd:geographicElement>
+                </gmd:EX_Extent>
+              </gmd:spatialExtent>
+            </gmd:EX_SpatialTemporalExtent>
+          </gmd:temporalElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml">
+        <gmd:EX_Extent>
+          <gmd:verticalElement>
+            <gmd:EX_VerticalExtent>
+              <gmd:minimumValue>
+                <gco:Real>0</gco:Real>
+              </gmd:minimumValue>
+              <gmd:maximumValue>
+                <gco:Real>32</gco:Real>
+              </gmd:maximumValue>
+            </gmd:EX_VerticalExtent>
+          </gmd:verticalElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
       <gmd:extent>
         <gmd:EX_Extent>
           <gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
@@ -1604,7 +1688,7 @@
         </gmd:EX_Extent>
       </gmd:extent>
       <gmd:extent>
-        <gmd:EX_Extent />
+        <gmd:EX_Extent/>
       </gmd:extent>
       <gmd:supplementalInformation xsi:type="gmd:PT_FreeText_PropertyType">
         <gco:CharacterString>geocat.ch II testen</gco:CharacterString>
@@ -1615,12 +1699,12 @@
         </gmd:PT_FreeText>
       </gmd:supplementalInformation>
       <che:projectType>
-        <che:CHE_CI_projectTypeCode codeList="./resources/codeList.xml#CHE_CI_projectTypeCode" codeListValue="inventory" />
+        <che:CHE_CI_projectTypeCode codeList="./resources/codeList.xml#CHE_CI_projectTypeCode" codeListValue="inventory"/>
       </che:projectType>
       <che:revision>
         <che:CHE_MD_Revision gco:isoType="gmd:MD_Revision">
           <che:revisionScope>
-            <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode" />
+            <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode"/>
           </che:revisionScope>
           <che:dateOfLastUpdate>
             <gco:Date>2008-01-06</gco:Date>
@@ -1638,7 +1722,7 @@
         <gco:RecordType>blab</gco:RecordType>
       </gmd:attributeDescription>
       <gmd:contentType>
-        <gmd:MD_CoverageContentTypeCode codeListValue="image" codeList="./resources/codeList.xml#MD_CoverageContentTypeCode" />
+        <gmd:MD_CoverageContentTypeCode codeListValue="image" codeList="./resources/codeList.xml#MD_CoverageContentTypeCode"/>
       </gmd:contentType>
       <gmd:dimension>
         <gmd:MD_Band>
@@ -1665,7 +1749,7 @@
           <gmd:minValue>
             <gco:Real>1.0</gco:Real>
           </gmd:minValue>
-          <gmd:units />
+          <gmd:units/>
           <gmd:peakResponse>
             <gco:Real>1.0</gco:Real>
           </gmd:peakResponse>
@@ -1705,7 +1789,7 @@
         </gmd:MD_RangeDimension>
       </gmd:dimension>
       <che:filmType>
-        <che:CHE_MD_FilmTypeCode codeListValue="CIR" codeList="?" />
+        <che:CHE_MD_FilmTypeCode codeListValue="CIR" codeList="?"/>
       </che:filmType>
       <che:focalDistance>
         <gco:Integer>23</gco:Integer>
@@ -1756,7 +1840,7 @@
                 <gco:Date>2009-01-06</gco:Date>
               </gmd:date>
               <gmd:dateType>
-                <gmd:CI_DateTypeCode codeListValue="creation" codeList="./resources/codeList.xml#CI_DateTypeCode" />
+                <gmd:CI_DateTypeCode codeListValue="creation" codeList="./resources/codeList.xml#CI_DateTypeCode"/>
               </gmd:dateType>
             </gmd:CI_Date>
           </gmd:date>
@@ -1814,10 +1898,10 @@
                         <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                       </gmd:facsimile>
                       <che:directNumber gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:directNumber>
                       <che:mobile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:mobile>
                     </che:CHE_CI_Telephone>
                   </gmd:phone>
@@ -1865,10 +1949,10 @@
                         <gco:CharacterString>text/html</gco:CharacterString>
                       </gmd:protocol>
                       <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:name>
                       <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:description>
                     </gmd:CI_OnlineResource>
                   </gmd:onlineResource>
@@ -1881,7 +1965,7 @@
                 </gmd:CI_Contact>
               </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="author" />
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="author"/>
               </gmd:role>
               <che:individualFirstName>
                 <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -1899,7 +1983,7 @@
             </che:CHE_CI_ResponsibleParty>
           </gmd:citedResponsibleParty>
           <gmd:presentationForm>
-            <gmd:CI_PresentationFormCode codeListValue="documentDigital" codeList="./resources/codeList.xml#CI_PresentationFormCode" />
+            <gmd:CI_PresentationFormCode codeListValue="documentDigital" codeList="./resources/codeList.xml#CI_PresentationFormCode"/>
           </gmd:presentationForm>
           <gmd:series>
             <gmd:CI_Series>
@@ -2083,7 +2167,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>OGC Feature ID</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2096,7 +2180,7 @@
                 </gmd:textGroup>
               </gmd:PT_FreeText>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2105,7 +2189,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Datenherr der Gewässerbildung: 0 - Gewässerbildung festgelegt durch BWG 11 - Gewässerbildung festgelegt durch Kanton Solothurn</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2114,7 +2198,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Hauptgewässernummer: Bei den vom BWG festgelegten Gewässern (DH_GEW=0) ist die HAUPTGNR identisch mit der GEWISSNR.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2123,7 +2207,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Nebengewässernummer: Bei den vom BWG festgelegten Gewässern (DH_GEW=0) ist die NEBENGNR identisch mit der NEBENARMNR. Die vom Kanton festgelegten Nebengewässer (DH_GEW=11) sind kürzer als 500m.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2132,7 +2216,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Gewässernummer BWG des Vorfluters. Attribut gemäss Bericht BWG (Struktur und Adressierung digitaler Gewässernetze, Januar 2000). Alle vom Kanton gebildeten Gewässer, die in ein BWG-Gewässer fliessen tragen dessen GEWISSNR in diesem Attribut. Bei zwei Vorflutern wurde dem Arc die GEWISSNR eines Vorfluters zugewiesen. Das BWG-Gewässer selber trägt die eigene GEWISSNR in diesem Attribut. (seit 14.12.2001)</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2141,7 +2225,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Abschnitt BWG des Vorfluters. Attribut gemäss Bericht BWG(Struktur und Adressierung digitaler Gewässernetze, Januar 2000). Alle vom Kanton gebildeten Gewässer, die in ein BWG-Gewässer fliessen tragen dessen ABSCHNITT in diesem Attribut. Bei zwei Vorflutern wurde dem Arc der ABSCHNITT eines Vorfluters zugewiesen. Das BWG-Gewässer selbert trägt den eigenen ABSCHNITT in diesem Attribut. (seit 14.12.2001)</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2150,7 +2234,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Gewässernummer Kanton Solothurn Alle Gewässerläufe werden über ein numerisches Attribut referenziert. Dieses wird aus den drei Attributen DH_GEW(AA), HAUPTGNR(BBBBB) und NebenGNR(CC) berechnet. Es gilt: GNRSO = AABBBBBCC Für allfällige Verwendung der Kilometrierung zur linearen Referenzierung des Gewässernetzes wird die GNRSO als Gruppenvariable verwendet.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2159,7 +2243,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Anfangsmass des Linestrings zur Adressierung der 4. Dimension (M-Wert).</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2168,7 +2252,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Endmass des Linestrings zur Adressierung der 4. Dimension (M-Wert).</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2177,7 +2261,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Gewässername</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2186,7 +2270,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>0: offen 1: Eingedolt 2: Parallel 3: Seeufer 4: Virtuell 5: Karst 6: Versickert 7: Stausee 8: Insel 9: Unterirdisch</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2195,7 +2279,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>0: klein 1: mittel 2: gross</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2204,7 +2288,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Vierstellige Gemeindenummer gemäss dem Bundesamt für Statistik (BfS-Nummer)</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2213,7 +2297,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>0: unbekannt 1: SE-Ausf-plan 2: Uebers.plan 3: SE-GEP/GKP 4: Vermessung 5: Melioration 6: Projektplan 7: Leitungskataster 8: Orthofoto</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2222,7 +2306,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Datum der Erfassung</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2231,7 +2315,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Kürzel des Erfassers: kue für R. Künzle, Ki für Keller Ing. AG und Digital AG</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2240,7 +2324,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Bearbeitung</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2249,7 +2333,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Kürzel des Bearbeiters, s.o.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2258,7 +2342,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Verbindung zum Oberflächengewässer 1: ja 2: nein</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2267,7 +2351,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Hilfsattribut für die Bearbeitung der Daten, zur Kontrolle der Verbindung zur Siedlungsentwässerung.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2276,7 +2360,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>siehe se_select</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2285,7 +2369,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>SYMBOL = [Typ x 100] + Groesse. Dient zur Symbolisierung in der Plotappli (historisch)</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2294,7 +2378,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Dient zum Druck der Gemeindepläne mit der Plotappli. Vierstellige Gemeindenummer Gemäss Bundesamt für Statistik (BfS-Nummer)</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2303,7 +2387,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>0: öffentliches Gewässer 1: privates Gewässer</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2312,7 +2396,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Anschrift der Gewässer für den Druck der Gemeindepläne mit der Plotappli.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2321,7 +2405,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Darstelleung des Gewässerendes für den Druck der Gemeindepläne mit der Plotappli.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2330,7 +2414,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Hillsfeld zur Umkehrung der Gewässerrichtung</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2339,7 +2423,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>vorf_gewis</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2348,7 +2432,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>vorf_neben</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2357,7 +2441,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Datenherr der Kilometrierung: 0 - Kilometrierung festgelegt durch BWG 11 - Kilometrierung festgelegt durch Kanton Solothurn</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2366,7 +2450,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>arcid25040</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2375,7 +2459,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Ordnungsnummer nach dem Flussordnungsprinzip nach Strahler. Das Ordnungssystem berücksichtigt nur Gewässer vom Typ 0 und Typ 1.</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2384,7 +2468,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Datum des Importes des Objektes</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2393,7 +2477,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>Datum der Archivierung des Objektes</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
           <che:attribute>
             <che:name>
@@ -2402,7 +2486,7 @@
             <che:description xsi:type="gmd:PT_FreeText_PropertyType">
               <gco:CharacterString>0: aktiv, 1: archiviert</gco:CharacterString>
             </che:description>
-            <che:namedType />
+            <che:namedType/>
           </che:attribute>
         </che:CHE_MD_Class>
       </che:class>
@@ -2519,7 +2603,7 @@
         </che:CHE_MD_CodeDomain>
       </che:domain>
       <che:modelType>
-        <che:CHE_MD_modelTypeCode codeList="./resources/codeList.xml#che:CHE_MD_modelTypeCode" codeListValue="FeatureDescription" />
+        <che:CHE_MD_modelTypeCode codeList="./resources/codeList.xml#che:CHE_MD_modelTypeCode" codeListValue="FeatureDescription"/>
       </che:modelType>
     </che:CHE_MD_FeatureCatalogueDescription>
   </gmd:contentInfo>
@@ -2529,7 +2613,7 @@
         <gco:RecordType>Bildattribut</gco:RecordType>
       </gmd:attributeDescription>
       <gmd:contentType>
-        <gmd:MD_CoverageContentTypeCode codeListValue="image" codeList="./resources/codeList.xml#MD_CoverageContentTypeCode" />
+        <gmd:MD_CoverageContentTypeCode codeListValue="image" codeList="./resources/codeList.xml#MD_CoverageContentTypeCode"/>
       </gmd:contentType>
       <gmd:illuminationElevationAngle>
         <gco:Real>3.0</gco:Real>
@@ -2538,7 +2622,7 @@
         <gco:Real>4.0</gco:Real>
       </gmd:illuminationAzimuthAngle>
       <gmd:imagingCondition>
-        <gmd:MD_ImagingConditionCode codeListValue="semiDarkness" codeList="./resources/codeList.xml#MD_ImagingConditionCode" />
+        <gmd:MD_ImagingConditionCode codeListValue="semiDarkness" codeList="./resources/codeList.xml#MD_ImagingConditionCode"/>
       </gmd:imagingCondition>
       <imageQualityCode xmlns="http://www.isotc211.org/2005/gmd">
         <gmd:MD_Identifier>
@@ -2586,7 +2670,7 @@
         <gco:Boolean>1</gco:Boolean>
       </gmd:lensDistortionInformationAvailability>
       <che:filmType>
-        <che:CHE_MD_FilmTypeCode codeListValue="CIR" codeList="?" />
+        <che:CHE_MD_FilmTypeCode codeListValue="CIR" codeList="?"/>
       </che:filmType>
       <che:focalDistance>
         <gco:Integer>3</gco:Integer>
@@ -2617,70 +2701,70 @@
                 </gmd:PT_FreeText>
               </gmd:organisationName>
               <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </gmd:positionName>
               <gmd:contactInfo>
                 <gmd:CI_Contact>
                   <gmd:phone>
                     <che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
                       <gmd:voice gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:voice>
                       <gmd:facsimile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:facsimile>
                       <che:directNumber>
                         <gco:CharacterString>+41319632423</gco:CharacterString>
                       </che:directNumber>
                       <che:mobile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:mobile>
                     </che:CHE_CI_Telephone>
                   </gmd:phone>
                   <gmd:address>
                     <che:CHE_CI_Address gco:isoType="gmd:CI_Address">
                       <gmd:city gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:city>
                       <gmd:administrativeArea gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:administrativeArea>
                       <gmd:postalCode gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:postalCode>
                       <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:country>
                       <gmd:electronicMailAddress gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:electronicMailAddress>
                       <che:streetName gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:streetName>
                       <che:streetNumber gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:streetNumber>
                       <che:addressLine gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:addressLine>
                       <che:postBox gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:postBox>
                     </che:CHE_CI_Address>
                   </gmd:address>
                   <gmd:onlineResource>
                     <gmd:CI_OnlineResource>
                       <gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-                        <gmd:URL />
+                        <gmd:URL/>
                       </gmd:linkage>
                       <gmd:protocol>
                         <gco:CharacterString>text/html</gco:CharacterString>
                       </gmd:protocol>
                       <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:name>
                       <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:description>
                     </gmd:CI_OnlineResource>
                   </gmd:onlineResource>
@@ -2693,7 +2777,7 @@
                 </gmd:CI_Contact>
               </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
               </gmd:role>
               <che:individualFirstName>
                 <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
@@ -2702,7 +2786,7 @@
                 <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
               </che:individualLastName>
               <che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                <gco:CharacterString />
+                <gco:CharacterString/>
               </che:organisationAcronym>
               <che:parentResponsibleParty>
                 <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
@@ -2740,10 +2824,10 @@
                             <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                           </gmd:facsimile>
                           <che:directNumber gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </che:directNumber>
                           <che:mobile gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </che:mobile>
                         </che:CHE_CI_Telephone>
                       </gmd:phone>
@@ -2791,10 +2875,10 @@
                             <gco:CharacterString>text/html</gco:CharacterString>
                           </gmd:protocol>
                           <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </gmd:name>
                           <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                            <gco:CharacterString />
+                            <gco:CharacterString/>
                           </gmd:description>
                         </gmd:CI_OnlineResource>
                       </gmd:onlineResource>
@@ -2807,7 +2891,7 @@
                     </gmd:CI_Contact>
                   </gmd:contactInfo>
                   <gmd:role>
-                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+                    <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
                   </gmd:role>
                   <che:individualFirstName>
                     <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -2876,70 +2960,70 @@
                         </gmd:PT_FreeText>
                       </gmd:organisationName>
                       <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:positionName>
                       <gmd:contactInfo>
                         <gmd:CI_Contact>
                           <gmd:phone>
                             <che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
                               <gmd:voice gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:voice>
                               <gmd:facsimile gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:facsimile>
                               <che:directNumber>
                                 <gco:CharacterString>+41319632423</gco:CharacterString>
                               </che:directNumber>
                               <che:mobile gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </che:mobile>
                             </che:CHE_CI_Telephone>
                           </gmd:phone>
                           <gmd:address>
                             <che:CHE_CI_Address gco:isoType="gmd:CI_Address">
                               <gmd:city gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:city>
                               <gmd:administrativeArea gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:administrativeArea>
                               <gmd:postalCode gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:postalCode>
                               <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:country>
                               <gmd:electronicMailAddress gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:electronicMailAddress>
                               <che:streetName gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </che:streetName>
                               <che:streetNumber gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </che:streetNumber>
                               <che:addressLine gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </che:addressLine>
                               <che:postBox gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </che:postBox>
                             </che:CHE_CI_Address>
                           </gmd:address>
                           <gmd:onlineResource>
                             <gmd:CI_OnlineResource>
                               <gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-                                <gmd:URL />
+                                <gmd:URL/>
                               </gmd:linkage>
                               <gmd:protocol>
                                 <gco:CharacterString>text/html</gco:CharacterString>
                               </gmd:protocol>
                               <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:name>
                               <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:description>
                             </gmd:CI_OnlineResource>
                           </gmd:onlineResource>
@@ -2952,7 +3036,7 @@
                         </gmd:CI_Contact>
                       </gmd:contactInfo>
                       <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
                       </gmd:role>
                       <che:individualFirstName>
                         <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
@@ -2961,7 +3045,7 @@
                         <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
                       </che:individualLastName>
                       <che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:organisationAcronym>
                       <che:parentResponsibleParty>
                         <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
@@ -2999,10 +3083,10 @@
                                     <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                                   </gmd:facsimile>
                                   <che:directNumber gco:nilReason="missing">
-                                    <gco:CharacterString />
+                                    <gco:CharacterString/>
                                   </che:directNumber>
                                   <che:mobile gco:nilReason="missing">
-                                    <gco:CharacterString />
+                                    <gco:CharacterString/>
                                   </che:mobile>
                                 </che:CHE_CI_Telephone>
                               </gmd:phone>
@@ -3050,10 +3134,10 @@
                                     <gco:CharacterString>text/html</gco:CharacterString>
                                   </gmd:protocol>
                                   <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                                    <gco:CharacterString />
+                                    <gco:CharacterString/>
                                   </gmd:name>
                                   <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                                    <gco:CharacterString />
+                                    <gco:CharacterString/>
                                   </gmd:description>
                                 </gmd:CI_OnlineResource>
                               </gmd:onlineResource>
@@ -3066,7 +3150,7 @@
                             </gmd:CI_Contact>
                           </gmd:contactInfo>
                           <gmd:role>
-                            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+                            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
                           </gmd:role>
                           <che:individualFirstName>
                             <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -3145,7 +3229,7 @@
                 </gmd:PT_FreeText>
               </gmd:description>
               <gmd:function>
-                <gmd:CI_OnLineFunctionCode codeListValue="order" codeList="./resources/codeList.xml#CI_OnLineFunctionCode" />
+                <gmd:CI_OnLineFunctionCode codeListValue="order" codeList="./resources/codeList.xml#CI_OnLineFunctionCode"/>
               </gmd:function>
             </gmd:CI_OnlineResource>
           </gmd:onLine>
@@ -3158,7 +3242,7 @@
       <gmd:scope>
         <gmd:DQ_Scope>
           <gmd:level>
-            <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode" />
+            <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode"/>
           </gmd:level>
           <gmd:extent>
             <gmd:EX_Extent>
@@ -3208,7 +3292,7 @@
             <gco:CharacterString>absolutePositionsgenauigkeit</gco:CharacterString>
           </gmd:measureDescription>
           <gmd:evaluationMethodType>
-            <gmd:DQ_EvaluationMethodTypeCode codeListValue="directExternal" codeList="http://www.isotc211.org/2005/resources/codeList.xml#DQ_EvaluationMethodTypeCode" />
+            <gmd:DQ_EvaluationMethodTypeCode codeListValue="directExternal" codeList="http://www.isotc211.org/2005/resources/codeList.xml#DQ_EvaluationMethodTypeCode"/>
           </gmd:evaluationMethodType>
           <gmd:evaluationMethodDescription>
             <gco:CharacterString>absolutePositionsgenauigkeit</gco:CharacterString>
@@ -3229,7 +3313,7 @@
                         <gco:Date>1999-01-06</gco:Date>
                       </gmd:date>
                       <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeListValue="creation" codeList="./resources/codeList.xml#CI_DateTypeCode" />
+                        <gmd:CI_DateTypeCode codeListValue="creation" codeList="./resources/codeList.xml#CI_DateTypeCode"/>
                       </gmd:dateType>
                     </gmd:CI_Date>
                   </gmd:date>
@@ -3255,7 +3339,7 @@
                   <gml:name>meter</gml:name>
                   <gml:quantityType>length</gml:quantityType>
                   <gml:catalogSymbol codeSpace="http://www.bipm.org/en/si/base_units/">m</gml:catalogSymbol>
-                  <gml:unitsSystem />
+                  <gml:unitsSystem/>
                 </gml:BaseUnit>
               </gmd:valueUnit>
               <gmd:errorStatistic>
@@ -3352,7 +3436,7 @@
                         <gco:Date>2006-01-06</gco:Date>
                       </gmd:date>
                       <gmd:dateType>
-                        <gmd:CI_DateTypeCode codeListValue="publication" codeList="./resources/codeList.xml#CI_DateTypeCode" />
+                        <gmd:CI_DateTypeCode codeListValue="publication" codeList="./resources/codeList.xml#CI_DateTypeCode"/>
                       </gmd:dateType>
                     </gmd:CI_Date>
                   </gmd:date>
@@ -3410,10 +3494,10 @@
                                 <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                               </gmd:facsimile>
                               <che:directNumber gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </che:directNumber>
                               <che:mobile gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </che:mobile>
                             </che:CHE_CI_Telephone>
                           </gmd:phone>
@@ -3461,10 +3545,10 @@
                                 <gco:CharacterString>text/html</gco:CharacterString>
                               </gmd:protocol>
                               <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:name>
                               <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                                <gco:CharacterString />
+                                <gco:CharacterString/>
                               </gmd:description>
                             </gmd:CI_OnlineResource>
                           </gmd:onlineResource>
@@ -3477,7 +3561,7 @@
                         </gmd:CI_Contact>
                       </gmd:contactInfo>
                       <gmd:role>
-                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="author" />
+                        <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="author"/>
                       </gmd:role>
                       <che:individualFirstName>
                         <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -3495,7 +3579,7 @@
                     </che:CHE_CI_ResponsibleParty>
                   </gmd:citedResponsibleParty>
                   <gmd:presentationForm>
-                    <gmd:CI_PresentationFormCode codeListValue="documentDigital" codeList="./resources/codeList.xml#CI_PresentationFormCode" />
+                    <gmd:CI_PresentationFormCode codeListValue="documentDigital" codeList="./resources/codeList.xml#CI_PresentationFormCode"/>
                   </gmd:presentationForm>
                   <gmd:series>
                     <gmd:CI_Series>
@@ -3586,7 +3670,7 @@
                 <gco:Date>2007-02-01</gco:Date>
               </gmd:date>
               <gmd:dateType>
-                <gmd:CI_DateTypeCode codeListValue="publication" codeList="./resources/codeList.xml#CI_DateTypeCode" />
+                <gmd:CI_DateTypeCode codeListValue="publication" codeList="./resources/codeList.xml#CI_DateTypeCode"/>
               </gmd:dateType>
             </gmd:CI_Date>
           </gmd:date>
@@ -3617,10 +3701,10 @@
         </gmd:PT_FreeText>
       </gmd:useLimitation>
       <gmd:accessConstraints>
-        <gmd:MD_RestrictionCode codeListValue="patent" codeList="./resources/codeList.xml#MD_RestrictionCode" />
+        <gmd:MD_RestrictionCode codeListValue="patent" codeList="./resources/codeList.xml#MD_RestrictionCode"/>
       </gmd:accessConstraints>
       <gmd:useConstraints>
-        <gmd:MD_RestrictionCode codeListValue="otherRestrictions" codeList="./resources/codeList.xml#MD_RestrictionCode" />
+        <gmd:MD_RestrictionCode codeListValue="otherRestrictions" codeList="./resources/codeList.xml#MD_RestrictionCode"/>
       </gmd:useConstraints>
       <gmd:otherConstraints xsi:type="gmd:PT_FreeText_PropertyType">
         <gco:CharacterString>andere rechtliche Einschränkungen</gco:CharacterString>
@@ -3643,7 +3727,7 @@
         </gmd:PT_FreeText>
       </gmd:useLimitation>
       <gmd:classification>
-        <gmd:MD_ClassificationCode codeList="./resources/codeList.xml#MD_ClassificationCode" codeListValue="secret" />
+        <gmd:MD_ClassificationCode codeList="./resources/codeList.xml#MD_ClassificationCode" codeListValue="secret"/>
       </gmd:classification>
       <gmd:userNote xsi:type="gmd:PT_FreeText_PropertyType">
         <gco:CharacterString>erklärung sicherheitseinschränkung</gco:CharacterString>
@@ -3669,7 +3753,7 @@
   <gmd:metadataMaintenance>
     <che:CHE_MD_MaintenanceInformation gco:isoType="gmd:MD_MaintenanceInformation">
       <gmd:maintenanceAndUpdateFrequency>
-        <gmd:MD_MaintenanceFrequencyCode codeListValue="biannually" codeList="./resources/codeList.xml#MD_MaintenanceFrequencyCode" />
+        <gmd:MD_MaintenanceFrequencyCode codeListValue="biannually" codeList="./resources/codeList.xml#MD_MaintenanceFrequencyCode"/>
       </gmd:maintenanceAndUpdateFrequency>
       <gmd:dateOfNextUpdate>
         <gco:Date>1234-11-12</gco:Date>
@@ -3691,70 +3775,70 @@
             </gmd:PT_FreeText>
           </gmd:organisationName>
           <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-            <gco:CharacterString />
+            <gco:CharacterString/>
           </gmd:positionName>
           <gmd:contactInfo>
             <gmd:CI_Contact>
               <gmd:phone>
                 <che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
                   <gmd:voice gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:voice>
                   <gmd:facsimile gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:facsimile>
                   <che:directNumber>
                     <gco:CharacterString>+41319632423</gco:CharacterString>
                   </che:directNumber>
                   <che:mobile gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:mobile>
                 </che:CHE_CI_Telephone>
               </gmd:phone>
               <gmd:address>
                 <che:CHE_CI_Address gco:isoType="gmd:CI_Address">
                   <gmd:city gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:city>
                   <gmd:administrativeArea gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:administrativeArea>
                   <gmd:postalCode gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:postalCode>
                   <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:country>
                   <gmd:electronicMailAddress gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:electronicMailAddress>
                   <che:streetName gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:streetName>
                   <che:streetNumber gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:streetNumber>
                   <che:addressLine gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:addressLine>
                   <che:postBox gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </che:postBox>
                 </che:CHE_CI_Address>
               </gmd:address>
               <gmd:onlineResource>
                 <gmd:CI_OnlineResource>
                   <gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-                    <gmd:URL />
+                    <gmd:URL/>
                   </gmd:linkage>
                   <gmd:protocol>
                     <gco:CharacterString>text/html</gco:CharacterString>
                   </gmd:protocol>
                   <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:name>
                   <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                    <gco:CharacterString />
+                    <gco:CharacterString/>
                   </gmd:description>
                 </gmd:CI_OnlineResource>
               </gmd:onlineResource>
@@ -3767,7 +3851,7 @@
             </gmd:CI_Contact>
           </gmd:contactInfo>
           <gmd:role>
-            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="partner" />
+            <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="partner"/>
           </gmd:role>
           <che:individualFirstName>
             <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
@@ -3776,7 +3860,7 @@
             <gco:CharacterString>{automated_test_metadata}3</gco:CharacterString>
           </che:individualLastName>
           <che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-            <gco:CharacterString />
+            <gco:CharacterString/>
           </che:organisationAcronym>
           <che:parentResponsibleParty>
             <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
@@ -3814,10 +3898,10 @@
                         <gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
                       </gmd:facsimile>
                       <che:directNumber gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:directNumber>
                       <che:mobile gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </che:mobile>
                     </che:CHE_CI_Telephone>
                   </gmd:phone>
@@ -3865,10 +3949,10 @@
                         <gco:CharacterString>text/html</gco:CharacterString>
                       </gmd:protocol>
                       <gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:name>
                       <gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-                        <gco:CharacterString />
+                        <gco:CharacterString/>
                       </gmd:description>
                     </gmd:CI_OnlineResource>
                   </gmd:onlineResource>
@@ -3881,7 +3965,7 @@
                 </gmd:CI_Contact>
               </gmd:contactInfo>
               <gmd:role>
-                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
+                <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor"/>
               </gmd:role>
               <che:individualFirstName>
                 <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
@@ -3905,19 +3989,19 @@
   <che:legislationInformation>
     <che:CHE_MD_Legislation gco:isoType="gmd:MD_Legislation">
       <che:country>
-        <gmd:Country codeListValue="CH" codeList="./resources/codeList.xml#CountryCodeISO" />
+        <gmd:Country codeListValue="CH" codeList="./resources/codeList.xml#CountryCodeISO"/>
       </che:country>
       <che:language>
-        <gmd:LanguageCode codeList="./resources/codeList.xml#LanguageCodeISO" codeListValue="deu" />
+        <gmd:LanguageCode codeList="./resources/codeList.xml#LanguageCodeISO" codeListValue="deu"/>
       </che:language>
       <che:language>
-        <gmd:LanguageCode codeList="./resources/codeList.xml#LanguageCodeISO" codeListValue="fra" />
+        <gmd:LanguageCode codeList="./resources/codeList.xml#LanguageCodeISO" codeListValue="fra"/>
       </che:language>
       <che:language>
-        <gmd:LanguageCode codeList="./resources/codeList.xml#LanguageCodeISO" codeListValue="ita" />
+        <gmd:LanguageCode codeList="./resources/codeList.xml#LanguageCodeISO" codeListValue="ita"/>
       </che:language>
       <che:legislationType>
-        <che:CHE_CI_LegislationCode codeListValue="nationalLaw" codeList="./resources/codeList.xml#LegislationCode" />
+        <che:CHE_CI_LegislationCode codeListValue="nationalLaw" codeList="./resources/codeList.xml#LegislationCode"/>
       </che:legislationType>
       <che:internalReference>
         <gco:CharacterString>interne referenz</gco:CharacterString>
@@ -3946,7 +4030,7 @@
                 <gco:Date>2008-07-01</gco:Date>
               </gmd:date>
               <gmd:dateType>
-                <gmd:CI_DateTypeCode codeListValue="publication" codeList="./resources/codeList.xml#CI_DateTypeCode" />
+                <gmd:CI_DateTypeCode codeListValue="publication" codeList="./resources/codeList.xml#CI_DateTypeCode"/>
               </gmd:dateType>
             </gmd:CI_Date>
           </gmd:date>
@@ -3957,7 +4041,7 @@
             <gco:Date>2008-01-01</gco:Date>
           </gmd:editionDate>
           <gmd:presentationForm>
-            <gmd:CI_PresentationFormCode codeListValue="documentHardcopy" codeList="./resources/codeList.xml#CI_PresentationFormCode" />
+            <gmd:CI_PresentationFormCode codeListValue="documentHardcopy" codeList="./resources/codeList.xml#CI_PresentationFormCode"/>
           </gmd:presentationForm>
           <gmd:otherCitationDetails xsi:type="gmd:PT_FreeText_PropertyType">
             <gco:CharacterString>bundesgesetz</gco:CharacterString>

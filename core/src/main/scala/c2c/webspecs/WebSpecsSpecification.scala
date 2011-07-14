@@ -46,7 +46,7 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   def extract9(text:String) = Extracts.extract9(text)
   def extractAll(text:String) = Extracts.extractAll(text)
 
-  implicit def functionToAsGiven[A](function:Function1[String,A]) = new {
+  implicit def functionWithStringToAsGiven[A](function:Function1[String,A]) = new {
     def toGiven = new Given[A] {
       def extract(text: String):A = function(text)
     }
@@ -57,7 +57,7 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     }
   }
 
-  implicit def resultFunctionToAsWhen[A,B](function:Function2[A,String,B])= new {
+  implicit def resultFunctionWithStringToAsWhen[A,B](function:Function2[A,String,B])= new {
     def toWhen = new When[A,B]("") {
      def extract(given: A,text: String) = function(given,text)
     }
@@ -68,7 +68,7 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     }
   }
 
-  implicit def resultFunctionToAsThen[A,R <% Result](function:Function2[A,String,R])= new {
+  implicit def resultFunctionWithStringToAsThen[A,R <% Result](function:Function2[A,String,R])= new {
     def toThen = new Then[A]("") {
      def extract(given: A,text: String) = function(given,text)
     }
@@ -84,10 +84,26 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
       def extract(given: B,text: String) = function(given)
     }
   }
-  implicit def addAttributeSelector[N <% NodeSeq](seq:N) = new {
-    def \@(name:String) = seq.flatMap(_.attributes.asAttrMap.get(name))
-  }
+  private val AnyNamespace = """_(:\S+)""".r
+  private val AnyName = """(\S+):_""".r
+
+  private def getAtt(node:Node, attName:String):Iterable[String] = attName match {
+      case AnyNamespace(namespace) =>
+          node.attributes.asAttrMap.collect{
+            case (key,value) if key.startsWith(namespace) => value
+          }
+      case AnyName(name) =>
+          node.attributes.asAttrMap.collect{
+              case (key,value) if key.endsWith(":"+name) || key == name => value
+          }
+      case _ =>
+        node.attributes.asAttrMap.get(attName)
+    }
+
   implicit def addAttributeSelector(node:Node) = new {
-    def @@(name:String) = node.attributes.asAttrMap.get(name)
+    def @@(attName:String) = getAtt(node,attName)
+  }
+  implicit def addSeqAttributeSelector[N <% NodeSeq](seq:N) = new {
+    def \@(name:String) = seq.flatMap(n => getAtt(n,name))
   }
 }

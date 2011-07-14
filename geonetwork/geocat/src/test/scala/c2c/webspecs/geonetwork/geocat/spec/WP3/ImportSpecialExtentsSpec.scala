@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner]) 
-class ImportSpecialExtents extends GeonetworkSpecification { def is =
+class ImportSpecialExtentsSpec extends GeonetworkSpecification { def is =
   "Shared Extent import corner cases".title ^ Step(setup) ^
   "This specification tests some of the corner cases associated with importing extents"  ^
       "Importing an extent with only a geoDesc"                            ^ ImportObj(geoDesc).toGiven ^
