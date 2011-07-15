@@ -11,30 +11,33 @@ import c2c.webspecs.{XmlValue, Response, IdValue, GetRequest}
 import accumulating._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import scala.xml.NodeSeq
 
 @RunWith(classOf[JUnitRunner]) 
-class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
+class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
 
   "This specification tests using the iso19139.CHE schema"                  ^ Step(setup)               ^
     "Inserting a CHE metadata"                                              ^ importISO19139CCHE.toGiven   ^
     "Should suceed with a 200 response"                                     ^ import200Response         ^
     "And the new metadata should be accessible via xml.metadata.get"        ^ getInsertedMd.toThen      ^
     "As well as via csw getRecordById"                                      ^ cswGetInsertedMd.toThen      ^
-    "As well as via csw getRecords"                                          ^ cswGetInsertedMdByCswGetRecords.toThen      ^
+    "As well as via csw getRecords"                                         ^ cswGetInsertedMdByCswGetRecords.toThen      ^
                                                                             Step(tearDown)
 
   type ImportResponseType = AccumulatedResponse1[IdValue, XmlValue]
 
   val importISO19139CCHE = (_:String) => {
     val name = "metadata.iso19139.che.xml"
-    val (_,content) = ImportMetadata.importDataFromClassPath("/data/"+name, getClass)
+    val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+name, getClass, uuid)
     val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
     
-    (ImportMd startTrackingThen GetRawMetadataXml)(ImportStyleSheets.NONE):ImportResponseType
+    val response = (ImportMd startTrackingThen GetRawMetadataXml)(ImportStyleSheets.NONE):ImportResponseType
+    deleteMetadataAndSharedObjects(response._1.value, response.last.value.getXml)
+    response
+    
   }
 
   val import200Response = a200ResponseThen.narrow[ImportResponseType]
-
 
   val getInsertedMd = (response:ImportResponseType) => {
     val xmlResponse = response.last
@@ -77,4 +80,5 @@ class ImportCheMetadataSpec  extends GeonetworkSpecification {  def is =
 		((xml \\ "SearchResults" \@ "numberOfRecordsReturned").head.trim.toInt must be_>= (1)) and
 		(xml \\ "CHE_MD_Metadata" must not beEmpty)
   }
+  
 }

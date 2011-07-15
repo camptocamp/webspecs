@@ -22,9 +22,11 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
                                                                                                                    Step(tearDown)
 
   def testExtent(format:ExtentFormat.Value,code:Int):Fragments = {
-    "Calling shared.process with the xml snippet for adding a ${"+format+"} extent and extentTypeCode=${"+code+"}" ^ extentAdd.toGiven ^
-	    "Should have 200 result"                                                                                       ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
-	    "Extent node should have an xlink href with ${"+format+"} and extentTypeCode=${"+code+"}"                      ^ hrefInElement.toThen ^
+    "Calling shared.process with the xml snippet for adding a ${"+format+"} extent and extentTypeCode=${"+code+"}"     ^ extentAdd.toGiven ^
+	    "Should be a successful http request (200 response code)"                                                      ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
+	    "Extent node should have an xlink href with ${"+format+"} and extentTypeCode=${"+code+"}"                      ^ hrefInElementWithString.toThen ^
+        "Should have the correct ${host} in the xlink created during processing of shared object"                      ^ hrefHost("extent").toThen ^ 
+        "Should have the correct ${port} in the xlink created during processing of shared object"                      ^ hrefHost("extent").toThen ^ 
 	    "xlink href should retrieve the full extent with ${"+format+"} and extentTypeCode=${"+code+"}"                 ^ xlinkGetElement.toThen ^ end ^
 	    "Will result in a new shared extent"                                                                           ! newExtent ^
 	    "Deleting the extent"                                                                                          ^ deleteNewExtent.toGiven ^
@@ -52,10 +54,10 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
     val fullExtent = extentXML(xml)
     (config.adminLogin then ProcessSharedObject(fullExtent, addOnly = true))(None)
   }
-  val hrefInElement = (result:Response[NodeSeq],s:String) => {
+  val hrefInElementWithString = (result:Response[NodeSeq],s:String) => {
     val (format,extentTC) = extract2(s)
     val typeCode = extentTC.toInt match {case 0 => "false"; case 1 => "true"}
-
+    
     val href = (result.value \\ "extent" \@ "xlink:href").head
 
     (href must not beEmpty) and
@@ -67,7 +69,7 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
     val (format,typeCode) = extract2(s)
 
     val href = (result.value \\ "extent" \@ "xlink:href").head
-    val xlink = GetRequest(href)(None)
+    val xlink = ResolveXLink(href)
     val localisedNodes = xlink.value.withXml{_ \\ "LocalisedCharacterString" map (_.text.trim)}
     val extentTypeCode = xlink.value.withXml{_ \\ "extentTypeCode"}
     val polygon = xlink.value.withXml{_ \\ "polygon"}
@@ -102,9 +104,9 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
   }
 
   val Search = SearchExtent(typeName = List(Extents.NonValidated))
-  def newExtent = Search(uuid).value must not beEmpty
+  def newExtent = Search(uuid.toString).value must not beEmpty
 
-  val deleteNewExtent = () => Search(uuid).value.flatMap{c =>
+  val deleteNewExtent = () => Search(uuid.toString).value.flatMap{c =>
     val request = DeleteExtent(Extents.NonValidated, c.id) then Search.copy(property = Extents.IdProperty).setIn(c.id)
     request.apply(None).value
   }
@@ -145,7 +147,6 @@ class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
     (westBoundLongitude, southBoundLatitude, eastBoundLongitude, northBoundLatitude) must_== bbox2
   }
   
-  lazy val uuid = UUID.randomUUID().toString
   lazy val deValue = uuid+"de*automated*"
   lazy val enValue = uuid+"en*automated*"
   lazy val frValue = uuid+"fr*automated*"

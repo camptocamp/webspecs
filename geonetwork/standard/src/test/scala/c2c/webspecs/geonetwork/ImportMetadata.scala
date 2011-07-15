@@ -13,18 +13,6 @@ import MetadataViews.MetadataView
 
 
 object ImportMetadata {
-  def importData (resource:URL,fileName:String="") = {
-    val string = Resource.fromURL(resource).slurpString(Codec.UTF8)
-
-    val name =
-      if (fileName.trim() == "") Path.fromString(resource.getFile).name
-      else fileName
-
-    (string, new ByteArrayBody(string.getBytes(Codec.UTF8.charSet),"application/xml",name))
-  }
-  def importDataFromClassPath(file:String,cl:Class[_]) =
-    importData(cl.getResource(file))
-
   def findGroupId (data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean)(implicit config:GeonetConfig):ImportMetadata = {
      ImportMetadata(data, styleSheet,validate,config.groupId)
   }

@@ -14,13 +14,15 @@ import org.specs2.runner.JUnitRunner
 class AddSharedFormatSpec extends GeonetworkSpecification { def is =
   "This specification tests creating shared format by passing in a format xml snippet"                          ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a format"                                           ^ formatAdd(version).toGiven ^
-    "Should have 200 result"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
-    "Format node should have an xlink href"                                                                     ^ hrefInElement.toThen ^
+    "Should be a successful http request (200 response code)"                                                   ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
+    "Format node should have an xlink href"                                                                     ^ hrefInElement("resourceFormat").toThen ^
+    "Should have the correct ${host} in the xlink created during processing of shared object"                   ^ hrefHost("resourceFormat").toThen ^ 
+    "Should have the correct ${port} in the xlink created during processing of shared object"                   ^ hrefHost("resourceFormat").toThen ^ 
     "xlink href should retrieve the full format"                                                                ^ xlinkGetElement.toThen ^
     "Will result in a new shared format"                                                                        ! newFormat  ^
                                                                                                                   endp ^
     "Updating an existing format with new XML which has a new version"				                            ^ updateFormat.toGiven ^
-      "Should have 200 result"                                                                                  ^ a200ResponseThen.narrow[Response[Format]] ^
+      "Should be a successful http request (200 response code)"                                                 ^ a200ResponseThen.narrow[Response[Format]] ^
       "must result in the format retrieved from the xlink also have the new version"                            ^ hasNewVersion.toThen ^
                                                                                                                   endp^
     "Adding same format should return same xlink"										                        ^ Step(formatAdd(updatedVersion)) ^
@@ -31,10 +33,9 @@ class AddSharedFormatSpec extends GeonetworkSpecification { def is =
                                                                                                                   Step(tearDown)
 
   def formatAdd(version:String) = () => (config.adminLogin then ProcessSharedObject(formatXML(version)))(None)
-  val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "resourceFormat" \@ "xlink:href") must not beEmpty
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     val href = (result.value \\ "resourceFormat" \@ "xlink:href")(0)
-    val xlink = GetRequest(href)(None)
+    val xlink = ResolveXLink(href)
     (xlink must haveA200ResponseCode) and
       (xlink.value.withXml{_ \\ "name" map (_.text.trim) must contain (formatName)})
   }
@@ -69,7 +70,6 @@ class AddSharedFormatSpec extends GeonetworkSpecification { def is =
   def deleteNewFormat = ListFormats(formatName).value.foreach{c => DeleteFormat(c.id)}
   def noFormat = ListFormats(formatName).value must beEmpty
 
-  val uuid = UUID.randomUUID().toString
   val formatName = uuid+"name*automated*"
   val version = uuid+"version*automated*"
   val updatedVersion = uuid+"newVersion"

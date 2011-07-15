@@ -56,8 +56,8 @@
 							<gmd:country xsi:type="gmd:PT_FreeText_PropertyType">
 								<gco:CharacterString>LI</gco:CharacterString>
 							</gmd:country>
-							<gmd:electronicMailAddress gco:nilReason="missing">
-								<gco:CharacterString/>
+							<gmd:electronicMailAddress>
+                                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
 							</gmd:electronicMailAddress>
 							<che:streetName>
 								<gco:CharacterString>Dr. Grass-Strasse 10</gco:CharacterString>
@@ -216,16 +216,16 @@
 					<gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
 						<gmd:PT_FreeText>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#EN">bathing seawater</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#EN">{uuid}bathing seawater</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">Badegewässer (Meerwasser)</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#DE">{uuid}Badegewässer (Meerwasser)</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#FR">eau de baignade marine</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#FR">{uuid}eau de baignade marine</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#IT">acqua marina idonea a balneazione</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#IT">{uuid}acqua marina idonea a balneazione</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 						</gmd:PT_FreeText>
 					</gmd:keyword>
