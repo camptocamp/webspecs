@@ -1,8 +1,9 @@
 package c2c.webspecs
 package geonetwork
 package geocat
-package spec.WP1
+package spec.WP4
 
+import csw._
 import org.specs2.specification.Step
 import c2c.webspecs.geonetwork.ImportStyleSheets.NONE
 import c2c.webspecs.geonetwork._
