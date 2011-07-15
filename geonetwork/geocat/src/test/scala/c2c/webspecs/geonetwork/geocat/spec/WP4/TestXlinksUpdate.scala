@@ -11,6 +11,7 @@ import c2c.webspecs.{XmlValue, Response, IdValue, GetRequest}
 import accumulating._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import csw._
 
 
 // TODO : finish to implement this test ...
