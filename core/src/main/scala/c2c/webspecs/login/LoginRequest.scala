@@ -20,6 +20,6 @@ object LoginRequest {
   )
 }
 
-trait LoginRequest {
+trait LoginRequest extends Request[Any,Nothing] {
   def user:String
 }

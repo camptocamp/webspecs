@@ -14,7 +14,7 @@ class ImportSpec extends GeonetworkSpecification {def is =
   def importIso19139 = {
       val name = "metadata.iso19139.xml"
 
-      val (data,content) = ImportMetadata.importDataFromClassPath("/data/"+name,classOf[ImportSpec])
+      val (data,content) = ResourceLoader.loadDataFromClassPath("/data/"+name,classOf[ImportSpec],uuid)
       val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
 
       val request = (

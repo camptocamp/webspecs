@@ -15,8 +15,10 @@ import org.specs2.runner.JUnitRunner
 class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
   "This specification tests creating shared keyword by passing in a keyword xml snippet"                        ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a keyword"                                          ^ keywordAdd(deValue).toGiven ^
-    "Should have 200 result"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
-    "Keyword node should have an xlink href"                                                                    ^ hrefInElement.toThen ^
+    "Should be a successful http request (200 response code)"                                                   ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
+    "Keyword node should have an xlink href"                                                                    ^ hrefInElement("descriptiveKeywords").toThen ^
+    "Should have the correct ${host} in the xlink created during processing of shared object"                   ^ hrefHost("descriptiveKeywords").toThen ^ 
+    "Should have the correct ${port} in the xlink created during processing of shared object"                   ^ hrefHost("descriptiveKeywords").toThen ^ 
     "xlink href should retrieve the full keyword"                                                               ^ xlinkGetElement.toThen ^
     "Will result in a new shared keyword"                                                                       ! onlyKeywordInstance ^
                                                                                                                   endp ^
@@ -24,7 +26,7 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
       "and the xlink should return same keyword"											                    ! onlyKeywordInstance ^
                                                                                                                   endp^
     "Updating an existing keyword with new XML which has a new de translation"		                             ^ updateKeyword.toGiven ^
-      "Should have 200 result"                                                                                   ^ a200ResponseThen.narrow[Response[IsoKeyword]] ^
+      "Should be a successful http request (200 response code)"                                                  ^ a200ResponseThen.narrow[Response[IsoKeyword]] ^
       "must result in the keyword retrieved from the xlink also having the new translation"                      ^ hasNewTranslation.toThen ^
                                                                                                                   endp^
     "Deleted new keyword"                                                                                        ^ Step(deleteNewKeyword) ^
@@ -32,22 +34,20 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
                                                                                                                   Step(tearDown)
 
   def keywordAdd(deValue:String) = () => (config.adminLogin then ProcessSharedObject(keywordXML(deValue)))(None)
-  val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "descriptiveKeywords" \@ "xlink:href") must not beEmpty
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     val href = (result.value \\ "descriptiveKeywords" \@ "xlink:href")(0)
-    val xlink = GetRequest(href)(None)
+    val xlink = ResolveXLink(href)
     (xlink must haveA200ResponseCode) and
       haveCorrectTranslation (xlink, "#DE", deValue) and
       haveCorrectTranslation (xlink, "#EN", enValue) and
       haveCorrectTranslation (xlink, "#FR", frValue)
-
   }
 
   def haveCorrectTranslation(xlink:Response[XmlValue], locale:String,expected:String) =
     xlink.value.withXml{xml =>
       val nodeName = "LocalisedCharacterString"
       val repr = (xml \\ nodeName)+" @ "+locale
-      xml \\ nodeName find {_ @@ "locale" == Some(locale)} map (_.text) aka repr must beSome(expected)}
+      xml \\ nodeName find {_ @@ "locale" == List(locale)} map (_.text) aka repr must beSome(expected)}
 
   def Search = SearchKeywords(List(NON_VALIDATED_THESAURUS))
   def onlyKeywordInstance = Search(frValue).value.filter(_.value == frValue) must haveSize(1)
@@ -79,7 +79,7 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
   def deleteNewKeyword = Search(frValue).value.foreach{c => 
     DeleteKeyword(NON_VALIDATED_THESAURUS,c.encodedNamespace,c.encodedCode)(None)}
   def noKeyword = Search(frValue).value must beEmpty
-  lazy val uuid = UUID.randomUUID().toString
+
   lazy val deValue = uuid+"de*automated*"
   lazy val newDeValue = uuid+"NewDe*automated*"
   lazy val enValue = uuid+"en*automated*"

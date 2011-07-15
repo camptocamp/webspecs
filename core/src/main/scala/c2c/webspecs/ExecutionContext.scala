@@ -25,7 +25,7 @@ object ExecutionContext {
 
 trait ExecutionContext {
 
-  var currentUser:Option[(String,ExecutionContext.Response)] = None
+  var currentUser:Option[(LoginRequest,ExecutionContext.Response)] = None
 
   def httpClient:HttpClient
   def createHttpContext:() => HttpContext
@@ -33,7 +33,7 @@ trait ExecutionContext {
   var modifications:List[RequestModification] = Nil
   def close() = httpClient.getConnectionManager.shutdown
   def execute(request:HttpRequestBase) = request match {
-    case r:LoginRequest if currentUser.exists {_._1 == r.user} =>
+    case r:LoginRequest if currentUser.exists {_._1.user == r.user} =>
       currentUser.get._2
     case _ =>
       modifications foreach {_(request)}
@@ -72,7 +72,7 @@ trait ExecutionContext {
 
       request match {
         case r:LoginRequest =>
-          currentUser = Some((r.user, finalResponse))
+          currentUser = Some((r, finalResponse))
         case _ =>
           ()
       }

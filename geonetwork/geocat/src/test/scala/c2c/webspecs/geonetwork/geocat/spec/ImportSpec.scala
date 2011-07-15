@@ -16,7 +16,7 @@ class ImportSpec extends GeonetworkSpecification {
 
   def importGM03 = {
     val name = "metadata.gm03_V1.xml"
-    val (_,content) = ImportMetadata.importDataFromClassPath("/data/"+name, getClass)
+    val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+name, getClass, uuid)
     val ImportMd = ImportMetadata.findGroupId(content,GM03_V1,true)
 
     val request = (
@@ -42,7 +42,7 @@ class ImportSpec extends GeonetworkSpecification {
   def importGM03V2 = {
       val name = "metadata.gm03_V2.xml"
 
-      val (_,content) = ImportMetadata.importDataFromClassPath("/data/"+name, getClass)
+      val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+name, getClass, uuid)
 
       val ImportMd = ImportMetadata.findGroupId(content,GM03_V1,true)
 
@@ -69,7 +69,7 @@ class ImportSpec extends GeonetworkSpecification {
 
     def importISO19139CHE = {
       val name = "metadata.iso19139.che.xml"
-      val (_,content) = ImportMetadata.importDataFromClassPath("/data/"+name, getClass)
+      val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+name, getClass, uuid)
 
       val ImportMd = ImportMetadata.findGroupId(content,GM03_V1,true)
 

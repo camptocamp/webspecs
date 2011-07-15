@@ -15,8 +15,10 @@ import org.specs2.runner.JUnitRunner
 class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   "This specification tests creating shared contacts by passing in a contact xml"                               ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
-    "Should have 200 result"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
-    "Contact node should have an xlink href"                                                                    ^ hrefInElement.toThen ^
+    "Should be a successful http request (200 response code)"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
+    "Contact node should have an xlink href"                                                                    ^ hrefInElement("contact").toThen ^
+    "Should have the correct ${host} in the xlink created during processing of shared object"                   ^ hrefHost("contact").toThen ^ 
+    "Should have the correct ${port} in the xlink created during processing of shared object"                   ^ hrefHost("contact").toThen ^ 
     "xlink href should retrieve the full contact"                                                               ^ xlinkGetElement.toThen ^
     "Will result in a new shared contact"                                                                       ! newContact  ^
     "Will result in a new parent contact"                                                                       ! newParent   ^
@@ -35,11 +37,9 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   val newOrg = "camptocamp"
   var href:String = _
   val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML(true,originalOrg)) startTrackingThen UserLogin)(None)._1
-  val hrefInElement = (result:Response[NodeSeq]) => (result.value \\ "contact" \@ "xlink:href") must not beEmpty
   val xlinkGetElement = (result:Response[NodeSeq]) => {
-
-    href = (result.value \\ "contact" \@ "xlink:href")(0)
-    val xlink = GetRequest(href) apply None
+    val href = (result.value \\ "contact" \@ "xlink:href")(0)
+    val xlink = ResolveXLink(href)
 
     val xml = xlink.value.withXml{ i => i}
     (xlink must haveA200ResponseCode) and

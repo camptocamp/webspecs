@@ -31,7 +31,7 @@ class TestXlinksUpdate  extends GeonetworkSpecification {  def is =
 
   val importISO19139CCHE = (_:String) => {
     val name = "metadata.iso19139.che.xml"
-    val (_,content) = ImportMetadata.importDataFromClassPath("/data/"+name, getClass)
+    val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+name, getClass, uuid)
     val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
     val GetMdRequest = (resp:Response[IdValue]) => GetRequest("xml.metadata.get", "id" -> resp.value.id)
 

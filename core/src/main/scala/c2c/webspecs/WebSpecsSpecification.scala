@@ -85,16 +85,16 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     }
   }
   private val AnyNamespace = """_(:\S+)""".r
-  private val AnyName = """(\S+):_""".r
+  private val AnyName = """(\S+:)_""".r
 
   private def getAtt(node:Node, attName:String):Iterable[String] = attName match {
-      case AnyNamespace(namespace) =>
+      case AnyName(namespace) =>
           node.attributes.asAttrMap.collect{
             case (key,value) if key.startsWith(namespace) => value
           }
-      case AnyName(name) =>
+      case AnyNamespace(name) =>
           node.attributes.asAttrMap.collect{
-              case (key,value) if key.endsWith(":"+name) || key == name => value
+              case (key,value) if key.endsWith(name) || key == name => value
           }
       case _ =>
         node.attributes.asAttrMap.get(attName)

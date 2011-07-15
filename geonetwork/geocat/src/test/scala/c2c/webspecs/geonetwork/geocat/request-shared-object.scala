@@ -13,8 +13,39 @@ object SharedObjectTypes extends Enumeration {
   val contacts, extents, formats, keywords, deleted = Value
 }
 import SharedObjectTypes._
-
-case class SharedObject(id:Int,
+object SharedObjectHrefExtractor {
+  val ServiceExtractor = """http://.+?/geonetwork/srv/[^/]*/([^?]+)?(.+)""".r
+  private def extractId(query:String) = {
+    query.sliding(4).dropWhile(_.take(3) != "id=").
+        drop(3).
+        takeWhile(chars => chars(0) != '&' || chars == "&amp;").
+        map(_.head).
+        mkString
+  }
+  /**
+   * extract a SharedObject from an xlink href
+   */
+  def unapply(href:String):Option[SharedObject] = {
+    val ServiceExtractor(service,query) = href
+    val obj = service match {
+      case "xml.user.get" => 
+        val id = extractId(query)
+        SharedObject(id,Some(new URL(href)),"Unknown", contacts)
+      case "xml.keyword.get" =>
+        val id = extractId(query)
+        SharedObject(id,Some(new URL(href)),"Unknown", keywords)
+      case "xml.extent.get" =>
+        val id = extractId(query)
+        SharedObject(id,Some(new URL(href)),"Unknown", keywords)
+      case "xml.format.get" =>
+        val id = extractId(query)
+        SharedObject(id,Some(new URL(href)),"Unknown", keywords)
+    }
+    
+    Some(obj)
+  }
+}
+case class SharedObject(id:String,
                         url:Option[URL],
                         description:String,
                         objType:SharedObjectType)
@@ -28,7 +59,7 @@ class SharedObjectListFactory(objType:SharedObjectType) extends BasicValueFactor
       xml =>
         (xml \\ "record").toList map {
           record =>
-            val id = (record \\ "id" text).toInt
+            val id = (record \\ "id" text)
             val url = {
               val urlTag = record \\ "url"
               if(urlTag.isEmpty) None

@@ -42,7 +42,7 @@ class SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) w
 
     val testDataFileName = "metadata-validate-formats-spec.xml"
 
-    val (_,content) = ImportMetadata.importDataFromClassPath("data/"+testDataFileName, getClass)
+    val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+testDataFileName, getClass, uuid)
 
     val ImportTestData = ImportMetadata.findGroupId(content,ImportStyleSheets.NONE,false)
 
@@ -77,7 +77,7 @@ class SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) w
   def createAndValidateKeepRole = {
     val testDataFileName = "metadata-validate-contact-138548.xml"
 
-    val (_,content) = ImportMetadata.importDataFromClassPath("data/"+testDataFileName, getClass)
+    val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+testDataFileName, getClass, uuid)
     val ImportTestData = ImportMetadata.findGroupId(content,ImportStyleSheets.NONE,false);
 
     val originalMetadataValue = (UserLogin then ImportTestData then GetMetadataXml())(None).value
