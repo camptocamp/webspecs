@@ -7,16 +7,12 @@ resolvers += {
 }
 
 libraryDependencies <<= (libraryDependencies, sbtVersion) { (deps, version) => 
-  deps :+ ("com.typesafe.sbteclipse" %% "sbteclipse" % "1.1" extra("sbtversion" -> version))
+  deps :+ ("com.typesafe.sbteclipse" %% "sbteclipse" % "1.2" extra("sbtversion" -> version))
 }
 
 //idea project generator plugins
 
-resolvers += "sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
+//resolvers += "sbt-idea-repo" at "http://mpeltonen.github.com/maven/"
 
-libraryDependencies += "com.github.mpeltonen" %% "sbt-idea" % "0.10.0-SNAPSHOT"
+//libraryDependencies += "com.github.mpeltonen" %% "sbt-idea" % "0.10.0-SNAPSHOT"
 
-resolvers += {
-  val mapfishRepoUrl = new java.net.URL("http://dev.mapfish.org/ivy2")
-  Resolver.url("Mapfish Ivy Repository", mapfishRepoUrl)(Resolver.ivyStylePatterns)
-}

@@ -13,7 +13,7 @@ object WebSpecsBuild extends Build
   lazy val runTask = fullRunTask(runTestSuite , Test, "specs2.html", "c2c.webspecs.suite.AllSpecs")
 
   val sharedSettings = Seq[Setting[_]](
-    resolvers := mapfishResolver,
+    resolvers := Seq(mapfishResolver),
     resolvers += ScalaToolsReleases,
     resolvers += ScalaToolsSnapshots,
     scalaVersion := "2.9.0-1",
