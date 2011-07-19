@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry output="target/scala-2.9.0.1/classes" kind="src" path="src/main/scala"/>
+  <classpathentry output="target/scala-2.9.0.1/classes" kind="src" path="src/main/java"/>
+  <classpathentry output="target/scala-2.9.0.1/classes" kind="src" path="src/main/resources"/>
+  <classpathentry output="target/scala-2.9.0.1/test-classes" kind="src" path="src/test/scala"/>
+  <classpathentry output="target/scala-2.9.0.1/test-classes" kind="src" path="src/test/java"/>
+  <classpathentry output="target/scala-2.9.0.1/test-classes" kind="src" path="src/test/resources"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-remote-control/jars/selenium-remote-control-2.0rc2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-chrome-driver/jars/selenium-chrome-driver-2.0rc2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-chrome-driver/jars/selenium-chrome-driver-2.0rc2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-remote-driver/jars/selenium-remote-driver-2.0rc2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-remote-driver/jars/selenium-remote-driver-2.0rc2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/cglib/cglib-nodep/jars/cglib-nodep-2.1_3-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/cglib/cglib-nodep/jars/cglib-nodep-2.1_3.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.json/json/jars/json-20080701-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.json/json/jars/json-20080701.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-api/jars/selenium-api-2.0rc2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-api/jars/selenium-api-2.0rc2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/com.google.guava/guava/jars/guava-r09-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/com.google.guava/guava/jars/guava-r09.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.1.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/commons-logging/commons-logging/jars/commons-logging-1.1.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-htmlunit-driver/jars/selenium-htmlunit-driver-2.0rc2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-htmlunit-driver/jars/selenium-htmlunit-driver-2.0rc2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/net.sourceforge.htmlunit/htmlunit/jars/htmlunit-2.8-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/net.sourceforge.htmlunit/htmlunit/jars/htmlunit-2.8.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/xalan/xalan/jars/xalan-2.7.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/xalan/xalan/jars/xalan-2.7.1.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/xalan/serializer/jars/serializer-2.7.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/xml-apis/xml-apis/jars/xml-apis-1.3.04-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/xml-apis/xml-apis/jars/xml-apis-1.3.04.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/commons-collections/commons-collections/jars/commons-collections-3.2.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/commons-collections/commons-collections/jars/commons-collections-3.2.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/commons-lang/commons-lang/jars/commons-lang-2.4-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/commons-lang/commons-lang/jars/commons-lang-2.4.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.apache.httpcomponents/httpmime/jars/httpmime-4.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.apache.httpcomponents/httpmime/jars/httpmime-4.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.apache.httpcomponents/httpcore/jars/httpcore-4.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.apache.httpcomponents/httpcore/jars/httpcore-4.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.4-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/commons-codec/commons-codec/jars/commons-codec-1.4.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/net.sourceforge.htmlunit/htmlunit-core-js/jars/htmlunit-core-js-2.8-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/net.sourceforge.htmlunit/htmlunit-core-js/jars/htmlunit-core-js-2.8.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/xerces/xercesImpl/jars/xercesImpl-2.9.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/net.sourceforge.nekohtml/nekohtml/jars/nekohtml-1.9.14-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/net.sourceforge.nekohtml/nekohtml/jars/nekohtml-1.9.14.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/net.sourceforge.cssparser/cssparser/jars/cssparser-0.9.5-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/net.sourceforge.cssparser/cssparser/jars/cssparser-0.9.5.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.w3c.css/sac/jars/sac-1.3-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.w3c.css/sac/jars/sac-1.3.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.0.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/commons-io/commons-io/jars/commons-io-2.0.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-firefox-driver/jars/selenium-firefox-driver-2.0rc2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-firefox-driver/jars/selenium-firefox-driver-2.0rc2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-ie-driver/jars/selenium-ie-driver-2.0rc2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-ie-driver/jars/selenium-ie-driver-2.0rc2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/net.java.dev.jna/jna/jars/jna-3.2.2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/net.java.dev.jna/jna/jars/jna-3.2.2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-iphone-driver/jars/selenium-iphone-driver-2.0rc2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.seleniumhq.selenium/selenium-iphone-driver/jars/selenium-iphone-driver-2.0rc2.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/org.specs2/specs2_2.9.0-1/jars/specs2_2.9.0-1-1.6-SNAPSHOT.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.scala-tools.testing/scalacheck_2.9.0-1/jars/scalacheck_2.9.0-1-1.9-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.scala-tools.testing/scalacheck_2.9.0-1/jars/scalacheck_2.9.0-1-1.9.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/org.scala-tools.testing/test-interface/jars/test-interface-0.5.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.specs2/specs2-scalaz-core_2.9.0-1/jars/specs2-scalaz-core_2.9.0-1-6.0.RC2-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.specs2/specs2-scalaz-core_2.9.0-1/jars/specs2-scalaz-core_2.9.0-1-6.0.RC2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.hamcrest/hamcrest-all/jars/hamcrest-all-1.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.hamcrest/hamcrest-all/jars/hamcrest-all-1.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.mockito/mockito-all/jars/mockito-all-1.8.5-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.mockito/mockito-all/jars/mockito-all-1.8.5.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/junit/junit/jars/junit-4.7-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/junit/junit/jars/junit-4.7.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.pegdown/pegdown/jars/pegdown-1.0.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.pegdown/pegdown/jars/pegdown-1.0.1.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.parboiled/parboiled-core/jars/parboiled-core-1.0.0-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.parboiled/parboiled-core/jars/parboiled-core-1.0.0.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.parboiled/parboiled-java/jars/parboiled-java-1.0.0-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.parboiled/parboiled-java/jars/parboiled-java-1.0.0.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/asm/asm-tree/jars/asm-tree-3.3.1.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/asm/asm/jars/asm-3.3.1.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/asm/asm-util/jars/asm-util-3.3.1.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/asm/asm-analysis/jars/asm-analysis-3.3.1.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/org.ccil.cowan.tagsoup/tagsoup/jars/tagsoup-1.2.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.1-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/org.apache.httpcomponents/httpclient/jars/httpclient-4.1.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-file_2.9.0-1/jars/scala-io-file_2.9.0-1-0.2.0-SNAPSHOT-javadoc.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-file_2.9.0-1/jars/scala-io-file_2.9.0-1-0.2.0-SNAPSHOT-test-sources.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-file_2.9.0-1/jars/scala-io-file_2.9.0-1-0.2.0-SNAPSHOT-test-javadoc.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-file_2.9.0-1/jars/scala-io-file_2.9.0-1-0.2.0-SNAPSHOT-test.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-file_2.9.0-1/jars/scala-io-file_2.9.0-1-0.2.0-SNAPSHOT.jar"/>
+  <classpathentry sourcepath="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-file_2.9.0-1/jars/scala-io-file_2.9.0-1-0.2.0-SNAPSHOT-sources.jar" kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-file_2.9.0-1/jars/scala-io-file_2.9.0-1-0.2.0-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-core_2.9.0-1/jars/scala-io-core_2.9.0-1-0.2.0-SNAPSHOT-sources.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-core_2.9.0-1/jars/scala-io-core_2.9.0-1-0.2.0-SNAPSHOT-test-sources.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-core_2.9.0-1/jars/scala-io-core_2.9.0-1-0.2.0-SNAPSHOT.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-core_2.9.0-1/jars/scala-io-core_2.9.0-1-0.2.0-SNAPSHOT-javadoc.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-core_2.9.0-1/jars/scala-io-core_2.9.0-1-0.2.0-SNAPSHOT-test.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.scala-incubator.io/scala-io-core_2.9.0-1/jars/scala-io-core_2.9.0-1-0.2.0-SNAPSHOT-test-javadoc.jar"/>
+  <classpathentry kind="lib" path="/Users/jeichar/.ivy2/cache/com.github.jsuereth.scala-arm/scala-arm_2.9.0-1/jars/scala-arm_2.9.0-1-0.2.jar"/>
+  <classpathentry combineaccessrules="false" exported="true" kind="src" path="/selenium"/>
+  <classpathentry kind="con" path="org.scala-ide.sdt.launching.SCALA_CONTAINER"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+  <classpathentry kind="output" path="target/classes"/>
+</classpath>
