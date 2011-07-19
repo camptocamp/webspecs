@@ -20,12 +20,14 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     config.setUpTestEnv(context2)
     fixtures.foreach{_.create(config, context2)}
   }
+  def extraSetup(setupContext:ExecutionContext):Unit = {}
   def tearDown = ExecutionContext.withDefault[Unit] {
     context2 =>
       context.close()
       fixtures.foreach{_.delete(config, context2)}
       config.tearDownTestEnv (context2)
   }
+  def extraTeardown(teardownContext:ExecutionContext):Unit = {}
 
   def haveAResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
   def beAResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)

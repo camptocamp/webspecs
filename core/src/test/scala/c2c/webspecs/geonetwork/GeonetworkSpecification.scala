@@ -27,9 +27,9 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
 
   lazy val uuid = UUID.randomUUID
   
-  override def setup = {
-    super.setup
-    config.login(None)
+  override def extraSetup(setupContext:ExecutionContext) = {
+    super.extraSetup(setupContext)
+    config.login(None)(context)
   }
   
   def hrefInElement(nodeName:String) = 

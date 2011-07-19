@@ -39,6 +39,7 @@ trait Request[-In, +Out] {
     }
   }
   def apply (in: In)(implicit context:ExecutionContext) : Response[Out]
+  
   def assertPassed(in:In)(implicit context:ExecutionContext) = apply(in) match {
     case response if response.basicValue.responseCode > 399 =>
       throw new AssertionError(toString+" did not complete correctly, reponseCode="+

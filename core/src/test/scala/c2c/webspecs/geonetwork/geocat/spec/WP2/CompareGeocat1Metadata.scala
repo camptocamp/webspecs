@@ -56,28 +56,29 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
 	}
 
 	def compareToNewVersion(md: Node) = {
-		val mdIds = (md \\ "info" \ "id").map(_.text)
-				println(mdIds mkString "\n")
+    val mdIds = (md \\ "info" \ "id").map(_.text)
+    println(mdIds mkString "\n")
 
-				assert(mdIds.size == 1)
+    assert(mdIds.size == 1)
 
-				val geonetInfo = md \\ "info" // filter {e => e.namespace == "geonet"}
+    val geonetInfo = md \\ "info" // filter {e => e.namespace == "geonet"}
 
-				object RemoveGeonetInfo extends RewriteRule {
-			override def transform(n: Node): Seq[Node] ={ 
-					if (geonetInfo contains n) Array[Node]()
-					else n
-			}
-		}
-		val mdFromGeocatWithoutInfoInfoXml =  new RuleTransformer(RemoveGeonetInfo)(md)
+    object RemoveGeonetInfo extends RewriteRule {
+      override def transform(n: Node): Seq[Node] = {
+        if (geonetInfo contains n) Array[Node]()
+        else n
+      }
+    }
+    
+    val mdFromGeocatWithoutInfoInfoXml = new RuleTransformer(RemoveGeonetInfo)(md)
 
+    config.adminLogin(None)
+    
+    val mdFromLocalCatalogue = GetRawMetadataXml(Id(mdIds.head)).value.getXml
 
-				config.adminLogin(None)
-				val mdFromLocalCatalogue = GetRawMetadataXml(Id(mdIds.head)).value.getXml
+    mdFromLocalCatalogue must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml)
 
-				mdFromLocalCatalogue must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml)
-
-	}
+  }
 
 
 

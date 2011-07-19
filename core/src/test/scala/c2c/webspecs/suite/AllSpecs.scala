@@ -4,6 +4,7 @@ import org.specs2.SpecificationWithJUnit
 import org.specs2.runner.SpecificationsFinder
 import c2c.webspecs.geonetwork.geocat.spec.WP1.ImportCheMetadataSpec
 import c2c.webspecs.geonetwork.geocat.spec.WP3._
+import c2c.webspecs.geonetwork.geocat.spec.WP4._
 
 class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is =
     examplesLinks("All Work Packages")
@@ -11,8 +12,9 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
     def examplesLinks(t: String) = {
   val specs = List(
       classOf[WP1],
-      classOf[WP3]
-      ).flatMap{s => createSpecification(s.getName)}
+      classOf[WP3],
+	  classOf[WP4]
+	).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }
@@ -53,5 +55,18 @@ class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }
+
+}
+class WP4 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+examplesLinks("WP 4: Resolve XLinks")
+
+def examplesLinks(t: String) = {
+	val specs = List(
+			classOf[TestXlinksUpdate]
+			).flatMap{s => createSpecification(s.getName)}
+	specs.
+	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+}
 
 }

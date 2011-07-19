@@ -55,7 +55,7 @@ class AccessExtentsSpec extends GeonetworkSpecification { def is =
   }
   val listhref = (response:ListResponse, _:String) => {
     val uri = findBern(response)(_.href.toString).get
-    (uri must contain("http://localhost:8080/geonetwork/srv/fr/xml.extent.get?wfs=default&format=")) and
+    (uri must contain("/xml.extent.get?wfs=default&format=")) and
     (uri must contain("&typename=gn:gemeindenBB&id=351"))
   }
   val listLocalizedDesc = (response:ListResponse, _:String) => {

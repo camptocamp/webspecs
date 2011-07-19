@@ -12,75 +12,61 @@ import accumulating._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import csw._
+import scala.xml.transform.BasicTransformer
+import c2c.webspecs.geonetwork.geocat.spec.WP3.ProcessImportedMetadataSpec
+import scala.xml.Node
+import scala.xml.XML
+import scala.xml.Elem
+import org.specs2.execute.Result
 
 
 // TODO : finish to implement this test ...
 
 
 @RunWith(classOf[JUnitRunner]) 
-class TestXlinksUpdate  extends GeonetworkSpecification {  def is =
+class TestXlinksUpdate extends GeonetworkSpecification(UserProfiles.Editor) {  def is =
 
-  "This specification tests using the iso19139.CHE schema"                  ^ Step(setup)               ^
-    "Inserting a CHE metadata"                                              ^ importISO19139CCHE.toGiven   ^
-    "Should suceed with a 200 response"                                     ^ import200Response         ^
-    "And the new metadata should be accessible via xml.metadata.get"        ^ getInsertedMd.toThen      ^
-    "As well as via csw getRecordById"                                      ^ cswGetInsertedMd.toThen      ^
-    "As well as via csw getRecords"                                          ^ cswGetInsertedMdByCswGetRecords.toThen      ^
-                                                                            Step(tearDown)
-
-  type ImportResponseType = AccumulatedResponse1[IdValue, XmlValue]
-
-  val importISO19139CCHE = (_:String) => {
-    val name = "metadata.iso19139.che.xml"
-    val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+name, getClass, uuid)
-    val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
-    val GetMdRequest = (resp:Response[IdValue]) => GetRequest("xml.metadata.get", "id" -> resp.value.id)
-
-    (ImportMd startTrackingThen GetMdRequest)(ImportStyleSheets.NONE):ImportResponseType
-  }
-
-  val import200Response = a200ResponseThen.narrow[ImportResponseType]
+  "This specification tests how xlinks are correctly processed"             					  ^ Step(setup)               ^
+      "When a ${data} metadata is imported"                                                       ^ importMetadata.toGiven ^
+      "The import must complete successfully"                                                     ^ a200ResponseThen.narrow[Response[(Node,Node)]]  ^
+      "All ${contact} xlinks must have been resolved and there fore have children"			  	  ^ xlinked.toThen ^
+      "All ${descriptiveKeywords} must have been resolved and there fore have children"			  ^ xlinked.toThen ^
+      "All ${citedResponsibleParty} must have been resolved and there fore have children"	 	  ^ xlinked.toThen ^
+      "All ${pointOfContact} must have been resolved and there fore have children"			  	  ^ xlinked.toThen ^
+      "All ${resourceFormat} must have been resolved and there fore have children"			  	  ^ xlinked.toThen ^
+      "All ${userContactInfo} must have been resolved and there fore have children"			      ^ xlinked.toThen ^
+      "All ${distributionFormat} must have been resolved and there fore have children"			  ^ xlinked.toThen ^
+      "All ${distributorContact} must have been resolved and there fore have children"			  ^ xlinked.toThen ^
+                                                                                                  Step(tearDown)
 
 
-  val getInsertedMd = (response:ImportResponseType) => {
-    val xmlResponse = response.last
+                              
 
-    xmlResponse.value.withXml{md =>
+   val importMetadata:(String) => Response[(Node,Node)] = (s:String) => {
+     val (xmlString,data) = extract1(s) match {
+       case "data" =>
+          ResourceLoader.loadDataFromClassPath("/geocat/data/comprehensive-iso19139che.xml",classOf[ProcessImportedMetadataSpec],uuid)
+       case "service" =>
+          ResourceLoader.loadDataFromClassPath("/geocat/data/wfs-service-metadata-template.xml",classOf[GeonetworkSpecification],uuid)
+     }
+    
+     val originalXml = XML.loadString(xmlString)
+     val ImportRequest = ImportMetadata.findGroupId(data,NONE,false)
+     
+     val response = (UserLogin then ImportRequest then GetEditingMetadataXml startTrackingThen DeleteMetadata)(None)
 
-      val node = (md \\ "citation"  \ "CI_Citation" \ "title" \ "CharacterString").text
+     response._1.map(mv => (originalXml, mv.getXml.asInstanceOf[Node]))
+   }
+ 
+   val xlinked = (r:Response[(Node,Node)],s:String) => {
+     val (_, importedMd) = r.value
+     val node = extract1(s)
+     val hrefs = importedMd \\ node filter (_ @@ "xlink:href" nonEmpty)
+     
+     val haveChildren = (hrefs foldLeft (success:Result)) {(result,next) =>
+       result and (next.child must not beEmpty)
+     }
 
-      val abstractText = (md \\ "abstract" \\ "CharacterString").text.trim
-      val abstractLocalisedENtext = (md \\ "abstract" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#EN")).get.text
-      val abstractLocalisedDEtext = (md \\ "abstract" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#DE")).get.text
-
-      // Test che: fields
-      val cheLocalisedUrl = (md \ "contact" \ "CHE_CI_ResponsibleParty" \ "contactInfo" \ "CI_Contact" \
-        "onlineResource" \ "CI_OnlineResource" \ "linkage" \ "PT_FreeURL" \ "URLGroup" \ "LocalisedURL").text
-
-//        ((node must_== "COmprehenisve Test") and (abstractText must_== "xx"))
-        ((node must_== "FR Title")
-          and (abstractText must_== "FR abstract")
-          and (cheLocalisedUrl must_== "http://www.awnl.llv.li")
-          and (abstractLocalisedENtext must_== "EN  abstract")
-          and (abstractLocalisedDEtext must_== "DE  abstract")
-          )
-    }
-  }
-
-  val cswGetInsertedMd = (response:ImportResponseType) => {
-    val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
-    val md = CswGetByFileId(fileId, OutputSchemas.IsoRecord)(None)
-    (md must haveA200ResponseCode) and
-      (md.value.withXml {_ \\ "GetRecordByIdResponse" must not beEmpty})
-  }
-  
-  val cswGetInsertedMdByCswGetRecords = (response:ImportResponseType) => {
-    val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
-    val filter = PropertyIsEqualTo("Identifier", fileId).xml
-	val md = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.IsoRecord, resultType = ResultTypes.results)(None)
-	val xml = md.value.getXml
-	(md must haveA200ResponseCode) and
-		((xml \\ "SearchResults" \@ "numberOfRecordsReturned").head.trim.toInt must be_>= (1)) and
-		(xml \\ "CHE_MD_Metadata" must not beEmpty)
-  }
+     (hrefs must not beEmpty) and haveChildren 
+   }
 }

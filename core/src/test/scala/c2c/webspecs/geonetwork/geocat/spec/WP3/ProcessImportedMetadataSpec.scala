@@ -40,15 +40,15 @@ class ProcessImportedMetadataSpec extends GeonetworkSpecification { def is =
    val importMetadata:(String) => Response[(Node,Node)] = (s:String) => {
      val (xmlString,data) = extract1(s) match {
        case "data" =>
-          ResourceLoader.loadDataFromClassPath("/data/comprehensive-iso19139che.xml",classOf[ProcessImportedMetadataSpec],uuid)
+          ResourceLoader.loadDataFromClassPath("/geocat/data/comprehensive-iso19139che.xml",classOf[ProcessImportedMetadataSpec],uuid)
        case "service" =>
-          ResourceLoader.loadDataFromClassPath("/data/wfs-service-metadata-template.xml",classOf[GeonetworkSpecification],uuid)
+          ResourceLoader.loadDataFromClassPath("/geocat/data/wfs-service-metadata-template.xml",classOf[GeonetworkSpecification],uuid)
      }
     
      val originalXml = XML.loadString(xmlString)
      val ImportRequest = ImportMetadata.findGroupId(data,NONE,false)
      
-     val response = (ImportRequest then GetRawMetadataXml startTrackingThen DeleteMetadata)(None)
+     val response = (UserLogin then ImportRequest then GetEditingMetadataXml startTrackingThen DeleteMetadata)(None)
 
      response._1.map(mv => (originalXml, mv.getXml.asInstanceOf[Node]))
    }

@@ -8,7 +8,8 @@ case class CswGetByFileId(
     fileId:String, 
     outputSchema:OutputSchemas.OutputSchema,
     resultType:ResultType=results)
-  extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) {
+  extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) 
+  with AnyRequest[XmlValue]  {
 
   def xmlData = CswXmlUtil.getByIdXml(fileId,resultType,outputSchema)
   override def toString() = "CswGetByFileId("+fileId+","+outputSchema+")"

@@ -28,11 +28,10 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
 
   val importISO19139CCHE = (_:String) => {
     val name = "metadata.iso19139.che.xml"
-    val (_,content) = ResourceLoader.loadDataFromClassPath("/data/"+name, getClass, uuid)
+    val (_,content) = ResourceLoader.loadDataFromClassPath("/geocat/data/"+name, getClass, uuid)
     val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
     
-    val response = (ImportMd startTrackingThen GetRawMetadataXml)(ImportStyleSheets.NONE):ImportResponseType
-    deleteMetadataAndSharedObjects(response._1.value, response.last.value.getXml)
+    val response = (ImportMd startTrackingThen GetRawMetadataXml then DeleteMetadata)(ImportStyleSheets.NONE):ImportResponseType
     response
     
   }

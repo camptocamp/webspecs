@@ -3,18 +3,11 @@ package geonetwork
 package geocat
 
 import scala.xml.NodeSeq
+import UserProfiles._
 
-abstract class GeocatSpecification extends GeonetworkSpecification {
-
-  def deleteMetadataAndSharedObjects(id:IdValue,xml:NodeSeq) = {
-    (config.adminLogin then DeleteMetadata.setIn(id))(None) // delete metadata
-
-    val allHrefs = xml \\ "_" filter (n => (n @@ "xlink:href" nonEmpty))
-
-    val newLinks = xml \\ "_" filter (n => (n @@ "xlink:href" nonEmpty) && (n.text contains uuid))
-    for (href <- newLinks \@ "xlink:href") {
-      val obj = SharedObjectHrefExtractor.unapply(href).get
-      DeleteSharedObject(obj.id,obj.objType)(None)
-    }
-  }
+abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends GeonetworkSpecification(userProfile) {
+	override def extraTeardown(teardownContext:ExecutionContext):Unit = {
+	  super.extraTeardown(teardownContext)
+	  //ListUsers(None).
+	}
 }
