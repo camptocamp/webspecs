@@ -1,4 +1,7 @@
-package c2c.webspecs.geonetwork.geocat.spec.WP6
+package c2c.webspecs
+package geonetwork
+package geocat
+package spec.WP6
 
 import c2c.webspecs.geonetwork.GeonetworkSpecification
 import org.junit.runner.RunWith
@@ -38,13 +41,13 @@ class CswLanguageSpec extends GeonetworkSpecification(UserProfiles.Editor) {
 	def deleteMetadata = {
 			GetRequest("metadata.delete", ("uuid" -> importMetadataId))(Nil)
 	}
-	def CswGet(description : String) = {
+	def CswGet = (description : String) => {
 	  val (languageCode, expectedLang) = extract2(description)
 	  
 	  val CswRequest = CswGetByFileId(importMetadataId,
 			  						 outputSchema = OutputSchemas.Record,
 			  						 url=Properties.testServer + "/geonetwork/srv/fra/csw", 
-			  									resultType = csw.ResultTypes.results)
+			  									resultType = ResultTypes.results)
       
 	  val title = (CswRequest(Nil).value.getXml \\ "title").text.trim.toUpperCase
       
