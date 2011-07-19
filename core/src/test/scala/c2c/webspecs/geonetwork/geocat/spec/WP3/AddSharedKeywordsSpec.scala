@@ -64,7 +64,7 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
     		{keywordXML(newDeValue).child}
       </gmd:descriptiveKeywords>
  
-    val response = (UpdateSharedObject(xml) startTrackingThen Search.setIn(frValue))(None)
+    val response = (config.adminLogin then UpdateSharedObject(xml) startTrackingThen Search.setIn(frValue))(None)
     assert(response.last.value.size == 1, "Expected a single keyword with "+frValue)
     val keyword = response.last.value.head
     val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr"))(keyword.encodedURI)

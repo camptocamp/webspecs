@@ -12,7 +12,7 @@ import org.specs2.runner.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner]) 
-class AddSharedContactsSpec extends GeonetworkSpecification { def is =
+class AddSharedContactsSpec extends GeonetworkSpecification() { def is =
   "This specification tests creating shared contacts by passing in a contact xml"                               ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
     "Should be a successful http request (200 response code)"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
@@ -38,7 +38,7 @@ class AddSharedContactsSpec extends GeonetworkSpecification { def is =
   var href:String = _
   val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML(true,originalOrg)) startTrackingThen UserLogin)(None)._1
   val xlinkGetElement = (result:Response[NodeSeq]) => {
-    val href = (result.value \\ "contact" \@ "xlink:href")(0)
+    href = (result.value \\ "contact" \@ "xlink:href")(0)
     val xlink = ResolveXLink(href)
 
     val xml = xlink.value.withXml{ i => i}

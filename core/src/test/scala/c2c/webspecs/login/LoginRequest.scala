@@ -13,13 +13,13 @@ import org.apache.http.auth.{AuthScope, UsernamePasswordCredentials}
 import java.lang.IllegalStateException
 
 object LoginRequest {
-  def apply(user:String,pass:String):Request[Any,Nothing] = Config.loadStrategy[Request[Any,Nothing]]("login") fold (
+  def apply(user:String,pass:String):Request[Any,Any] = Config.loadStrategy[Request[Any,Any]]("login") fold (
     throw _,
     strategy =>
       strategy.getConstructor(classOf[String],classOf[String]).newInstance(user,pass)
   )
 }
 
-trait LoginRequest extends Request[Any,Nothing] {
+trait LoginRequest extends Request[Any,Any] {
   def user:String
 }
