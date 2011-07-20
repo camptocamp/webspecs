@@ -3,7 +3,6 @@ package geonetwork
 package geocat
 package spec.WP6
 
-import c2c.webspecs.geonetwork.GeonetworkSpecification
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step

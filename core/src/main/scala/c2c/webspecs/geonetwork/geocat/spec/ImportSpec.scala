@@ -6,7 +6,7 @@ package spec
 import GeocatImportStyleSheets._
 import org.specs2.specification.Step
 
-class ImportSpec extends GeonetworkSpecification {
+class ImportSpec extends GeocatSpecification {
   def is =
   "This specification imports Geocat specific metadata "    ^ Step(setup) ^
     "import a gm03 V1 metadata"                             ! importGM03 ^

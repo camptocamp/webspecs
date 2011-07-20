@@ -7,7 +7,7 @@ import edit._
 import org.specs2.specification.Step
 import org.specs2.matcher.MustThrownMatchers
 
-class SharedObjectSpec extends GeonetworkSpecification(UserProfiles.UserAdmin) with MustThrownMatchers { def is =
+class SharedObjectSpec extends GeocatSpecification(UserProfiles.UserAdmin) with MustThrownMatchers { def is =
   "This specification tests managing Shared objects"                                              ^ Step(setup) ^
     "Allow creation and deletion of shared users"                                                 ! createAndDelete ^
     "Allow creation of shared format and validate it without interfering with others in metadata" ! createAndValidateNoInterference ^
