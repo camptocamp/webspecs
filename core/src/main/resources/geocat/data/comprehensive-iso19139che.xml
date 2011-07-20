@@ -59,8 +59,8 @@
               <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
                 <gco:CharacterString/>
               </gmd:country>
-              <gmd:electronicMailAddress gco:nilReason="missing">
-                <gco:CharacterString/>
+              <gmd:electronicMailAddress>
+                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
               </gmd:electronicMailAddress>
               <che:streetName gco:nilReason="missing">
                 <gco:CharacterString/>
@@ -170,7 +170,7 @@
                     <gco:CharacterString>CH</gco:CharacterString>
                   </gmd:country>
                   <gmd:electronicMailAddress>
-                    <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                    <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                   </gmd:electronicMailAddress>
                   <che:streetName>
                     <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -551,7 +551,7 @@
                         <gco:CharacterString>CH</gco:CharacterString>
                       </gmd:country>
                       <gmd:electronicMailAddress>
-                        <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                        <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                       </gmd:electronicMailAddress>
                       <che:streetName>
                         <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -731,7 +731,7 @@
                     <gco:CharacterString>CH</gco:CharacterString>
                   </gmd:country>
                   <gmd:electronicMailAddress>
-                    <gco:CharacterString>{automated_test_metadata}2@swisstopo.ch</gco:CharacterString>
+                    <gco:CharacterString>{uuid}2@swisstopo.ch</gco:CharacterString>
                   </gmd:electronicMailAddress>
                   <che:streetName>
                     <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -866,8 +866,8 @@
                       <gmd:country xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
                         <gco:CharacterString/>
                       </gmd:country>
-                      <gmd:electronicMailAddress gco:nilReason="missing">
-                        <gco:CharacterString/>
+                      <gmd:electronicMailAddress>
+                                        <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
                       </gmd:electronicMailAddress>
                       <che:streetName gco:nilReason="missing">
                         <gco:CharacterString/>
@@ -977,7 +977,7 @@
                             <gco:CharacterString>CH</gco:CharacterString>
                           </gmd:country>
                           <gmd:electronicMailAddress>
-                            <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                            <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                           </gmd:electronicMailAddress>
                           <che:streetName>
                             <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -1064,10 +1064,10 @@
       <gmd:resourceFormat>
         <gmd:MD_Format>
           <gmd:name>
-            <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+            <gco:CharacterString>{uuid}Format</gco:CharacterString>
           </gmd:name>
           <gmd:version>
-            <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+            <gco:CharacterString>{uuid}</gco:CharacterString>
           </gmd:version>
         </gmd:MD_Format>
       </gmd:resourceFormat>
@@ -1076,13 +1076,13 @@
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#DE">{automated_test_metadata}DE</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#DE">{uuid}DE</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#EN">{automated_test_metadata}EN</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#EN">{uuid}EN</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">{automated_test_metadata}FR</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#FR">{uuid}FR</gmd:LocalisedCharacterString>
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:keyword>
@@ -1093,13 +1093,13 @@
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#DE">{automated_test_metadata}2DE</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#DE">{uuid}2DE</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#EN">{automated_test_metadata}2EN</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#EN">{uuid}2EN</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">{automated_test_metadata}2FR</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#FR">{uuid}2FR</gmd:LocalisedCharacterString>
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:keyword>
@@ -1166,7 +1166,7 @@
                         <gco:CharacterString/>
                       </gmd:country>
                       <gmd:electronicMailAddress gco:nilReason="missing">
-                        <gco:CharacterString/>
+		                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
                       </gmd:electronicMailAddress>
                       <che:streetName gco:nilReason="missing">
                         <gco:CharacterString/>
@@ -1276,7 +1276,7 @@
                             <gco:CharacterString>CH</gco:CharacterString>
                           </gmd:country>
                           <gmd:electronicMailAddress>
-                            <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                            <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                           </gmd:electronicMailAddress>
                           <che:streetName>
                             <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -1568,6 +1568,73 @@
               </gmd:spatialExtent>
             </gmd:EX_SpatialTemporalExtent>
           </gmd:temporalElement>
+          <gmd:temporalElement>
+            <gmd:EX_SpatialTemporalExtent>
+              <gmd:extent>
+                <gml:TimePeriod>
+                   <gml:begin>2003-02-13T12:28-08:00</gml:begin>
+                   <gml:end>2003-02-13T12:30-08:00</gml:end>
+                 </gml:TimePeriod>
+                </gmd:extent>
+              <gmd:spatialExtent>
+                <gmd:EX_Extent>
+                  <gmd:description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                    <gco:CharacterString>Renan (BE)</gco:CharacterString>
+                  </gmd:description>
+                  <gmd:geographicElement>
+                    <gmd:EX_GeographicDescription>
+                      <gmd:geographicIdentifier>
+                        <gmd:MD_Identifier>
+                          <gmd:code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                            <gco:CharacterString>Renan (BE)</gco:CharacterString>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmd:geographicIdentifier>
+                    </gmd:EX_GeographicDescription>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_BoundingPolygon>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:polygon>
+                        <gml:MultiSurface gml:id="Neb34cc5dc1d34bd08405ebf13d1565ef">
+                          <gml:surfaceMember>
+                            <gml:Polygon gml:id="N09101de3a34e427dae73e1e62cadc4f1">
+                              <gml:exterior>
+                                <gml:LinearRing>
+                                  <gml:posList>6.867 47.085 6.872 47.103 6.881 47.108 6.886 47.124 6.901 47.121 6.911 47.122 6.934 47.136 6.938 47.129 6.931 47.125 6.939 47.11 6.927 47.109 6.918 47.105 6.886 47.092 6.867 47.085</gml:posList>
+                                </gml:LinearRing>
+                              </gml:exterior>
+                            </gml:Polygon>
+                          </gml:surfaceMember>
+                        </gml:MultiSurface>
+                      </gmd:polygon>
+                    </gmd:EX_BoundingPolygon>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_GeographicBoundingBox>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:westBoundLongitude>
+                        <gco:Decimal>6.867</gco:Decimal>
+                      </gmd:westBoundLongitude>
+                      <gmd:eastBoundLongitude>
+                        <gco:Decimal>6.939</gco:Decimal>
+                      </gmd:eastBoundLongitude>
+                      <gmd:southBoundLatitude>
+                        <gco:Decimal>47.085</gco:Decimal>
+                      </gmd:southBoundLatitude>
+                      <gmd:northBoundLatitude>
+                        <gco:Decimal>47.136</gco:Decimal>
+                      </gmd:northBoundLatitude>
+                    </gmd:EX_GeographicBoundingBox>
+                  </gmd:geographicElement>
+                </gmd:EX_Extent>
+              </gmd:spatialExtent>
+            </gmd:EX_SpatialTemporalExtent>
+          </gmd:temporalElement>
         </gmd:EX_Extent>
       </gmd:extent>
       <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml">
@@ -1623,15 +1690,15 @@
           <gmd:geographicElement>
             <gmd:EX_BoundingPolygon>
               <gmd:extentTypeCode>
-                <gco:Boolean>false</gco:Boolean>
+                <gco:Boolean>true</gco:Boolean>
               </gmd:extentTypeCode>
               <gmd:polygon>
-                <gml:MultiSurface gml:id="Nce2760481f384af9881b23592f0d0eb0">
+                <gml:MultiSurface gml:id="Neb34cc5dc1d34bd08405ebf13d1565ef">
                   <gml:surfaceMember>
-                    <gml:Polygon gml:id="N3b9677fd00fb47eda5417cdc59b1a6f1">
+                    <gml:Polygon gml:id="N09101de3a34e427dae73e1e62cadc4f1">
                       <gml:exterior>
                         <gml:LinearRing>
-                          <gml:posList>7.605 47.221 7.672 47.223 7.647 47.191 7.617 47.195 7.588 47.202 7.559 47.208 7.521 47.212 7.553 47.205 7.569 47.177 7.55 47.159 7.52 47.158 7.502 47.162 7.501 47.17 7.508 47.182 7.498 47.195 7.46 47.198 7.461 47.184 7.467 47.165 7.465 47.161 7.438 47.17 7.428 47.187 7.427 47.199 7.458 47.209 7.528 47.22 7.605 47.221</gml:posList>
+                          <gml:posList>6.867 47.085 6.872 47.103 6.881 47.108 6.886 47.124 6.901 47.121 6.911 47.122 6.934 47.136 6.938 47.129 6.931 47.125 6.939 47.11 6.927 47.109 6.918 47.105 6.886 47.092 6.867 47.085</gml:posList>
                         </gml:LinearRing>
                       </gml:exterior>
                     </gml:Polygon>
@@ -1679,7 +1746,7 @@
               <gmd:geographicIdentifier>
                 <gmd:MD_Identifier>
                   <gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
-                    <gco:CharacterString>{automated_test_metadata}2DE</gco:CharacterString>
+                    <gco:CharacterString>{uuid}2DE</gco:CharacterString>
                   </gmd:code>
                 </gmd:MD_Identifier>
               </gmd:geographicIdentifier>
@@ -1920,7 +1987,7 @@
                         <gco:CharacterString>CH</gco:CharacterString>
                       </gmd:country>
                       <gmd:electronicMailAddress>
-                        <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                        <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                       </gmd:electronicMailAddress>
                       <che:streetName>
                         <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -2682,10 +2749,10 @@
       <gmd:distributionFormat>
         <gmd:MD_Format>
           <gmd:name>
-            <gco:CharacterString>{automated_test_metadata}2</gco:CharacterString>
+            <gco:CharacterString>{uuid}Format2</gco:CharacterString>
           </gmd:name>
           <gmd:version>
-            <gco:CharacterString>{automated_test_metadata}2</gco:CharacterString>
+            <gco:CharacterString>{uuid}2</gco:CharacterString>
           </gmd:version>
         </gmd:MD_Format>
       </gmd:distributionFormat>
@@ -2736,7 +2803,7 @@
                         <gco:CharacterString/>
                       </gmd:country>
                       <gmd:electronicMailAddress gco:nilReason="missing">
-                        <gco:CharacterString/>
+		                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
                       </gmd:electronicMailAddress>
                       <che:streetName gco:nilReason="missing">
                         <gco:CharacterString/>
@@ -2846,7 +2913,7 @@
                             <gco:CharacterString>CH</gco:CharacterString>
                           </gmd:country>
                           <gmd:electronicMailAddress>
-                            <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                            <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                           </gmd:electronicMailAddress>
                           <che:streetName>
                             <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -2934,10 +3001,10 @@
           <gmd:distributorFormat>
             <gmd:MD_Format>
               <gmd:name>
-                <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+                <gco:CharacterString>{uuid}Format</gco:CharacterString>
               </gmd:name>
               <gmd:version>
-                <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+                <gco:CharacterString>{uuid}</gco:CharacterString>
               </gmd:version>
               <gmd:amendmentNumber>
                 <gco:CharacterString>1</gco:CharacterString>
@@ -2995,7 +3062,7 @@
                                 <gco:CharacterString/>
                               </gmd:country>
                               <gmd:electronicMailAddress gco:nilReason="missing">
-                                <gco:CharacterString/>
+				                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
                               </gmd:electronicMailAddress>
                               <che:streetName gco:nilReason="missing">
                                 <gco:CharacterString/>
@@ -3105,7 +3172,7 @@
                                     <gco:CharacterString>CH</gco:CharacterString>
                                   </gmd:country>
                                   <gmd:electronicMailAddress>
-                                    <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                                    <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                                   </gmd:electronicMailAddress>
                                   <che:streetName>
                                     <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -3245,22 +3312,61 @@
             <gmd:MD_ScopeCode codeListValue="dataset" codeList="./resources/codeList.xml#MD_ScopeCode"/>
           </gmd:level>
           <gmd:extent>
-            <gmd:EX_Extent>
-              <gmd:geographicElement>
-                <gmd:EX_GeographicDescription>
-                  <gmd:extentTypeCode>
-                    <gco:Boolean>false</gco:Boolean>
-                  </gmd:extentTypeCode>
-                  <gmd:geographicIdentifier>
-                    <gmd:MD_Identifier>
-                      <gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
-                        <gco:CharacterString>scopeExtent</gco:CharacterString>
-                      </gmd:code>
-                    </gmd:MD_Identifier>
-                  </gmd:geographicIdentifier>
-                </gmd:EX_GeographicDescription>
-              </gmd:geographicElement>
-            </gmd:EX_Extent>
+                <gmd:EX_Extent>
+                  <gmd:description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                    <gco:CharacterString>Renan (BE)</gco:CharacterString>
+                  </gmd:description>
+                  <gmd:geographicElement>
+                    <gmd:EX_GeographicDescription>
+                      <gmd:geographicIdentifier>
+                        <gmd:MD_Identifier>
+                          <gmd:code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                            <gco:CharacterString>Renan (BE)</gco:CharacterString>
+                          </gmd:code>
+                        </gmd:MD_Identifier>
+                      </gmd:geographicIdentifier>
+                    </gmd:EX_GeographicDescription>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_BoundingPolygon>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:polygon>
+                        <gml:MultiSurface gml:id="Neb34cc5dc1d34bd08405ebf13d1565ef">
+                          <gml:surfaceMember>
+                            <gml:Polygon gml:id="N09101de3a34e427dae73e1e62cadc4f1">
+                              <gml:exterior>
+                                <gml:LinearRing>
+                                  <gml:posList>6.867 47.085 6.872 47.103 6.881 47.108 6.886 47.124 6.901 47.121 6.911 47.122 6.934 47.136 6.938 47.129 6.931 47.125 6.939 47.11 6.927 47.109 6.918 47.105 6.886 47.092 6.867 47.085</gml:posList>
+                                </gml:LinearRing>
+                              </gml:exterior>
+                            </gml:Polygon>
+                          </gml:surfaceMember>
+                        </gml:MultiSurface>
+                      </gmd:polygon>
+                    </gmd:EX_BoundingPolygon>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_GeographicBoundingBox>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:westBoundLongitude>
+                        <gco:Decimal>6.867</gco:Decimal>
+                      </gmd:westBoundLongitude>
+                      <gmd:eastBoundLongitude>
+                        <gco:Decimal>6.939</gco:Decimal>
+                      </gmd:eastBoundLongitude>
+                      <gmd:southBoundLatitude>
+                        <gco:Decimal>47.085</gco:Decimal>
+                      </gmd:southBoundLatitude>
+                      <gmd:northBoundLatitude>
+                        <gco:Decimal>47.136</gco:Decimal>
+                      </gmd:northBoundLatitude>
+                    </gmd:EX_GeographicBoundingBox>
+                  </gmd:geographicElement>
+                </gmd:EX_Extent>
           </gmd:extent>
           <gmd:levelDescription>
             <gmd:MD_ScopeDescription>
@@ -3516,7 +3622,7 @@
                                 <gco:CharacterString>CH</gco:CharacterString>
                               </gmd:country>
                               <gmd:electronicMailAddress>
-                                <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                                <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                               </gmd:electronicMailAddress>
                               <che:streetName>
                                 <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
@@ -3630,19 +3736,58 @@
               </gmd:sourceCitation>
               <gmd:sourceExtent>
                 <gmd:EX_Extent>
+                  <gmd:description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                    <gco:CharacterString>Renan (BE)</gco:CharacterString>
+                  </gmd:description>
                   <gmd:geographicElement>
                     <gmd:EX_GeographicDescription>
-                      <gmd:extentTypeCode>
-                        <gco:Boolean>false</gco:Boolean>
-                      </gmd:extentTypeCode>
                       <gmd:geographicIdentifier>
                         <gmd:MD_Identifier>
-                          <gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
-                            <gco:CharacterString>{automated_test_metadata}2DE</gco:CharacterString>
+                          <gmd:code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                            <gco:CharacterString>Renan (BE)</gco:CharacterString>
                           </gmd:code>
                         </gmd:MD_Identifier>
                       </gmd:geographicIdentifier>
                     </gmd:EX_GeographicDescription>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_BoundingPolygon>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:polygon>
+                        <gml:MultiSurface gml:id="Neb34cc5dc1d34bd08405ebf13d1565ef">
+                          <gml:surfaceMember>
+                            <gml:Polygon gml:id="N09101de3a34e427dae73e1e62cadc4f1">
+                              <gml:exterior>
+                                <gml:LinearRing>
+                                  <gml:posList>6.867 47.085 6.872 47.103 6.881 47.108 6.886 47.124 6.901 47.121 6.911 47.122 6.934 47.136 6.938 47.129 6.931 47.125 6.939 47.11 6.927 47.109 6.918 47.105 6.886 47.092 6.867 47.085</gml:posList>
+                                </gml:LinearRing>
+                              </gml:exterior>
+                            </gml:Polygon>
+                          </gml:surfaceMember>
+                        </gml:MultiSurface>
+                      </gmd:polygon>
+                    </gmd:EX_BoundingPolygon>
+                  </gmd:geographicElement>
+                  <gmd:geographicElement>
+                    <gmd:EX_GeographicBoundingBox>
+                      <gmd:extentTypeCode>
+                        <gco:Boolean>true</gco:Boolean>
+                      </gmd:extentTypeCode>
+                      <gmd:westBoundLongitude>
+                        <gco:Decimal>6.867</gco:Decimal>
+                      </gmd:westBoundLongitude>
+                      <gmd:eastBoundLongitude>
+                        <gco:Decimal>6.939</gco:Decimal>
+                      </gmd:eastBoundLongitude>
+                      <gmd:southBoundLatitude>
+                        <gco:Decimal>47.085</gco:Decimal>
+                      </gmd:southBoundLatitude>
+                      <gmd:northBoundLatitude>
+                        <gco:Decimal>47.136</gco:Decimal>
+                      </gmd:northBoundLatitude>
+                    </gmd:EX_GeographicBoundingBox>
                   </gmd:geographicElement>
                 </gmd:EX_Extent>
               </gmd:sourceExtent>
@@ -3810,7 +3955,7 @@
                     <gco:CharacterString/>
                   </gmd:country>
                   <gmd:electronicMailAddress gco:nilReason="missing">
-                    <gco:CharacterString/>
+	                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
                   </gmd:electronicMailAddress>
                   <che:streetName gco:nilReason="missing">
                     <gco:CharacterString/>
@@ -3920,7 +4065,7 @@
                         <gco:CharacterString>CH</gco:CharacterString>
                       </gmd:country>
                       <gmd:electronicMailAddress>
-                        <gco:CharacterString>{automated_test_metadata}@swisstopo.ch</gco:CharacterString>
+                        <gco:CharacterString>{uuid}@swisstopo.ch</gco:CharacterString>
                       </gmd:electronicMailAddress>
                       <che:streetName>
                         <gco:CharacterString>Seftigenstrasse</gco:CharacterString>
