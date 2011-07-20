@@ -24,7 +24,7 @@ import org.specs2.execute.Result
 
 
 @RunWith(classOf[JUnitRunner]) 
-class TestXlinksUpdate extends GeonetworkSpecification(UserProfiles.Editor) {  def is =
+class TestXlinksUpdate extends GeocatSpecification(UserProfiles.Editor) {  def is =
 
   "This specification tests how xlinks are correctly processed"             					  ^ Step(setup)               ^
       "When a ${data} metadata is imported"                                                       ^ importMetadata.toGiven ^

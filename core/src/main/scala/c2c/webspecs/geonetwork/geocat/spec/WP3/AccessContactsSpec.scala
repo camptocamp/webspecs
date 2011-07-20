@@ -7,7 +7,7 @@ import org.specs2.specification.Step
 import c2c.webspecs.{XmlValue, Response}
 import geonetwork.UserRef
 
-class AccessContactsSpec extends GeonetworkSpecification { def is =
+class AccessContactsSpec extends GeocatSpecification { def is =
 
   "This specification tests accessing shared users"      ^ Step(setup) ^
     "Listing all users ${*}"                             ^ searchContacts.toGiven ^

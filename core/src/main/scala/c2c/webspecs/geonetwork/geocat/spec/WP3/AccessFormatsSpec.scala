@@ -10,7 +10,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner]) 
-class AccessFormatsSpec extends GeonetworkSpecification { def is =
+class AccessFormatsSpec extends GeocatSpecification { def is =
   "This specification tests accessing shared formats"                              ^ Step(setup) ^
     "Listing all formats (search for ${ })"                                         ^ listFormats.toGiven ^
       "Should be a successful http request (200 response code)"                                         ^ l200Response ^

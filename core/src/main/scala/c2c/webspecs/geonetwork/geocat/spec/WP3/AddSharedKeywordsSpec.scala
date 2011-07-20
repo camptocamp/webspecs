@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
+class AddSharedKeywordsSpec extends GeocatSpecification { def is =
   "This specification tests creating shared keyword by passing in a keyword xml snippet"                        ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a keyword"                                          ^ keywordAdd(deValue).toGiven ^
     "Should be a successful http request (200 response code)"                                                   ^ a200ResponseThen.narrow[Response[NodeSeq]] ^

@@ -8,7 +8,7 @@ import org.specs2.execute.Result
 import c2c.webspecs.{XmlValue, Response}
 import geonetwork.UserRef
 
-class AccessKeywordsSpec extends GeonetworkSpecification { def is =
+class AccessKeywordsSpec extends GeocatSpecification { def is =
 
   "This specification tests accessing shared keyword"                           ^ Step(setup) ^
     "Searching  ${"+GeocatConstants.INSPIRE_THESAURUS+"} for keyword ${Hydrograf}"                                  ^ searchForKeyword.toGiven ^

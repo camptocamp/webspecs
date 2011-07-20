@@ -18,7 +18,7 @@ import c2c.webspecs.geonetwork.csw.CswGetCapabilities
 
 
 @RunWith(classOf[JUnitRunner]) 
-class CSWOutputSchemaSpec extends GeonetworkSpecification(UserProfiles.Editor) {  def is =
+class CSWOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  def is =
 	"CSW output schemas".title ^ Step(setup) ^
 	"This specification tests the usage of different output schemas through CSW" ^
 		"Test the CSW server via GetCapabilities request" ^ testGetCapabilities.toGiven ^

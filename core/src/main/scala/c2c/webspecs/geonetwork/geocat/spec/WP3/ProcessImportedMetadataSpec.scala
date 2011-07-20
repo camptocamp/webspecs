@@ -14,7 +14,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner]) 
-class ProcessImportedMetadataSpec extends GeonetworkSpecification { def is =
+class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
   "Shared Object Processing of Imported Metadata".title ^ Step(setup) ^
   "This specification tests how imported metadata are processed for shared objects"             ^
       "When a ${data} metadata is imported"                                                     ^ importMetadata.toGiven ^

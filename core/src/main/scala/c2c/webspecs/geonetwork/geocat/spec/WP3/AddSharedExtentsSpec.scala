@@ -12,7 +12,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner]) 
-class AddSharedExtentsSpec extends GeonetworkSpecification { def is =
+class AddSharedExtentsSpec extends GeocatSpecification { def is =
   "This specification tests creating shared extent by passing in a extent xml snippet"                           ^ Step(setup) ^
     "This subfragment tests a gmd_complete extent with exclude extent type code"                                 ^ testExtent(ExtentFormat.gmd_complete,0) ^ p ^
     "This subfragment tests a gmd_bbox extent with exclude extent type code"                                     ^ testExtent(ExtentFormat.gmd_bbox,0) ^ p ^

@@ -12,7 +12,7 @@ import org.specs2.runner.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner]) 
-class AddSharedContactsSpec extends GeonetworkSpecification() { def is =
+class AddSharedContactsSpec extends GeocatSpecification() { def is =
   "This specification tests creating shared contacts by passing in a contact xml"                               ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
     "Should be a successful http request (200 response code)"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^

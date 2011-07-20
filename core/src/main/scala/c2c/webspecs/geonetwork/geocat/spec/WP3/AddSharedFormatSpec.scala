@@ -11,7 +11,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class AddSharedFormatSpec extends GeonetworkSpecification { def is =
+class AddSharedFormatSpec extends GeocatSpecification { def is =
   "This specification tests creating shared format by passing in a format xml snippet"                          ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a format"                                           ^ formatAdd(version).toGiven ^
     "Should be a successful http request (200 response code)"                                                   ^ a200ResponseThen.narrow[Response[NodeSeq]] ^

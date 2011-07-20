@@ -17,7 +17,7 @@ import c2c.webspecs.ResourceLoader
 import c2c.webspecs.geonetwork.GetRawMetadataXml
 
 @RunWith(classOf[JUnitRunner]) 
-class CswLanguageSpec extends GeonetworkSpecification(UserProfiles.Editor) {
+class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 	def is = {
 	  "CSW service by language".title 	^ Step(setup) ^
 	  	"Importing a metadata" 			^ Step(importMetadataId) ^

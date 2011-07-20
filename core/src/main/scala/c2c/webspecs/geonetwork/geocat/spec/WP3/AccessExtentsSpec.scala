@@ -5,7 +5,7 @@ package spec.WP3
 
 import org.specs2.specification.Step
 
-class AccessExtentsSpec extends GeonetworkSpecification { def is =
+class AccessExtentsSpec extends GeocatSpecification { def is =
 
   "This specification tests accessing shared extent"           ^ Step(setup) ^
     "Searching extends for '${berne}' in ${gmd_bbox} format"   ^ listExtents.toGiven ^
