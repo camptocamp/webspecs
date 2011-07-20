@@ -53,7 +53,7 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
   def onlyKeywordInstance = Search(frValue).value.filter(_.value == frValue) must haveSize(1)
 
   val updateKeyword = () => {
-    val uri = Search(frValue).value.head.encodedURI
+    val uri = Search(frValue).value.head.uri.encode
     val xml = 
       <gmd:descriptiveKeywords
     		xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -67,7 +67,7 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
     val response = (config.adminLogin then UpdateSharedObject(xml) startTrackingThen Search.setIn(frValue))(None)
     assert(response.last.value.size == 1, "Expected a single keyword with "+frValue)
     val keyword = response.last.value.head
-    val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr"))(keyword.encodedURI)
+    val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr"))(keyword.uri)
     response._1.map(_ => isoKeyword.value)
   }
   
@@ -77,7 +77,7 @@ class AddSharedKeywordsSpec extends GeonetworkSpecification { def is =
     		(resp.value.label("EN") aka "english translation" must_== enValue)
   
   def deleteNewKeyword = Search(frValue).value.foreach{c => 
-    DeleteKeyword(NON_VALIDATED_THESAURUS,c.encodedNamespace,c.encodedCode)(None)}
+    DeleteKeyword(NON_VALIDATED_THESAURUS,c.namespace,c.code)(None)}
   def noKeyword = Search(frValue).value must beEmpty
 
   lazy val deValue = uuid+"de*automated*"

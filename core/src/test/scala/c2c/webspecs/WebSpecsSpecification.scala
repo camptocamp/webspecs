@@ -4,6 +4,8 @@ import org.specs2.Specification
 import org.specs2.specification.{Then, When, Given, RegexStep}
 import org.specs2.execute.Result
 import xml.{Node, NodeSeq}
+import java.net.URLEncoder
+import java.net.URLDecoder
 
 /**
  * Contains methods commons to many WebSpecs Specifications
@@ -19,14 +21,20 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   def setup = ExecutionContext.withDefault { context2 =>
     config.setUpTestEnv(context2)
     fixtures.foreach{_.create(config, context2)}
+    extraSetup(context2)
   }
   def extraSetup(setupContext:ExecutionContext):Unit = {}
   def tearDown = ExecutionContext.withDefault[Unit] {
     context2 =>
-      context.close()
-      fixtures.foreach{_.delete(config, context2)}
-      config.tearDownTestEnv (context2)
+      try {
+	      fixtures.foreach{_.delete(config, context2)}
+	      extraTeardown(context2)
+	      config.tearDownTestEnv (context2)
+      } finally {
+    	  context.close()
+      }
   }
+  
   def extraTeardown(teardownContext:ExecutionContext):Unit = {}
 
   def haveAResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
@@ -107,5 +115,9 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   }
   implicit def addSeqAttributeSelector[N <% NodeSeq](seq:N) = new {
     def \@(name:String) = seq.flatMap(n => getAtt(n,name))
+  }
+  implicit def encodeableString(s:String) = new {
+    def encode = URLEncoder.encode(s,"UTF-8")
+	def decode = URLDecoder.decode(s,"UTF-8")
   }
 }

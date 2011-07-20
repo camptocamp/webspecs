@@ -29,7 +29,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
-    config.login(None)(context)
+    UserLogin(None)(context)
   }
   
   def hrefInElement(nodeName:String) = 

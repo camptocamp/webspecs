@@ -24,22 +24,23 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
     "As well as via csw getRecords"                                         ^ cswGetInsertedMdByCswGetRecords.toThen      ^
                                                                             Step(tearDown)
 
-  type ImportResponseType = AccumulatedResponse1[IdValue, XmlValue]
+  type ImportResponseType = AccumulatedResponse2[IdValue, XmlValue, Any]
 
   val importISO19139CCHE = (_:String) => {
     val name = "metadata.iso19139.che.xml"
     val (_,content) = ResourceLoader.loadDataFromClassPath("/geocat/data/"+name, getClass, uuid)
     val ImportMd = ImportMetadata.findGroupId(content,NONE,true)
     
-    val response = (ImportMd startTrackingThen GetRawMetadataXml then DeleteMetadata)(ImportStyleSheets.NONE):ImportResponseType
-    response
+    val response = (ImportMd startTrackingThen GetRawMetadataXml trackThen DeleteMetadata)(ImportStyleSheets.NONE)
+
+    response:ImportResponseType
     
   }
 
   val import200Response = a200ResponseThen.narrow[ImportResponseType]
 
   val getInsertedMd = (response:ImportResponseType) => {
-    val xmlResponse = response.last
+    val xmlResponse = response._2
 
     xmlResponse.value.withXml{md =>
 
@@ -64,14 +65,14 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
   }
 
   val cswGetInsertedMd = (response:ImportResponseType) => {
-    val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
+    val fileId = response._2.value.withXml(_ \\ "fileIdentifier" text).trim()
     val md = CswGetByFileId(fileId, OutputSchemas.IsoRecord)(None)
     (md must haveA200ResponseCode) and
       (md.value.withXml {_ \\ "GetRecordByIdResponse" must not beEmpty})
   }
   
   val cswGetInsertedMdByCswGetRecords = (response:ImportResponseType) => {
-    val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
+    val fileId = response._2.value.withXml(_ \\ "fileIdentifier" text).trim()
     val filter = PropertyIsEqualTo("Identifier", fileId).xml
 	val md = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.IsoRecord, resultType = ResultTypes.results)(None)
 	val xml = md.value.getXml

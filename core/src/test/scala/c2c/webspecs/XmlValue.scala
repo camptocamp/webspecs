@@ -23,8 +23,13 @@ trait XmlValue extends TextValue {
   lazy val html = parse(TagSoupFactoryAdapter.loadString)
   lazy val xml  = parse(XML.loadString)
   
-  def withXml[R](f:NodeSeq => R):R = xml.fold(throw _, f)
-  def withHtml[R](f:NodeSeq => R):R = html.fold(throw _, f)
+  private def throwAndPrint(t:Throwable) = {
+    text.fold(_ => println("Failed to load text"),println) 
+    
+    throw t
+  }
+  def withXml[R](f:NodeSeq => R):R = xml.fold(throwAndPrint _, f)
+  def withHtml[R](f:NodeSeq => R):R = html.fold(throwAndPrint _, f)
   def getXml = xml.fold(throw _, xml => xml)
   def getHtml = html.fold(throw _, xml => xml)
 }

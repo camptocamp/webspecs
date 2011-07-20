@@ -1,5 +1,6 @@
 package c2c.webspecs
 package geonetwork
+import java.net.URLEncoder
 
 /**
  * Requests to get a IsoKeyword object
@@ -11,6 +12,6 @@ case class GetIsoKeyword(thesaurus:String, locales:List[String])
     "che.keyword.get",
     new KeywordFactory(thesaurus),
     SP("thesaurus",thesaurus),
-    IdP("id"),
+    InP("id", (id:String) => URLEncoder.encode(id,"UTF-8")),
     SP("locales", locales mkString ",")
   )

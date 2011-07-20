@@ -4,7 +4,7 @@ package geonetwork
 /**
  * Convert xml.search.keywords results to a list of keywords
  */
-class KeywordRefListFactory(thesaurus:List[String]) extends BasicValueFactory[List[KeywordRef]]{
+object KeywordRefListFactory extends BasicValueFactory[List[KeywordRef]]{
   def createValue(rawValue: BasicHttpValue): List[KeywordRef] = {
     rawValue.toXmlValue.withXml{xml =>
       (xml \\ "keyword").toList map {
@@ -13,6 +13,7 @@ class KeywordRefListFactory(thesaurus:List[String]) extends BasicValueFactory[Li
           val value = wordElem \\ "value" text
           val definition = wordElem \\ "definition" text
           val uri = wordElem \\ "uri" text
+          val thesaurus= wordElem \\ "thesaurus" text
 
           KeywordRef(id,value,definition,uri,thesaurus)
       }
