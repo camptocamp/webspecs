@@ -38,11 +38,16 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
       "All ${sourceExtent} must have ${1} xlink:href attributes"                                ! xlinked(importRequest) ^
       "All ${spatialExtent} must have ${2} xlink:href attributes"                               ! xlinked(importRequest) ^ p ^
       "Updating a shared contact through the geonetwork edit API"								^ updateContact(importRequest).toGiven ^
-      	"Should be present in the metadata the next time the metadata is accessed"				^ newContact.toThen ^ end
+      	"Should be present in the metadata the next time the metadata is accessed"				^ newContact.toThen ^ end ^ Step(deleteMd(importRequest))
+      
 	}
                        
    case class TestData(id:IdValue, mdWithoutXLinks:NodeSeq, mdWithXLinks:NodeSeq)
 
+   def deleteMd(testData: => Response[TestData]) = {
+     val deleteResponse = DeleteMetadata(testData.value.id)
+     assert(deleteResponse.basicValue.responseCode == 200, "Failed to delete imported metadata")
+   }
    def doImport(fileName:String):Response[TestData] = {
      val (xmlString,data) = ResourceLoader.loadDataFromClassPath("/geocat/data/"+fileName,classOf[ProcessImportedMetadataSpec],uuid)
      val originalXml = XML.loadString(xmlString)
@@ -52,8 +57,6 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
      val id = importResponse.value
      val mdWithXLinks =  GetEditingMetadataXml(id).value.getXml
      val mdWithoutXLinks = GetRawMetadataXml(id).value.getXml
-     val deleteResponse = DeleteMetadata(id)
-     assert(deleteResponse.basicValue.responseCode == 200, "Failed to delete imported metadata")
 
      importResponse.map(mv => TestData(id,mdWithoutXLinks, mdWithXLinks)) 
 	}
@@ -79,12 +82,38 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
     val mdWithXLinks = importRequest.value.mdWithXLinks
     val id = importRequest.value.id
     
-    println(mdWithXLinks \\ "che:CHE_MD_Metadata" \ "contact" \\ "organisationName" \\ "LocalisedCharacterString")
+    val orgName = mdWithXLinks \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "organisationName"
+    val e = orgName \\ "LocalisedCharacterString" \ "element"
+    val e2 = orgName \\ "LocalisedCharacterString" \\ "element"
+    
+    val deRef = (orgName \\ "LocalisedCharacterString" \ "element" \@ "ref").head
+    val orgRef = (orgName \ "element" \@ "ref").head
+    
+    val updateDe = "_"+deRef -> newDeOrgName
+    val addFr = "_lang_FR_"+orgRef -> newFrOrgName
+    val addEn = "_lang_EN_"+orgRef -> newEnOrgName
+    val addIt = "_lang_IT_"+orgRef -> newItOrgName
+    
+    (StartEditing(id.id) then UpdateMetadata(updateDe,addFr,addEn,addIt))(None)
     
     GetRawMetadataXml(id).value.getXml
   }
   
+  val newDeOrgName = "NewDeOrg"
+  val newFrOrgName = "NewFrOrg"
+  val newEnOrgName = "NewEnOrg"
+  val newItOrgName = "NewItOrg"
   def newContact = (md:NodeSeq) => {
-    success
+    val locales = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "organisationName" \\ "LocalisedCharacterString"
+    
+    val de = locales find (_ @@ "locale" == "#DE") map (_.text.trim)
+    val fr = locales find (_ @@ "locale" == "#FR") map (_.text.trim)
+    val en = locales find (_ @@ "locale" == "#EN") map (_.text.trim)
+    val it = locales find (_ @@ "locale" == "#IT") map (_.text.trim)
+    
+    (de must beSome(newDeOrgName)) and
+    	(fr must beSome(newFrOrgName)) and
+    	(en must beSome(newEnOrgName)) and
+    	(it must beSome(newItOrgName))
   }
 }

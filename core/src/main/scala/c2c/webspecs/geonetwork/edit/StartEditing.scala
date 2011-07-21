@@ -5,8 +5,8 @@ package edit
 import MetadataViews.MetadataView
 
 object StartEditing {
-  def apply(view:MetadataView = MetadataViews.simple):Response[IdValue] => StartEditing = response => StartEditing(response.value.id,view)
+  def chain(view:MetadataView = MetadataViews.simple):Response[IdValue] => StartEditing = response => StartEditing(response.value.id,view)
 }
-case class StartEditing(mdId:String,view:MetadataView)
-  extends AbstractGetRequest[Any,EditValue]("metadata.edit",EditValueFactory, P("id", mdId),P("currTab", view.toString))
+case class StartEditing(mdId:String,view:MetadataView = MetadataViews.simple)
+  extends AbstractGetRequest[Any,EditValue]("metadata.edit!",EditValueFactory.setId(mdId), P("id", mdId),P("currTab", view.toString))
 

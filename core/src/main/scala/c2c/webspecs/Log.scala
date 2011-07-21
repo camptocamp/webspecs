@@ -8,7 +8,7 @@ trait Log {
   // -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog -Dorg.apache.commons.logging.simplelog.showdatetime=true -Dorg.apache.commons.logging.simplelog.log.org.apache.http=DEBUG -Dorg.apache.commons.logging.simplelog.log.org.apache.http.wire=ERROR
   private object LoggingConfig {
     val all = false
-    val enabled = Error :: Warning :: RequestXml :: RequestForm :: Connection :: Headers :: LifeCycle :: Nil
+    val enabled = Error :: Warning :: Connection :: LifeCycle :: Nil
 
   }
 

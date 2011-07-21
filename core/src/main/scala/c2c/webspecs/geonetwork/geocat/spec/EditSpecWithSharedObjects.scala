@@ -18,7 +18,7 @@ class EditSpecWithSharedObjects extends GeonetworkSpecification { def is =
       config.login then
       create then
       GetMetadataXml() startTrackingThen
-      StartEditing() then
+      StartEditing.chain() then
       AddExtentXLink(KantonBern,true) then
       GetMetadataXml() trackThen
       DeleteMetadata)
