@@ -5,7 +5,11 @@ import org.specs2.runner.SpecificationsFinder
 import c2c.webspecs.geonetwork.geocat.spec.WP1.ImportCheMetadataSpec
 import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+
+@RunWith(classOf[JUnitRunner]) 
 class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is =
     examplesLinks("All Work Packages")
 
