@@ -5,6 +5,7 @@ package spec.WP3
 
 import org.specs2.specification.Step
 import ImportStyleSheets._
+import edit._
 import scala.xml.transform.BasicTransformer
 import scala.xml.Node
 import scala.xml.XML
@@ -18,33 +19,37 @@ import scala.xml.NodeSeq
 class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
   "Shared Object Processing of Imported Metadata".title ^ Step(setup) ^
   "This specification tests how imported metadata are processed for shared objects"             ^
-      "When a ${data} metadata is imported"                                                     ^ importMetadata.toGiven ^
-      "The import must complete successfully"                                                   ^ a200ResponseThen.narrow[TestData]  ^
-      "All ${extent} must have ${several} xlink:href attributes"                                          ^ xlinked.toThen ^
-      "All ${contact} must have ${several}  xlink:href attributes"                                          ^ xlinked.toThen ^
-      "All ${descriptiveKeywords} must have ${several} xlink:href attributes"                              ^ xlinked.toThen ^
-      "All ${citedResponsibleParty} must have ${several} xlink:href attributes"                            ^ xlinked.toThen ^
-      "All ${pointOfContact} must have ${several} xlink:href attributes"                                   ^ xlinked.toThen ^
-      "All ${resourceFormat} must have ${several} xlink:href attributes"                                   ^ xlinked.toThen ^
-      "All ${userContactInfo} must have ${several} xlink:href attributes"                                  ^ xlinked.toThen ^
-      "All ${distributionFormat} must have ${several} xlink:href attributes"                               ^ xlinked.toThen ^
-      "All ${distributorContact} must have ${several} xlink:href attributes"                               ^ xlinked.toThen ^
-      "All ${sourceExtent} must have ${1} xlink:href attributes"                                     ^ xlinked.toThen ^
-      "All ${spatialExtent} must have ${2} xlink:href attributes"                                    ^ xlinked.toThen ^
-                                                                                                  endp ^
-                                                                                                  Step(tearDown)
+  "When a data metadata is imported"                                                            ^ importFragments(importedDataMetadata) ^ p ^
+//  "When a service metadata is imported"                                                         ^ importFragments(importedServiceMetadata) ^
+  Step(tearDown)
 
+  def importFragments(importRequest: => Response[TestData]) = {
+       Step(importRequest) ^
+      "The import must complete successfully"                                                   ! importHas200Response(importRequest) ^
+      "All ${extent} must have ${several} xlink:href attributes"                                ! xlinked(importRequest) ^
+      "All ${contact} must have ${several}  xlink:href attributes"                              ! xlinked(importRequest) ^
+      "All ${descriptiveKeywords} must have ${several} xlink:href attributes"                   ! xlinked(importRequest) ^
+      "All ${citedResponsibleParty} must have ${several} xlink:href attributes"                 ! xlinked(importRequest) ^
+      "All ${pointOfContact} must have ${several} xlink:href attributes"                        ! xlinked(importRequest) ^
+      "All ${resourceFormat} must have ${several} xlink:href attributes"                        ! xlinked(importRequest) ^
+      "All ${userContactInfo} must have ${several} xlink:href attributes"                       ! xlinked(importRequest) ^
+      "All ${distributionFormat} must have ${several} xlink:href attributes"                    ! xlinked(importRequest) ^
+      "All ${distributorContact} must have ${several} xlink:href attributes"                    ! xlinked(importRequest) ^
+      "All ${sourceExtent} must have ${1} xlink:href attributes"                                ! xlinked(importRequest) ^
+      "All ${spatialExtent} must have ${2} xlink:href attributes"                               ! xlinked(importRequest) ^ p ^
+      "Updating a shared contact through the geonetwork edit API"								^ updateContact(importRequest).toGiven ^
+      	"Should be present in the metadata the next time the metadata is accessed"				^ newContact.toThen ^ end ^ Step(deleteMd(importRequest))
+      
+	}
+                       
+   case class TestData(id:IdValue, mdWithoutXLinks:NodeSeq, mdWithXLinks:NodeSeq)
 
-   type TestData = Response[(NodeSeq,NodeSeq,NodeSeq)]
-
-   val importMetadata:(String) => TestData = (s:String) => {
-     val (xmlString,data) = extract1(s) match {
-       case "data" =>
-          ResourceLoader.loadDataFromClassPath("/geocat/data/comprehensive-iso19139che.xml",classOf[ProcessImportedMetadataSpec],uuid)
-       case "service" =>
-          ResourceLoader.loadDataFromClassPath("/geocat/data/wfs-service-metadata-template.xml",classOf[GeonetworkSpecification],uuid)
-     }
-    
+   def deleteMd(testData: => Response[TestData]) = {
+     val deleteResponse = DeleteMetadata(testData.value.id)
+     assert(deleteResponse.basicValue.responseCode == 200, "Failed to delete imported metadata")
+   }
+   def doImport(fileName:String):Response[TestData] = {
+     val (xmlString,data) = ResourceLoader.loadDataFromClassPath("/geocat/data/"+fileName,classOf[ProcessImportedMetadataSpec],uuid)
      val originalXml = XML.loadString(xmlString)
      val ImportRequest = ImportMetadata.findGroupId(data,NONE,false)
      
@@ -52,14 +57,15 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
      val id = importResponse.value
      val mdWithXLinks =  GetEditingMetadataXml(id).value.getXml
      val mdWithoutXLinks = GetRawMetadataXml(id).value.getXml
-     val deleteResponse = DeleteMetadata(id)
-     assert(deleteResponse.basicValue.responseCode == 200, "Failed to delete imported metadata")
 
-     importResponse.map(mv => (originalXml, mdWithoutXLinks, mdWithXLinks))
-   }
+     importResponse.map(mv => TestData(id,mdWithoutXLinks, mdWithXLinks)) 
+	}
+   lazy val importedDataMetadata = doImport("comprehensive-iso19139che.xml")
+   lazy val importedServiceMetadata = doImport("comprehensive-service-iso19139che.xml")
    
-   def xlinked = (r:TestData,s:String) => {
-     val (_, _ , mdWithXLinks) = r.value
+  def importHas200Response(testData: => Response[TestData]) = testData must haveA200ResponseCode
+  def xlinked(testData: => Response[TestData]) = (s:String) => {
+     val mdWithXLinks = testData.value.mdWithXLinks
      val (node, number) = extract2(s)
      
      val elem = mdWithXLinks \\ node
@@ -71,5 +77,43 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
      (elem aka (node+" element") must not beEmpty) and
      	countMatcher 
    }
-   
+
+  def updateContact(importRequest: => Response[TestData]) = () => {
+    val mdWithXLinks = importRequest.value.mdWithXLinks
+    val id = importRequest.value.id
+    
+    val orgName = mdWithXLinks \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "organisationName"
+    val e = orgName \\ "LocalisedCharacterString" \ "element"
+    val e2 = orgName \\ "LocalisedCharacterString" \\ "element"
+    
+    val deRef = (orgName \\ "LocalisedCharacterString" \ "element" \@ "ref").head
+    val orgRef = (orgName \ "element" \@ "ref").head
+    
+    val updateDe = "_"+deRef -> newDeOrgName
+    val addFr = "_lang_FR_"+orgRef -> newFrOrgName
+    val addEn = "_lang_EN_"+orgRef -> newEnOrgName
+    val addIt = "_lang_IT_"+orgRef -> newItOrgName
+    
+    (StartEditing(id.id) then UpdateMetadata(updateDe,addFr,addEn,addIt))(None)
+    
+    GetRawMetadataXml(id).value.getXml
+  }
+  
+  val newDeOrgName = "NewDeOrg"
+  val newFrOrgName = "NewFrOrg"
+  val newEnOrgName = "NewEnOrg"
+  val newItOrgName = "NewItOrg"
+  def newContact = (md:NodeSeq) => {
+    val locales = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "organisationName" \\ "LocalisedCharacterString"
+    
+    val de = locales find (_ @@ "locale" == "#DE") map (_.text.trim)
+    val fr = locales find (_ @@ "locale" == "#FR") map (_.text.trim)
+    val en = locales find (_ @@ "locale" == "#EN") map (_.text.trim)
+    val it = locales find (_ @@ "locale" == "#IT") map (_.text.trim)
+    
+    (de must beSome(newDeOrgName)) and
+    	(fr must beSome(newFrOrgName)) and
+    	(en must beSome(newEnOrgName)) and
+    	(it must beSome(newItOrgName))
+  }
 }

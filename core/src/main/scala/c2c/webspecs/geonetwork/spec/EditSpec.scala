@@ -53,7 +53,7 @@ class EditSpec extends GeonetworkSpecification { def is =
       val request = (
         config.login then
         importMetadata startTrackingThen
-        StartEditing() then
+        StartEditing.chain() then
         added trackThen
         GetMetadataXml() trackThen
         DeleteMetadata)

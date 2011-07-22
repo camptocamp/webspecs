@@ -46,7 +46,8 @@ abstract class Add(_serv:String, id:String, editVersion:String, nodeRef:String, 
 
     assert(newElement.size == 1, "Expected there to be 1 new element but instead there was "+newElement.size)
 
-    val value = new AddValue(add.basicValue, newElement.head, newXml)
+    val newEditValue = EditValueFactory.createValue(this,in,add.basicValue, context)
+    val value = new AddValue(newEditValue, add.basicValue, newElement.head, newXml)
     new BasicHttpResponse(add.basicValue,value)
   }
 }

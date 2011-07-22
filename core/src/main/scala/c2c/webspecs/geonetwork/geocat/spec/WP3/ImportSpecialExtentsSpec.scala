@@ -22,7 +22,8 @@ class ImportSpecialExtentsSpec extends GeocatSpecification { def is =
                                                                            endp ^ 
       "Importing an extent with a temporalExtent with a Geom"            ^ ImportObj(temporalExtent(spatialExtent)).toGiven ^
       "should result in a successful http request"                       ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
-      "should result in a Shared object (no xlink on extent)"            ^ xlink("extent").toThen ^
+      "should result in a Shared object (no xlink on extent)"            ^ noXlink("extent").toThen ^
+      "but should have a Shared object on spatialExtent"                 ^ noXlink("spatialExtent").toThen ^
                                                                            endp ^ 
       "Importing an extent with a verticalExtent "                       ^ ImportObj(verticalExtent).toGiven ^
       "should result in a successful http request"                       ^ a200ResponseThen.narrow[Response[NodeSeq]] ^

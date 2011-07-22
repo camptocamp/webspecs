@@ -5,16 +5,39 @@ package edit
 import c2c.webspecs.BasicValueFactory
 import c2c.webspecs.BasicHttpValue
 
-object EditValueFactory extends BasicValueFactory[EditValue] {
+object EditValueFactory extends ValueFactory[IdValue, EditValue] {
+  val self = this
+  def fromCreateMd() = new ValueFactory[Any,EditValue] {
+      def createValue[A <: Any, B >: EditValue]
+		  (request:Request[A,B],
+		   in:Any, 
+		   rawValue:BasicHttpValue,
+		   executionContext:ExecutionContext) = {
+        val mdId = (rawValue.toXmlValue.getXml \\ "request" \ "id").text.trim
+        self.createValue(request,IdValue(mdId,rawValue), rawValue, executionContext)
+      }
 
-
-  override def createValue(rawValue: BasicHttpValue) = apply(rawValue)
-
-  def apply(rawValue: BasicHttpValue) = new EditValue {
-    import XmlUtils._
-    protected def basicValue = rawValue
-    lazy val id = withXml( xml => lookupId(xml) )
-    lazy val version = withXml( xml => lookupVersion(xml) )
   }
 
+  def setId(mdId:String) = new ValueFactory[Any,EditValue] {
+      def createValue[A <: Any, B >: EditValue]
+		  (request:Request[A,B],
+		   in:Any, 
+		   rawValue:BasicHttpValue,
+		   executionContext:ExecutionContext) = self.createValue(request,IdValue(mdId,rawValue), rawValue, executionContext)
+
+  }
+    
+  
+  
+  def createValue[A <: IdValue, B >: EditValue]
+		  (request:Request[A,B],
+		   in:IdValue, 
+		   rawValue:BasicHttpValue,
+		   executionContext:ExecutionContext) = new EditValue {
+    protected def basicValue = rawValue
+    lazy val id = in.id
+    lazy val version = in.getXml \\ "info" \ "version" text
+  }
 }
+
