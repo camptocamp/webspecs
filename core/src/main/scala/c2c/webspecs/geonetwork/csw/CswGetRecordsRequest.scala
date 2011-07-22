@@ -12,9 +12,10 @@ case class CswGetRecordsRequest(filter:NodeSeq=Nil,
                                 outputSchema:OutputSchemas.OutputSchema=OutputSchemas.IsoRecord,
                                 startPosition:Int=1,
                                 maxRecords:Int=50,
+                                url:String="csw",
                                 elementSetName:ElementSetName = full,
                                 sortBy:Option[SortBy] = None)
-  extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) {
+  extends AbstractXmlPostRequest[Any,XmlValue](url, XmlValueFactory) {
 
   def xmlData = CswXmlUtil.getRecordsXml( filter, resultType, outputSchema, startPosition, maxRecords, elementSetName,sortBy)
   override def toString() = "CswGetRecordsRequest(<filter>,"+resultType+","+outputSchema+","+startPosition+","+maxRecords+","+elementSetName+")"
