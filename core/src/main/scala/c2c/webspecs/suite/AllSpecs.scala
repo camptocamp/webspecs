@@ -5,6 +5,8 @@ import org.specs2.runner.SpecificationsFinder
 import c2c.webspecs.geonetwork.geocat.spec.WP1.ImportCheMetadataSpec
 import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
+import c2c.webspecs.geonetwork.geocat.spec.WP6._
+
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
@@ -17,7 +19,8 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
   val specs = List(
       classOf[WP1],
       classOf[WP3],
-	  classOf[WP4]
+	  classOf[WP4],
+	  classOf[WP6]
 	).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
@@ -63,14 +66,27 @@ class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 }
 class WP4 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
-examplesLinks("WP 4: Resolve XLinks")
+	examplesLinks("WP 4: Resolve XLinks")
 
-def examplesLinks(t: String) = {
-	val specs = List(
-			classOf[TestXlinksUpdate]
-			).flatMap{s => createSpecification(s.getName)}
-	specs.
-	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+	def examplesLinks(t: String) = {
+		val specs = List(
+				classOf[TestXlinksUpdate]
+				).flatMap{s => createSpecification(s.getName)}
+		specs.
+		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+	}
 }
 
+class WP6 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+	examplesLinks("WP 6: Check CSW service")
+
+	def examplesLinks(t: String) = {
+		val specs = List(
+				classOf[CswLanguageSpec],
+				classOf[CSWOutputSchemaSpec]
+				).flatMap{s => createSpecification(s.getName)}
+		specs.
+		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+	}
 }

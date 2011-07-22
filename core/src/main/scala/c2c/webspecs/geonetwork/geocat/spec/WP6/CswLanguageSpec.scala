@@ -45,7 +45,7 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 	  
 	  val CswRequest = CswGetByFileId(importMetadataId,
 			  						 outputSchema = OutputSchemas.Record,
-			  						 url=Properties.testServer + "/geonetwork/srv/fra/csw", 
+			  						 url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw", 
 			  									resultType = ResultTypes.results)
       
 	  val title = (CswRequest(Nil).value.getXml \\ "title").text.trim.toUpperCase
