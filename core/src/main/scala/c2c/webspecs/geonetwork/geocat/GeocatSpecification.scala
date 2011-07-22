@@ -29,4 +29,16 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
 	  val newKeywords = SearchKeywords(thesauri)(uuid.toString).value
 	  newKeywords.foreach(word => DeleteKeyword(word)())
 	}
+	
+	
+  def hrefInElement(nodeName:String) = 
+    (result:Response[NodeSeq]) => {
+      val href = (result.value \\ nodeName \@ "xlink:href")
+      (href must not beEmpty)
+    }
+  def hrefHost(nodeName:String) = (result:Response[NodeSeq],s:String) => {
+    val href = (result.value \\ nodeName \@ "xlink:href")(0)
+    href must startingWith(XLink.PROTOCOL)
+  }
+
 }

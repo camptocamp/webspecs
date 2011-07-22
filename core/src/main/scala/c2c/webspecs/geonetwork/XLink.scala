@@ -5,6 +5,9 @@ import xml.{NodeSeq, Node}
 import edit.AddSites
 
 object XLink {
+  
+  final val PROTOCOL = "local://"
+    
   def apply(node:Node):XLink = {
     val url = hrefFrom(node).get
     val id = XmlUtils.extractId(url).get

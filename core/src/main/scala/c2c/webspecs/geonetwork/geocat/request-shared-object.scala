@@ -164,6 +164,6 @@ case class UpdateSharedObject(xmlData:Node,defaultLang:String="EN")
     P(defaultLang, new StringBody("EN"))
   )
   with BasicValueFactory[NodeSeq]{
-  def createValue(rawValue: BasicHttpValue): NodeSeq = rawValue.toXmlValue.withXml(x => x)
+  def createValue(rawValue: BasicHttpValue): NodeSeq = rawValue.toXmlValue.getXml
 
 }

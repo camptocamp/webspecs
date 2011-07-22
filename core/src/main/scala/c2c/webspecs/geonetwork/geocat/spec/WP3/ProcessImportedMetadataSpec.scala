@@ -14,6 +14,7 @@ import scala.xml.MetaData
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import scala.xml.NodeSeq
+import org.specs2.execute.Result
 
 @RunWith(classOf[JUnitRunner]) 
 class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
@@ -30,6 +31,7 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
       "All ${contact} must have ${several}  xlink:href attributes"                              ! xlinked(importRequest) ^
       "All ${descriptiveKeywords} must have ${several} xlink:href attributes"                   ! xlinked(importRequest) ^
       "All ${citedResponsibleParty} must have ${several} xlink:href attributes"                 ! xlinked(importRequest) ^
+      "All ${parentResponsibleParty} must have ${several} xlink:href attributes"                ! xlinked(importRequest) ^
       "All ${pointOfContact} must have ${several} xlink:href attributes"                        ! xlinked(importRequest) ^
       "All ${resourceFormat} must have ${several} xlink:href attributes"                        ! xlinked(importRequest) ^
       "All ${userContactInfo} must have ${several} xlink:href attributes"                       ! xlinked(importRequest) ^
@@ -65,17 +67,19 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
    
   def importHas200Response(testData: => Response[TestData]) = testData must haveA200ResponseCode
   def xlinked(testData: => Response[TestData]) = (s:String) => {
-     val mdWithXLinks = testData.value.mdWithXLinks
-     val (node, number) = extract2(s)
-     
-     val elem = mdWithXLinks \\ node
-     val countMatcher = if(number == "several") {
-       (elem \@ "xlink:href" aka "href" must not beEmpty)
-     } else {
-       (elem \@ "xlink:href" aka "href" must haveSize(number.toInt) )
-     }
-     (elem aka (node+" element") must not beEmpty) and
-     	countMatcher 
+    val mdWithXLinks = testData.value.mdWithXLinks
+    val (node, number) = extract2(s)
+
+    val elem = mdWithXLinks \\ node
+    val countMatcher = if (number == "several") {
+      (elem \@ "xlink:href" aka "href" must not beEmpty)
+    } else {
+      (elem \@ "xlink:href" aka "href" must haveSize(number.toInt))
+    }
+
+    (elem foldLeft (success: Result)) { (acc, next) => acc and (next.child must not beEmpty) } and
+      (elem aka (node + " element") must not beEmpty) and
+      countMatcher 
    }
 
   def updateContact(importRequest: => Response[TestData]) = () => {
@@ -95,7 +99,7 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
     val addIt = "_lang_IT_"+orgRef -> newItOrgName
     
     (StartEditing(id.id) then UpdateMetadata(updateDe,addFr,addEn,addIt))(None)
-    
+
     GetRawMetadataXml(id).value.getXml
   }
   
@@ -104,12 +108,13 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
   val newEnOrgName = "NewEnOrg"
   val newItOrgName = "NewItOrg"
   def newContact = (md:NodeSeq) => {
+    
     val locales = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "organisationName" \\ "LocalisedCharacterString"
     
-    val de = locales find (_ @@ "locale" == "#DE") map (_.text.trim)
-    val fr = locales find (_ @@ "locale" == "#FR") map (_.text.trim)
-    val en = locales find (_ @@ "locale" == "#EN") map (_.text.trim)
-    val it = locales find (_ @@ "locale" == "#IT") map (_.text.trim)
+    val de = locales find (l => (l @@ "locale").head == "#DE") map (_.text.trim)
+    val fr = locales find (l => (l @@ "locale").head == "#FR") map (_.text.trim)
+    val en = locales find (l => (l @@ "locale").head == "#EN") map (_.text.trim)
+    val it = locales find (l => (l @@ "locale").head == "#IT") map (_.text.trim)
     
     (de must beSome(newDeOrgName)) and
     	(fr must beSome(newFrOrgName)) and

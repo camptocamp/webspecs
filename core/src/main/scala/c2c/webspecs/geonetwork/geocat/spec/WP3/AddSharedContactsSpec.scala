@@ -44,7 +44,8 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
     val xml = xlink.value.withXml{ i => i}
     (xlink must haveA200ResponseCode) and
       (xml \\ "organisationName" map (_.text.trim) must contain (originalOrg)) and
-      (xml \\ "individualFirstName" map (_.text.trim) must contain (contactFirstName,parentFirstName))
+      (xml \\ "individualFirstName" map (_.text.trim) must contain (contactFirstName)) and
+      ((xml \\ "parentResponsibleParty" \@ "xlink:href") must not beEmpty)
 
   }
 
