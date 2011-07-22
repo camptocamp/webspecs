@@ -39,8 +39,11 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
       "All ${distributorContact} must have ${several} xlink:href attributes"                    ! xlinked(importRequest) ^
       "All ${sourceExtent} must have ${1} xlink:href attributes"                                ! xlinked(importRequest) ^
       "All ${spatialExtent} must have ${2} xlink:href attributes"                               ! xlinked(importRequest) ^ p ^
-      "Updating a shared contact through the geonetwork edit API"								^ updateContact(importRequest).toGiven ^
-      	"Should be present in the metadata the next time the metadata is accessed"				^ newContact.toThen ^ end ^ Step(deleteMd(importRequest))
+      "Updating a shared contact and its parent contact through the geonetwork edit API"		^ updateContact(importRequest).toGiven ^
+      	"Should be present in the metadata the next time the metadata is accessed"				^ newContact.toThen ^ 
+      	("The update to the parent contact (which is a sub element of other updated " +
+      	"shared contact must also be updated correctly") 										^ updatedParentPosition.toThen ^ 
+      																							  end ^ Step(deleteMd(importRequest))
       
 	}
                        
@@ -86,9 +89,10 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
     val mdWithXLinks = importRequest.value.mdWithXLinks
     val id = importRequest.value.id
     
-    val orgName = mdWithXLinks \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "organisationName"
-    val e = orgName \\ "LocalisedCharacterString" \ "element"
-    val e2 = orgName \\ "LocalisedCharacterString" \\ "element"
+    val party = mdWithXLinks \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty"
+    val mdWithoutXLinks = importRequest.value.mdWithoutXLinks
+    
+    val orgName = party \ "organisationName"
     
     val deRef = (orgName \\ "LocalisedCharacterString" \ "element" \@ "ref").head
     val orgRef = (orgName \ "element" \@ "ref").head
@@ -98,7 +102,12 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
     val addEn = "_lang_EN_"+orgRef -> newEnOrgName
     val addIt = "_lang_IT_"+orgRef -> newItOrgName
     
-    (StartEditing(id.id) then UpdateMetadata(updateDe,addFr,addEn,addIt))(None)
+    val parentPosition = party \\ "parentResponsibleParty" \ "CHE_CI_ResponsibleParty" \ "positionName"
+    val parentPostitionRef = (parentPosition \\ "LocalisedCharacterString" \ "element" \@ "ref").head
+    
+    val updateParentPositionsName = "_"+parentPostitionRef -> newParentPositionName
+    
+    (StartEditing(id.id) then UpdateMetadata(updateDe,addFr,addEn,addIt,updateParentPositionsName))(None)
 
     GetRawMetadataXml(id).value.getXml
   }
@@ -107,7 +116,9 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
   val newFrOrgName = "NewFrOrg"
   val newEnOrgName = "NewEnOrg"
   val newItOrgName = "NewItOrg"
-  def newContact = (md:NodeSeq) => {
+    
+  val newParentPositionName = "newParentPositionName"
+  val newContact = (md:NodeSeq) => {
     
     val locales = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "organisationName" \\ "LocalisedCharacterString"
     
@@ -121,4 +132,11 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
     	(en must beSome(newEnOrgName)) and
     	(it must beSome(newItOrgName))
   }
+  
+  val updatedParentPosition = (md:NodeSeq) => {
+    val locales = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \\ "parentResponsibleParty" \ "CHE_CI_ResponsibleParty" \\ "positionName" \\ "LocalisedCharacterString"
+    
+    locales.map(_.text.trim) must contain(newParentPositionName)
+  }
+  
 }
