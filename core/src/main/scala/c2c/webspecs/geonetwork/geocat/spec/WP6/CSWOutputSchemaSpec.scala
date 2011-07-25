@@ -31,7 +31,7 @@ class CSWOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  de
 		"Getting the metadata previously inserted in dublin-core output"   ! testDublinCore   ^
 		"Getting the metadata previously inserted in iso19139 output"      ! testiso19139     ^
 		"Getting the metadata previously inserted in iso19139.che output"  ! testiso19139che  ^
-		"Getting the metadata previously inserted in GM03 output"          ! testGM03         ^
+//		"Getting the metadata previously inserted in GM03 output"          ! testGM03         ^
 //		"Getting the metadata previously inserted in its own format"     ! testDublinCore ^
 		"Delete the inserted metadata"										^ Step(deleteMetadata)  ^
 																			end ^ Step(tearDown)
@@ -41,8 +41,8 @@ class CSWOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  de
 	
 	val outputSchema = (capabilities : NodeSeq, descriptor : String) => {
 	  val schema = extract1(descriptor)
-	  val getRecordsOperations = capabilities \\ "Operation" filter { _ @@ "name" == "GetRecords" }
-	  val getOutputSchemas = (getRecordsOperations \\ "Parameter" filter { _ @@ "name" == "outputSchema" }) \\ "Value"
+	  val getRecordsOperations = capabilities \\ "Operation" filter { _ @@ "name" == List("GetRecords") }
+	  val getOutputSchemas = (getRecordsOperations \\ "Parameter" filter { _ @@ "name" == List("outputSchema") }) \\ "Value"
 
 	  getOutputSchemas.map{_.text} must contain(schema)
 	}
