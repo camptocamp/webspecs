@@ -47,11 +47,9 @@ class EditSpec extends GeonetworkSpecification { def is =
         case "data" => "/data/vector-metadata-template.xml"
       }
 
-      val (data,contentBody) = ResourceLoader.loadDataFromClassPath(fileName,classOf[EditSpec],uuid)
-      val importMetadata:ImportMetadata = ImportMetadata.findGroupId(contentBody,ImportStyleSheets.NONE,false)
+      val (data,importMetadata) = ImportMetadata.defaults(uuid, fileName,false,classOf[EditSpec])
 
       val request = (
-        config.login then
         importMetadata startTrackingThen
         StartEditing.chain() then
         added trackThen

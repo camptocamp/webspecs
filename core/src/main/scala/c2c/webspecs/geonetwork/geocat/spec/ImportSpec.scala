@@ -4,6 +4,8 @@ package geocat
 package spec
 
 import GeocatImportStyleSheets._
+import ImportStyleSheets._
+
 import org.specs2.specification.Step
 
 class ImportSpec extends GeocatSpecification {
@@ -16,12 +18,11 @@ class ImportSpec extends GeocatSpecification {
 
   def importGM03 = {
     val name = "metadata.gm03_V1.xml"
-    val (_,content) = ResourceLoader.loadDataFromClassPath("/geocat/data/"+name, getClass, uuid)
-    val ImportMd = ImportMetadata.findGroupId(content,GM03_V1,true)
+    val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/"+name,true, getClass,GM03_V1)
 
     val request = (
       UserLogin then
-      ImportMd startTrackingThen
+      importMd startTrackingThen
       GetMetadataXml() trackThen
       DeleteMetadata trackThen
       GetMetadataXml())
@@ -40,15 +41,13 @@ class ImportSpec extends GeocatSpecification {
   }
 
   def importGM03V2 = {
-      val name = "metadata.gm03_V2.xml"
+    val name = "metadata.gm03_V2.xml"
 
-      val (_,content) = ResourceLoader.loadDataFromClassPath("/geocat/data/"+name, getClass, uuid)
-
-      val ImportMd = ImportMetadata.findGroupId(content,GM03_V1,true)
+    val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/"+name, true, getClass,GM03_V2)
 
       val request = (
         UserLogin then
-        ImportMd startTrackingThen
+        importMd startTrackingThen
         GetMetadataXml() trackThen
         DeleteMetadata trackThen
         GetMetadataXml()
@@ -69,13 +68,11 @@ class ImportSpec extends GeocatSpecification {
 
     def importISO19139CHE = {
       val name = "metadata.iso19139.che.xml"
-      val (_,content) = ResourceLoader.loadDataFromClassPath("/geocat/data/"+name, getClass, uuid)
-
-      val ImportMd = ImportMetadata.findGroupId(content,GM03_V1,true)
+    val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/"+name, true, getClass,NONE)
 
       val request = (
         UserLogin then
-        ImportMd startTrackingThen
+        importMd startTrackingThen
         GetMetadataXml() trackThen
         DeleteMetadata trackThen
         GetMetadataXml())

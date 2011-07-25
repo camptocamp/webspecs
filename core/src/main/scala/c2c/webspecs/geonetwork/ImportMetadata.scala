@@ -7,14 +7,18 @@ import org.apache.http.entity.mime.content.{AbstractContentBody, ByteArrayBody, 
 import java.net.URL
 import scalax.file.Path
 import scalax.io.{Codec, Resource}
-
 import MetadataViews.MetadataView
+import java.util.UUID
 
 
 
 object ImportMetadata {
-  def findGroupId (data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean)(implicit config:GeonetConfig):ImportMetadata = {
+  private def findGroupId (data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean)(implicit config:GeonetConfig):ImportMetadata = {
      ImportMetadata(data, styleSheet,validate,config.groupId)
+  }
+  def defaults(uuid: UUID, fileName: String, validate:Boolean, loaderRoot: Class[_],styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE)(implicit config: GeonetConfig) = {
+    val (original, content) = ResourceLoader.loadDataFromClassPath(fileName, loaderRoot, uuid)
+    original -> findGroupId(content, styleSheet, validate)
   }
 }
 case class ImportMetadata(data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean, groupId:String)
