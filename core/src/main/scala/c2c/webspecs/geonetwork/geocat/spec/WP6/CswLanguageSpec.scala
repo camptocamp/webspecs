@@ -15,14 +15,18 @@ import c2c.webspecs.geonetwork.ImportMetadata
 import c2c.webspecs.ResourceLoader
 import c2c.webspecs.geonetwork.GetRawMetadataXml
 
+
 @RunWith(classOf[JUnitRunner]) 
 class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 	def is = {
 	  "CSW service by language".title 	^ Step(setup) ^
 	  	"Importing a metadata" 			^ Step(importMetadataId) ^
-	  	   "Getting the metadata using the ${fra} CSW service (${FR})" ! CswGet ^
-	  	   "Getting the metadata using the ${deu} CSW service (${DE})" ! CswGet ^
-   	  	   "Getting the metadata using the ${eng} CSW service (${EN})" ! CswGet ^
+	  	   "Getting the metadata using the ${fra} CSW service (${FR}, ${GetRecordById})" ! CswGet ^
+	  	   "Getting the metadata using the ${deu} CSW service (${DE}, ${GetRecordById})" ! CswGet ^
+   	  	   "Getting the metadata using the ${eng} CSW service (${EN}, ${GetRecordById})" ! CswGet ^
+   	  	   "Getting the metadata using the ${fra} CSW service (${FR}, ${GetRecords})" ! CswGet ^
+	  	   "Getting the metadata using the ${deu} CSW service (${DE}, ${GetRecords})" ! CswGet ^
+   	  	   "Getting the metadata using the ${eng} CSW service (${EN}, ${GetRecords})" ! CswGet ^
 		"Delete the inserted metadata"							^ Step(deleteMetadata)  ^
 																end ^ Step(tearDown)
 																
@@ -41,14 +45,24 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 			GetRequest("metadata.delete", ("uuid" -> importMetadataId))(Nil)
 	}
 	def CswGet = (description : String) => {
-	  val (languageCode, expectedLang) = extract2(description)
+	  val (languageCode, expectedLang, cswService) = extract3(description)
 	  
-	  val CswRequest = CswGetByFileId(importMetadataId,
-			  						 outputSchema = OutputSchemas.Record,
-			  						 url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw", 
-			  									resultType = ResultTypes.results)
-      
-	  val title = (CswRequest(Nil).value.getXml \\ "title").text.trim.toUpperCase
+	  val CswRequest =  if (cswService == "GetRecordById")
+							  CswGetByFileId(importMetadataId,
+								  						 outputSchema = OutputSchemas.Record,
+								  						 url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw", 
+								  									resultType = ResultTypes.results)
+					
+						else 
+							  CswGetRecordsRequest(PropertyIsEqualTo("Identifier", importMetadataId).xml,
+									  			   maxRecords = 1,
+									  			   resultType = ResultTypes.results,
+									  			   outputSchema = OutputSchemas.Record,
+									  			   url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw")
+	  									
+			  									
+	  val title = (CswRequest(Nil).value.getXml \\ "title").text.trim.toUpperCase		  									
+
       
       title must_== (expectedLang + " TITLE")
 
