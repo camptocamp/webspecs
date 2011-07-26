@@ -43,17 +43,15 @@ class TestXlinksUpdate extends GeocatSpecification(UserProfiles.Editor) {  def i
                               
 
    val importMetadata:(String) => Response[(Node,Node)] = (s:String) => {
-     val (xmlString,data) = extract1(s) match {
-       case "data" =>
-          ResourceLoader.loadDataFromClassPath("/geocat/data/comprehensive-iso19139che.xml",classOf[ProcessImportedMetadataSpec],uuid)
-       case "service" =>
-          ResourceLoader.loadDataFromClassPath("/geocat/data/wfs-service-metadata-template.xml",classOf[GeonetworkSpecification],uuid)
+     val name = extract1(s) match {
+       case "data" => "comprehensive-iso19139che.xml"
+       case "service" => "wfs-service-metadata-template.xml"
      }
+    val (xmlString,importRequest) = ImportMetadata.defaults(uuid, "/geocat/data/"+name,false,classOf[ProcessImportedMetadataSpec])
     
      val originalXml = XML.loadString(xmlString)
-     val ImportRequest = ImportMetadata.findGroupId(data,NONE,false)
      
-     val response = (UserLogin then ImportRequest then GetEditingMetadataXml startTrackingThen DeleteMetadata)(None)
+     val response = (UserLogin then importRequest then GetEditingMetadataXml startTrackingThen DeleteMetadata)(None)
 
      response._1.map(mv => (originalXml, mv.getXml.asInstanceOf[Node]))
    }

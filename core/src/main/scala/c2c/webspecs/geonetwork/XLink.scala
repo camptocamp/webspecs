@@ -5,6 +5,9 @@ import xml.{NodeSeq, Node}
 import edit.AddSites
 
 object XLink {
+  
+  final val PROTOCOL = "local://"
+    
   def apply(node:Node):XLink = {
     val url = hrefFrom(node).get
     val id = XmlUtils.extractId(url).get
@@ -39,5 +42,5 @@ case class XLink(url:String,id:String,xml:Node) {
   lazy val formatVersion = (xml \\ "version" text).trim
   lazy val formatName = (xml \\ "name" text).trim
 
-  override def toString = "XList(%s,%s".format(url,id)
+  override def toString = "XLink(%s,%s".format(url,id)
 }

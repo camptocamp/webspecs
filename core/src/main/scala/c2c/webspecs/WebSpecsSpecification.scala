@@ -97,17 +97,17 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   private val AnyNamespace = """_(:\S+)""".r
   private val AnyName = """(\S+:)_""".r
 
-  private def getAtt(node:Node, attName:String):Iterable[String] = attName match {
+  private def getAtt(node:Node, attName:String):List[String] = attName match {
       case AnyName(namespace) =>
-          node.attributes.asAttrMap.collect{
+          node.attributes.asAttrMap.toList.collect{
             case (key,value) if key.startsWith(namespace) => value
           }
       case AnyNamespace(name) =>
-          node.attributes.asAttrMap.collect{
+          node.attributes.asAttrMap.toList.collect{
               case (key,value) if key.endsWith(name) || key == name => value
           }
       case _ =>
-        node.attributes.asAttrMap.get(attName)
+        node.attributes.asAttrMap.get(attName).toList
     }
 
   implicit def addAttributeSelector(node:Node) = new {

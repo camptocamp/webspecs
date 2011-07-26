@@ -17,7 +17,6 @@ class AddSharedFormatSpec extends GeocatSpecification { def is =
     "Should be a successful http request (200 response code)"                                                   ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
     "Format node should have an xlink href"                                                                     ^ hrefInElement("resourceFormat").toThen ^
     "Should have the correct ${host} in the xlink created during processing of shared object"                   ^ hrefHost("resourceFormat").toThen ^ 
-    "Should have the correct ${port} in the xlink created during processing of shared object"                   ^ hrefHost("resourceFormat").toThen ^ 
     "xlink href should retrieve the full format"                                                                ^ xlinkGetElement.toThen ^
     "Will result in a new shared format"                                                                        ! newFormat  ^
                                                                                                                   endp ^

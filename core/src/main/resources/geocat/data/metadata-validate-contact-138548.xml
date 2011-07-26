@@ -15,14 +15,14 @@
       <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
         <gmd:PT_FreeText>
           <gmd:textGroup>
-            <gmd:LocalisedCharacterString locale="#DE">{automated_test_metadata}</gmd:LocalisedCharacterString>
+            <gmd:LocalisedCharacterString locale="#DE">{uuid}</gmd:LocalisedCharacterString>
           </gmd:textGroup>
         </gmd:PT_FreeText>
       </gmd:organisationName>
       <gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType">
         <gmd:PT_FreeText>
           <gmd:textGroup>
-            <gmd:LocalisedCharacterString locale="#DE">{automated_test_metadata}</gmd:LocalisedCharacterString>
+            <gmd:LocalisedCharacterString locale="#DE">{uuid}</gmd:LocalisedCharacterString>
           </gmd:textGroup>
         </gmd:PT_FreeText>
       </gmd:positionName>
@@ -59,7 +59,7 @@
                 <gco:CharacterString />
               </gmd:country>
               <gmd:electronicMailAddress>
-                <gco:CharacterString>{automated_test_metadata}@c2c.com</gco:CharacterString>
+                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
               </gmd:electronicMailAddress>
               <che:streetName gco:nilReason="missing">
                 <gco:CharacterString />
@@ -103,10 +103,10 @@
         <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="editor" />
       </gmd:role>
       <che:individualFirstName>
-        <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+        <gco:CharacterString>{uuid}</gco:CharacterString>
       </che:individualFirstName>
       <che:individualLastName>
-        <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+        <gco:CharacterString>{uuid}</gco:CharacterString>
       </che:individualLastName>
       <che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
         <gco:CharacterString />

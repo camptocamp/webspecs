@@ -8,4 +8,5 @@ object GeocatConstants {
   final val GEMET_THESAURUS = "external._none_.gemet"
   final val GEOCAT_THESAURUS = "local._none_.geocat.ch"
   final val NON_VALIDATED_THESAURUS = "local._none_.non_validated"
+  final val KEYWORD_NAMESPACE = "http://custom.shared.obj.ch/concept#"
 }

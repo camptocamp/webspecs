@@ -30,4 +30,22 @@ object GeonetworkFixture {
       _id = user.value.userId
     }
   }
+  
+  def keyword(namespace:String,thesaurus:String) = new Fixture[GeonetConfig] {
+    lazy val uuid = UUID.randomUUID().toString() 
+    lazy val en = "EN-"+uuid
+    lazy val fr = "FR-"+uuid
+    lazy val de = "DE-"+uuid
+    lazy val it = "IT-"+uuid
+    
+    lazy val id = uuid
+    
+    def delete(config: GeonetConfig, context: ExecutionContext) =
+      (config.adminLogin then DeleteKeyword(thesaurus,namespace,id))(None)(context)
+
+    def create(config: GeonetConfig, context: ExecutionContext) = {
+      val request = (config.adminLogin then CreateKeyword(namespace,id,thesaurus,"EN" -> en, "FR" -> fr, "DE" -> de, "IT" -> it))
+      request(None)(context)
+    }
+  }
 }

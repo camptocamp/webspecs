@@ -23,6 +23,9 @@ object UserProfiles {
 }
 
 object User {
+  def apply(uuid:UUID,profile:UserProfiles.UserProfile):User = {
+    User(None, username=uuid.toString(),email = uuid+"@cc2c.com", profile = profile)
+  }
   def fromRecord(record:Node) = {
     def get(name:String) = record \ name text
     val id = get("id")
@@ -40,6 +43,9 @@ object User {
       lazy val userId = idOption.get
     }
   }
+}
+object UserRef {
+  def apply(id:String) = new UserRef{val userId=id}
 }
 trait UserRef {
   def userId:String
@@ -70,15 +76,20 @@ case class User(val idOption:Option[String]=None,
     ListUsers(None).value find {_.username == username} map {_.userId}
   }
 
-  def formParams():List[Param[Any,String]] = (P("username", username) ::
-    P("password", password) ::
-    P("password2", password) ::
-    P("name", name) ::
-    P("surname", surname) ::
-    P("email", email) ::
-    P("profile", profile.toString) ::
-    position.formParams("position")) :::
-    (if (groups.isEmpty) Nil else List(P("groups", (groups mkString ","))))
+  def formParams():List[Param[Any,String]] = {
+    val idParam = idOption.map(id => SP("id" -> id)).toList
+    val params = (P("username", username) ::
+	    SP("password", password) ::
+	    SP("password2", password) ::
+	    SP("name", name) ::
+	    SP("surname", surname) ::
+	    SP("email", email) ::
+	    SP("profile", profile.toString) :: 
+	    position.formParams("position")) 
+    
+    val groupParam = (if (groups.isEmpty) Nil else List(SP("groups" -> (groups mkString ","))))
+    idParam ::: params ::: groupParam
+  }
 }
 
 case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:ExecutionContext) extends XmlValue {
@@ -102,7 +113,8 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
 
 class UserValue(val user:User, val basicValue:BasicHttpValue) extends XmlValue with UserRef {
   def userId = user.idOption.get
-  def loadUser(implicit context:ExecutionContext) = GetUser(userId)(None).value.user
+  def loadUser(implicit context:ExecutionContext) = 
+    GetUser(userId)(None).value.user
 }
 
 class GetUserValue(override val userId:String, basicValue:BasicHttpValue) extends UserValue(null, basicValue) {
@@ -174,15 +186,15 @@ case class CreateUser(user:User)
   }
 }
 object DeleteUser {
-def apply() = (response:Response[UserRef]) => new DeleteUser(response.value.userId)
+	def apply() = (user:UserRef) => new DeleteUser(user.userId)
 }
 case class DeleteUser(userId:String) extends AbstractGetRequest[Any,IdValue]("user.remove", ExplicitIdValueFactory(userId), SP("id" -> userId))
 
 case class UpdateUser(val user:User)
-  extends AbstractFormPostRequest[UserRef,UserValue]("user.update", SelfValueFactory(), user.formParams():_*)
-  with ValueFactory[UserRef,UserValue] {
+  extends AbstractFormPostRequest[Any,UserValue]("user.update", SelfValueFactory(), P("operation", "fullupdate") :: user.formParams() : _*)
+  with ValueFactory[Any,UserValue] {
 
-  def createValue[A <: UserRef, B >: UserValue](request: Request[A, B], in: UserRef, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
-    new UserValue(user.copy(idOption = Some(in.userId)),rawValue)
+  def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+    new UserValue(user.copy(idOption = Some(user.idOption.get)),rawValue)
   }
 }

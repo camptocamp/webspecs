@@ -23,17 +23,17 @@ trait Log {
   case object Warning extends Level
   case object Error extends Level
   case object Plugins extends Level
+  case object TextResponse extends Level
 
   protected def log(level:Level, msg: => Any) = {
     if(LoggingConfig.all || LoggingConfig.enabled.contains(level)) {
-      write(msg)
+      System.err.println("["+level+"] "+msg)
     }
   }
 
-  private def write(msg:Any) = System.err.println(msg)
 
 }
 
 object Log extends Log {
-  def apply(level:Level, msg: => Any) = if(LoggingConfig.all || LoggingConfig.enabled.contains(level)) { write(msg) }
+  def apply(level:Level, msg: => Any) = log(level,msg)
 }

@@ -35,9 +35,9 @@ class CreateSpec extends GeonetworkSpecification { def is =
       val request = (
           config.login then
           createMd startTrackingThen
-          GetEditingMetadata trackThen
+          GetRawMetadataXml trackThen
           DeleteMetadata trackThen
-          GetEditingMetadata)
+          GetRawMetadataXml)
 
       request(None)
   }

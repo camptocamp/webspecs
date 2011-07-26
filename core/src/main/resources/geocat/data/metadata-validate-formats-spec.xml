@@ -89,7 +89,7 @@
             <gmd:distributionFormat>
                 <gmd:MD_Format>
                     <gmd:name>
-                        <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+                        <gco:CharacterString>{uuid}</gco:CharacterString>
                     </gmd:name>
                     <gmd:version>
                         <gco:CharacterString>1</gco:CharacterString>
@@ -99,7 +99,7 @@
             <gmd:distributionFormat>
                 <gmd:MD_Format>
                     <gmd:name>
-                        <gco:CharacterString>{automated_test_metadata}</gco:CharacterString>
+                        <gco:CharacterString>{uuid}</gco:CharacterString>
                     </gmd:name>
                     <gmd:version>
                         <gco:CharacterString>2</gco:CharacterString>

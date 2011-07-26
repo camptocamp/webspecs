@@ -15,7 +15,7 @@ import org.specs2.runner.JUnitRunner
 class AddSharedContactsSpec extends GeocatSpecification() { def is =
   "This specification tests creating shared contacts by passing in a contact xml"                               ^ Step(setup) ^ t ^
     "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
-    "Should be a successful http request (200 response code)"                                                                                    ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
+    "Should be a successful http request (200 response code)"                                                   ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
     "Contact node should have an xlink href"                                                                    ^ hrefInElement("contact").toThen ^
     "Should have the correct ${host} in the xlink created during processing of shared object"                   ^ hrefHost("contact").toThen ^ 
     "Should have the correct ${port} in the xlink created during processing of shared object"                   ^ hrefHost("contact").toThen ^ 
@@ -44,7 +44,8 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
     val xml = xlink.value.withXml{ i => i}
     (xlink must haveA200ResponseCode) and
       (xml \\ "organisationName" map (_.text.trim) must contain (originalOrg)) and
-      (xml \\ "individualFirstName" map (_.text.trim) must contain (contactFirstName,parentFirstName))
+      (xml \\ "individualFirstName" map (_.text.trim) must contain (contactFirstName)) and
+      ((xml \\ "parentResponsibleParty" \@ "xlink:href") must not beEmpty)
 
   }
 

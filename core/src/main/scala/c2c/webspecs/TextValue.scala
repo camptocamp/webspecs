@@ -6,7 +6,7 @@ trait TextValue {
   protected def basicValue:BasicHttpValue
   lazy val text = basicValue.data match {
     case Right(data) =>
-      allCatch[String].either { new String(data, "UTF8") }
+      allCatch[String].either { val t=new String(data, "UTF8"); Log(Log.TextResponse, t);t}
     case Left(error) => Left(error)
   }
   def withText[R](f:String => R):R = text.fold(throw _, f)

@@ -8,5 +8,5 @@ object LocalisedString {
   }
 }
 case class LocalisedString(translations:Map[String,String]) {
-   def formParams(paramName:String)= translations.map{case (key,value) => P(paramName+key.toUpperCase, value)} toList
+   def formParams(paramName:String)= translations.map{case (key,value) => SP(paramName+key.toUpperCase, value)} toList
 }

@@ -4,11 +4,14 @@ package geocat
 package spec.WP3
 
 import org.specs2.specification.Step
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class AccessExtentsSpec extends GeocatSpecification { def is =
 
   "This specification tests accessing shared extent"           ^ Step(setup) ^
-    "Searching extends for '${berne}' in ${gmd_bbox} format"   ^ listExtents.toGiven ^
+    "Searching extents for '${berne}' in ${gmd_bbox} format"   ^ listExtents.toGiven ^
       "Should be a successful http request (200 response code)"                     ^ l200Response ^
       "Should find ${Bern}"                                    ^ findExtentResult.toThen    ^
       "Should show href"                                       ^ listhref.toThen    ^
@@ -16,15 +19,15 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
       "Should have ${gmd_bbox} format in uri"                  ^ formatCheck.toThen    ^
       "Should indicate validated"                              ^ listValidated.toThen    ^
                                                                  end^
-    "Searching extends for '${be}' in ${gmd_complete} format"  ^ listExtents.toGiven ^
+    "Searching extents for '${be}' in ${gmd_complete} format"  ^ listExtents.toGiven ^
       "Should find ${Bern}"                                    ^ findExtentResult.toThen    ^
       "Should have ${gmd_complete} format in uri"              ^ formatCheck.toThen    ^
                                                                  end ^
-    "Searching extends for '${Be}' in ${gmd_polygon} format"  ^ listExtents.toGiven ^
+    "Searching extents for '${Be}' in ${gmd_polygon} format"  ^ listExtents.toGiven ^
       "Should find ${Bern}"                                   ^ findExtentResult.toThen    ^
       "Should have ${gmd_polygon} format in uri"              ^ formatCheck.toThen    ^
                                                                  end ^
-    "Searching extends for '${Graubünden}' in ${gmd_polygon} format"  ^ listExtents.toGiven ^
+    "Searching extents for '${Graubünden}' in ${gmd_polygon} format"  ^ listExtents.toGiven ^
       "Should find ${Graubünden}"                              ^ findExtentResult.toThen    ^
                                                                  end ^
     "Gettings a ${gmd_bbox} extent in iso xml"                 ^ extentInIso.toGiven  ^
@@ -42,7 +45,7 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
 
   val listExtents = (s:String) => {
     val (search, format) = extract2(s)
-    SearchExtent(numResults = 200, format = ExtentFormat.withName(format))(search):ListResponse
+    SearchExtent(numResults = 10000, format = ExtentFormat.withName(format))(search):ListResponse
   }
   def findBern[U](response:ListResponse)(mapping: ExtentSummary => U) = response.value.find(_.id == "351").map(mapping)
   val l200Response = a200ResponseThen.narrow[ListResponse]

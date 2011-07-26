@@ -26,7 +26,7 @@ class CreateAsNeededUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle 
 
   def tearDown(implicit context: ExecutionContext) = {
 
-    val DeleteMetadata = GetUser.fromUserName(user) then DeleteOwnedMetadata
+    val DeleteMetadata = DeleteOwnedMetadata.setIn(UserRef(config.userId))
 
     (adminLogin then DeleteMetadata)(None)
   }
