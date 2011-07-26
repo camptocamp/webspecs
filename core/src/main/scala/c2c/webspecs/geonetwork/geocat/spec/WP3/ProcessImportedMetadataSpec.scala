@@ -54,7 +54,7 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
      assert(deleteResponse.basicValue.responseCode == 200, "Failed to delete imported metadata")
    }
    def doImport(fileName:String):Response[TestData] = {
-     val (xmlString,importRequest) = ImportMetadata.defaults(uuid, "/geocat/data/"+fileName,true, classOf[ProcessImportedMetadataSpec])
+     val (xmlString,importRequest) = ImportMetadata.defaults(uuid, "/geocat/data/"+fileName,false, classOf[ProcessImportedMetadataSpec])
      val originalXml = XML.loadString(xmlString)
      
      val importResponse = (UserLogin then importRequest)(None)
