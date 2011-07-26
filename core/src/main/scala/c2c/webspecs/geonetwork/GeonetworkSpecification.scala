@@ -45,7 +45,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
     
     mdToDelete foreach {id => 
       try {DeleteMetadata(id) }
-      catch { case _ => println("Error deleteing: "+ id) }
+      catch { case _ => println("Error deleting: "+ id) }
     }
   }
   

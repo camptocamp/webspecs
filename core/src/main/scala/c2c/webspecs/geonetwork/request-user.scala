@@ -44,6 +44,9 @@ object User {
     }
   }
 }
+object UserRef {
+  def apply(id:String) = new UserRef{val userId=id}
+}
 trait UserRef {
   def userId:String
 }
