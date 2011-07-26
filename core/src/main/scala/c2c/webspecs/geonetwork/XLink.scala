@@ -42,5 +42,5 @@ case class XLink(url:String,id:String,xml:Node) {
   lazy val formatVersion = (xml \\ "version" text).trim
   lazy val formatName = (xml \\ "name" text).trim
 
-  override def toString = "XList(%s,%s".format(url,id)
+  override def toString = "XLink(%s,%s".format(url,id)
 }

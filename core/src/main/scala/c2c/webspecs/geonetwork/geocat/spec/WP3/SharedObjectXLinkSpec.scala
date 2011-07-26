@@ -40,35 +40,35 @@ class SharedObjectXLinkSpec extends GeocatSpecification(UserProfiles.UserAdmin) 
 
     val name = "metadata-validate-formats-spec.xml"
 
-    val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/"+name, false, getClass)
+    val (_, importMd) = ImportMetadata.defaults(uuid, "/geocat/data/" + name, false, getClass)
 
     val originalMetadataValue = (UserLogin then importMd then GetEditingMetadataXml)(None).value
-    val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
+    val (id, originalXml) = (originalMetadataValue.id, originalMetadataValue.xml.right.get)
 
-    val xlinks = XLink.findAll(originalXml,AddSites.distributionFormat)
+    val xlinks = XLink.findAll(originalXml, AddSites.distributionFormat)
 
     xlinks must have size (3)
 
-    val formatId = xlinks.find{_.formatVersion == "2"}.get.id
+    val formatId = xlinks.find { _.formatVersion == "2" }.get.id
 
-    val afterValidation = (config.adminLogin then
-      ValidateSharedObject(formatId,SharedObjectTypes.formats) then
+    val validationResponse = (config.adminLogin then
+      ValidateSharedObject(formatId, SharedObjectTypes.formats) then
       GetEditingMetadataXml.setIn(Id(id)))(None)
 
-    afterValidation.value.withXml { xml =>
-      val newXlinks = XLink.findAll(xml,AddSites.distributionFormat)
+    val mdAfterValidation = validationResponse.value.getXml
 
-      newXlinks.map{_.id} must contain (xlinks.map{_.id})
+    val newXlinks = XLink.findAll(mdAfterValidation, AddSites.distributionFormat)
 
-      val validated = newXlinks collect {
-        case xlink if xlink.isValidated => xlink
-      }
-      validated must have size (2)
-      val invalidated = newXlinks collect {
-        case xlink if xlink.nonValidated => xlink
-      }
-      invalidated must have size (1)
+    newXlinks.map { _.id } must haveTheSameElementsAs(xlinks.map { _.id })
+
+    def validated(xlinks:Seq[XLink]) = xlinks collect {
+      case xlink if xlink.isValidated => xlink.id
     }
+    validated(newXlinks) must have size(validated(xlinks).size)
+    def invalidated(xlinks:Seq[XLink]) = xlinks collect {
+      case xlink if xlink.nonValidated => xlink.id
+    }
+    invalidated(newXlinks) must have size(invalidated(xlinks).size)
   }
   def createAndValidateKeepRole = {
     val name = "metadata-validate-contact-138548.xml"
