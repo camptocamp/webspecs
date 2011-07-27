@@ -19,17 +19,18 @@ import c2c.webspecs.geonetwork.GetRawMetadataXml
 @RunWith(classOf[JUnitRunner]) 
 class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 	def is = {
-	  "CSW service by language".title 	^ Step(setup) ^
-	  	"Importing a metadata" 			^ Step(importMetadataId) ^
-	  	   "Getting the metadata using the ${fra} CSW service (${FR}, ${GetRecordById})" ! CswGet ^
-	  	   "Getting the metadata using the ${deu} CSW service (${DE}, ${GetRecordById})" ! CswGet ^
-   	  	   "Getting the metadata using the ${eng} CSW service (${EN}, ${GetRecordById})" ! CswGet ^
-   	  	   "Getting the metadata using the ${fra} CSW service (${FR}, ${GetRecords})" ! CswGet ^
-	  	   "Getting the metadata using the ${deu} CSW service (${DE}, ${GetRecords})" ! CswGet ^
-   	  	   "Getting the metadata using the ${eng} CSW service (${EN}, ${GetRecords})" ! CswGet ^
-		"Delete the inserted metadata"							^ Step(deleteMetadata)  ^
-																end ^ Step(tearDown)
-																
+	  "CSW service by language".title 	                                                                                                           ^ Step(setup) ^
+	  	"Imports a metadata, and test it against different locales, the non-multilingual responses (dublin-core) should be in the french language" ^ Step(importMetadataId) ^
+	  	   "Testing the ${fra} CSW service, getting previously inserted MD in its french version (${FR}, ${GetRecordById})"                        ! CswGet ^
+	  	   "Testing the ${deu} CSW service, getting previously inserted MD in its german version (${DE}, ${GetRecordById})"                        ! CswGet ^
+   	  	   "Testing the ${eng} CSW service, getting previously inserted MD in its english version (${EN}, ${GetRecordById})"		               ! CswGet ^
+   	  	   "Testing the metadata using CSW service on ${ita} locale -> fallback on default MD locale (${ITA}, ${GetRecordById})"                   ! CswGet ^
+   	  	   "Testing the ${fra} CSW service, getting previously inserted MD in its french version (${FR}, ${GetRecords})"                           ! CswGet ^
+	  	   "Testing the ${deu} CSW service, getting previously inserted MD in its german version (${DE}, ${GetRecords})"                           ! CswGet ^
+   	  	   "Testing the ${eng} CSW service, getting previously inserted MD in its english version (${EN}, ${GetRecords})"                          ! CswGet ^
+   	  	   "Testing the metadata using CSW service on ${ita} locale -> fallback on default MD locale (${ITA}, ${GetRecords})"                      ! CswGet ^
+		"Delete the inserted metadata"							                                                                                   ^ Step(deleteMetadata)  ^
+																                                                                                     end ^ Step(tearDown)														
 	}
 	
 	lazy val importMetadataId = {
@@ -61,9 +62,10 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 			  									
 	  val title = (CswRequest(Nil).value.getXml \\ "title").text.trim.toUpperCase		  									
 
-      
-      title must_== (expectedLang + " TITLE")
-
+      if (languageCode != "ita")
+    	  title must_== (expectedLang + " TITLE")
+      else
+        title must_== ("FR TITLE")
 	}
 	
 	
