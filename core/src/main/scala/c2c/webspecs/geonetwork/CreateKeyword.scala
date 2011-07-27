@@ -10,18 +10,12 @@ import java.net.URLEncoder
  * @param words 2 letter lang code -> word
  */
 case class CreateKeyword(namespace: String, id: String, thesaurus: String, words: (String, String)*)
-  extends Request[Any, Null] {
+  extends Request[Any, XmlValue] {
   def apply(in: Any)(implicit context: ExecutionContext) = {
-    words.foreach {
-      case (lang, word) =>
-        GetRequest("thesaurus.addelement",
-          "namespace" -> URLEncoder.encode(namespace, "UTF-8"),
-          "newid" -> URLEncoder.encode(id,"UTF-8"),
-          "refType" -> "unknown",
-          "ref" -> thesaurus,
-          "lang" -> lang,
-          "prefLab" -> URLEncoder.encode(word,"UTF-8"))()
+    
+    val request = words.headOption.map {
+      case (lang, word) => GetRequest("thesaurus.addelement", UpdateKeyword.params(namespace, id, thesaurus,lang,word): _*)
     }
-    EmptyResponse
+    ((request getOrElse NoRequest) then UpdateKeyword(namespace, id, thesaurus, words.drop(1):_*))()
   }
 }

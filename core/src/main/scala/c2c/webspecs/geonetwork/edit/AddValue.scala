@@ -6,9 +6,11 @@ import scala.xml.NodeSeq
 
 class AddValue(val editVal:EditValue,
 			   val basicValue:BasicHttpValue,
-               val newElement:Node,
-               val newXml:NodeSeq ) extends EditValue {
+               val newElement:Node) extends EditValue {
 
+  override lazy val text = editVal.text
+  override lazy val xml = editVal.xml
+  override lazy val html = editVal.html
   lazy val id = editVal.id
   lazy val version = editVal.version
   lazy val href = XLink hrefFrom newElement

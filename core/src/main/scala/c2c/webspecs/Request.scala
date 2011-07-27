@@ -16,7 +16,7 @@ import java.net.URI
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager
 
 object Request {
-  def const[A](in:A) = new Request[Any,A] with AnyRequest[A] {
+  def const[A](in:A) = new Request[Any,A] {
     def apply(empty: Any)(implicit context: ExecutionContext) = Response(in)
   }
 }

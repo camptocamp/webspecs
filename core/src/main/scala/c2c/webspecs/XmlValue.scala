@@ -2,6 +2,7 @@ package c2c.webspecs
 import scala.xml.NodeSeq
 import scala.xml.XML
 import scala.util.control.Exception.allCatch
+import scala.xml.Node
 trait XmlValue extends TextValue {
   def parse(parser : String => NodeSeq):Either[Throwable,NodeSeq] = text match {
     case Right(text) =>
@@ -28,8 +29,8 @@ trait XmlValue extends TextValue {
     
     throw t
   }
-  def withXml[R](f:NodeSeq => R):R = xml.fold(throwAndPrint _, f)
+  def withXml[R](f:Node => R):R = xml.fold(throwAndPrint _, n => f(n.head))
   def withHtml[R](f:NodeSeq => R):R = html.fold(throwAndPrint _, f)
-  def getXml = xml.fold(_ => getHtml, xml => xml)
+  def getXml:Node = xml.fold(_ => getHtml.head, xml => xml.head)
   def getHtml = html.fold(throw _, xml => xml)
 }

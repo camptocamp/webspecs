@@ -94,30 +94,4 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
       def extract(given: B,text: String) = function(given)
     }
   }
-  private val AnyNamespace = """_(:\S+)""".r
-  private val AnyName = """(\S+:)_""".r
-
-  private def getAtt(node:Node, attName:String):List[String] = attName match {
-      case AnyName(namespace) =>
-          node.attributes.asAttrMap.toList.collect{
-            case (key,value) if key.startsWith(namespace) => value
-          }
-      case AnyNamespace(name) =>
-          node.attributes.asAttrMap.toList.collect{
-              case (key,value) if key.endsWith(name) || key == name => value
-          }
-      case _ =>
-        node.attributes.asAttrMap.get(attName).toList
-    }
-
-  implicit def addAttributeSelector(node:Node) = new {
-    def @@(attName:String) = getAtt(node,attName)
-  }
-  implicit def addSeqAttributeSelector[N <% NodeSeq](seq:N) = new {
-    def \@(name:String) = seq.flatMap(n => getAtt(n,name))
-  }
-  implicit def encodeableString(s:String) = new {
-    def encode = URLEncoder.encode(s,"UTF-8")
-	def decode = URLDecoder.decode(s,"UTF-8")
-  }
 }

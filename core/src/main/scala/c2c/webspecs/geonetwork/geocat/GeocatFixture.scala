@@ -18,7 +18,7 @@ object GeocatFixture {
     def id = _id
 
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteFormat(name, version))(None)(context)
+      (config.adminLogin then DeleteFormat.setIn(id))(None)(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val formats = (config.adminLogin then AddFormat(name, version) then ListFormats.setIn(name))(None)(context)

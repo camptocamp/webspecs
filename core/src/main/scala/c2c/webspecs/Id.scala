@@ -7,4 +7,5 @@ object Id {
 }
 trait Id {
   def id:String
+  override def toString = id
 }
