@@ -15,10 +15,11 @@ import csw._
 import scala.xml.NodeSeq
 import OutputSchemas._
 import c2c.webspecs.geonetwork.csw.CswGetCapabilities
+import c2c.webspecs.GetRequest
 
 
 @RunWith(classOf[JUnitRunner]) 
-class CSWOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  def is =
+class CswOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  def is =
 	"CSW output schemas".title ^ Step(setup) ^
 	"This specification tests the usage of different output schemas through CSW" ^
 		"Test the CSW server via GetCapabilities request" ^ testGetCapabilities.toGiven ^
@@ -37,7 +38,7 @@ class CSWOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  de
 																			end ^ Step(tearDown)
 		
 	
-	val testGetCapabilities = () =>  CswGetCapabilities(Nil).value.getXml
+	val testGetCapabilities = () =>  CswGetCapabilities()().value.getXml
 	
 	val outputSchema = (capabilities : NodeSeq, descriptor : String) => {
 	  val schema = extract1(descriptor)

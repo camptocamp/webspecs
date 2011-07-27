@@ -6,9 +6,9 @@ import c2c.webspecs.geonetwork.geocat.spec.WP1.ImportCheMetadataSpec
 import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
-
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import c2c.webspecs.geonetwork.geocat.spec.WP16.RegisterXslSpec
 
 
 @RunWith(classOf[JUnitRunner]) 
@@ -20,8 +20,22 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
       classOf[WP1],
       classOf[WP3],
 	  classOf[WP4],
-	  classOf[WP6]
+	  classOf[WP6],
+	  classOf[WP16]	  
 	).flatMap{s => createSpecification(s.getName)}
+      specs.
+        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
+
+}
+class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+    examplesLinks("WP 1: Add CHE Schema")
+
+    def examplesLinks(t: String) = {
+  val specs = List(
+        classOf[ImportCheMetadataSpec]
+      ).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }
@@ -53,19 +67,6 @@ class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 }
 
-class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
-
-    examplesLinks("WP 1: Add CHE Schema")
-
-    def examplesLinks(t: String) = {
-  val specs = List(
-        classOf[ImportCheMetadataSpec]
-      ).flatMap{s => createSpecification(s.getName)}
-      specs.
-        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-    }
-
-}
 class WP4 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 	examplesLinks("WP 4: Resolve XLinks")
@@ -85,10 +86,25 @@ class WP6 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 	def examplesLinks(t: String) = {
 		val specs = List(
+				classOf[CswGetCapabilitiesServiceUrlSpec],
 				classOf[CswLanguageSpec],
-				classOf[CSWOutputSchemaSpec]
+				classOf[CswOutputSchemaSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
 }
+
+class WP16 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+	examplesLinks("WP 16: Misc. tests")
+
+	def examplesLinks(t: String) = {
+		val specs = List(
+				classOf[RegisterXslSpec]
+				).flatMap{s => createSpecification(s.getName)}
+		specs.
+		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+	}
+}
+
