@@ -50,7 +50,7 @@ class RegisterXslSpec extends GeocatSpecification(UserProfiles.Admin) {  def is 
     def deleteXslStyleSheets= {
 	  List("bs_extended_test_110718.xsl",
 	       "bs_full_test_110718.xsl",
-	       "bs_simple_test_110718.xsl").foreach { n => GetRequest("metadata.xsl.remove", ("id" -> xslId(n)))(Nil) }
+	       "bs_simple_test_110718.xsl").foreach { n => GetRequest("metadata.xsl.remove", ("id" -> xslId(n)))(Nil)  must haveA200ResponseCode }
     }
     
     
