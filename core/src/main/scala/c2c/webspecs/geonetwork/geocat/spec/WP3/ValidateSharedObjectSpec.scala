@@ -2,20 +2,71 @@ package c2c.webspecs
 package geonetwork
 package geocat
 package spec.WP3
-import edit._
+
+import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 import org.specs2.specification.Step
-import org.specs2.matcher.MustThrownMatchers
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import c2c.webspecs.geonetwork.edit.AddSites
+import org.specs2.matcher.MustThrownMatchers
 
 @RunWith(classOf[JUnitRunner]) 
-class SharedObjectXLinkSpec extends GeocatSpecification(UserProfiles.UserAdmin) with MustThrownMatchers { def is =
-  "This specification tests managing Shared objects"                                              ^ Step(setup) ^
-    "Allow creation and deletion of shared users"                                                 ! createAndDelete ^
-    "Allow creation of shared format and validate it without interfering with others in metadata" ! createAndValidateNoInterference ^
-    "Allow creation of shared format and validate it without losing role information"             ! createAndValidateKeepRole ^
-                                                                                                  Step(tearDown)
+class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatchers { def is = 
+  "Validate Shared Object spec".title 				^ Step(setup) ^
+  "This specification tests validation of shared objects"													^
+  "This section tests validating a shared object that is present in multiple Metadata"						^
+    "First we need to Import the same metadata object twice"												^ Step(ImportTwoMetadata)  ^
+    "At this point the xlink in both metadata should no be validated"										! nonValidatedContacts  ^
+    "Next validate the imported shared object, in this case a contact"										^ Step(validateContact) ^
+    "Once done the xlink in both metadata should be updated to be validated"								! isValidatedContact		^
+    																										  endp ^
+/*  "This section tests a couple corner cases of shared object validation"                                    ^ 
+    "Allow creation and deletion of shared contacts"                                                        ! createAndDelete ^
+    "Allow creation of shared format and validate it without interfering with others in metadata" 			! createAndValidateNoInterference ^
+    "Allow creation of shared format and validate it without losing role information"             			! createAndValidateKeepRole ^*/
+    																										  Step(tearDown)
 
+  lazy val ImportTwoMetadata: (IdValue, IdValue) = {
+    val importRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml", true, classOf[ValidateSharedObject], ImportStyleSheets.NONE)._2
+    config.adminLogin()
+    val id1 = importRequest().value
+    val id2 = importRequest().value
+    registerNewMd(id1, id2)
+    (id1, id2)
+  }
+
+  def loadMetadata = {
+    val md1 = GetEditingMetadataXml(ImportTwoMetadata._1).value.getXml
+    val md2 = GetEditingMetadataXml(ImportTwoMetadata._2).value.getXml
+
+    val contact1 =  md1 \\ "contact" filter (n => (n \\ "electronicMailAddress").text.trim == uuid + "@c2c.com")
+    val href1 = (contact1.head @@ "xlink:href")
+
+    val contact2 = (md2 \\ "contact" filter { _ @@ "xlink:href" == href1 })
+
+    (contact1.head, contact2.head)
+  }
+  def nonValidatedContacts = {
+    val (contact1, contact2) = loadMetadata
+    (contact1 @@ "xlink:role" must_== List(GeocatConstants.HREF_NON_VALIDATED_ROLE_STRING)) and
+      (contact2 @@ "xlink:role" must_== List(GeocatConstants.HREF_NON_VALIDATED_ROLE_STRING))
+  }
+
+  def validateContact = {
+    val contact = loadMetadata._1
+    val SharedObjectHrefExtractor(obj) = (contact @@ "xlink:href").head 
+    
+    ValidateSharedObject(obj.id, obj.objType)
+  }
+
+  def isValidatedContact = {
+    val (contact1, contact2) = loadMetadata
+
+    (contact1 @@ "xlink:role" must_== List("")) and
+      (contact2.head @@ "xlink:role" must_== List(""))
+  }
+  
+  
   def createAndDelete = {
     val Create = CreateUser(User(uuid,SharedUserProfile))
     val newEmail = "newemail"+uuid+"@cc.cc"
@@ -44,6 +95,8 @@ class SharedObjectXLinkSpec extends GeocatSpecification(UserProfiles.UserAdmin) 
 
     val originalMetadataValue = (UserLogin then importMd then GetEditingMetadataXml)(None).value
     val (id, originalXml) = (originalMetadataValue.id, originalMetadataValue.xml.right.get)
+    
+    registerNewMd(Id(id))
 
     val xlinks = XLink.findAll(originalXml, AddSites.distributionFormat)
 
@@ -73,11 +126,11 @@ class SharedObjectXLinkSpec extends GeocatSpecification(UserProfiles.UserAdmin) 
   def createAndValidateKeepRole = {
     val name = "metadata-validate-contact-138548.xml"
 
-    
     val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/"+name, false, getClass)
 
     val originalMetadataValue = (UserLogin then importMd then GetEditingMetadataXml)(None).value
     val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
+    registerNewMd(Id(id))
 
     val xlinks = XLink.findAll(originalXml,AddSites.contact)
     xlinks must haveSize (1)
@@ -94,4 +147,5 @@ class SharedObjectXLinkSpec extends GeocatSpecification(UserProfiles.UserAdmin) 
       newXlinks(0).url must_== xlinks(0).url
     }
   }
+  
 }

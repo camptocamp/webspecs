@@ -9,4 +9,5 @@ object GeocatConstants {
   final val GEOCAT_THESAURUS = "local._none_.geocat.ch"
   final val NON_VALIDATED_THESAURUS = "local._none_.non_validated"
   final val KEYWORD_NAMESPACE = "http://custom.shared.obj.ch/concept#"
+  final val HREF_NON_VALIDATED_ROLE_STRING = "http://www.geonetwork.org/non_valid_obj"
 }

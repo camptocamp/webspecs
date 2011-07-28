@@ -23,6 +23,6 @@ class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] wit
     EmptyResponse
   }
 
-  override def toString() = "BasicAuthLogin(%s,%s)".format(user,pass)
+  override def toString() = "BasicAuthLogin(%s,xxx)".format(user)
 }
 

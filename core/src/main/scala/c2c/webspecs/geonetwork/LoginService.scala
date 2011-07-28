@@ -13,5 +13,5 @@ class LoginService(val user:String, pass:String)
       P("username" -> user), 
       P("password" -> pass)) 
    with LoginRequest {
-  override def toString() = "Login(%s,%s)".format(user,pass)
+  override def toString() = "Login(%s,xxxxxx)".format(user)
 }

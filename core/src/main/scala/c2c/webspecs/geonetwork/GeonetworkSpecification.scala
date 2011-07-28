@@ -30,8 +30,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   
   private var mdToDelete = new SynchronizedQueue[Id]()
   
-  def registerNewMd(id:String) = mdToDelete += Id(id)
-  def registerNewMd(id:Id) = mdToDelete += id
+  def registerNewMd(ids:Id*):Unit = mdToDelete ++= ids
   
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
