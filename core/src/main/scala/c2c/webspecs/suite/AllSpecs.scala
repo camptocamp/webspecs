@@ -58,6 +58,7 @@ class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
         classOf[AddSharedFormatSpec],
         classOf[ProcessImportedMetadataSpec],
         classOf[ImportSpecialExtentsSpec],
+        classOf[AddXLinks],
         classOf[SharedObjectXLinkSpec]
       ).flatMap{s => createSpecification(s.getName)}
       specs.

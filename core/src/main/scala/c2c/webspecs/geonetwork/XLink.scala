@@ -3,6 +3,7 @@ package geonetwork
 
 import xml.{NodeSeq, Node}
 import edit.AddSites
+import c2c.webspecs.geonetwork.edit.EditValue
 
 object XLink {
   
@@ -20,16 +21,12 @@ object XLink {
     nodes map apply
   }
 
-  def xlinkIdExtractor(nodeName:String) = {
-    import java.util.regex.Pattern.quote
-    (quote("javascript:displayXLinkSearchBox('/geonetwork/srv/")+".?.?.?"+quote("/metadata.xlink.add',") +
-      "(.+?)"+quote(",'"+nodeName+"','")+".+?"+quote("');")).r
-  }
-  def lookupXlinkNodeRef(nodeName:String)(md:NodeSeq) = {
-    val IdExtractor = xlinkIdExtractor(nodeName)
+  def lookupXlinkNodeRef(nodeName:String)(editVal:EditValue):String = {
 
-    val xlinkSearchBoxLinks = md \\ "a" \\ "@href" map {_.text} collect {
-      case IdExtractor(id) => id
+    val md = (editVal.getXml \ "_").drop(1).head
+
+    val xlinkSearchBoxLinks = md \\ "_" collect {
+      case n if ((n \ "child" \@ "name") contains nodeName) => n \ "element" \@ "ref" head
     }
     xlinkSearchBoxLinks.headOption getOrElse {throw new IllegalArgumentException(nodeName+" does not have an xlink site in this metadata")}
   }

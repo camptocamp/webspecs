@@ -14,24 +14,29 @@ object GeonetworkFixture {
     private var _id:String = _
 
     def id = _id
-
-    def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteUser(id))(None)(context)
-
-    def create(config: GeonetConfig, context: ExecutionContext) = {
-      val userReq = User(
+    
+    def user = User(
+        idOption = Option(id),
         username = username,
         email = email,
         name = name,
         surname=lastname,
         password = username,
-        profile = profile)
-      val user = (config.adminLogin then CreateUser(userReq))(None)(context)
-      _id = user.value.userId
+        profile = profile) 
+
+    def delete(config: GeonetConfig, context: ExecutionContext) =
+      (config.adminLogin then DeleteUser(id))(None)(context)
+
+    def create(config: GeonetConfig, context: ExecutionContext) = {
+      val userReq = user
+      val createResponse = (config.adminLogin then CreateUser(userReq))(None)(context)
+      _id = createResponse.value.userId
     }
   }
   
-  def keyword(namespace:String,thesaurus:String) = new Fixture[GeonetConfig] {
+  def keyword(_namespace:String, _thesaurus:String) = new Fixture[GeonetConfig] {
+    val namespace = _namespace
+    val thesaurus = _thesaurus
     lazy val uuid = UUID.randomUUID().toString() 
     lazy val en = "EN-"+uuid
     lazy val fr = "FR-"+uuid

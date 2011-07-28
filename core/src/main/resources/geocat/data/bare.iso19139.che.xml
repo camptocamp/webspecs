@@ -12,109 +12,6 @@
 	<gmd:hierarchyLevel xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<gmd:MD_ScopeCode codeListValue="dataset" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode"/>
 	</gmd:hierarchyLevel>
-	<gmd:contact >
-		<che:CHE_CI_ResponsibleParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:CI_ResponsibleParty">
-			<gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
-				<gmd:PT_FreeText>
-					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#DE">Amt für Wald, Natur und Landschaft</gmd:LocalisedCharacterString>
-					</gmd:textGroup>
-				</gmd:PT_FreeText>
-			</gmd:organisationName>
-			<gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-				<gco:CharacterString/>
-			</gmd:positionName>
-			<gmd:contactInfo>
-				<gmd:CI_Contact>
-					<gmd:phone>
-						<che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
-							<gmd:voice>
-								<gco:CharacterString>(+423) 236 64 00</gco:CharacterString>
-							</gmd:voice>
-							<gmd:facsimile gco:nilReason="missing">
-								<gco:CharacterString/>
-							</gmd:facsimile>
-							<che:directNumber gco:nilReason="missing">
-								<gco:CharacterString/>
-							</che:directNumber>
-							<che:mobile gco:nilReason="missing">
-								<gco:CharacterString/>
-							</che:mobile>
-						</che:CHE_CI_Telephone>
-					</gmd:phone>
-					<gmd:address>
-						<che:CHE_CI_Address gco:isoType="gmd:CI_Address">
-							<gmd:city>
-								<gco:CharacterString>Vaduz</gco:CharacterString>
-							</gmd:city>
-							<gmd:administrativeArea gco:nilReason="missing">
-								<gco:CharacterString/>
-							</gmd:administrativeArea>
-							<gmd:postalCode>
-								<gco:CharacterString>9490</gco:CharacterString>
-							</gmd:postalCode>
-							<gmd:country xsi:type="gmd:PT_FreeText_PropertyType">
-								<gco:CharacterString>LI</gco:CharacterString>
-							</gmd:country>
-							<gmd:electronicMailAddress>
-                                <gco:CharacterString>{uuid}@c2c.com</gco:CharacterString>
-							</gmd:electronicMailAddress>
-							<che:streetName>
-								<gco:CharacterString>Dr. Grass-Strasse 10</gco:CharacterString>
-							</che:streetName>
-							<che:streetNumber>
-								<gco:CharacterString>10</gco:CharacterString>
-							</che:streetNumber>
-							<che:addressLine gco:nilReason="missing">
-								<gco:CharacterString/>
-							</che:addressLine>
-							<che:postBox gco:nilReason="missing">
-								<gco:CharacterString/>
-							</che:postBox>
-						</che:CHE_CI_Address>
-					</gmd:address>
-					<gmd:onlineResource>
-						<gmd:CI_OnlineResource>
-							<gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-								<che:PT_FreeURL>
-									<che:URLGroup>
-										<che:LocalisedURL locale="#DE">http://www.awnl.llv.li</che:LocalisedURL>
-									</che:URLGroup>
-								</che:PT_FreeURL>
-							</gmd:linkage>
-							<gmd:protocol>
-								<gco:CharacterString>text/html</gco:CharacterString>
-							</gmd:protocol>
-							<gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-								<gco:CharacterString/>
-							</gmd:name>
-							<gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-								<gco:CharacterString/>
-							</gmd:description>
-						</gmd:CI_OnlineResource>
-					</gmd:onlineResource>
-					<gmd:hoursOfService gco:nilReason="missing">
-						<gco:CharacterString/>
-					</gmd:hoursOfService>
-					<gmd:contactInstructions gco:nilReason="missing">
-						<gco:CharacterString/>
-					</gmd:contactInstructions>
-				</gmd:CI_Contact>
-			</gmd:contactInfo>
-			<gmd:role>
-				<gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
-			</gmd:role>
-			<che:individualFirstName gco:nilReason="missing">
-				<gco:CharacterString/>
-			</che:individualFirstName>
-			<che:individualLastName>
-				<gco:CharacterString>Abteilung Jagd</gco:CharacterString>
-			</che:individualLastName>
-			<che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
-				<gco:CharacterString/>
-			</che:organisationAcronym>
-		</che:CHE_CI_ResponsibleParty>
-	</gmd:contact>
 	<gmd:dateStamp xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<gco:DateTime>2011-07-04T14:08:21</gco:DateTime>
 	</gmd:dateStamp>
@@ -211,26 +108,6 @@
 					</gmd:textGroup>
 				</gmd:PT_FreeText>
 			</gmd:abstract>
-			<gmd:descriptiveKeywords >
-				<gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
-					<gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
-						<gmd:PT_FreeText>
-							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#EN">{uuid}bathing seawater</gmd:LocalisedCharacterString>
-							</gmd:textGroup>
-							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">{uuid}Badegewässer (Meerwasser)</gmd:LocalisedCharacterString>
-							</gmd:textGroup>
-							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#FR">{uuid}eau de baignade marine</gmd:LocalisedCharacterString>
-							</gmd:textGroup>
-							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#IT">{uuid}acqua marina idonea a balneazione</gmd:LocalisedCharacterString>
-							</gmd:textGroup>
-						</gmd:PT_FreeText>
-					</gmd:keyword>
-				</gmd:MD_Keywords>
-			</gmd:descriptiveKeywords>
 			<gmd:language>
 				<gco:CharacterString>deu</gco:CharacterString>
 			</gmd:language>
@@ -240,63 +117,11 @@
 			<gmd:topicCategory>
 				<gmd:MD_TopicCategoryCode>elevation</gmd:MD_TopicCategoryCode>
 			</gmd:topicCategory>
-			<gmd:extent>
-				<gmd:EX_Extent>
-					<gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
-						<gco:CharacterString>Saules (BE)</gco:CharacterString>
-					</gmd:description>
-					<gmd:geographicElement>
-						<gmd:EX_GeographicDescription>
-							<gmd:geographicIdentifier>
-								<gmd:MD_Identifier>
-									<gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
-										<gco:CharacterString>Saules (BE)</gco:CharacterString>
-									</gmd:code>
-								</gmd:MD_Identifier>
-							</gmd:geographicIdentifier>
-						</gmd:EX_GeographicDescription>
-					</gmd:geographicElement>
-					<gmd:geographicElement>
-						<gmd:EX_BoundingPolygon>
-							<gmd:extentTypeCode>
-								<gco:Boolean>true</gco:Boolean>
-							</gmd:extentTypeCode>
-							<gmd:polygon>
-								<gml:MultiSurface gml:id="N10916c50cb3c4b64ac605c6b11163c88">
-									<gml:surfaceMember>
-										<gml:Polygon gml:id="N2ee4d9bbda56491d8a848773415605aa">
-											<gml:exterior>
-												<gml:LinearRing>
-														<gml:posList>7.206 47.252 7.208 47.258 7.226 47.265 7.235 47.265 7.24 47.259 7.231 47.255 7.228 47.239 7.215 47.24 7.206 47.252</gml:posList>
-												</gml:LinearRing>
-											</gml:exterior>
-										</gml:Polygon>
-									</gml:surfaceMember>
-								</gml:MultiSurface>
-							</gmd:polygon>
-						</gmd:EX_BoundingPolygon>
-					</gmd:geographicElement>
-					<gmd:geographicElement>
-						<gmd:EX_GeographicBoundingBox>
-							<gmd:extentTypeCode>
-								<gco:Boolean>true</gco:Boolean>
-							</gmd:extentTypeCode>
-							<gmd:westBoundLongitude>
-								<gco:Decimal>7.206</gco:Decimal>
-							</gmd:westBoundLongitude>
-							<gmd:eastBoundLongitude>
-								<gco:Decimal>7.24</gco:Decimal>
-							</gmd:eastBoundLongitude>
-							<gmd:southBoundLatitude>
-								<gco:Decimal>47.239</gco:Decimal>
-							</gmd:southBoundLatitude>
-							<gmd:northBoundLatitude>
-								<gco:Decimal>47.265</gco:Decimal>
-							</gmd:northBoundLatitude>
-						</gmd:EX_GeographicBoundingBox>
-					</gmd:geographicElement>
-				</gmd:EX_Extent>
-			</gmd:extent>
+
 		</che:CHE_MD_DataIdentification>
 	</gmd:identificationInfo>
+    <gmd:distributionInfo>
+        <gmd:MD_Distribution>
+        </gmd:MD_Distribution>
+    </gmd:distributionInfo>
 </che:CHE_MD_Metadata>

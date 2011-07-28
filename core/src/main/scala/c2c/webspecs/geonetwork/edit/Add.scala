@@ -3,7 +3,35 @@ package geonetwork
 package edit
 
 import AddSites._
+import scala.xml.Node
 
+abstract class AbstractAddRequest(_serv:String, nodeRef:EditValue => String, addSite:AddSite, extraFields:Param[EditValue,String]*)
+	extends Request[EditValue,AddValue] {
+  def apply(in: EditValue)(implicit context: ExecutionContext) = {
+    
+    val addRequest = FormPostRequest(_serv,
+    extraFields.map{p => p.name ->  p.value(in)} ++ 
+    List("id" -> in.id,
+	    "version" -> in.version,
+	    "ref" -> nodeRef(in),
+	    "name" -> addSite.toString,
+	    "role" -> "embed",
+	    "schema" -> "iso19139.che",
+	    "currTab" -> "complete"):_*
+	   )
+	    
+    val addResponse = addRequest() 
+    val value = new AddValue(in, addResponse.basicValue, extractElementXmlFromResponse(addResponse.value.getXml))
+    new BasicHttpResponse(addResponse.basicValue,value)
+  }
+  
+  def extractElementXmlFromResponse(responseXml:Node):Node
+  
+}
+
+/**
+ * @deprecated
+ */
 abstract class Add(_serv:String, id:String, editVersion:String, nodeRef:String, addSite:AddSite, extraFields:(String,Any)*)
   extends Request[EditValue,AddValue] {
   val addRequest = FormPostRequest(_serv,
@@ -47,7 +75,7 @@ abstract class Add(_serv:String, id:String, editVersion:String, nodeRef:String, 
     assert(newElement.size == 1, "Expected there to be 1 new element but instead there was "+newElement.size)
 
     val newEditValue = EditValueFactory.createValue(this,in,add.basicValue, context)
-    val value = new AddValue(newEditValue, add.basicValue, newElement.head, newXml)
+    val value = new AddValue(newEditValue, add.basicValue, newElement.head)
     new BasicHttpResponse(add.basicValue,value)
   }
 }

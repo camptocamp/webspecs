@@ -41,7 +41,7 @@ object GetFormat
 }
 
 /**
- * Ad a new format with given name and version.
+ * Add a new format with given name and version.
  */
 case class AddFormat(name:String,version:String)
   extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory,
@@ -49,7 +49,17 @@ case class AddFormat(name:String,version:String)
     P("name",name),
     P("version",version))
 
+/**
+ * Ad a new format with given name and version.
+ */
+case class UpdateFormat(id:String,name:String,version:String)
+  extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory,
+    P("action", "ADD"),
+    P("id",id),
+    P("name",name),
+    P("version",version))
 
+    
 /**
  * Delete format. input is the id of the format to delete
  *
