@@ -19,7 +19,7 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
 
 			"This spec will compare GeoCat1 metadata to the migrated ones" ! doDiff
 
-			def doDiff = {
+	def doDiff = {
 			val prodUrl = "http://www.geocat.ch/geonetwork/srv/fra/"
 
 					val geocatLogin = FormPostRequest(prodUrl + "login",
@@ -74,9 +74,10 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
 
     config.adminLogin(None)
     
-    val mdFromLocalCatalogue = GetRawMetadataXml(Id(mdIds.head)).value.getXml
-
-    mdFromLocalCatalogue must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml)
+    val mdFromLocalCatalogue = GetRawMetadataXml(Id(mdIds.head))
+    val mdErrorAnchors = mdFromLocalCatalogue.value.getHtml \\ "error"
+    (mdFromLocalCatalogue.value.getXml must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml) and
+    	(mdErrorAnchors must beEmpty))
 
   }
 

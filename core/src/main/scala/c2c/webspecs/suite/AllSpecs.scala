@@ -2,13 +2,15 @@ package c2c.webspecs.suite
 
 import org.specs2.SpecificationWithJUnit
 import org.specs2.runner.SpecificationsFinder
-import c2c.webspecs.geonetwork.geocat.spec.WP1.ImportCheMetadataSpec
+import c2c.webspecs.geonetwork.geocat.spec.WP1._
+import c2c.webspecs.geonetwork.geocat.spec.WP2._
 import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
+import c2c.webspecs.geonetwork.geocat.spec.WP16._
+
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
-import c2c.webspecs.geonetwork.geocat.spec.WP16.RegisterXslSpec
 
 
 @RunWith(classOf[JUnitRunner]) 
@@ -18,6 +20,7 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
     def examplesLinks(t: String) = {
   val specs = List(
       classOf[WP1],
+//      classOf[WP2],     
       classOf[WP3],
 	  classOf[WP4],
 	  classOf[WP6],
@@ -41,6 +44,19 @@ class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
     }
 
 }
+class WP2 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+    examplesLinks("WP 2: Compares every metadatas from old version against the new one")
+
+    def examplesLinks(t: String) = {
+  val specs = List(
+        classOf[CompareGeocat1Metadata]
+      ).flatMap{s => createSpecification(s.getName)}
+      specs.
+        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
+
+}
 
 class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
@@ -48,17 +64,17 @@ class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
     def examplesLinks(t: String) = {
   val specs = List(
-        classOf[AccessFormatsSpec],
         classOf[AccessContactsSpec],
         classOf[AccessExtentsSpec],
+        classOf[AccessFormatsSpec],
         classOf[AccessKeywordsSpec],
         classOf[AddSharedContactsSpec],
         classOf[AddSharedExtentsSpec],
-        classOf[AddSharedKeywordsSpec],
         classOf[AddSharedFormatSpec],
-        classOf[ProcessImportedMetadataSpec],
-        classOf[ImportSpecialExtentsSpec],
+        classOf[AddSharedKeywordsSpec],
         classOf[AddXLinks],
+        classOf[ImportSpecialExtentsSpec],
+        classOf[ProcessImportedMetadataSpec],
         classOf[ValidateSharedObjectSpec]
       ).flatMap{s => createSpecification(s.getName)}
       specs.
@@ -101,7 +117,11 @@ class WP16 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 	def examplesLinks(t: String) = {
 		val specs = List(
-				classOf[RegisterXslSpec]
+		    	classOf[MetadataValidationReportSpec],
+				classOf[MonitoringSpec],
+				classOf[PreStyleSheetSpec],
+				classOf[RegisterXslSpec],
+				classOf[TestMetadataExpiredServicesSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
