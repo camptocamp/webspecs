@@ -56,16 +56,12 @@ case class SearchExtent(numResults:Int = 25,
 
   private def parseLanguages(node:NodeSeq) = {
     val values = (node \ "_").toList map {n => n.label.toLowerCase -> n.text}
-    Localized(Map(values:_*))
+    LocalisedString(Map(values:_*))
   }
 }
 
-case class ExtentSummary(id:String, href:URL, desc:Localized, validated:Boolean)
+case class ExtentSummary(id:String, href:URL, desc:LocalisedString, validated:Boolean)
 
-/**
- * Represents the translations of an item
- */
-case class Localized(translation:Map[String,String])
 object ExtentFormat extends Enumeration {
   val gmd_bbox, gmd_polygon, gmd_complete = Value
 }

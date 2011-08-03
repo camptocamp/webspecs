@@ -56,7 +56,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     val contact = loadMetadata._1
     val SharedObjectHrefExtractor(obj) = (contact @@ "xlink:href").head 
     
-    ValidateSharedObject(obj.id, obj.objType)
+    ValidateSharedObject(obj.id, obj.objType)()
   }
 
   def isValidatedContact = {

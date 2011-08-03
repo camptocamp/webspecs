@@ -85,7 +85,7 @@ case class User(val idOption:Option[String]=None,
 	    SP("surname", surname) ::
 	    SP("email", email) ::
 	    SP("profile", profile.toString) :: 
-	    position.formParams("position")) 
+	    position.formParams("positionname")) 
     
     val groupParam = (if (groups.isEmpty) Nil else List(SP("groups" -> (groups mkString ","))))
     idParam ::: params ::: groupParam

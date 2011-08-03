@@ -34,12 +34,14 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
       "Should be a successful http request (200 response code)"                     ^ i200Response      ^
       "Should have bbox Extent"                                ^ bboxExtent.toThen      ^
       "Should have description"                                ^ haveDesc.toThen   ^
+      "Should have localised strings but not character Strings"^ haveLocalisedDesc.toThen   ^
                                                                  end ^
     "Gettings a ${gmd_complete} extent in iso xml"             ^ extentInIso.toGiven  ^
       "Should be a successful http request (200 response code)"                     ^ i200Response      ^
       "Should have bbox Extent"                                ^ bboxExtent.toThen      ^
       "Should have polygon extent"                             ^ polygonExtent.toThen      ^
-      "Should have description"                                ^ haveDesc.toThen   ^ end ^
+      "Should have description"                                ^ haveDesc.toThen   		  ^ 
+      "Should have localised strings but not character Strings"^ haveLocalisedDesc.toThen ^ end ^
                                                            Step(tearDown)
   type ListResponse = Response[List[ExtentSummary]]
 
@@ -63,9 +65,9 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
   }
   val listLocalizedDesc = (response:ListResponse, _:String) => {
     val bernDesc = findBern(response)(_.desc).get
-    val fr = bernDesc.translation.get("fr")
+    val fr = bernDesc.translations.get("fr")
     (
-      (bernDesc.translation.keys must contain("fr","en","de","it")) and
+      (bernDesc.translations.keys must contain("fr","en","de","it")) and
       (fr must beSome( "Berne"))
     )
   }
@@ -81,5 +83,13 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
   val bboxExtent = (response:Response[XmlValue]) => response.value.withXml{ _ must \\("EX_GeographicBoundingBox") }
   val polygonExtent = (response:Response[XmlValue]) => response.value.withXml{ _ must \\("EX_BoundingPolygon") }
   val haveDesc = (response:Response[XmlValue]) => response.value.withXml{ _ must \\("description") }
+  val haveLocalisedDesc = (response:Response[XmlValue]) => {
+    val desc = response.value.getXml \\ "description"
+    val characterStrings =  desc \\ "CharacterString"
+    val localisedStrings =  desc \\ "LocalisedCharacterString"
+    
+    (characterStrings must beEmpty) and
+    	(localisedStrings must haveSize(4))
+  }
 
 }

@@ -6,7 +6,10 @@ package spec.WP3
 import org.specs2.specification.Step
 import c2c.webspecs.{XmlValue, Response}
 import geonetwork.UserRef
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class AccessContactsSpec extends GeocatSpecification { def is =
 
   "This specification tests accessing shared users"      ^ Step(setup) ^
@@ -22,6 +25,7 @@ class AccessContactsSpec extends GeocatSpecification { def is =
       "Should be a successful http request (200 response code)"               ^ i200Response      ^
       "Should show name"                                 ^ isoName.toThen      ^
       "Should have surname"                              ^ isoLastName.toThen   ^
+      "Should have position in all localisedStrings"     ^ localisedPosition.toThen   ^
                                                            end ^
     "Searching for ${"+userFixture.name+"}"              ^ searchContacts.toGiven  ^
       "Should be a successful http request (200 response code)"               ^ l200Response      ^
@@ -70,7 +74,20 @@ class AccessContactsSpec extends GeocatSpecification { def is =
         (nameElems.head.text.trim must_== userFixture.lastname)
       )
     }
-
+  val localisedPosition = (r:Response[XmlValue]) => {
+      val positionElems = r.value.getXml \\ "positionName"
+      val localisedStrings = positionElems \\ "LocalisedCharacterString"
+      val characterStrings = positionElems \\ "CharacterString"
+      val de = localisedStrings find (_ @@ "locale" == List("#DE"))
+      val en = localisedStrings find (_ @@ "locale" == List("#EN"))
+      val fr = localisedStrings find (_ @@ "locale" == List("#FR"))
+      (positionElems must haveSize (1)) and
+        (localisedStrings must haveSize (3)) and
+        (characterStrings must beEmpty) and
+        (de.get.text.trim must_== userFixture.position.translations("de")) and
+        (en.get.text.trim must_== userFixture.position.translations("en")) and
+        (fr.get.text.trim must_== userFixture.position.translations("fr"))
+  }
   def fixtureIsGone =
     ExecutionContext.withDefault{c =>
       val response = (config.login then GetRequest("xml.user.get", "id" -> userFixture.id))(None)(c).value

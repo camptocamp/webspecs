@@ -12,6 +12,7 @@ object GeonetworkFixture {
     val username = "WebSpecs_"+UUID.randomUUID().toString
     val email = "Webspecs@camptocamp.com"
     private var _id:String = _
+    val position = LocalisedString(en = "EN developer", de = "DE Entwickler", fr = "FR développeur")
 
     def id = _id
     
@@ -22,6 +23,7 @@ object GeonetworkFixture {
         name = name,
         surname=lastname,
         password = username,
+        position = position,
         profile = profile) 
 
     def delete(config: GeonetConfig, context: ExecutionContext) =
