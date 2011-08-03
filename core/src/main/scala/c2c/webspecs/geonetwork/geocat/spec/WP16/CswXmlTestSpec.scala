@@ -52,10 +52,6 @@ class CswXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
   	    "Process test using XML file : ${csw-GetRecordsSortBy}"        						! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-Harvest}"        								! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-OwsException}"        							! ProceedXmlTest		          ^
-// Those are known to fail
-//  	    "Process test using XML file : ${csw-TransactionDelete}"        					! ProceedXmlTest		          ^
-//  	    "Process test using XML file : ${csw-TransactionInsert}"        					! ProceedXmlTest		          ^
-//  	    "Process test using XML file : ${csw-TransactionUpdate}"        					! ProceedXmlTest		          ^
 	  "Delete the inserted metadata"									                    ^ Step(deleteMetadata)            ^
 																		 			        end ^ Step(tearDown)
 			
