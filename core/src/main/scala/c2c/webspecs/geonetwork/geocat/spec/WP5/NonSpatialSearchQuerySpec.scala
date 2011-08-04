@@ -23,11 +23,11 @@ import org.specs2.execute.Result
 @RunWith(classOf[JUnitRunner]) 
 class NonSpatialSearchQuerySpec extends GeocatSpecification(UserProfiles.Editor) {  def is =
   "Non-spatial search queries".title ^
-  "This specification tests how nonspatiel search queries"             					          													 ^ Step(setup)               ^
+  "This specification tests how nonspatiaSl search queries"             					          													 ^ Step(setup)               ^
       "First import several metadata that are to be searched for" 								  													 ^ Step(importedMetadataId)  ^
       "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results"       ! currentLanguageFirst ^
       "Searching for ${NonSpatialSearchQuerySpec} in ${allText} should return ${all} imported md" 												            ! basicSearch ^
-/*      "Searching for ${NonSpatialSearchQuerySpec} in ${title} should return ${all} imported md"    												            ! basicSearch  ^ 
+      /*      "Searching for ${NonSpatialSearchQuerySpec} in ${title} should return ${all} imported md"    												            ! basicSearch  ^ 
       "Searching for ${NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md"    												        ! basicSearch  ^
       "Searching for ${NonXpatialSearchQuerySpec} in ${abstract} should return ${all} imported md"    												        ! basicSearch  ^
       "Searching for ${NonXXXXXXXSearchQuerySpec} in ${abstract} should return ${no} imported md"    												        ! basicSearch  ^
@@ -45,7 +45,15 @@ class NonSpatialSearchQuerySpec extends GeocatSpecification(UserProfiles.Editor)
       "Searching for ${'FR_"+uuid+"'} in ${abstract} should return ${FR} imported md because it is the only MD with that string in abstract"	        ! basicSearch  ^
       "Searching for ${'DE_"+uuid+"'} in ${abstract} should return ${DE} imported md because it is the only MD with that string in abstract"	        ! basicSearch  ^
       "Searching for ${'FR_DE_"+uuid+"'} in ${abstract} should return ${DE,FR} imported md because they both have the string in the abstract"	    ! basicSearch  ^*/
-                                                                                                  													   		 Step(tearDown)
+      "Processing search using XML ${blank-search} GetRecords" 												                                                ! basicXmlLoadSearch ^
+      "Processing search using XML ${canton-fr-lu} GetRecords"                                  												            ! basicXmlLoadSearch ^
+      "Processing search using XML ${city_aesch} GetRecords" 												                                                ! basicXmlLoadSearch ^
+      "Processing search using XML ${type-service} GetRecords" 												                                                ! basicXmlLoadSearch ^
+      "Processing search using XML ${type-dataset} GetRecords" 												                                                ! basicXmlLoadSearch ^
+      "Processing search using XML ${fulltext-canton-fr-lu} GetRecords" 												                                    ! basicXmlLoadSearch ^
+      "Processing search using XML ${by-date} GetRecords" 												                                                    ! basicXmlLoadSearch ^
+      "Processing search using XML ${title-radiobox_administrative_unit-source_central_catalog} GetRecords"                                                 ! basicXmlLoadSearch ^
+                                                                                                                                                    Step(tearDown)
 
   lazy val importedMetadataId = {
   def performImport(lang:String) = lang -> ImportMetadata.defaults(uuid, "/geocat/data/"+lang+"_Search_MD.iso19139.che.xml", false, classOf[ProcessImportedMetadataSpec])._2().value.id 
@@ -76,7 +84,17 @@ class NonSpatialSearchQuerySpec extends GeocatSpecification(UserProfiles.Editor)
         foundIdsMatchingImportedMd must haveTheSameElementsAs(ids)
     }
   }
-
+  val basicXmlLoadSearch = (s: String) => {
+    val fileName = extract1(s)
+    val (xmlResource,_) = ResourceLoader.loadDataFromClassPath("/geocat/csw-getrecords/"+fileName+".xml", getClass, uuid)
+    
+    val xmlResponse = CswGetRecordsRequest(XML.loadString(xmlResource))().value.getXml
+    
+    val records = xmlResponse \\ "Record"
+    println(xmlResponse)
+    success
+  }
+  
   def currentLanguageFirst = {
     pending
   }
