@@ -65,13 +65,13 @@
 					<gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
 						<gmd:PT_FreeText>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">NonSpatialSearchQuerySpec FR Title</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec FR Title</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">NonSpatialSearchQuerySpec DE Title</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec DE Title</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#EN">NonSpatialSearchQuerySpec EN Title</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#EN">{timestamp}NonSpatialSearchQuerySpec EN Title</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 						</gmd:PT_FreeText>
 					</gmd:title>
@@ -102,10 +102,10 @@
 			<gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
 				<gmd:PT_FreeText>
 					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#FR">NonSpatialSearchQuerySpec FR abstract</gmd:LocalisedCharacterString>
+						<gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FR abstract</gmd:LocalisedCharacterString>
 					</gmd:textGroup>
 					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#EN">NonSpatialSearchQuerySpec EN abstract</gmd:LocalisedCharacterString>
+						<gmd:LocalisedCharacterString locale="#EN">{timestamp}NonSpatialSearchQuerySpec EN abstract</gmd:LocalisedCharacterString>
 					</gmd:textGroup>
 					<gmd:textGroup>
 						<gmd:LocalisedCharacterString locale="#DE">DE  abstract</gmd:LocalisedCharacterString>

@@ -10,12 +10,14 @@ class GeonetworkURIResolver extends UriResolver {
       if (!uri.startsWith(XLink.PROTOCOL)) uri
       else "http:/" :: baseURL :: "geonetwork/srv" :: locale :: uri.drop(XLink.PROTOCOL.size) :: Nil mkString "/"
 
-    if (service.contains("/")) {
+    val segments = service.split("/")
+    if(segments.size > 2){
       val sep = if (service contains "?") "&" else "?"
       val paramString = params.map { e => e._1 + "=" + e._2 }.mkString("&")
       service + sep + paramString
     } else {
-      val serviceUrl = "http:/" :: baseURL :: "geonetwork/srv" :: locale :: service :: Nil mkString "/"
+      val serviceUrl = if(segments.size == 2) "http:/" :: baseURL :: "geonetwork/srv" :: segments(0) :: segments(1) :: Nil mkString "/"
+    		  		   else "http:/" :: baseURL :: "geonetwork/srv" :: locale :: service :: Nil mkString "/"
 
       if (params.isEmpty) {
         serviceUrl

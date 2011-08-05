@@ -19,9 +19,9 @@
         <gco:CharacterString>GM03 2+</gco:CharacterString>
     </gmd:metadataStandardName>
     <gmd:locale xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <gmd:PT_Locale id="DE">
+        <gmd:PT_Locale id="FR">
             <gmd:languageCode>
-                <gmd:LanguageCode codeListValue="fra" codeList="#LanguageCode">German</gmd:LanguageCode>
+                <gmd:LanguageCode codeListValue="fra" codeList="#LanguageCode">French</gmd:LanguageCode>
             </gmd:languageCode>
             <gmd:characterEncoding>
                 <gmd:MD_CharacterSetCode codeListValue="utf8" codeList="#MD_CharacterSetCode">UTF8</gmd:MD_CharacterSetCode>
@@ -35,7 +35,7 @@
                     <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
                         <gmd:PT_FreeText>
                             <gmd:textGroup>
-                                <gmd:LocalisedCharacterString locale="#FR">NonSpatialSearchQuerySpec FR Title</gmd:LocalisedCharacterString>
+                                <gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FR Title</gmd:LocalisedCharacterString>
                             </gmd:textGroup>
                         </gmd:PT_FreeText>
                     </gmd:title>
@@ -65,7 +65,7 @@
             <gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
                 <gmd:PT_FreeText>
                     <gmd:textGroup>
-                        <gmd:LocalisedCharacterString locale="#FR">NonSpatialSearchQuerySpec FR_{uuid}  abstract</gmd:LocalisedCharacterString>
+                        <gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FR_{uuid}  abstract</gmd:LocalisedCharacterString>
                     </gmd:textGroup>
                 </gmd:PT_FreeText>
             </gmd:abstract>

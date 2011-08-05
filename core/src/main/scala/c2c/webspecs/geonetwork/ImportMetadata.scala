@@ -16,10 +16,19 @@ object ImportMetadata {
   private def findGroupId (data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean)(implicit config:GeonetConfig):ImportMetadata = {
      ImportMetadata(data, styleSheet,validate,config.groupId)
   }
-  def defaults(uuid: UUID, fileName: String, validate:Boolean, loaderRoot: Class[_],styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE)(implicit config: GeonetConfig) = {
-    val (original, content) = ResourceLoader.loadDataFromClassPath(fileName, loaderRoot, uuid)
+  def defaults(
+      uuid: UUID, 
+      fileName: String, 
+      validate:Boolean, 
+      loaderRoot: Class[_],
+      styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE)(implicit config: GeonetConfig):(String,ImportMetadata) = {
+    defaultsWithReplacements(Map("{uuid}" -> uuid.toString), fileName, validate, loaderRoot, styleSheet)
+  }
+  def defaultsWithReplacements(replacements: Map[String,String], fileName: String, validate:Boolean, loaderRoot: Class[_],styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE)(implicit config: GeonetConfig):(String,ImportMetadata) = {
+    val (original, content) = ResourceLoader.loadDataFromClassPath(fileName, loaderRoot, replacements)
     original -> findGroupId(content, styleSheet, validate)
   }
+
 }
 case class ImportMetadata(data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean, groupId:String)
   extends AbstractMultiPartFormRequest[Any,IdValue](

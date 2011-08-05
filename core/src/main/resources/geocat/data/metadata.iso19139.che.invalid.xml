@@ -57,7 +57,7 @@
                 <gco:CharacterString>CH</gco:CharacterString>
               </gmd:country>
               <gmd:electronicMailAddress>
-                <gco:CharacterString>info.gva@zg.ch</gco:CharacterString>
+                <gco:CharacterString>{uuid}@zg.ch</gco:CharacterString>
               </gmd:electronicMailAddress>
               <che:streetName>
                 <gco:CharacterString>Aabachstrasse</gco:CharacterString>
@@ -249,7 +249,7 @@
                     <gco:CharacterString>CH</gco:CharacterString>
                   </gmd:country>
                   <gmd:electronicMailAddress>
-                    <gco:CharacterString>info.arp@zg.ch</gco:CharacterString>
+                    <gco:CharacterString>{uuid}@zg.ch</gco:CharacterString>
                   </gmd:electronicMailAddress>
                   <che:streetName>
                     <gco:CharacterString>Aabachstrasse</gco:CharacterString>
@@ -321,20 +321,20 @@
       <gmd:resourceFormat xmlns:xlink="http://www.w3.org/1999/xlink">
         <gmd:MD_Format>
           <gmd:name>
-            <gco:CharacterString>DGN Microstation</gco:CharacterString>
+            <gco:CharacterString>{uuid}DGN Microstation</gco:CharacterString>
           </gmd:name>
           <gmd:version>
-            <gco:CharacterString>SE</gco:CharacterString>
+            <gco:CharacterString>{uuid}SE</gco:CharacterString>
           </gmd:version>
         </gmd:MD_Format>
       </gmd:resourceFormat>
       <gmd:resourceFormat xmlns:xlink="http://www.w3.org/1999/xlink">
         <gmd:MD_Format>
           <gmd:name>
-            <gco:CharacterString>INTERLIS</gco:CharacterString>
+            <gco:CharacterString>{uuid}INTERLIS</gco:CharacterString>
           </gmd:name>
           <gmd:version>
-            <gco:CharacterString>1</gco:CharacterString>
+            <gco:CharacterString>{uuid}1</gco:CharacterString>
           </gmd:version>
         </gmd:MD_Format>
       </gmd:resourceFormat>
@@ -343,56 +343,16 @@
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#DE">Schutzgebiet</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#DE">{uuid}Schutzgebiet</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#IT">area protetta</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#IT">{uuid}area protetta</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">espace protégé</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#FR">{uuid}espace protégé</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#EN">protected area</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-            </gmd:PT_FreeText>
-          </gmd:keyword>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://localhost:8080/geonetwork/srv/eng/xml.keyword.get?thesaurus=external._none_.gemet&amp;id=http%3A%2F%2Fwww.eionet.europa.eu%2Fgemet%2Fconcept%2F5489&amp;locales=en,it,de,fr" xlink:show="embed">
-        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
-          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
-            <gmd:PT_FreeText>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#DE">Naturschutzgebiet</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#IT">riserve nazionali</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">réserve naturelle nationale</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#EN">national reserve</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-            </gmd:PT_FreeText>
-          </gmd:keyword>
-        </gmd:MD_Keywords>
-      </gmd:descriptiveKeywords>
-      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://localhost:8080/geonetwork/srv/eng/xml.keyword.get?thesaurus=external._none_.gemet&amp;id=http%3A%2F%2Fwww.eionet.europa.eu%2Fgemet%2Fconcept%2F5537&amp;locales=en,it,de,fr" xlink:show="embed">
-        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
-          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
-            <gmd:PT_FreeText>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#DE">Naturschutz</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#IT">conservazione della natura</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">préservation de la nature</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#EN">nature conservation</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#EN">{uuid}protected area</gmd:LocalisedCharacterString>
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:keyword>
@@ -437,63 +397,6 @@
       <gmd:topicCategory>
         <gmd:MD_TopicCategoryCode>planningCadastre</gmd:MD_TopicCategoryCode>
       </gmd:topicCategory>
-      <gmd:extent xmlns:xlink="http://www.w3.org/1999/xlink">
-        <gmd:EX_Extent>
-          <gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
-            <gco:CharacterString>Zug</gco:CharacterString>
-          </gmd:description>
-          <gmd:geographicElement>
-            <gmd:EX_GeographicDescription>
-              <gmd:geographicIdentifier>
-                <gmd:MD_Identifier>
-                  <gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
-                    <gco:CharacterString>ZG</gco:CharacterString>
-                  </gmd:code>
-                </gmd:MD_Identifier>
-              </gmd:geographicIdentifier>
-            </gmd:EX_GeographicDescription>
-          </gmd:geographicElement>
-          <gmd:geographicElement>
-            <gmd:EX_BoundingPolygon>
-              <gmd:extentTypeCode>
-                <gco:Boolean>1</gco:Boolean>
-              </gmd:extentTypeCode>
-              <gmd:polygon>
-                <gml:MultiSurface gml:id="N8c328ed42c354c74ac3a2311807ff5c6">
-                  <gml:surfaceMember>
-                    <gml:Polygon gml:id="N4c7a9a798ac843fa9222a589e6b80aa8">
-                      <gml:exterior>
-                        <gml:LinearRing>
-                          <gml:posList>8.522 47.09 8.493 47.1 8.494 47.114 8.48 47.126 8.467 47.119 8.468 47.119 8.454 47.114 8.449 47.131 8.43 47.123 8.42 47.123 8.415 47.124 8.412 47.141 8.414 47.157 8.414 47.157 8.412 47.173 8.402 47.177 8.4 47.184 8.405 47.195 8.396 47.22 8.396 47.229 8.408 47.242 8.41 47.248 8.414 47.244 8.417 47.234 8.422 47.223 8.447 47.223 8.448 47.22 8.48 47.209 8.489 47.211 8.498 47.212 8.512 47.216 8.513 47.219 8.529 47.219 8.539 47.223 8.543 47.222 8.574 47.217 8.577 47.219 8.587 47.212 8.595 47.212 8.599 47.202 8.603 47.203 8.607 47.205 8.615 47.199 8.628 47.18 8.624 47.173 8.633 47.172 8.661 47.17 8.661 47.161 8.666 47.16 8.692 47.163 8.696 47.163 8.701 47.151 8.688 47.146 8.684 47.141 8.687 47.136 8.681 47.125 8.649 47.103 8.645 47.096 8.637 47.093 8.612 47.095 8.608 47.092 8.587 47.086 8.564 47.082 8.563 47.093 8.547 47.094 8.522 47.09</gml:posList>
-                        </gml:LinearRing>
-                      </gml:exterior>
-                    </gml:Polygon>
-                  </gml:surfaceMember>
-                </gml:MultiSurface>
-              </gmd:polygon>
-            </gmd:EX_BoundingPolygon>
-          </gmd:geographicElement>
-          <gmd:geographicElement>
-            <gmd:EX_GeographicBoundingBox>
-              <gmd:extentTypeCode>
-                <gco:Boolean>1</gco:Boolean>
-              </gmd:extentTypeCode>
-              <gmd:westBoundLongitude>
-                <gco:Decimal>8.396</gco:Decimal>
-              </gmd:westBoundLongitude>
-              <gmd:eastBoundLongitude>
-                <gco:Decimal>8.701</gco:Decimal>
-              </gmd:eastBoundLongitude>
-              <gmd:southBoundLatitude>
-                <gco:Decimal>47.082</gco:Decimal>
-              </gmd:southBoundLatitude>
-              <gmd:northBoundLatitude>
-                <gco:Decimal>47.248</gco:Decimal>
-              </gmd:northBoundLatitude>
-            </gmd:EX_GeographicBoundingBox>
-          </gmd:geographicElement>
-        </gmd:EX_Extent>
-      </gmd:extent>
     </che:CHE_MD_DataIdentification>
   </gmd:identificationInfo>
   <gmd:distributionInfo xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
@@ -501,10 +404,10 @@
       <gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink">
         <gmd:MD_Format>
           <gmd:name>
-            <gco:CharacterString>DGN Microstation</gco:CharacterString>
+            <gco:CharacterString>{uuid}DGN Microstation</gco:CharacterString>
           </gmd:name>
           <gmd:version>
-            <gco:CharacterString>SE</gco:CharacterString>
+            <gco:CharacterString>{uuid}SE</gco:CharacterString>
           </gmd:version>
         </gmd:MD_Format>
       </gmd:distributionFormat>
