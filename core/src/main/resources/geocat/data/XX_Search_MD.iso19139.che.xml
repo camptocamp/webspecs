@@ -102,13 +102,13 @@
 			<gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
 				<gmd:PT_FreeText>
 					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FR abstract</gmd:LocalisedCharacterString>
+						<gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FRxDEx{timestamp} FR abstract 1_1</gmd:LocalisedCharacterString>
 					</gmd:textGroup>
 					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#EN">{timestamp}NonSpatialSearchQuerySpec EN abstract</gmd:LocalisedCharacterString>
+						<gmd:LocalisedCharacterString locale="#EN">{timestamp}NonSpatialSearchQuerySpec EN abstract </gmd:LocalisedCharacterString>
 					</gmd:textGroup>
 					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#DE">DE  abstract</gmd:LocalisedCharacterString>
+						<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec DE abstract</gmd:LocalisedCharacterString>
 					</gmd:textGroup>
 				</gmd:PT_FreeText>
 			</gmd:abstract>

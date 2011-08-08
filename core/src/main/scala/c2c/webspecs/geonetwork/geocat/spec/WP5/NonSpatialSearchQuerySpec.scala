@@ -22,62 +22,58 @@ import java.util.Date
 
 
 @RunWith(classOf[JUnitRunner]) 
-class NonSpatialSearchQuerySpec extends GeocatSpecification(UserProfiles.Editor) {  def is =
+class NonSpatialSearchQuerySpec extends SearchSpecification {  def is =
   "Non-spatial search queries".title ^
-  "This specification tests how nonspatiel search queries"             					          													 					^ Step(setup)               ^
+  "This specification tests how non-spatial search queries"             					          													 				^ Step(setup)               ^
       "First import several metadata that are to be searched for" 								  													 					^ Step(importedMetadataId)  ^
       "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results"        			! currentLanguageFirst ^
-/*      "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${AnyText} with a maxResults limit of 2 should return ${FR and XX} should be the hits" 				    ! basicSearch(2) ^
+      "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${AnyText} with a maxResults limit of 2 should return ${FR and XX} should be the hits" 				    ! basicSearch(2) ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec FR} in ${AnyText} should return the ${FR and XX} should be the hits" 											! basicSearch ^
-      "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${AnyText} should return ${all} imported md" 												    	    ! basicSearch ^
+      "Searching for ${FR "+time+"NonSpatialSearchQuerySpec} as seperate terms in ${AnyText} should return the ${FR and XX} as the hits" 								! basicSearch(split=Some(' ')) ^
+      "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${AnyText} should return ${all} imported md" 												    	    	! basicSearch ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${title} should return ${all} imported md"    												  				! basicSearch  ^ 
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md"    												        	! basicSearch  ^
-      "Searching for ${"+time+"NonXpatialSearchQuerySpec} in ${abstract} should return ${all} imported md when similarity is set to .8" 								! basicSearch (similarity = 0.8) ^
+      "Searching for ${"+time+"NonXpatialSearchQuerySpec} in ${abstract} should return ${all} imported md when similarity is set to .8" 								! basicSearch(similarity = 0.8) ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md"    												        	! basicSearch  ^
       "Searching for ${NonXXXXXXXSearchQuerySpec} in ${abstract} should return ${no} imported md even when similarity is 0.8"    										! basicSearch(similarity = 0.8)  ^
       "Searching for ${"+time+"NonSpätialSearchQuerySpec} in ${abstract} should return ${all} imported md because accents are ignored"									! basicSearch  ^
       "Searching for ${"+time+"NonSpatialSèarchQuerySpec} in ${abstract} should return ${all} imported md because accents are ignored"									! basicSearch  ^
+      "Searching for ${polluée} in ${title} should return ${DE and FR and EN} imported md because accents are ignored"													! basicSearch  ^
+      "Searching for ${polluee} in ${title} should return ${DE and FR and EN} imported md because accents are ignored"													! basicSearch  ^
+      "Searching for ${pollüee} in ${title} should return ${DE and FR and EN} imported md because accents are ignored"													! basicSearch  ^
       "Searching for ${le "+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in french"						! basicSearch(lang = "fra")  ^
       "Searching for ${the "+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in english"						! basicSearch(lang = "eng")  ^
-      "Searching for ${einem "+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in german"						! basicSearch(lang = "deu")  ^
-*/      "Searching for ${"+time+"NonSpatialSearchQuerySpec-abstract} in ${abstract} should return ${all} imported md because the '-' is ignored"                          ! basicSearch  ^
-/*      "Searching for ${"+time+"NonSpatialSearchQuerySpec abstract} in ${abstract} should return ${all} imported md because the ' ' is ignored"                          ! basicSearch  ^
-      "Searching for ${"+time+"NonSpatialSearchQuerySpec_abstract} in ${abstract} should return ${all} imported md because the '_' is ignored"                          ! basicSearch  ^
-      "Searching for ${"+time+"NonSpatialSearchQuerySpec/abstract} in ${abstract} should return ${all} imported md because the '/' is ignored"                          ! basicSearch  ^
-      "Searching for ${"+time+"NonSpatialSearchQuerySpec,abstract} in ${abstract} should return ${all} imported md because the ',' is ignored"                          ! basicSearch  ^
-      "Searching for ${"+time+"NonSpatialSearchQuerySpec.abstract} in ${abstract} should return ${all} imported md because the '.' is ignored"                          ! basicSearch  ^
-      "Searching for ${'"+time+"NonSpatialSearchQuerySpec'} in ${abstract} should return ${all} imported md because the ''' is ignored"                             	! basicSearch  ^
-      "Searching for ${\""+time+"NonSpatialSearchQuerySpec\"} in ${abstract} should return ${all} imported md because the '\"' is ignored"                          	! basicSearch  ^
-      "Searching for ${\""+time+"NonSpatialSearchQuerySpec,abstract\"} in ${AnyText} should return ${no} imported md because the quotes forces entire term to be used"  ! basicSearch ^ 
-      "Searching for ${'"+time+"NonSpatialSearchQuerySpec,abstract'} in ${AnyText} should return ${no} imported md because the quotes forces entire term to be used"    ! basicSearch  ^
-      "Searching for ${'EN_"+uuid+"'} in ${abstract} should return ${EN} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
-      "Searching for ${'FR_"+uuid+"'} in ${abstract} should return ${FR} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
-      "Searching for ${'DE_"+uuid+"'} in ${abstract} should return ${DE} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
-      "Searching for ${'FR_DE_"+uuid+"'} in ${abstract} should return ${DE and FR} imported md because they both have the string in the abstract"	    					! basicSearch  ^*/
-      "Processing search using XML ${blank-search} GetRecords" 												                                                ! basicXmlLoadSearch ^
-      "Processing search using XML ${canton-fr-lu} GetRecords"                                  												            ! basicXmlLoadSearch ^
-      "Processing search using XML ${city_aesch} GetRecords" 												                                                ! basicXmlLoadSearch ^
-      "Processing search using XML ${type-service} GetRecords" 												                                                ! basicXmlLoadSearch ^
-      "Processing search using XML ${type-dataset} GetRecords" 												                                                ! basicXmlLoadSearch ^
-      "Processing search using XML ${fulltext-canton-fr-lu} GetRecords" 												                                    ! basicXmlLoadSearch ^
-      "Processing search using XML ${by-date} GetRecords" 												                                                    ! basicXmlLoadSearch ^
-      "Processing search using XML ${title-radiobox_administrative_unit-source_central_catalog} GetRecords"                                                 ! basicXmlLoadSearch ^
-                                                                                                  													   		 Step(tearDown)
+      "Searching for ${einem "+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in german"					! basicSearch(lang = "deu")  ^
+      "Searching for ${"+time+"-hyphen} in ${abstract} should return ${FR} imported md because the '-' is ignored during indexing"   	                          	! basicSearch(split = Some('-'))  ^
+      "Searching for ${"+time+" space} in ${abstract} should return ${FR} imported md because the ' ' is ignored during indexing"          	                		! basicSearch(split = Some(' '))  ^
+      "Searching for ${"+time+"_underscore} in ${abstract} should return ${FR} imported md because the '_' is ignored during indexing"         	                 	! basicSearch(split = Some('_'))  ^
+      "Searching for ${"+time+"/forwardSlash} in ${abstract} should return ${FR} imported md because the '/' is ignored during indexing"           	               	! basicSearch(split = Some('/'))  ^
+      "Searching for ${"+time+"\\backSlash} in ${abstract} should return ${FR} imported md because the '\' is ignored during indexing"                  	        	! basicSearch(split = Some('\\'))  ^
+      "Searching for ${"+time+",comma} in ${abstract} should return ${FR} imported md because the ',' is ignored during indexing"                          			! basicSearch(split = Some(','))  ^
+      "Searching for ${"+time+".point} in ${abstract} should return ${FR} imported md because the '.' is ignored during indexing"                          			! basicSearch(split = Some('.'))  ^
+      "Searching for ${"+time+"nonspatialsearchqueryspec} in ${abstract} should return ${all} imported md because the case is ignored"                          		! basicSearch  ^
+      "Searching for ${"+time+"NONSPATIALSEARCHQUERYSPEC} in ${abstract} should return ${all} imported md because the case is ignored"                          		! basicSearch  ^
+      "Searching for ${'"+time+"NonSpatialSearchQuerySpec'} in ${abstract} should return ${all} imported md because the ''' is ignored"                             	! basicSearch(split = Some('\''))  ^
+      "Searching for ${\""+time+"NonSpatialSearchQuerySpec\"} in ${abstract} should return ${all} imported md because the '\"' is ignored"                          	! basicSearch(split = Some('"'))  ^
+      "Searching for ${'ENx"+time+"'} in ${abstract} should return ${EN} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
+      "Searching for ${'FRx"+time+"'} in ${abstract} should return ${FR} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
+      "Searching for ${'DEx"+time+"'} in ${abstract} should return ${DE} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
+      "Searching for ${'FRxDEx"+time+"'} in ${abstract} should return ${XX and FR} imported md because they both have the string in the abstract"	    				! basicSearch  ^
+      "Searching for ${basicgeodata} in ${type} should return ${EN,DE,XX} imported md "	        																			! basicSearch  ^
+      "Searching for ${service} in ${type} should return ${FR} imported md "	        																				! basicSearch  ^
+      "Searching for ${service-OGC:WMS} in ${type} should return ${FR} imported md "	        																		! basicSearch  ^
+      "Searching for ${testGroup} in ${_groupOwner} should return ${all} imported md "	        																		! basicSearch  ^
+                                                                                                  													   		 			  Step(tearDown)
 
-  val time = new Date().getTime().toString
-  lazy val importedMetadataId = {
-  val replacements = Map("{uuid}" -> uuid.toString, "{timestamp}" -> time.toString)
-  def performImport(lang:String) = lang -> ImportMetadata.defaultsWithReplacements(replacements, "/geocat/data/"+lang+"_Search_MD.iso19139.che.xml", false, classOf[ProcessImportedMetadataSpec])._2().value.id 
-    val idsAndLangCodes = List( "FR", "DE", "EN", "XX") map (performImport)
-    idsAndLangCodes foreach {case (_,id) => registerNewMd(Id(id))} 
-    
-    Map(idsAndLangCodes :_*)
-  }
-
-  def basicSearch(implicit maxRecords:Int = 10000, similarity:Double = 1,lang:String = "fra") = (s: String) => {
-    val (searchTerm, field, expectedCode) = extract3(s)
+  def basicSearch(implicit maxRecords:Int = 10000, similarity:Double = 1,lang:String = "fra", split:Option[Char]=None) = (s: String) => {
+    val (searchTerm, field, expectedMetadata) = extract3(s)
+    val allSearchTerms = split map {div => searchTerm.split(div)} getOrElse Array(searchTerm) collect {
+      case "testGroup" => config.groupId
+      case any if any.trim.length > 0 => any.trim
+    }
     val similarityProperty = PropertyIsEqualTo("similarity", similarity.toString)
-    val filter = similarityProperty and PropertyIsEqualTo(field, searchTerm)
+    
+    val filter = (allSearchTerms foldLeft (similarityProperty:OgcFilter)) { (acc,next) => acc and PropertyIsEqualTo(field,next)}
     
     val xmlResponse = CswGetRecordsRequest(filter.xml, 
     									   resultType=ResultTypes.resultsWithSummary, 
@@ -85,31 +81,9 @@ class NonSpatialSearchQuerySpec extends GeocatSpecification(UserProfiles.Editor)
     									   maxRecords = maxRecords,
     									   url = lang+"/csw")().value.getXml
     
-    val records = xmlResponse \\ "Record"
 
-    val recordIds =  records \ "info" \ "id" map (_.text.trim)
-    val importedIds = importedMetadataId.values.toSet
-    val foundIdsMatchingImportedMd = recordIds filter{id => importedIds contains id} 
-    
-    expectedCode match {
-      case "all" => foundIdsMatchingImportedMd must haveTheSameElementsAs (importedMetadataId.values)
-      case "no" | "none" => foundIdsMatchingImportedMd must beEmpty
-      case locales => 
-        val localeSet = locales.split(" and ").toSet.map{(_:String).trim.toUpperCase}
-        val ids = importedMetadataId.collect{case (key,id) if localeSet contains key => id }
-        foundIdsMatchingImportedMd must haveTheSameElementsAs(ids)
-    }
-  }
-  val basicXmlLoadSearch = (s: String) => {
-    val fileName = extract1(s)
-    val (xmlResource,_) = ResourceLoader.loadDataFromClassPath("/geocat/csw-getrecords/"+fileName+".xml", getClass, uuid)
-    
-    val xmlResponse = CswGetRecordsRequest(XML.loadString(xmlResource))().value.getXml
-    
-    val records = xmlResponse \\ "Record"
-    println(xmlResponse)
-    success
-  }
+    find(xmlResponse, expectedMetadata)
+ }
   
   def currentLanguageFirst = {
     pending

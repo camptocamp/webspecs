@@ -6,6 +6,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP1._
 import c2c.webspecs.geonetwork.geocat.spec.WP2._
 import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
+import c2c.webspecs.geonetwork.geocat.spec.WP5._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
 
@@ -23,6 +24,7 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
 //      classOf[WP2],     
       classOf[WP3],
 	  classOf[WP4],
+	  classOf[WP5],
 	  classOf[WP6],
 	  classOf[WP16]	  
 	).flatMap{s => createSpecification(s.getName)}
@@ -94,6 +96,20 @@ class WP4 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
+}
+
+class WP5 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+examplesLinks("WP 5: Indexing and searching")
+
+def examplesLinks(t: String) = {
+	val specs = List(
+			classOf[NonSpatialSearchQuerySpec],
+			classOf[SpatialSearchSpec]
+			).flatMap{s => createSpecification(s.getName)}
+	specs.
+	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+}
 }
 
 class WP6 extends SpecificationWithJUnit with SpecificationsFinder { def is =
