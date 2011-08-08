@@ -31,27 +31,15 @@ class RegisterXslSpec extends GeocatSpecification(UserProfiles.Admin) {  def is 
 			"must correctly transform the inserted sample MD using ${bs_extended_test_110718.xsl}"	 ! testXslCustomTransform ^	
 			"must correctly transform the inserted sample MD using ${bs_full_test_110718.xsl}"	 	 ! testXslCustomTransform ^	
 			"must correctly transform the inserted sample MD using ${bs_simple_test_110718.xsl}"	 ! testXslCustomTransform ^	
-			"Delete the inserted metadata"															 ^ Step(deleteMetadata)  ^
-			"Removes the previously inserted user XSL stylesheets"									 ^ Step(deleteXslStyleSheets)  ^
-																									   end ^ Step(tearDown)	
+																									   Step(tearDown)	
 			
   lazy val importMetadataId = {
     	val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
-    	val md = (importMdRequest then GetRawMetadataXml)(ImportStyleSheets.NONE).value.getXml
-    	val response = (md \\ "fileIdentifier").text.trim
-    	response
+    	val (importId, mdValue)= (importMdRequest startTrackingThen GetRawMetadataXml)(ImportStyleSheets.NONE).values
+    	registerNewMd(importId)
+    	val fileId = (mdValue.getXml \\ "fileIdentifier").text.trim
+    	fileId
   	}
-
-    def deleteMetadata = {
-		  GetRequest("metadata.delete", ("uuid" -> importMetadataId))(Nil)
-    }
-    def deleteXslStyleSheets= {
-	  List("bs_extended_test_110718.xsl",
-	       "bs_full_test_110718.xsl",
-	       "bs_simple_test_110718.xsl").foreach { n => GetRequest("metadata.xsl.remove", ("id" -> xslId(n)))(Nil)  must haveA200ResponseCode }
-    }
-    
-    
 	def xslId(xslFileName: String) = uuid.toString+xslFileName.dropRight(4)
 	
     def customXslLoad = (descriptor : String) => {
@@ -66,7 +54,16 @@ class RegisterXslSpec extends GeocatSpecification(UserProfiles.Admin) {  def is 
     def testXslCustomTransform = (desc:String) => {
     	def name = extract1(desc)
 		GetRequest("metadata.formatter.html", "uuid" -> importMetadataId, "xsl" -> xslId(name))(Nil) must haveA200ResponseCode
-      
     }
 			
+    override def extraTeardown(teardownContext:ExecutionContext):Unit = {
+      import util.control.Exception._
+      allCatch(deleteXslStyleSheets)
+      allCatch(super.extraTeardown(teardownContext))
+    }
+    def deleteXslStyleSheets= {
+	  List("bs_extended_test_110718.xsl",
+	       "bs_full_test_110718.xsl",
+	       "bs_simple_test_110718.xsl").foreach { n => GetRequest("metadata.xsl.remove", ("id" -> xslId(n)))(Nil)  must haveA200ResponseCode }
+    }
 }
