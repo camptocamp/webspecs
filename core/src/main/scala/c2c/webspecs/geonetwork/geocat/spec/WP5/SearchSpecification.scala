@@ -18,7 +18,6 @@ private[WP5] abstract class SearchSpecification extends GeocatSpecification {
       lang -> importRequest().value.id
     }
     val idsAndLangCodes = List("FR", "DE", "EN", "XX") map (performImport)
-//    val idsAndLangCodes = List("FR") map (performImport)
     idsAndLangCodes foreach { case (_, id) => registerNewMd(Id(id)) }
 
     Map(idsAndLangCodes: _*)
@@ -26,11 +25,15 @@ private[WP5] abstract class SearchSpecification extends GeocatSpecification {
 
   lazy val idToLocalMap = importedMetadataId.map{case (key,value) => value -> key}
   
-  def find(xmlResponse: NodeSeq, expectedMetadata: String): Result = {
-    val records = xmlResponse \\ "Record"
+  def findCodesFromResults(xml:NodeSeq) = {
+          val records = xml \\ "Record"
 
-    val recordIds = records \ "info" \ "id" map (_.text.trim)
-    val foundIdsMatchingImportedMd = recordIds flatMap idToLocalMap.get 
+      val recordIds = records \ "info" \ "id" map (_.text.trim)
+recordIds flatMap idToLocalMap.get
+
+  }
+  def find(xmlResponse: NodeSeq, expectedMetadata: String): Result = {
+    val foundIdsMatchingImportedMd = findCodesFromResults(xmlResponse) 
 
     expectedMetadata match {
       case "all" => foundIdsMatchingImportedMd must haveTheSameElementsAs(importedMetadataId.keys)

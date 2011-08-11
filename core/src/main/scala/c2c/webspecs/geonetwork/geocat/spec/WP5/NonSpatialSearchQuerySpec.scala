@@ -19,6 +19,10 @@ import scala.xml.XML
 import scala.xml.Elem
 import org.specs2.execute.Result
 import java.util.Date
+import org.specs2.matcher.ContainMatcher
+import org.specs2.control.LazyParameters
+import org.specs2.control.LazyParameter
+import scala.xml.NodeSeq
 
 
 @RunWith(classOf[JUnitRunner]) 
@@ -27,6 +31,8 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {  def is =
   "This specification tests how non-spatial search queries"             					          													 				^ Step(setup)               ^
       "First import several metadata that are to be searched for" 								  													 				^ Step(importedMetadataId)  ^
       "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results"        		! currentLanguageFirst ^
+      "When searching for a term that is in several metadata; one should be able to sort by ${title}"                                                               ! sortBy ^
+      "When searching for a term that is in several metadata; one should be able to sort by ${date}"                                                                ! sortBy ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${AnyText} with a maxResults limit of 2 should return ${FR and XX} should be the hits" 				! basicSearch(2) ^
       "Searching for ${XX-"+uuid+"} in ${fileId} should return the ${XX} md"                                           				    ! basicSearch() ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec FRA} in ${AnyText} should return the ${FR and XX} should be the hits" 										! basicSearch ^
@@ -99,7 +105,31 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {  def is =
     find(xmlResponse, expectedMetadata)
  }
   
+  def sortBy = (s:String) => {
+    val field = extract1(s)
+    val sortedAscRequest = CswGetRecordsRequest(PropertyIsEqualTo("AnyText", "*").xml,
+                                             resultType=ResultTypes.resultsWithSummary, 
+                                             outputSchema = OutputSchemas.Record,
+                                             sortBy = Some(SortBy(field,false)))
+    val sortedDescRequest = sortedAscRequest.copy(sortBy = Some(SortBy(field,true)))
+    
+    val sortedAscResults = findCodesFromResults(sortedAscRequest().value.getXml)
+    val sortedDescResults = findCodesFromResults(sortedDescRequest().value.getXml)
+    
+    (sortedDescResults must contain("DE","EN","FR","XX")) and 
+        (sortedDescResults must contain("XX","FR","EN","DE")) 
+  }
   def currentLanguageFirst = {
-    pending
+    val frRequest = CswGetRecordsRequest(PropertyIsEqualTo("abstract", "FRxDEx"+time).xml,
+                                         resultType=ResultTypes.resultsWithSummary, 
+                                         outputSchema = OutputSchemas.Record,
+                                         url = "fra/csw")
+    val deRequest = frRequest.copy(url = "deu/csw")
+    
+    val frResults = findCodesFromResults(frRequest().value.getXml)
+    val deResults = findCodesFromResults(deRequest().value.getXml)
+
+    (frResults must contain("FR","XX").only.inOrder) and
+        (deResults must contain("XX","FR").only.inOrder)
   }
 }

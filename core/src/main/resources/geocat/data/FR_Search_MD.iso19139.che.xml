@@ -41,7 +41,7 @@
                     <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
                         <gmd:PT_FreeText>
                             <gmd:textGroup>
-                                <gmd:LocalisedCharacterString locale="#FR">"{timestamp}NonSpatialSearchQuerySpec" FRA Title polluée</gmd:LocalisedCharacterString>
+                                <gmd:LocalisedCharacterString locale="#FR">FR "{timestamp}NonSpatialSearchQuerySpec" FRA Title polluée</gmd:LocalisedCharacterString>
                             </gmd:textGroup>
                         </gmd:PT_FreeText>
                     </gmd:title>

@@ -35,7 +35,7 @@
 					<gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
 						<gmd:PT_FreeText>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec DE Title pollüee</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#DE">DE {timestamp}NonSpatialSearchQuerySpec DE Title pollüee</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 						</gmd:PT_FreeText>
 					</gmd:title>

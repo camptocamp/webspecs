@@ -4,7 +4,7 @@
 		<gco:CharacterString>XX-{uuid}</gco:CharacterString>
 	</gmd:fileIdentifier>
 	<gmd:language xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<gco:CharacterString>fra</gco:CharacterString>
+		<gco:CharacterString>deu</gco:CharacterString>
 	</gmd:language>
 	<gmd:characterSet xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<gmd:MD_CharacterSetCode codeListValue="utf8" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CharacterSetCode"/>
@@ -65,7 +65,7 @@
 					<gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
 						<gmd:PT_FreeText>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec FRA Title</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FRA Title</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
 								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec DE Title</gmd:LocalisedCharacterString>
@@ -102,7 +102,7 @@
 			<gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
 				<gmd:PT_FreeText>
 					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FRxDEx{timestamp} FRA abstract 1_1</gmd:LocalisedCharacterString>
+						<gmd:LocalisedCharacterString locale="#FR">XX  {timestamp}NonSpatialSearchQuerySpec FRxDEx{timestamp} FRA abstract 1_1</gmd:LocalisedCharacterString>
 					</gmd:textGroup>
 					<gmd:textGroup>
 						<gmd:LocalisedCharacterString locale="#EN">{timestamp}NonSpatialSearchQuerySpec EN abstract </gmd:LocalisedCharacterString>
