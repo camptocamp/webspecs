@@ -20,7 +20,7 @@ import c2c.webspecs.GetRequest
 
 
 @RunWith(classOf[JUnitRunner]) 
-class RegisterXslSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
+class RegisterXslSpec extends GeocatSpecification() {  def is =
 	"Xsl custom metadata XML output".title 															 ^ Step(setup) ^
 			"Login as admin"																		 ^ Step(config.adminLogin()) ^
 			"must load the XSL stylesheet via the the REST API (${bs_extended_test_110718.xsl})"     ! customXslLoad ^
@@ -30,7 +30,7 @@ class RegisterXslSpec extends GeocatSpecification(UserProfiles.Admin) {  def is 
 			"must succeed in loading the sample metadata"  											 ^ Step(importMetadataId) ^
 			"must correctly transform the inserted sample MD using ${bs_extended_test_110718.xsl}"	 ! testXslCustomTransform ^	
 			"must correctly transform the inserted sample MD using ${bs_full_test_110718.xsl}"	 	 ! testXslCustomTransform ^	
-			"must correctly transform the inserted sample MD using ${bs_simple_test_110718.xsl}"	 ! testXslCustomTransform ^	
+			"must correctly transform the inserted sample MD using ${bs_simple_test_110718.xsl}"	 ! testXslCustomTransform ^	end ^
 																									   Step(tearDown)	
 			
   lazy val importMetadataId = {

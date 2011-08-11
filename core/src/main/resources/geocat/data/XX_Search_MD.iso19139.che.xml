@@ -65,7 +65,7 @@
 					<gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
 						<gmd:PT_FreeText>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec FR Title</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec FRA Title</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
 								<gmd:LocalisedCharacterString locale="#DE">{timestamp}NonSpatialSearchQuerySpec DE Title</gmd:LocalisedCharacterString>
@@ -102,7 +102,7 @@
 			<gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
 				<gmd:PT_FreeText>
 					<gmd:textGroup>
-						<gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FRxDEx{timestamp} FR abstract 1_1</gmd:LocalisedCharacterString>
+						<gmd:LocalisedCharacterString locale="#FR">{timestamp}NonSpatialSearchQuerySpec FRxDEx{timestamp} FRA abstract 1_1</gmd:LocalisedCharacterString>
 					</gmd:textGroup>
 					<gmd:textGroup>
 						<gmd:LocalisedCharacterString locale="#EN">{timestamp}NonSpatialSearchQuerySpec EN abstract </gmd:LocalisedCharacterString>
@@ -121,7 +121,33 @@
 			<gmd:topicCategory>
 				<gmd:MD_TopicCategoryCode>elevation</gmd:MD_TopicCategoryCode>
 			</gmd:topicCategory>
-
+            <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <gmd:EX_Extent>
+                <gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
+                  <gco:CharacterString>fribourg and vaud</gco:CharacterString>
+                </gmd:description>
+                <gmd:geographicElement>
+                  <gmd:EX_BoundingPolygon>
+                    <gmd:extentTypeCode>
+                      <gco:Boolean>true</gco:Boolean>
+                    </gmd:extentTypeCode>
+                    <gmd:polygon>
+                      <gml:MultiSurface gml:id="N3527eb61b46b448a935f4bd31a8191c2">
+                        <gml:surfaceMember>
+                          <gml:Polygon gml:id="N85a5be7d3c8d4547ad7cb30cacd3ab3e">
+                            <gml:exterior>
+                              <gml:LinearRing>
+                                <gml:posList>6.807 46.51 6.806 46.594 6.95 46.595 6.951 46.511 6.807 46.51</gml:posList>
+                              </gml:LinearRing>
+                            </gml:exterior>
+                          </gml:Polygon>
+                        </gml:surfaceMember>
+                      </gml:MultiSurface>
+                    </gmd:polygon>
+                  </gmd:EX_BoundingPolygon>
+                </gmd:geographicElement>
+              </gmd:EX_Extent>
+            </gmd:extent>
 		</che:CHE_MD_DataIdentification>
 	</gmd:identificationInfo>
     <gmd:distributionInfo>

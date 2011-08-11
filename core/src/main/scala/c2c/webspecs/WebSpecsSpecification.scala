@@ -19,19 +19,23 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   lazy val fixtures:Traversable[Fixture[C]] = Nil
 
   def setup = ExecutionContext.withDefault { context2 =>
+    Log.apply(Log.LifeCycle, "Starting WebSpecs Setup")
     config.setUpTestEnv(context2)
     fixtures.foreach{_.create(config, context2)}
     extraSetup(context2)
+    Log.apply(Log.LifeCycle, "Finished WebSpecs Setup\n\n")
   }
   def extraSetup(setupContext:ExecutionContext):Unit = {}
   def tearDown = ExecutionContext.withDefault[Unit] {
     context2 =>
+      Log.apply(Log.LifeCycle, "\n\nStarting WebSpecs tearDown")
       try {
 	      fixtures.foreach{_.delete(config, context2)}
 	      extraTeardown(context2)
 	      config.tearDownTestEnv (context2)
       } finally {
     	  context.close()
+    	  Log.apply(Log.LifeCycle, "\n\nDone WebSpecs tearDown")
       }
   }
   

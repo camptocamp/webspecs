@@ -41,7 +41,7 @@
                     <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
                         <gmd:PT_FreeText>
                             <gmd:textGroup>
-                                <gmd:LocalisedCharacterString locale="#FR">"{timestamp}NonSpatialSearchQuerySpec" FR Title polluée</gmd:LocalisedCharacterString>
+                                <gmd:LocalisedCharacterString locale="#FR">"{timestamp}NonSpatialSearchQuerySpec" FRA Title polluée</gmd:LocalisedCharacterString>
                             </gmd:textGroup>
                         </gmd:PT_FreeText>
                     </gmd:title>
@@ -70,17 +70,17 @@
             <srv:serviceTypeVersion>
                 <gco:CharacterString>1.1.1</gco:CharacterString>
             </srv:serviceTypeVersion>
-            <srv:extent xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.geocat.ch:80/geonetwork/srv/eng/xml.extent.get?wfs=default&amp;format=gmd_complete&amp;typename=gn:gemeindenBB&amp;id=6607&amp;extentTypeCode=true" xlink:title="" xlink:role="">
+            <srv:extent>
                 <gmd:EX_Extent>
-                    <gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
-                        <gco:CharacterString>Bernex</gco:CharacterString>
+                    <gmd:description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                        <gco:CharacterString>Bern</gco:CharacterString>
                     </gmd:description>
                     <gmd:geographicElement>
                         <gmd:EX_GeographicDescription>
                             <gmd:geographicIdentifier>
                                 <gmd:MD_Identifier>
-                                    <gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
-                                        <gco:CharacterString>Bernex</gco:CharacterString>
+                                    <gmd:code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                                        <gco:CharacterString>Bern</gco:CharacterString>
                                     </gmd:code>
                                 </gmd:MD_Identifier>
                             </gmd:geographicIdentifier>
@@ -92,12 +92,12 @@
                                 <gco:Boolean>true</gco:Boolean>
                             </gmd:extentTypeCode>
                             <gmd:polygon>
-                                <gml:MultiSurface gml:id="Nb4b4ffcd149b43599a1b5d938144d35a">
+                                <gml:MultiSurface gml:id="N9ac66cfe026144bea9777e3d6e92327e">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="N37a04638f5cd43bba8a5d82001aeb4f6">
+                                        <gml:Polygon gml:id="N5d4036d6e91742f59bd7b5389ef5ef9c">
                                             <gml:exterior>
                                                 <gml:LinearRing>
-                                                        <gml:posList>6.044 46.166 6.038 46.171 6.049 46.176 6.051 46.182 6.054 46.183 6.06 46.193 6.074 46.202 6.092 46.211 6.087 46.196 6.089 46.193 6.087 46.192 6.076 46.173 6.087 46.166 6.078 46.16 6.075 46.149 6.061 46.16 6.05 46.151 6.044 46.166</gml:posList>
+                                                        <gml:posList>7.303 46.93 7.307 46.94 7.349 46.948 7.368 46.956 7.372 46.961 7.379 46.961 7.383 46.966 7.412 46.97 7.428 46.974 7.433 46.972 7.44 46.975 7.443 46.981 7.452 46.988 7.453 46.983 7.455 46.977 7.47 46.971 7.483 46.971 7.486 46.965 7.479 46.963 7.479 46.956 7.484 46.945 7.494 46.94 7.494 46.938 7.478 46.936 7.471 46.925 7.459 46.935 7.447 46.931 7.415 46.937 7.401 46.921 7.381 46.932 7.373 46.933 7.339 46.925 7.339 46.92 7.331 46.919 7.328 46.919 7.325 46.925 7.295 46.923 7.303 46.93</gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
                                         </gml:Polygon>
@@ -105,25 +105,6 @@
                                 </gml:MultiSurface>
                             </gmd:polygon>
                         </gmd:EX_BoundingPolygon>
-                    </gmd:geographicElement>
-                    <gmd:geographicElement>
-                        <gmd:EX_GeographicBoundingBox>
-                            <gmd:extentTypeCode>
-                                <gco:Boolean>true</gco:Boolean>
-                            </gmd:extentTypeCode>
-                            <gmd:westBoundLongitude>
-                                <gco:Decimal>6.038</gco:Decimal>
-                            </gmd:westBoundLongitude>
-                            <gmd:eastBoundLongitude>
-                                <gco:Decimal>6.092</gco:Decimal>
-                            </gmd:eastBoundLongitude>
-                            <gmd:southBoundLatitude>
-                                <gco:Decimal>46.149</gco:Decimal>
-                            </gmd:southBoundLatitude>
-                            <gmd:northBoundLatitude>
-                                <gco:Decimal>46.211</gco:Decimal>
-                            </gmd:northBoundLatitude>
-                        </gmd:EX_GeographicBoundingBox>
                     </gmd:geographicElement>
                 </gmd:EX_Extent>
             </srv:extent>

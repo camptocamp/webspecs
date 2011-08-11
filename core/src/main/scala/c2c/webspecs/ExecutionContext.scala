@@ -34,6 +34,7 @@ trait ExecutionContext {
   def close() = httpClient.getConnectionManager.shutdown
   def execute(request:HttpRequestBase) = request match {
     case r:LoginRequest if currentUser.exists {_._1.user == r.user} =>
+      Log.apply(Log.Connection, "Skipping login request since user is already logged in")
       currentUser.get._2
     case _ =>
       modifications foreach {_(request)}

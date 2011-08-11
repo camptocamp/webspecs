@@ -6,4 +6,5 @@ case class And(val filters:OgcFilter*) extends OgcFilter {
 	  case otherAnd:And => And(filters ++ otherAnd.filters :_*)
 	  case other => And(filters :+ other:_*)
 	}
+	override def toString = filters mkString " and "
 }

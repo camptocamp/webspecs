@@ -28,8 +28,8 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {  def is =
       "First import several metadata that are to be searched for" 								  													 					^ Step(importedMetadataId)  ^
       "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results"        			! currentLanguageFirst ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${AnyText} with a maxResults limit of 2 should return ${FR and XX} should be the hits" 				    ! basicSearch(2) ^
-      "Searching for ${"+time+"NonSpatialSearchQuerySpec FR} in ${AnyText} should return the ${FR and XX} should be the hits" 											! basicSearch ^
-      "Searching for ${FR "+time+"NonSpatialSearchQuerySpec} as seperate terms in ${AnyText} should return the ${FR and XX} as the hits" 								! basicSearch(split=Some(' ')) ^
+      "Searching for ${"+time+"NonSpatialSearchQuerySpec FRA} in ${AnyText} should return the ${FR and XX} should be the hits" 											! basicSearch ^
+      "Searching for ${FRA "+time+"NonSpatialSearchQuerySpec} as seperate terms in ${AnyText} should return the ${FR and XX} as the hits" 								! basicSearch(split=Some(' ')) ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${AnyText} should return ${all} imported md" 												    	    	! basicSearch ^
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${title} should return ${all} imported md"    												  				! basicSearch  ^ 
       "Searching for ${"+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md"    												        	! basicSearch  ^
@@ -45,12 +45,18 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {  def is =
       "Searching for ${the "+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in english"						! basicSearch(lang = "eng")  ^
       "Searching for ${einem "+time+"NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in german"					! basicSearch(lang = "deu")  ^
       "Searching for ${"+time+"-hyphen} in ${abstract} should return ${FR} imported md because the '-' is ignored during indexing"   	                          	! basicSearch(split = Some('-'))  ^
+      "Searching for ${"+time+" hyphen} in ${abstract} should return ${FR} imported md because the '-' is ignored during indexing"   	                          	! basicSearch(split = Some('-'))  ^
       "Searching for ${"+time+" space} in ${abstract} should return ${FR} imported md because the ' ' is ignored during indexing"          	                		! basicSearch(split = Some(' '))  ^
       "Searching for ${"+time+"_underscore} in ${abstract} should return ${FR} imported md because the '_' is ignored during indexing"         	                 	! basicSearch(split = Some('_'))  ^
+      "Searching for ${"+time+" underscore} in ${abstract} should return ${FR} imported md because the '_' is ignored during indexing"         	                 	! basicSearch(split = Some('_'))  ^
       "Searching for ${"+time+"/forwardSlash} in ${abstract} should return ${FR} imported md because the '/' is ignored during indexing"           	               	! basicSearch(split = Some('/'))  ^
+      "Searching for ${"+time+" forwardSlash} in ${abstract} should return ${FR} imported md because the '/' is ignored during indexing"           	               	! basicSearch(split = Some('/'))  ^
       "Searching for ${"+time+"\\backSlash} in ${abstract} should return ${FR} imported md because the '\' is ignored during indexing"                  	        	! basicSearch(split = Some('\\'))  ^
+      "Searching for ${"+time+" backSlash} in ${abstract} should return ${FR} imported md because the '\' is ignored during indexing"                  	        	! basicSearch(split = Some('\\'))  ^
       "Searching for ${"+time+",comma} in ${abstract} should return ${FR} imported md because the ',' is ignored during indexing"                          			! basicSearch(split = Some(','))  ^
+      "Searching for ${"+time+" comma} in ${abstract} should return ${FR} imported md because the ',' is ignored during indexing"                          			! basicSearch(split = Some(','))  ^
       "Searching for ${"+time+".point} in ${abstract} should return ${FR} imported md because the '.' is ignored during indexing"                          			! basicSearch(split = Some('.'))  ^
+      "Searching for ${"+time+" point} in ${abstract} should return ${FR} imported md because the '.' is ignored during indexing"                          			! basicSearch(split = Some('.'))  ^
       "Searching for ${"+time+"nonspatialsearchqueryspec} in ${abstract} should return ${all} imported md because the case is ignored"                          		! basicSearch  ^
       "Searching for ${"+time+"NONSPATIALSEARCHQUERYSPEC} in ${abstract} should return ${all} imported md because the case is ignored"                          		! basicSearch  ^
       "Searching for ${'"+time+"NonSpatialSearchQuerySpec'} in ${abstract} should return ${all} imported md because the ''' is ignored"                             	! basicSearch(split = Some('\''))  ^
@@ -59,7 +65,7 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {  def is =
       "Searching for ${'FRx"+time+"'} in ${abstract} should return ${FR} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
       "Searching for ${'DEx"+time+"'} in ${abstract} should return ${DE} imported md because it is the only MD with that string in abstract"	        				! basicSearch  ^
       "Searching for ${'FRxDEx"+time+"'} in ${abstract} should return ${XX and FR} imported md because they both have the string in the abstract"	    				! basicSearch  ^
-      "Searching for ${basicgeodata} in ${type} should return ${EN,DE,XX} imported md "	        																			! basicSearch  ^
+      "Searching for ${dataset} in ${type} should return ${EN and DE and XX} imported md "	        																		! basicSearch  ^
       "Searching for ${service} in ${type} should return ${FR} imported md "	        																				! basicSearch  ^
       "Searching for ${service-OGC:WMS} in ${type} should return ${FR} imported md "	        																		! basicSearch  ^
       "Searching for ${testGroup} in ${_groupOwner} should return ${all} imported md "	        																		! basicSearch  ^

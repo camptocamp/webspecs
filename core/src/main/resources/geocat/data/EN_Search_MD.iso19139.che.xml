@@ -78,7 +78,63 @@
             <gmd:topicCategory>
                 <gmd:MD_TopicCategoryCode>elevation</gmd:MD_TopicCategoryCode>
             </gmd:topicCategory>
-
+            <gmd:extent xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://www.geocat.ch:80/geonetwork/srv/eng/xml.extent.get?wfs=default&amp;format=gmd_complete&amp;typename=gn:gemeindenBB&amp;id=2072&amp;extentTypeCode=true" xlink:title="" xlink:role="">
+                <gmd:EX_Extent>
+                    <gmd:description xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                        <gco:CharacterString>Ecublens (FR)</gco:CharacterString>
+                    </gmd:description>
+                    <gmd:geographicElement>
+                        <gmd:EX_GeographicDescription>
+                            <gmd:geographicIdentifier>
+                                <gmd:MD_Identifier>
+                                    <gmd:code xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="gmd:PT_FreeText_PropertyType">
+                                        <gco:CharacterString>Ecublens (FR)</gco:CharacterString>
+                                    </gmd:code>
+                                </gmd:MD_Identifier>
+                            </gmd:geographicIdentifier>
+                        </gmd:EX_GeographicDescription>
+                    </gmd:geographicElement>
+                    <gmd:geographicElement>
+                        <gmd:EX_BoundingPolygon>
+                            <gmd:extentTypeCode>
+                                <gco:Boolean>true</gco:Boolean>
+                            </gmd:extentTypeCode>
+                            <gmd:polygon>
+                                <gml:MultiSurface gml:id="Na43b17d409054bbe9bcff8dbab629668">
+                                    <gml:surfaceMember>
+                                        <gml:Polygon gml:id="N408e2c13a25b4f7bb3d50d1d4832aafb">
+                                            <gml:exterior>
+                                                <gml:LinearRing>
+                                                        <gml:posList>6.811 46.592 6.801 46.593 6.798 46.6 6.802 46.601 6.804 46.609 6.797 46.634 6.803 46.645 6.811 46.638 6.808 46.629 6.817 46.609 6.811 46.592</gml:posList>
+                                                </gml:LinearRing>
+                                            </gml:exterior>
+                                        </gml:Polygon>
+                                    </gml:surfaceMember>
+                                </gml:MultiSurface>
+                            </gmd:polygon>
+                        </gmd:EX_BoundingPolygon>
+                    </gmd:geographicElement>
+                    <gmd:geographicElement>
+                        <gmd:EX_GeographicBoundingBox>
+                            <gmd:extentTypeCode>
+                                <gco:Boolean>true</gco:Boolean>
+                            </gmd:extentTypeCode>
+                            <gmd:westBoundLongitude>
+                                <gco:Decimal>6.797</gco:Decimal>
+                            </gmd:westBoundLongitude>
+                            <gmd:eastBoundLongitude>
+                                <gco:Decimal>6.817</gco:Decimal>
+                            </gmd:eastBoundLongitude>
+                            <gmd:southBoundLatitude>
+                                <gco:Decimal>46.592</gco:Decimal>
+                            </gmd:southBoundLatitude>
+                            <gmd:northBoundLatitude>
+                                <gco:Decimal>46.645</gco:Decimal>
+                            </gmd:northBoundLatitude>
+                        </gmd:EX_GeographicBoundingBox>
+                    </gmd:geographicElement>
+                </gmd:EX_Extent>
+            </gmd:extent>
         </che:CHE_MD_DataIdentification>
     </gmd:identificationInfo>
     <gmd:distributionInfo>
