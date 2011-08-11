@@ -30,14 +30,17 @@ object ImportMetadata {
   }
 
 }
-case class ImportMetadata(data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean, groupId:String)
+object UuidAction extends Enumeration {
+  val generateUUID, overwrite, None = Value 
+}
+case class ImportMetadata(data:AbstractContentBody, styleSheet:ImportStyleSheets.ImportStyleSheet, validate:Boolean, groupId:String, uuidAction: UuidAction.Value = UuidAction.generateUUID)
   extends AbstractMultiPartFormRequest[Any,IdValue](
     "mef.import",
     IdValuesFactory.FromImportOrCreateResult,
     P("insert_mode",  new StringBody("1")),
     P("file_type",  new StringBody("single")),
     P("mefFile",  data),
-    P("uuidAction",  new StringBody("generateUUID")), //other options: nothing,
+    P("uuidAction",  new StringBody(uuidAction.toString())),
     P("template",  new StringBody("n")),
     P("styleSheet",  new StringBody(styleSheet.toString)),
     P("group",  new StringBody(groupId)),

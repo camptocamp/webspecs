@@ -15,7 +15,7 @@ import org.specs2.specification.Fragments
 import org.specs2.execute.Result
 
 @RunWith(classOf[JUnitRunner]) 
-class AddXLinks extends GeocatSpecification { def is = 
+class AddXLinksSpec extends GeocatSpecification { def is = 
   "AddLinks to metadata".title 																		^ 
   sequential 																						^
   "This specification adds XLinks to existing metadata "      										^ Step(setup) ^ 

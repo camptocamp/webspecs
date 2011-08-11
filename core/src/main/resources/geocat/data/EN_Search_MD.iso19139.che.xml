@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" gco:isoType="gmd:MD_Metadata">
     <gmd:fileIdentifier xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-        <gco:CharacterString>23b53e29-c0a2-4897-b107-141bb15f929a</gco:CharacterString>
+        <gco:CharacterString>EN-{uuid}</gco:CharacterString>
     </gmd:fileIdentifier>
     <gmd:language xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <gco:CharacterString>eng</gco:CharacterString>
