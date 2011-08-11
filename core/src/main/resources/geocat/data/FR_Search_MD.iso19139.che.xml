@@ -56,8 +56,8 @@
                         {timestamp}_underscore
                         {timestamp}/forwardSlash
                         {timestamp}\backSlash
-                        {timestamp}.point
-                        {timestamp},comma
+                        {timestamp}. point
+                        {timestamp}, comma
                         {timestamp} space
                         FRxDEx{timestamp}
                         </gmd:LocalisedCharacterString>
