@@ -9,13 +9,5 @@ class PredefinedUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle {
     LoginRequest(user, pass).assertPassed(None)
   }
 
-  def tearDown(implicit context: ExecutionContext) = {
-
-    val DeleteMetadata = GetUser.fromUserName(user) then DeleteOwnedMetadata
-
-    val response = (adminLogin then DeleteMetadata)(None)
-    if(response.basicValue.responseCode > 200)
-      throw new AssertionError("Error occurred during teardown.  Group was not deleted.  ResponseCode = "+response.basicValue.responseCode)
-
-  }
+  def tearDown(implicit context: ExecutionContext) = {}
 }
