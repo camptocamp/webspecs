@@ -9,14 +9,15 @@ import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP5._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
-
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 @RunWith(classOf[JUnitRunner]) 
 class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is =
-    examplesLinks("All Work Packages")
+    examplesLinks("All Work Packages - "+dateTime)
 
     def examplesLinks(t: String) = {
   val specs = List(
@@ -32,7 +33,15 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }
 
+    def dateTime = {
+        val dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        val date = new Date();
+        dateFormat.format(date);
+    }
 }
+
+
+
 class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
     examplesLinks("WP 1: Add CHE Schema")
