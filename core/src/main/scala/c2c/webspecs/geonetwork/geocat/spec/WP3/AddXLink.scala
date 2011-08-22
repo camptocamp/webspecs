@@ -96,7 +96,8 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   def updateContact = {
     val newLastName = "newLastName"
-    (config.adminLogin then UpdateUser(userFixture.user.copy(surname = newLastName)))()
+    val updateUser = new UpdateSharedUser(userFixture.user.copy(surname = newLastName),true)
+    (config.adminLogin then updateUser)()
     val md = GetRawMetadataXml(Id(ImportMdId)).value.getXml
     val lastName = (md \\ AddSites.contact.name \\ "individualLastName").text.trim
     lastName must_== newLastName 
@@ -124,7 +125,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
     super[GeocatSpecification].extraTeardown(teardownContext)
   }
 
-  lazy val userFixture = GeonetworkFixture.user(SharedUserProfile)
+  lazy val userFixture = GeocatFixture.sharedUser(false)
   lazy val keywordFixture = GeonetworkFixture.keyword(GeocatConstants.KEYWORD_NAMESPACE, GeocatConstants.NON_VALIDATED_THESAURUS)
   lazy val formatFixture = GeocatFixture.format
   override lazy val fixtures = Seq(userFixture, keywordFixture, formatFixture)

@@ -6,7 +6,7 @@ abstract class CreateSharedUser(user:User,validated:Boolean)
   extends AbstractFormPostRequest[Any,UserValue](
     (if(validated) "validated" else "nonvalidated")+".shared.user.update!",
     SelfValueFactory(),
-    (P("operation", "newuser") :: SP("validated",if(validated) "y" else "no") :: user.formParams):_*)
+    (P("operation", "newuser") :: SP("validated",if(validated) "y" else "n") :: user.formParams):_*)
   with ValueFactory[Any,UserValue] {
 
   override def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {

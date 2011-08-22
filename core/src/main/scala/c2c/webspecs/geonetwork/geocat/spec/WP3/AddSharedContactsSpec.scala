@@ -82,7 +82,7 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
   }
   def noContacts = (GeocatListUsers(contactId).value ++ GeocatListUsers(parentId).value) must beEmpty
 
-  lazy val contactId = UUID.randomUUID().toString
+  lazy val contactId = uuid.toString
   lazy val parentId = UUID.randomUUID().toString
   lazy val contactFirstName = contactId+"FirstName*automated*"
   lazy val parentFirstName = parentId+"FirstName*automated*"
