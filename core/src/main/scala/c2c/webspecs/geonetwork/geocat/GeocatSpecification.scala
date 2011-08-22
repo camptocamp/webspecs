@@ -19,7 +19,7 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
 
 	  config.adminLogin(None)
 	  
-	  val newUsers = ListUsers(None).value.filter(user => (user.username contains uuid.toString) && (user.profile == SharedUserProfile))
+	  val newUsers = GeocatListUsers("*").value.filter(user => user.username contains uuid.toString)
 	  newUsers.foreach(user => DeleteUser(user.userId)(None))
 	  
 	  val newFormats = ListFormats("").value filter (_.name contains uuid.toString)
