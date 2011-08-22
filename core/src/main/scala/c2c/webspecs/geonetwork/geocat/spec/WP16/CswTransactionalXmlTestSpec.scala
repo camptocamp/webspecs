@@ -3,8 +3,8 @@ package geonetwork
 package geocat
 package spec.WP16
 
-import org.junit.runner.RunWith
 import scala.xml._
+import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
 

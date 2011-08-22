@@ -73,7 +73,7 @@ case class User(val idOption:Option[String]=None,
     profile = user.profile,
     groups = user.groups)
   def loadId(implicit executionContext:ExecutionContext):Option[String] = idOption orElse {
-    ListUsers(None).value find {_.username == username} map {_.userId}
+    ListUsers().value find {_.username == username} map {_.userId}
   }
 
   def formParams():List[Param[Any,String]] = {

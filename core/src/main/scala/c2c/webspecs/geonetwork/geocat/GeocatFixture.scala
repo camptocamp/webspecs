@@ -11,6 +11,39 @@ import scala.xml.Node
  * Fixtures that only apply in Geocat
  */
 object GeocatFixture {
+    def sharedUser(validated:Boolean) = new Fixture[GeonetConfig] {
+    val name = "Web"
+    val lastname = "Specs"
+    val username = "WebSpecs_"+UUID.randomUUID().toString
+    val email = "Webspecs@camptocamp.com"
+    private var _id:String = _
+    val position = LocalisedString(en = "EN developer", de = "DE Entwickler", fr = "FR développeur")
+
+    def id = _id
+    
+    def user = User(
+        idOption = Option(id),
+        username = username,
+        email = email,
+        name = name,
+        surname=lastname,
+        password = username,
+        position = position,
+        profile = SharedUserProfile) 
+
+    def delete(config: GeonetConfig, context: ExecutionContext) =
+      (config.adminLogin then DeleteUser(id))(None)(context)
+
+    def create(config: GeonetConfig, context: ExecutionContext) = {
+      val userReq = user
+      val createRequest = 
+        if(validated) CreateValidatedUser(userReq)
+        else          CreateNonValidatedUser(userReq)
+        
+      val createResponse = (config.adminLogin then createRequest)(None)(context)
+      _id = createResponse.value.userId
+    }
+  }
   def format = new Fixture[GeonetConfig] {
     val name = "WebSpecs"
     val version = UUID.randomUUID().toString

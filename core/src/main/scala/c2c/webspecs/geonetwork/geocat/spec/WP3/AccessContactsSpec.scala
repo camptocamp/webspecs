@@ -38,14 +38,16 @@ class AccessContactsSpec extends GeocatSpecification { def is =
   type ListUserResponse = Response[List[User with UserRef with Validateable]]
 
   def find[U](list:ListUserResponse)(map: User with UserRef with Validateable => U) = { list.value.find(_.userId == userFixture.id).map(map)}
-  val searchContacts = (s:String) => GeocatListUsers(extract1(s).replace('*',' ').trim()):ListUserResponse
+  val searchContacts = (s:String) => 
+    GeocatListUsers(extract1(s).replace('*',' ').trim()):ListUserResponse
   val l200Response = a200ResponseThen.narrow[ListUserResponse]
 
-  val listUserNames = (response:ListUserResponse) => response.value.map{_.username} must contain (userFixture.username)
+  val listUserNames = (response:ListUserResponse) => 
+    response.value.map{_.username} must contain (userFixture.username)
 
   val listNames = (response:ListUserResponse) => find(response)(_.name) must beSome(userFixture.name)
 
-  val listProfiles = (response:ListUserResponse) => find(response)(_.profile) must beSome(userFixture.profile)
+  val listProfiles = (response:ListUserResponse) => find(response)(_.profile) must beSome(SharedUserProfile)
 
   val listEmails = (response:ListUserResponse) => find(response)(_.email) must beSome(userFixture.email)
 
@@ -94,6 +96,6 @@ class AccessContactsSpec extends GeocatSpecification { def is =
       response.withHtml(_ \\ "record" must beEmpty)
     }
 
-  lazy val userFixture = GeonetworkFixture.user(SharedUserProfile)
+  lazy val userFixture = GeocatFixture.sharedUser(true)
   override lazy val fixtures = Seq(userFixture)
 }

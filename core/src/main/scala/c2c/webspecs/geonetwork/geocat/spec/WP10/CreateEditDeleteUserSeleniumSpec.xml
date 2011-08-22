@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>CreateEditDeleteUserSeleniumSpec</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CreateEditDeleteUserSeleniumSpec</td></tr>
+</thead><tbody>
+<!--- This specification tests creating/editing/deleting a shared user through the user interface-->
+<tr>
+	<td>open</td>
+	<td>/geonetwork/srv/eng/geocat</td>
+	<td></td>
+</tr>
+<!--- login as administrator to edit shared objects-->
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>admin</td>
+</tr>
+<!--- navigation to admin and admin validated user-->
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.banner</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Metadata management</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=User management - Validated</td>
+	<td></td>
+</tr>
+<!--- click new user button-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[@onclick=&quot;load('/geonetwork/srv/eng/shared.user.edit?validated=y&amp;operation=newuser')&quot;]</td>
+	<td></td>
+</tr>
+<!--- enter in user information-->
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>newuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=surname</td>
+	<td>newuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=name</td>
+	<td>newuser</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=orgEN</td>
+	<td>en</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=langSelectororg</td>
+	<td>label=Deutsch</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=orgDE</td>
+	<td>de</td>
+</tr>
+<!--- Click on and the new user should be in the list of validated users-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[@onclick='update1()']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>newuser</td>
+	<td></td>
+</tr>
+<!--- click edit button-->
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.content</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=orgEN</td>
+	<td>en</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>id=orgDE</td>
+	<td>de</td>
+</tr>
+<!--- change surname-->
+<tr>
+	<td>type</td>
+	<td>id=surname</td>
+	<td>newuser2</td>
+</tr>
+<!--- click the update button and the updated user should be displayed-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//button[@onclick='update1()']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>newuser2</td>
+	<td></td>
+</tr>
+<!--- Click the delete button of the new user and the confirmation dialog should appear.  Confirming the deletion should result in the user being deleted-->
+<tr>
+	<td>click</td>
+	<td>//button[@onclick=&quot;deleteUser('/geonetwork/srv/eng/validated.shared.user.remove?id=5','Delete user from database ?', 5)&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Delete user from database ?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=button.banner</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

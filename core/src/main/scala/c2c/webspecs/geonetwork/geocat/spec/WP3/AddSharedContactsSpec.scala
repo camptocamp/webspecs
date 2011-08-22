@@ -49,8 +49,10 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
 
   }
 
-  def newContact = GeocatListUsers(contactFirstName).value.filter(_.name == contactFirstName) must haveSize(1)
-  def newParent = GeocatListUsers(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
+  def newContact = 
+    GeocatListUsers(contactFirstName).value.filter(_.name == contactFirstName) must haveSize(1)
+  def newParent = 
+    GeocatListUsers(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
 
   val updateContact = () => {
     val id = GeocatListUsers(contactFirstName).value.find(_.name == contactFirstName).get.userId

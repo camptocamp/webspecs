@@ -7,7 +7,7 @@ import c2c.webspecs.{BasicHttpValue, BasicValueFactory, AbstractGetRequest}
 /**
  * shared.users.list request that can filter by the name input value
  *
- * for example Shared("jess") will list all users containing jess in
+ * for example GeocatListUsers("jess") will list all users containing jess in
  * name, surname, username, address, email...
  *
  * Results are similar to that returned by ListUsers but has Validated as well
