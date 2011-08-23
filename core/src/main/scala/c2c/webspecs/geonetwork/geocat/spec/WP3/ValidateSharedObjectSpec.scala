@@ -20,10 +20,10 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     "Next validate the imported shared object, in this case a contact"										^ Step(validateContact) ^
     "Once done the xlink in both metadata should be updated to be validated"								! isValidatedContact		^
     																										  endp ^
-/*  "This section tests a couple corner cases of shared object validation"                                    ^ 
+  "This section tests a couple corner cases of shared object validation"                                    ^ 
     "Allow creation and deletion of shared contacts"                                                        ! createAndDelete ^
     "Allow creation of shared format and validate it without interfering with others in metadata" 			! createAndValidateNoInterference ^
-    "Allow creation of shared format and validate it without losing role information"             			! createAndValidateKeepRole ^*/
+    "Allow creation of shared format and validate it without losing role information"             			! createAndValidateKeepRole ^
     																										  Step(tearDown)
 
   lazy val ImportTwoMetadata: (IdValue, IdValue) = {

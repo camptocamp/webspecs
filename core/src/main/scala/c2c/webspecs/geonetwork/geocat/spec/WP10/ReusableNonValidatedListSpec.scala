@@ -10,8 +10,7 @@ import org.specs2.matcher.Matcher
 
 class ReusableNonValidatedListSpec extends GeocatSpecification { def is =
   "List non validated objects".title                            ^
-  "This specification tests the Server API for obtaining the list of non-validated objects" ^
-  "First create some non-validated objects" ^ Step(setup) ^
+  "This specification tests the Server API for obtaining the list of non-validated objects" ^ Step(setup) ^
   "First create some non-validated objects" ^ Step(CreateNonValidatedObjects) ^
   "Listing the ${contacts} should list the nonvalidated contact" ! containsNonValidated ^
   "The edit link for ${contacts} should be valid" ! editLink ^

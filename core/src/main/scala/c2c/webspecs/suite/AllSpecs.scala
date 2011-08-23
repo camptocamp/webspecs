@@ -8,6 +8,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP5._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
+import c2c.webspecs.geonetwork.geocat.spec.WP10._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
@@ -27,6 +28,7 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
 	  classOf[WP4],
 	  classOf[WP5],
 	  classOf[WP6],
+	  classOf[WP10],	  
 	  classOf[WP16]	  
 	).flatMap{s => createSpecification(s.getName)}
       specs.
@@ -34,7 +36,7 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
     }
 
     def dateTime = {
-        val dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        val dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
         val date = new Date();
         dateFormat.format(date);
     }
@@ -136,20 +138,33 @@ class WP6 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 	}
 }
 
-class WP16 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
-	examplesLinks("WP 16: Misc. tests")
+	examplesLinks("WP 10: Reusable Object UI")
 
 	def examplesLinks(t: String) = {
 		val specs = List(
-		    	classOf[MetadataValidationReportSpec],
-				classOf[MonitoringSpec],
-				classOf[PreStyleSheetSpec],
-				classOf[RegisterXslSpec],
-				classOf[TestMetadataExpiredServicesSpec]
+		    	classOf[ReusableNonValidatedListSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
+}
+
+class WP16 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+examplesLinks("WP 16: Misc. tests")
+
+def examplesLinks(t: String) = {
+    val specs = List(
+            classOf[MetadataValidationReportSpec],
+            classOf[MonitoringSpec],
+            classOf[PreStyleSheetSpec],
+            classOf[RegisterXslSpec],
+            classOf[TestMetadataExpiredServicesSpec]
+            ).flatMap{s => createSpecification(s.getName)}
+    specs.
+    foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+}
 }
 
