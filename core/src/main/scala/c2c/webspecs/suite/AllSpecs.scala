@@ -14,6 +14,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import java.text.SimpleDateFormat
 import java.util.Date
+import org.specs2.specification.Step
 
 
 @RunWith(classOf[JUnitRunner]) 
@@ -31,9 +32,10 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
 	  classOf[WP10],	  
 	  classOf[WP16]	  
 	).flatMap{s => createSpecification(s.getName)}
-      specs.
-        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+      specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
+
+    def initVal(t:String) = t.title ^ sequential ^ Step(() => Thread.sleep(2000))
 
     def dateTime = {
         val dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
@@ -144,7 +146,8 @@ class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 	def examplesLinks(t: String) = {
 		val specs = List(
-		    	classOf[ReusableNonValidatedListSpec]
+		    	classOf[ReusableNonValidatedListSpec],
+		    	classOf[CreateEditDeleteUserSeleniumSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
