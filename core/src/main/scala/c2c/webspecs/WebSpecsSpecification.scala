@@ -6,6 +6,7 @@ import org.specs2.execute.Result
 import xml.{Node, NodeSeq}
 import java.net.URLEncoder
 import java.net.URLDecoder
+import org.specs2.specification.GivenThen
 
 /**
  * Contains methods commons to many WebSpecs Specifications
@@ -69,6 +70,11 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     def toGiven = new Given[A] {
       def extract(text: String):A = function()
     }
+  }
+  implicit def functionToAsGivenThen[R <% Result](function:Function1[String,R]) = new {
+      def toGivenThen = new GivenThen {
+          def extract(text: String) = function(text)
+      }
   }
 
   implicit def resultFunctionWithStringToAsWhen[A,B](function:Function2[A,String,B])= new {

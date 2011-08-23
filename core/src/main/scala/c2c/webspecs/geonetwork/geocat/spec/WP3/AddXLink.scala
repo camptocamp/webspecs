@@ -13,6 +13,7 @@ import c2c.webspecs.geonetwork.edit.StartEditing
 import c2c.webspecs.geonetwork.edit.EndEditing
 import org.specs2.specification.Fragments
 import org.specs2.execute.Result
+import org.specs2.specification.so
 
 @RunWith(classOf[JUnitRunner]) 
 class AddXLinksSpec extends GeocatSpecification { def is = 
@@ -28,23 +29,21 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   def testType(name:String):Fragments = {
 	"The following declarations specifies how to add and update xlinks of "+name+" shared objects"   					    ^
-  	"Adding an ${"+name+"} XLink to metadata should result in the next access of the metadata containing the new contact"  	! addXLink ^ 
-  	"Updating shared ${"+name+"} should result in the metadata being updated in metadata as well" 							! updateXLink ^ end  
+  	"Adding an ${"+name+"} XLink to metadata should result in the next access of the metadata containing the new contact"  	! so (addXLink) ^ 
+  	"Updating shared ${"+name+"} should result in the metadata being updated in metadata as well" 							! so (updateXLink) ^ end  
   }
 
   lazy val ImportMdId = {
     val (_, importMd) = ImportMetadata.defaults(uuid, "/geocat/data/bare.iso19139.che.xml", false, getClass)
     importMd(None).value.id
   }
-  val addXLink = (s: String) => 
-    extract1(s) match {
+  val addXLink:PartialFunction[Any,Result] = {
       case "contact" => addContact
       case "format" => addFormat
       case "extent" => addExtent
       case "keyword" => addKeyword
-    }
-  val updateXLink:String => Result = (s: String) => 
-    extract1(s) match {
+  }
+  val updateXLink:PartialFunction[Any,Result] = {
       case "contact" => updateContact
       case "format" => updateFormat
       case "extent" => updateExtent
