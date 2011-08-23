@@ -5,7 +5,7 @@ package edit
 import c2c.webspecs.BasicValueFactory
 import c2c.webspecs.BasicHttpValue
 
-object EditValueFactory extends ValueFactory[IdValue, EditValue] {
+object EditValueFactory extends ValueFactory[Id, EditValue] {
   val self = this
   def fromCreateMd() = new ValueFactory[Any,EditValue] {
       def createValue[A <: Any, B >: EditValue]
@@ -30,14 +30,14 @@ object EditValueFactory extends ValueFactory[IdValue, EditValue] {
     
   
   
-  def createValue[A <: IdValue, B >: EditValue]
+  def createValue[A <: Id, B >: EditValue]
 		  (request:Request[A,B],
-		   in:IdValue, 
+		   in:Id,
 		   rawValue:BasicHttpValue,
 		   executionContext:ExecutionContext) = new EditValue {
     protected def basicValue = rawValue
     lazy val id = in.id
-    lazy val version = in.getXml \\ "info" \ "version" text
+    lazy val version = rawValue.toXmlValue.getXml \\ "info" \ "version" text
   }
 }
 

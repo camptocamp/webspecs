@@ -63,13 +63,13 @@
 			<gmd:citation>
 				<gmd:CI_Citation>
 					<gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
-						<gco:CharacterString>FR Title</gco:CharacterString>
+						<gco:CharacterString>FR Title{uuid}</gco:CharacterString>
 						<gmd:PT_FreeText>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#DE">DE Title</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#DE">DE Title{uuid}</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 							<gmd:textGroup>
-								<gmd:LocalisedCharacterString locale="#EN">EN Title</gmd:LocalisedCharacterString>
+								<gmd:LocalisedCharacterString locale="#EN">EN Title{uuid}</gmd:LocalisedCharacterString>
 							</gmd:textGroup>
 						</gmd:PT_FreeText>
 					</gmd:title>

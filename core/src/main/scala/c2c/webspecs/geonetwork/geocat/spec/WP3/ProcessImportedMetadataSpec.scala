@@ -15,6 +15,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import scala.xml.NodeSeq
 import org.specs2.execute.Result
+import c2c.webspecs.geonetwork.edit.UpdateMetadata
 
 @RunWith(classOf[JUnitRunner]) 
 class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
@@ -106,7 +107,7 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
     
     val updateParentPositionsName = "_"+parentPostitionRef -> newParentPositionName
     
-    (StartEditing(id.id) then UpdateMetadata(updateDe,addFr,addEn,addIt,updateParentPositionsName))(None)
+    (StartEditing() then UpdateMetadata(updateDe,addFr,addEn,addIt,updateParentPositionsName))(id)
 
     GetRawMetadataXml(id).value.getXml
   }

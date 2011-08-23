@@ -28,22 +28,25 @@ class AddXLinksSpec extends GeocatSpecification { def is =
                                                            											  Step(tearDown)
 
   def testType(name:String):Fragments = {
-	"The following declarations specifies how to add and update xlinks of "+name+" shared objects"   					    ^
-  	"Adding an ${"+name+"} XLink to metadata should result in the next access of the metadata containing the new contact"  	! so (addXLink) ^ 
-  	"Updating shared ${"+name+"} should result in the metadata being updated in metadata as well" 							! so (updateXLink) ^ end  
+    val newContext = context.createNew
+	"The following declarations specifies how to add and update xlinks of "+name+" shared objects"   					        ^
+      "Adding an ${"+name+"} XLink to metadata should result in the next access of the metadata containing the new contact"  	! so (addXLink(newContext)) ^ 
+      "Updating shared ${"+name+"} should result in the metadata being updated in metadata as well" 							! so (updateXLink(newContext)) ^ 
+                                                                                                                                  end ^ 
+                                                                                                                                  Step(() => newContext.close())  
   }
 
   lazy val ImportMdId = {
     val (_, importMd) = ImportMetadata.defaults(uuid, "/geocat/data/bare.iso19139.che.xml", false, getClass)
     importMd(None).value.id
   }
-  val addXLink:PartialFunction[Any,Result] = {
+  def addXLink(context:ExecutionContext):PartialFunction[Any,Result] = {
       case "contact" => addContact
       case "format" => addFormat
       case "extent" => addExtent
       case "keyword" => addKeyword
   }
-  val updateXLink:PartialFunction[Any,Result] = {
+  def updateXLink(context:ExecutionContext):PartialFunction[Any,Result] = {
       case "contact" => updateContact
       case "format" => updateFormat
       case "extent" => updateExtent
@@ -51,7 +54,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
     }
 
   def addContact = {
-    val addResponse = (StartEditing(ImportMdId) then AddContactXLink(Id(userFixture.id), AddSites.contact) startTrackingThen EndEditing then GetRawMetadataXml)()
+    val addResponse = AddXlink.requestWithMd(AddContactXLink(Id(userFixture.id), AddSites.contact))(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val email = (addValue.newElement \\ "electronicMailAddress" \\ "CharacterString").text.trim
     val emailFromNew = (updatedMd.getXml \\ AddSites.contact.name \\ "electronicMailAddress" \\ "CharacterString").head.text.trim
@@ -61,7 +64,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   }
 
   def addFormat = {
-    val addResponse = (StartEditing(ImportMdId) then AddFormatXLink(Id(formatFixture.id.toString), AddSites.distributionFormat) startTrackingThen EndEditing then GetRawMetadataXml)()
+    val addResponse = AddXlink.requestWithMd(AddFormatXLink(Id(formatFixture.id.toString), AddSites.distributionFormat))(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val format = (addValue.newElement \\ "name" \\ "CharacterString").text.trim
     val formatFromNew = (updatedMd.getXml \\ AddSites.distributionFormat.name \\ "name" \\ "CharacterString").head.text.trim
@@ -70,7 +73,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   }
   def addExtent = {
-    val addResponse = (StartEditing(ImportMdId) then AddExtentXLink(StandardSharedExtents.KantonBern, true, AddSites.extent) startTrackingThen EndEditing then GetRawMetadataXml)()
+    val addResponse = AddXlink.requestWithMd(AddExtentXLink(StandardSharedExtents.KantonBern, true, AddSites.extent))(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val extentDesc = (addValue.newElement \\ "description" \\ "CharacterString").text.trim
     val extentDescFromNew = (updatedMd.getXml \\ AddSites.extent.name \\ "description" \\ "CharacterString").head.text.trim
@@ -84,8 +87,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   def addKeyword = {
     import keywordFixture._
-    val addKeywordRequest = AddKeywordXLink(thesaurus, namespace, id, AddSites.descriptiveKeywords)
-    val addResponse = (StartEditing(ImportMdId) then addKeywordRequest startTrackingThen EndEditing then GetRawMetadataXml).apply()
+    val addResponse = AddXlink.requestWithMd(AddKeywordXLink(thesaurus, namespace, id, AddSites.descriptiveKeywords))(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val keyword = (addValue.newElement \\ "LocalisedCharacterString" ) map (_.text.trim)
     val keywordFromNew = (updatedMd.getXml \\ AddSites.descriptiveKeywords.name \\ "LocalisedCharacterString") map (_.text.trim)

@@ -19,11 +19,12 @@ object ExecutionContext {
     }
   }
   def withDefault[R] (f : ExecutionContext => R):R =
-    apply(DefaultExecutionContext())(f)
+    apply(new DefaultExecutionContext())(f)
   case class Response(httpResponse:HttpResponse, finalHost:String, finalURL:Option[URI])
 }
 
 trait ExecutionContext {
+  def createNew:ExecutionContext
 
   var currentUser:Option[(LoginRequest,ExecutionContext.Response)] = None
 
