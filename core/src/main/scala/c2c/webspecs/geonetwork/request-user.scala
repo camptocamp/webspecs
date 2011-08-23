@@ -193,6 +193,7 @@ case class DeleteUser(userId:String) extends AbstractGetRequest[Any,IdValue]("us
 case class UpdateUser(val user:User)
   extends AbstractFormPostRequest[Any,UserValue]("user.update", SelfValueFactory(), P("operation", "fullupdate") :: user.formParams() : _*)
   with ValueFactory[Any,UserValue] {
+  assert(user.profile.toString() != "Shared")
 
   def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
     new UserValue(user.copy(idOption = Some(user.idOption.get)),rawValue)
