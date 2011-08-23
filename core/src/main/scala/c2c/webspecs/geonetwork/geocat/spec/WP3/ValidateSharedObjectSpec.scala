@@ -16,9 +16,9 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
   "This specification tests validation of shared objects"													^
   "This section tests validating a shared object that is present in multiple Metadata"						^
     "First we need to Import the same metadata object twice"												^ Step(ImportTwoMetadata)  ^
-    "At this point the xlink in both metadata should no be validated"										! nonValidatedContacts  ^
+    "At this point the xlink in both metadata should not be validated"										! nonValidatedContacts  ^ bt ^ 
     "Next validate the imported shared object, in this case a contact"										^ Step(validateContact) ^
-    "Once done the xlink in both metadata should be updated to be validated"								! isValidatedContact		^
+    "Once done the xlink in both metadata should be updated to be validated"								! isValidatedContact    ^
     																										  endp ^
   "This section tests a couple corner cases of shared object validation"                                    ^ 
     "Allow creation and deletion of shared contacts"                                                        ! createAndDelete ^
@@ -62,20 +62,20 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
   def isValidatedContact = {
     val (contact1, contact2) = loadMetadata
 
-    (contact1 @@ "xlink:role" must_== List("")) and
-      (contact2.head @@ "xlink:role" must_== List(""))
+    (contact1 @@ "xlink:role" filter {_.nonEmpty} must_== List()) and
+      (contact2.head @@ "xlink:role" filter {_.nonEmpty} must_== List())
   }
   
   
   def createAndDelete = {
-    val Create = CreateUser(User(uuid,SharedUserProfile))
+    val Create = CreateNonValidatedUser(User(uuid,SharedUserProfile))
     val newEmail = "newemail"+uuid+"@cc.cc"
     
     config.adminLogin()
     
     val creation = Create()
     val id = GeocatListUsers(uuid.toString()).value.head.userId
-    val update = UpdateUser(Create.user.copy(idOption = Some(id),email = newEmail))()
+    val update = new UpdateSharedUser(Create.user.copy(idOption = Some(id),email = newEmail),false)()
     val updatedUser = update.value.loadUser
     val deleteUser = DeleteUser(id)()
 
@@ -100,8 +100,6 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
 
     val xlinks = XLink.findAll(originalXml, AddSites.distributionFormat)
 
-    xlinks must have size (3)
-
     val formatId = xlinks.find { _.formatVersion == "2" }.get.id
 
     val validationResponse = (config.adminLogin then
@@ -112,16 +110,13 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
 
     val newXlinks = XLink.findAll(mdAfterValidation, AddSites.distributionFormat)
 
-    newXlinks.map { _.id } must haveTheSameElementsAs(xlinks.map { _.id })
-
-    def validated(xlinks:Seq[XLink]) = xlinks collect {
-      case xlink if xlink.isValidated => xlink.id
-    }
-    validated(newXlinks) must have size(validated(xlinks).size)
-    def invalidated(xlinks:Seq[XLink]) = xlinks collect {
-      case xlink if xlink.nonValidated => xlink.id
-    }
-    invalidated(newXlinks) must have size(invalidated(xlinks).size)
+    
+    (xlinks must have size (3)) and
+        (newXlinks.map { _.id } must haveTheSameElementsAs(xlinks.map { _.id })) and
+        (newXlinks.filter(_.isValidated) must have size(1)) and 
+        (newXlinks.filterNot(_.isValidated) must have size(2)) and
+        (xlinks.filter(_.isValidated) must beEmpty) and 
+        (xlinks.filterNot(_.isValidated) must have size(3))
   }
   def createAndValidateKeepRole = {
     val name = "metadata-validate-contact-138548.xml"

@@ -7,6 +7,7 @@ import xml.{Node, NodeSeq}
 import java.net.URLEncoder
 import java.net.URLDecoder
 import org.specs2.specification.GivenThen
+import org.specs2.matcher.Matcher
 
 /**
  * Contains methods commons to many WebSpecs Specifications
@@ -42,8 +43,8 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   
   def extraTeardown(teardownContext:ExecutionContext):Unit = {}
 
-  def haveAResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
-  def beAResponseCode(code:Int) = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
+  def haveAResponseCode(code:Int):Matcher[Response[Any]] = ((_:Response[Any]).basicValue.responseCode == code, (resp:Response[Any]) => "Response code was expected to be "+code+" but was "+resp.basicValue.responseCode)
+  def beAResponseCode(code:Int) = haveAResponseCode(code)
   def haveA200ResponseCode = haveAResponseCode(200)
   def beA200ResponseCode = haveAResponseCode(200)
   val a200ResponseThen = (r:Response[Any], _:String) => r must haveA200ResponseCode

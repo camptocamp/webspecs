@@ -106,15 +106,13 @@
                     </gmd:version>
                 </gmd:MD_Format>
             </gmd:distributionFormat>
-            <gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink"
-                                    xlink:href="http://tc-geocat0i.bgdi.admin.ch:80/geonetwork/srv/eng/xml.format.get?id=31"
-                                    xlink:title="" xlink:role="">
+            <gmd:distributionFormat>
                 <gmd:MD_Format>
                     <gmd:name>
-                        <gco:CharacterString>INTERLIS</gco:CharacterString>
+                        <gco:CharacterString>{uuid}INTERLIS</gco:CharacterString>
                     </gmd:name>
                     <gmd:version>
-                        <gco:CharacterString>1</gco:CharacterString>
+                        <gco:CharacterString>{uuid}1</gco:CharacterString>
                     </gmd:version>
                 </gmd:MD_Format>
             </gmd:distributionFormat>
