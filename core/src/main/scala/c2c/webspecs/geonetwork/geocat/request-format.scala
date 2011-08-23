@@ -65,11 +65,11 @@ case class UpdateFormat(id:String,name:String,version:String)
  *
  */
 object DeleteFormat
-  extends AbstractGetRequest[Int,XmlValue]( "format", XmlValueFactory,
+  extends AbstractGetRequest[Int,IdValue]( "format", DeletedSharedObjectIdFactory,
     P("action", "DELETE"),
     IdP("id")) {
 
-  def apply(name:String,version:String):Request[Any,XmlValue] =
+  def apply(name:String,version:String):Request[Any,IdValue] =
     {
       val FindFormat = ListFormats.setIn(name).map(allFormats =>
         allFormats.find(_.version == version).get.id

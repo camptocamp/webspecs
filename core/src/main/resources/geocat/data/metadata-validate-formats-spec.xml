@@ -109,10 +109,10 @@
             <gmd:distributionFormat>
                 <gmd:MD_Format>
                     <gmd:name>
-                        <gco:CharacterString>INTERLIS</gco:CharacterString>
+                        <gco:CharacterString>{uuid}INTERLIS</gco:CharacterString>
                     </gmd:name>
                     <gmd:version>
-                        <gco:CharacterString>1</gco:CharacterString>
+                        <gco:CharacterString>{uuid}1</gco:CharacterString>
                     </gmd:version>
                 </gmd:MD_Format>
             </gmd:distributionFormat>

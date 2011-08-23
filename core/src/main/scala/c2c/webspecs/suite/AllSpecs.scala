@@ -147,6 +147,9 @@ class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 	def examplesLinks(t: String) = {
 		val specs = List(
 		    	classOf[ReusableNonValidatedListSpec],
+		    	classOf[RejectSharedObjectSpec],
+		    	classOf[DeletedNonValidatedSharedObjectSpec],
+		    	classOf[DeletedValidatedSharedObjectSpec],
 		    	classOf[CreateEditDeleteUserSeleniumSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.

@@ -130,16 +130,15 @@ case class RejectNonValidatedObject(sharedObjectId: String,
   rejectionMessage: String = "This is a test script rejecting your object, if this is a mistake please inform the system administrators")
   extends AbstractGetRequest[Any, IdValue](
     "reusable.reject",
-    ExplicitIdValueFactory(sharedObjectId),
+    DeletedSharedObjectIdFactory,
     P("id", sharedObjectId.toString),
     P("type", sharedType.toString),
     P("msg", rejectionMessage))
-case class DeleteSharedObject(sharedObjectId: String, sharedType: SharedObjectType)
+case class DeleteSharedObject(sharedObjectId: String)
   extends AbstractGetRequest[Any, IdValue](
     "reusable.delete",
     ExplicitIdValueFactory(sharedObjectId),
-    P("id", sharedObjectId.toString),
-    P("type", sharedType.toString))
+    P("id", sharedObjectId.toString))
 case class ValidateSharedObject(sharedObjectId: String, sharedType: SharedObjectType)
   extends AbstractGetRequest[Any, IdValue](
     "reusable.validate",
@@ -156,7 +155,6 @@ case class ProcessSharedObject(xmlData: Node, addOnly: Boolean = false, defaultL
     P(defaultLang, new StringBody("EN")))
   with BasicValueFactory[NodeSeq] {
   def createValue(rawValue: BasicHttpValue): NodeSeq = rawValue.toXmlValue.withXml(x => x)
-
 }
 case class UpdateSharedObject(xmlData: Node, defaultLang: String = "EN")
   extends AbstractMultiPartFormRequest[Any, NodeSeq](
@@ -167,5 +165,8 @@ case class UpdateSharedObject(xmlData: Node, defaultLang: String = "EN")
     P(defaultLang, new StringBody("EN")))
   with BasicValueFactory[NodeSeq] {
   def createValue(rawValue: BasicHttpValue): NodeSeq = rawValue.toXmlValue.getXml
+}
 
+object DeletedSharedObjectIdFactory extends BasicValueFactory[IdValue] {
+  def createValue(rawValue: BasicHttpValue): IdValue = (rawValue.toXmlValue.getXml \\ "id" map {n => IdValue(n.text,rawValue)}).head    
 }

@@ -67,7 +67,7 @@ object ExtentFormat extends Enumeration {
 }
 
 case class DeleteExtent(typeName:Extents.TypeName, id:String) extends AbstractGetRequest("xml.extent.delete",
-    XmlValueFactory,
+    DeletedSharedObjectIdFactory,
     SP("typename" -> typeName),
     SP("id" -> id)
   )
