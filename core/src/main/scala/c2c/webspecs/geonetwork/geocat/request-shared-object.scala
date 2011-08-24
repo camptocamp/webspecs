@@ -168,5 +168,5 @@ case class UpdateSharedObject(xmlData: Node, defaultLang: String = "EN")
 }
 
 object DeletedSharedObjectIdFactory extends BasicValueFactory[IdValue] {
-  def createValue(rawValue: BasicHttpValue): IdValue = (rawValue.toXmlValue.getXml \\ "id" map {n => IdValue(n.text,rawValue)}).head    
+  def createValue(rawValue: BasicHttpValue): IdValue = (rawValue.toXmlValue.getXml \\ "id" map {n => IdValue(n.text,rawValue)}).headOption.getOrElse(IdValue(null, rawValue))    
 }
