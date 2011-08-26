@@ -21,14 +21,14 @@ class GM03V1Spec extends GeocatSpecification(UserProfiles.Editor) {
 	def is = {
 	  "GM03v1 Import / Export test".title 	                                                          ^ Step(setup) ^
 	  	"Imports a GM03 v1 metadata and converts it into iso19139.che for storage into the catalogue" ^ Step(importMetadataId) ^
-	  	"Gets the previously inserted MD as GM03v2"                                                   ^ Step(getAsGm03v2) ^
-	  	"Gets the previously inserted MD as GM03v2small"                                              ^ Step(getAsGm03v2small) ^
+	  	"Gets the previously inserted MD as GM03v2"                                                   ! getAsGm03v2 ^
+	  	"Gets the previously inserted MD as GM03v2small"                                              ! getAsGm03v2small ^
 	  	"Delete the inserted metadata"							                                      ^ Step(deleteMetadata)  ^
 																                                      end ^ Step(tearDown)														
 	}
 	
 	lazy val importMetadataId = {
-		val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V1.xml",true, getClass, ImportStyleSheets.GM03_V1)
+		val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V1.xml",true, getClass, GeocatImportStyleSheets.GM03_V1)
 		val md = (importMd then GetRawMetadataXml)(NONE).value.getXml
 		val response = (md \\ "fileIdentifier").text.trim
 		response
@@ -44,6 +44,6 @@ class GM03V1Spec extends GeocatSpecification(UserProfiles.Editor) {
 
 	def getAsGm03v2small = {
 		val response = GetRequest("gm03small.xml", ("uuid" -> importMetadataId))(Nil)
-		(response.value.getXml \\  "GM03_2Core.Core.MD_Metadata" \ "fileIdentifier").text.trim must beEqualTo (importMetadataId)
+		(response.value.getXml \\ "fileIdentifier").text.trim must beEqualTo (importMetadataId)
 	}
 }
