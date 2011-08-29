@@ -32,7 +32,7 @@ object GeocatFixture {
         profile = SharedUserProfile) 
 
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteUser(id))(None)(context)
+      (config.adminLogin then DeleteSharedUser(id,true))(None)(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val userReq = user
@@ -52,7 +52,7 @@ object GeocatFixture {
     def id = _id
 
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteFormat.setIn(id))(None)(context)
+      (config.adminLogin then DeleteFormat(true).setIn(id))(None)(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val formats = (config.adminLogin then AddFormat(name, version) then ListFormats.setIn(name))(None)(context)
@@ -65,7 +65,7 @@ object GeocatFixture {
     def id = _id
     
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteExtent(Extents.NonValidated,id))(None)(context)
+      (config.adminLogin then DeleteExtent(Extents.NonValidated,id,true))(None)(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val extents = (config.adminLogin then ProcessSharedObject(extentXml, true))(None)(context)

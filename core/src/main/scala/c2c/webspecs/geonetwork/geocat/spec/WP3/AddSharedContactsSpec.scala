@@ -14,7 +14,7 @@ import org.specs2.runner.JUnitRunner
 @RunWith(classOf[JUnitRunner]) 
 class AddSharedContactsSpec extends GeocatSpecification() { def is =
   "This specification tests creating shared contacts by passing in a contact xml"                               ^ Step(setup) ^ t ^
-    "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd.toGiven ^
+    "Calling shared.process with the xml snippet for adding a contact"                                          ^ contactAdd(true).toGiven ^
     "Should be a successful http request (200 response code)"                                                   ^ a200ResponseThen.narrow[Response[NodeSeq]] ^
     "Contact node should have an xlink href"                                                                    ^ hrefInElement("contact").toThen ^
     "Should have the correct ${host} in the xlink created during processing of shared object"                   ^ hrefHost("contact").toThen ^ 
@@ -26,7 +26,7 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
     "Updating an existing contact with new XML which does not have the parent contact"                          ^ updateContact.toGiven ^
       "must result in the contact retrieved from the xlink also not having the parent"                          ^ noParent.toThen ^
                                                                                                                   endp^
-    "Adding same user should return same xlink"										                            ^ Step(contactAdd) ^
+    "Adding same user should return same xlink"										                            ^ Step(contactAdd(true)) ^
       "must result in the contact retrieved from the xlink also not having the parent"                          ! newContact ^
                                                                                                                   endp^
     "Deleting all contacts"                                                                                     ^ Step(deleteNewContacts) ^
@@ -36,7 +36,7 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
   val originalOrg = "swisstopo"
   val newOrg = "camptocamp"
   var href:String = _
-  val contactAdd = () => (config.adminLogin then ProcessSharedObject(contactXML(true,originalOrg)) startTrackingThen UserLogin)(None)._1
+  def contactAdd(withParent:Boolean) = () => (config.adminLogin then ProcessSharedObject(contactXML(withParent,originalOrg)) startTrackingThen UserLogin)(None)._1
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     href = (result.value \\ "contact" \@ "xlink:href")(0)
     val xlink = ResolveXLink(href)
@@ -76,8 +76,8 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
     config.adminLogin(None)
     (GeocatListUsers(contactId).value ++ GeocatListUsers(parentId).value).foreach{c =>
       assert(c.name contains "FirstName*automated*", c.userId+" -> "+c.username+" was to be deleted but is not part of the automated testing")
-      val response = (DeleteUser(c.userId))(None)
-      assert(response.basicValue.responseCode == 200, "DeleteUser("+c.userId+" had a "+response.basicValue.responseCode +" response code")
+      val response = (DeleteSharedUser(c.userId,true))(None)
+      assert(response.basicValue.responseCode == 200, "DeleteSharedUser("+c.userId+" had a "+response.basicValue.responseCode +" response code")
     }
   }
   def noContacts = (GeocatListUsers(contactId).value ++ GeocatListUsers(parentId).value) must beEmpty

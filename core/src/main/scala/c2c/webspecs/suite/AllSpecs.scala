@@ -17,7 +17,7 @@ import java.util.Date
 import org.specs2.specification.Step
 
 
-@RunWith(classOf[JUnitRunner]) 
+@RunWith(classOf[JUnitRunner])
 class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is =
     examplesLinks("All Work Packages - "+dateTime)
 
@@ -140,6 +140,7 @@ class WP6 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 	}
 }
 
+@RunWith(classOf[JUnitRunner]) 
 class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 	examplesLinks("WP 10: Reusable Object UI")

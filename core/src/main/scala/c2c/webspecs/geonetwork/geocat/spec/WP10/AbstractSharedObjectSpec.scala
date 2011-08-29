@@ -27,7 +27,7 @@ abstract class AbstractSharedObjectSpec extends GeocatSpecification {
 
   def CreateNonValidatedObjects = {
     config.adminLogin()
-    contactSpec.contactAdd()
+    contactSpec.contactAdd(false)()
     formatSpec.formatAdd(formatSpec.version)()
     extentSpec.extentAdd("${" + ExtentFormat.gmd_bbox + "}" + "${0}")
     keywordHref = (keywordSpec.keywordAdd("deValue" + uuid)().value \\ "descriptiveKeywords" \@ "xlink:href")(0)
@@ -52,10 +52,14 @@ abstract class AbstractSharedObjectSpec extends GeocatSpecification {
     case "keywords" => keywordSpec.uuid
   }
 
-  def findSharedContact = nonValidatedContacts.value find { _.description contains contactSpec.uuid.toString }
-  def findSharedKeyword = nonValidatedKeywords.value find { _.description contains keywordSpec.uuid.toString }
-  def findSharedFormat = nonValidatedFormats.value find { _.description contains formatSpec.uuid.toString }
-  def findSharedExtent = nonValidatedExtents.value find { _.description contains extentSpec.uuid.toString }
+  type SharedStructure = {
+    def id:String
+    def objType:SharedObjectTypes.SharedObjectType
+  }
+  def findSharedContact:Option[SharedStructure] = nonValidatedContacts.value find { _.description contains contactSpec.uuid.toString }
+  def findSharedKeyword:Option[SharedStructure] = nonValidatedKeywords.value find { _.description contains keywordSpec.uuid.toString }
+  def findSharedFormat:Option[SharedStructure] = nonValidatedFormats.value find { _.description contains formatSpec.uuid.toString }
+  def findSharedExtent:Option[SharedStructure] = nonValidatedExtents.value find { _.description contains extentSpec.uuid.toString }
   
   lazy val createMetadata = {
     val importMdId = Id(ImportMetadata.defaults(uuid, "/geocat/data/bare.iso19139.che.xml", false, getClass)._2().value.id)

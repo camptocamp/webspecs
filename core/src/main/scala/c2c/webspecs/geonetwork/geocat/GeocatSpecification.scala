@@ -20,14 +20,14 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
 	  config.adminLogin(None)
 	  
 	  val newUsers = GeocatListUsers("").value.filter(user => user.username contains uuid.toString)
-	  newUsers.foreach(user => DeleteUser(user.userId)(None))
+	  newUsers.foreach(user => DeleteSharedUser(user.userId,true)(None))
 	  
 	  val newFormats = ListFormats("").value filter (_.name contains uuid.toString)
-	  newFormats.foreach(format => DeleteFormat(format.id))
+	  newFormats.foreach(format => DeleteFormat(true)(format.id))
 	  
 	  val thesauri = GeocatConstants.GEOCAT_THESAURUS :: GeocatConstants.NON_VALIDATED_THESAURUS :: Nil
 	  val newKeywords = SearchKeywords(thesauri)(uuid.toString).value
-	  newKeywords.foreach(word => DeleteKeyword(word)())
+	  newKeywords.foreach(word => DeleteKeyword(word, true)())
 	}
 	
 	

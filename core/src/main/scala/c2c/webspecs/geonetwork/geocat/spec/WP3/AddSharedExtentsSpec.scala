@@ -107,7 +107,7 @@ class AddSharedExtentsSpec extends GeocatSpecification { def is =
   def newExtent = Search(uuid.toString).value must not beEmpty
 
   val deleteNewExtent = () => Search(uuid.toString).value.flatMap{c =>
-    val request = config.adminLogin then DeleteExtent(Extents.NonValidated, c.id) then Search.copy(property = Extents.IdProperty).setIn(c.id)
+    val request = config.adminLogin then DeleteExtent(Extents.NonValidated, c.id, true) then Search.copy(property = Extents.IdProperty).setIn(c.id)
     request.apply(None).value
   }
 

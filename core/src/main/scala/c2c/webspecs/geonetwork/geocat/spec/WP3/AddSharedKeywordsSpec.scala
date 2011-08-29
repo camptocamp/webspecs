@@ -77,7 +77,7 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
     		(resp.value.label("EN") aka "english translation" must_== enValue)
   
   def deleteNewKeyword = Search(frValue).value.foreach{c => 
-    DeleteKeyword(NON_VALIDATED_THESAURUS,c.namespace,c.code)(None)}
+    DeleteKeyword(NON_VALIDATED_THESAURUS,c.namespace,c.code,true)(None)}
   def noKeyword = Search(frValue).value must beEmpty
 
   lazy val deValue = uuid+"de*automated*"

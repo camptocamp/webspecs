@@ -66,7 +66,7 @@ class AddSharedFormatSpec extends GeocatSpecification { def is =
      	(formats.head.version must_== updatedVersion)
   }
   
-  def deleteNewFormat = ListFormats(formatName).value.foreach{c => DeleteFormat(c.id)}
+  def deleteNewFormat = ListFormats(formatName).value.foreach{c => DeleteFormat(true)(c.id)}
   def noFormat = ListFormats(formatName).value must beEmpty
 
   val formatName = uuid+"name*automated*"

@@ -66,8 +66,9 @@ object ExtentFormat extends Enumeration {
   val gmd_bbox, gmd_polygon, gmd_complete = Value
 }
 
-case class DeleteExtent(typeName:Extents.TypeName, id:String) extends AbstractGetRequest("xml.extent.delete",
+case class DeleteExtent(typeName:Extents.TypeName, id:String, forceDelete:Boolean) extends AbstractGetRequest("xml.extent.delete",
     DeletedSharedObjectIdFactory,
     SP("typename" -> typeName),
-    SP("id" -> id)
+    SP("id" -> id),
+    SP("forceDelete", forceDelete)
   )

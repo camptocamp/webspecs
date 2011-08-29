@@ -64,16 +64,17 @@ case class UpdateFormat(id:String,name:String,version:String)
  * Delete format. input is the id of the format to delete
  *
  */
-object DeleteFormat
+case class DeleteFormat(forceDelete:Boolean)
   extends AbstractGetRequest[Int,IdValue]( "format", DeletedSharedObjectIdFactory,
     P("action", "DELETE"),
-    IdP("id")) {
+    IdP("id"),
+    SP("forceDelete", forceDelete)) {
 
-  def apply(name:String,version:String):Request[Any,IdValue] =
+  def apply(name:String,version:String,forceDelete:Boolean):Request[Any,IdValue] =
     {
       val FindFormat = ListFormats.setIn(name).map(allFormats =>
         allFormats.find(_.version == version).get.id
       )
-      FindFormat then DeleteFormat
+      FindFormat then DeleteFormat(forceDelete)
     }
 }

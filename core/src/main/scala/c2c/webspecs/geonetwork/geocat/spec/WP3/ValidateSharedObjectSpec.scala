@@ -77,7 +77,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     val id = GeocatListUsers(uuid.toString()).value.head.userId
     val update = new UpdateSharedUser(Create.user.copy(idOption = Some(id),email = newEmail),false)()
     val updatedUser = update.value.loadUser
-    val deleteUser = DeleteUser(id)()
+    val deleteUser = DeleteSharedUser(id,true)()
 
     (creation.basicValue.responseCode must_== 200) and
     (updatedUser.email must_== newEmail) and  // id does not look up correct id for some reason :(

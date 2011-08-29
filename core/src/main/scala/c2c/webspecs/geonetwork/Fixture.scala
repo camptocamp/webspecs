@@ -48,7 +48,7 @@ object GeonetworkFixture {
     lazy val id = uuid
     
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteKeyword(thesaurus,namespace,id))(None)(context)
+      (config.adminLogin then DeleteKeyword(thesaurus,namespace,id,true))(None)(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val request = (config.adminLogin then CreateKeyword(namespace,id,thesaurus,"EN" -> en, "FR" -> fr, "DE" -> de, "IT" -> it))

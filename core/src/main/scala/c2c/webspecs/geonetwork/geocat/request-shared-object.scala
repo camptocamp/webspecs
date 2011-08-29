@@ -118,7 +118,7 @@ object ReferencingMetadataListFactory extends BasicValueFactory[ReferencingMetad
     new ReferencingMetadataList(rawValue, list)
   }
 }
-case class ListReferencingMetadata(sharedObjectId: Int, sharedType: SharedObjectType)
+case class ListReferencingMetadata(sharedObjectId: String, sharedType: SharedObjectType)
   extends AbstractGetRequest[Any, ReferencingMetadataList](
     "reusable.references",
     ReferencingMetadataListFactory,
@@ -128,17 +128,17 @@ case class ListReferencingMetadata(sharedObjectId: Int, sharedType: SharedObject
 case class RejectNonValidatedObject(sharedObjectId: String,
   sharedType: SharedObjectType,
   rejectionMessage: String = "This is a test script rejecting your object, if this is a mistake please inform the system administrators")
-  extends AbstractGetRequest[Any, IdValue](
+  extends AbstractFormPostRequest[Any, IdValue](
     "reusable.reject",
     DeletedSharedObjectIdFactory,
     P("id", sharedObjectId.toString),
     P("type", sharedType.toString),
     P("msg", rejectionMessage))
 case class DeleteSharedObject(sharedObjectId: String)
-  extends AbstractGetRequest[Any, IdValue](
+  extends AbstractGetRequest[Any, XmlValue](
     "reusable.delete",
-    ExplicitIdValueFactory(sharedObjectId),
-    P("id", sharedObjectId.toString))
+    XmlValueFactory,
+    P("id", sharedObjectId))
 case class ValidateSharedObject(sharedObjectId: String, sharedType: SharedObjectType)
   extends AbstractGetRequest[Any, IdValue](
     "reusable.validate",
