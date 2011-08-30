@@ -9,6 +9,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP5._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
 import c2c.webspecs.geonetwork.geocat.spec.WP10._
+import c2c.webspecs.geonetwork.geocat.spec.WP12._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
@@ -30,6 +31,7 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
 	  classOf[WP5],
 	  classOf[WP6],
 	  classOf[WP10],	  
+	  classOf[WP11],	  
 	  classOf[WP16]	  
 	).flatMap{s => createSpecification(s.getName)}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
@@ -156,6 +158,19 @@ class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
+}
+@RunWith(classOf[JUnitRunner]) 
+class WP11 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+examplesLinks("WP 11/12: GM03 Import and Export")
+
+def examplesLinks(t: String) = {
+    val specs = List(
+      classOf[GM03V1Spec],
+      classOf[GM03V2Spec]).flatMap { s => createSpecification(s.getName) }
+    specs.
+      foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+  }
 }
 
 class WP16 extends SpecificationWithJUnit with SpecificationsFinder { def is =
