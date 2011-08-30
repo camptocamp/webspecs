@@ -92,6 +92,7 @@ class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
         classOf[AddXLinksSpec],
         classOf[ImportSpecialExtentsSpec],
         classOf[ProcessImportedMetadataSpec],
+        classOf[EscapeSpecialCharsInUserSpec],
         classOf[ValidateSharedObjectSpec]
       ).flatMap{s => createSpecification(s.getName)}
       specs.
@@ -153,7 +154,8 @@ class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 		    	classOf[RejectSharedObjectSpec],
 		    	classOf[DeletedNonValidatedSharedObjectSpec],
 		    	classOf[DeletedValidatedSharedObjectSpec],
-		    	classOf[CreateEditDeleteUserSeleniumSpec]
+		    	classOf[CreateEditDeleteUserSeleniumSpec],
+		    	classOf[ViewNonValidatedObjectsSeleniumSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
@@ -183,6 +185,7 @@ def examplesLinks(t: String) = {
             classOf[MonitoringSpec],
             classOf[PreStyleSheetSpec],
             classOf[RegisterXslSpec],
+            classOf[SaveConfigurationSpec],
             classOf[TestMetadataExpiredServicesSpec]
             ).flatMap{s => createSpecification(s.getName)}
     specs.

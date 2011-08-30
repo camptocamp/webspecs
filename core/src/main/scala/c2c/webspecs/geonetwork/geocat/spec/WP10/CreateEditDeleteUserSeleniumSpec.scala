@@ -12,13 +12,9 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class `CreateEditDeleteUserSeleniumSpec` extends GeocatSpecification with ThrownExpectations { 
+class `CreateEditDeleteUserSeleniumSpec` extends GeocatSeleniumSpecification with ThrownExpectations { 
 
-  lazy val selenium = new WebDriverBackedSelenium(new org.openqa.selenium.firefox.FirefoxDriver(), "http://localhost:8080/")
-
-  def is = 
-  sequential                                                                        ^
-  "This specification tests CreateEditDeleteUserSeleniumSpec"    ^ Step(() => selenium)                ^ 
+  def isImpl = 
     "This specification tests creating/editing/deleting a shared user through the user interface"! scala_specs2_1^
     "login as administrator to edit shared objects"                             ! scala_specs2_2^
     "navigation to admin and admin validated user"                              ! scala_specs2_3^
@@ -28,9 +24,7 @@ class `CreateEditDeleteUserSeleniumSpec` extends GeocatSpecification with Thrown
     "click edit button"                                                         ! scala_specs2_7^
     "change surname"                                                            ! scala_specs2_8^
     "click the update button and the updated user should be displayed"          ! scala_specs2_9^
-    "Click the delete button of the new user and the confirmation dialog should appear.  Confirming the deletion should result in the user being deleted"! scala_specs2_10 ^
-                                                                                Step(selenium.stop()) ^
-                                                                                end
+    "Click the delete button of the new user and the confirmation dialog should appear.  Confirming the deletion should result in the user being deleted"! scala_specs2_10
 
 
   def scala_specs2_1 = {
@@ -41,8 +35,8 @@ class `CreateEditDeleteUserSeleniumSpec` extends GeocatSpecification with Thrown
 
   def scala_specs2_2 = {
     import selenium._
-    `type`("id=username", Properties(config.ADMIN_USER_KEY).get)
-    `type`("id=password", Properties(config.ADMIN_USER_PASS).get)
+    `type`("id=username", adminUser)
+    `type`("id=password", adminPass)
     success
   }
 
