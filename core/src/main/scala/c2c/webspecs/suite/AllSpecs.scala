@@ -30,9 +30,11 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
 	  classOf[WP4],
 	  classOf[WP5],
 	  classOf[WP6],
-	  classOf[WP10],	  
-	  classOf[WP11],	  
-	  classOf[WP16]	  
+      classOf[WP10],
+      classOf[WP10Selenium],
+	  classOf[WP11],
+      classOf[WP16],  
+      classOf[WP16Selenium]  
 	).flatMap{s => createSpecification(s.getName)}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
@@ -152,14 +154,24 @@ class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 		val specs = List(
 		    	classOf[ReusableNonValidatedListSpec],
 		    	classOf[RejectSharedObjectSpec],
-		    	classOf[DeletedNonValidatedSharedObjectSpec],
-		    	classOf[DeletedValidatedSharedObjectSpec],
-		    	classOf[CreateEditDeleteUserSeleniumSpec],
-		    	classOf[ViewNonValidatedObjectsSeleniumSpec]
+		    	classOf[DeletedNonValidatedSharedObjectSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
+}
+class WP10Selenium extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+    examplesLinks("WP 10: Reusable Object Selenium Tests")
+
+    def examplesLinks(t: String) = {
+        val specs = List(
+                classOf[CreateEditDeleteUserSeleniumSpec],
+                classOf[ViewNonValidatedObjectsSeleniumSpec]
+                ).flatMap{s => createSpecification(s.getName)}
+        specs.
+        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
 }
 @RunWith(classOf[JUnitRunner]) 
 class WP11 extends SpecificationWithJUnit with SpecificationsFinder { def is =
@@ -187,6 +199,19 @@ def examplesLinks(t: String) = {
             classOf[RegisterXslSpec],
             classOf[SaveConfigurationSpec],
             classOf[TestMetadataExpiredServicesSpec]
+            ).flatMap{s => createSpecification(s.getName)}
+    specs.
+    foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
+}
+
+class WP16Selenium extends SpecificationWithJUnit with SpecificationsFinder { def is =
+
+examplesLinks("WP 16: Misc. Selenium tests ")
+
+def examplesLinks(t: String) = {
+    val specs = List(
+            classOf[SaveConfigurationSpec]
             ).flatMap{s => createSpecification(s.getName)}
     specs.
     foldLeft(t.title) { (res, cur) => res ^ link(cur) }
