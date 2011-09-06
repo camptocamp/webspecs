@@ -123,6 +123,7 @@ examplesLinks("WP 5: Indexing and searching")
 def examplesLinks(t: String) = {
 	val specs = List(
 			classOf[NonSpatialSearchQuerySpec],
+			classOf[PagingSearchSpec],
 			classOf[SpatialSearchSpec]
 			).flatMap{s => createSpecification(s.getName)}
 	specs.
@@ -199,8 +200,7 @@ def examplesLinks(t: String) = {
             classOf[RegisterXslSpec],
             classOf[TestMetadataExpiredServicesSpec]
             ).flatMap{s => createSpecification(s.getName)}
-    specs.
-    foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    specs.foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }
 }
 

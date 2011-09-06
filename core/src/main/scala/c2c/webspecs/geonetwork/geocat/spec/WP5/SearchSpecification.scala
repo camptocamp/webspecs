@@ -29,9 +29,9 @@ private[WP5] abstract class SearchSpecification extends GeocatSpecification {
           val records = xml \\ "Record"
 
       val recordIds = records \ "info" \ "id" map (_.text.trim)
-recordIds flatMap idToLocalMap.get
-
+      recordIds flatMap idToLocalMap.get
   }
+  
   def find(xmlResponse: NodeSeq, expectedMetadata: String): Result = {
     val foundIdsMatchingImportedMd = findCodesFromResults(xmlResponse) 
 
