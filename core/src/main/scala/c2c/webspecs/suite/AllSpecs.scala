@@ -197,7 +197,6 @@ def examplesLinks(t: String) = {
             classOf[MonitoringSpec],
             classOf[PreStyleSheetSpec],
             classOf[RegisterXslSpec],
-            classOf[SaveConfigurationSpec],
             classOf[TestMetadataExpiredServicesSpec]
             ).flatMap{s => createSpecification(s.getName)}
     specs.
