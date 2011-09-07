@@ -31,10 +31,8 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
 	  classOf[WP5],
 	  classOf[WP6],
       classOf[WP10],
-      classOf[WP10Selenium],
 	  classOf[WP11],
-      classOf[WP16],  
-      classOf[WP16Selenium]  
+      classOf[WP16]  
 	).flatMap{s => createSpecification(s.getName)}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
@@ -124,7 +122,11 @@ def examplesLinks(t: String) = {
 	val specs = List(
 			classOf[NonSpatialSearchQuerySpec],
 			classOf[PagingSearchSpec],
-			classOf[SpatialSearchSpec]
+			classOf[DifferentLanguageSearchSpec],
+			classOf[CswResetIndexReaderAfterImportSpec],
+			classOf[SpatialSearchSpec],
+			classOf[DifferentLanguageSearchSpec]
+			
 			).flatMap{s => createSpecification(s.getName)}
 	specs.
 	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
@@ -161,19 +163,6 @@ class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
 }
-class WP10Selenium extends SpecificationWithJUnit with SpecificationsFinder { def is =
-
-    examplesLinks("WP 10: Reusable Object Selenium Tests")
-
-    def examplesLinks(t: String) = {
-        val specs = List(
-                classOf[CreateEditDeleteUserSeleniumSpec],
-                classOf[ViewNonValidatedObjectsSeleniumSpec]
-                ).flatMap{s => createSpecification(s.getName)}
-        specs.
-        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-    }
-}
 @RunWith(classOf[JUnitRunner]) 
 class WP11 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
@@ -203,17 +192,3 @@ def examplesLinks(t: String) = {
     specs.foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }
 }
-
-class WP16Selenium extends SpecificationWithJUnit with SpecificationsFinder { def is =
-
-examplesLinks("WP 16: Misc. Selenium tests ")
-
-def examplesLinks(t: String) = {
-    val specs = List(
-            classOf[SaveConfigurationSpec]
-            ).flatMap{s => createSpecification(s.getName)}
-    specs.
-    foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-}
-}
-

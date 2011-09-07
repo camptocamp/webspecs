@@ -8,6 +8,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP5._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
+import c2c.webspecs.geonetwork.geocat.spec.WP7._
 import c2c.webspecs.geonetwork.geocat.spec.WP10._
 import c2c.webspecs.geonetwork.geocat.spec.WP12._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
@@ -24,8 +25,9 @@ class AllSeleniumSpecs extends SpecificationWithJUnit with SpecificationsFinder 
 
     def examplesLinks(t: String) = {
   val specs = List(
-	  classOf[SeleniumWP10],	  
-	  classOf[SeleniumWP16]	  
+      classOf[WP7Selenium],      
+      classOf[WP10Selenium],      
+	  classOf[WP16Selenium]	  
 	).flatMap{s => createSpecification(s.getName)}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
@@ -39,30 +41,40 @@ class AllSeleniumSpecs extends SpecificationWithJUnit with SpecificationsFinder 
     }
 }
 
+class WP10Selenium extends SpecificationWithJUnit with SpecificationsFinder {
+  def is =
 
-class SeleniumWP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+    examplesLinks("WP 10: Reusable Object Selenium Tests")
 
-	examplesLinks("WP 10: Reusable Object UI")
-
-	def examplesLinks(t: String) = {
-		val specs = List(
-		    	classOf[CreateEditDeleteUserSeleniumSpec],
-		    	classOf[ViewNonValidatedObjectsSeleniumSpec]
-				).flatMap{s => createSpecification(s.getName)}
-		specs.
-		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-	}
-}
-
-class SeleniumWP16 extends SpecificationWithJUnit with SpecificationsFinder { def is =
-
-examplesLinks("WP 16: Miscellaneous Tasks")
-
-def examplesLinks(t: String) = {
+  def examplesLinks(t: String) = {
     val specs = List(
-            classOf[SaveConfigurationSpec]
-            ).flatMap{s => createSpecification(s.getName)}
+      classOf[CreateEditDeleteUserSeleniumSpec],
+      classOf[ViewNonValidatedObjectsSeleniumSpec]).flatMap { s => createSpecification(s.getName) }
     specs.
-    foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+      foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+  }
 }
+class WP7Selenium extends SpecificationWithJUnit with SpecificationsFinder {
+  def is =
+
+    examplesLinks("WP 7: Geocat Search UI")
+
+  def examplesLinks(t: String) = {
+    val specs = List(
+      classOf[Bug138810NoNextSearchSpec]).flatMap { s => createSpecification(s.getName) }
+    specs.
+      foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+  }
+}
+class WP16Selenium extends SpecificationWithJUnit with SpecificationsFinder {
+  def is =
+
+    examplesLinks("WP 16: Misc. Selenium tests ")
+
+  def examplesLinks(t: String) = {
+    val specs = List(
+      classOf[SaveConfigurationSpec]).flatMap { s => createSpecification(s.getName) }
+    specs.
+      foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+  }
 }
