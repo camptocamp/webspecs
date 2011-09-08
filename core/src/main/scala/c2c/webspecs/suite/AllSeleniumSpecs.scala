@@ -61,7 +61,8 @@ class WP7Selenium extends SpecificationWithJUnit with SpecificationsFinder {
 
   def examplesLinks(t: String) = {
     val specs = List(
-      classOf[Bug138810NoNextSearchSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[Bug138810NoNextSearchSpec],
+      classOf[Bug15242FormatListOrderSpec]).flatMap { s => createSpecification(s.getName) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
