@@ -16,7 +16,7 @@ object WebSpecsBuild extends Build
     resolvers := Seq(mapfishResolver),
     resolvers += ScalaToolsReleases,
     resolvers += ScalaToolsSnapshots,
-    scalaVersion := "2.9.0-1",
+    scalaVersion := "2.9.1",
     organization := "com.c2c",
     version := "1.0-SNAPSHOT",
     runTask

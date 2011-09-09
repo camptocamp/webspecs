@@ -28,19 +28,13 @@ import org.specs2.control.LazyParameter
 @RunWith(classOf[JUnitRunner])
 class DifferentLanguageSearchSpec extends SearchSpecification { def is =
     "Different language searches" ^ Step(setup) ^
-    "Import a metadata" ^ Step(importMd) ^
+    "Import a metadata" ^ Step(importMd(2)) ^
     "Assert that the metadata is found when searching in ${eng}" ! search ^
     "Assert that the metadata is found when searching in ${fra}" ! search ^
     "Assert that the metadata is found when searching in ${deu}" ! search ^
     "Assert that the metadata is found when searching in ${ita}" ! search ^
                                                                    Step(tearDown)
                                                                    
- def importMd = {
-    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/bare.iso19139.che.xml",false,getClass,ImportStyleSheets.NONE)._2
-    
-    1 to 2 foreach {_ => registerNewMd(Id(importRequest().value.id))}
-  }
-
   def search = (string:String) => {
     val lang = extract1(string)
     val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+uuid).xml, url=lang+"/csw")().value.getXml

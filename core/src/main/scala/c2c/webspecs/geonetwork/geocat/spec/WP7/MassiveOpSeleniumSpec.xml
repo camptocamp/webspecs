@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>MassiveOpSeleniumSpec</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MassiveOpSeleniumSpec</td></tr>
+</thead><tbody>
+<!--- This spec tests the functionality of massive operations from a UI perspective-->
+<tr>
+	<td>open</td>
+	<td>/geonetwork/srv/eng/geocat</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>Hup9ieBe</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=loginButton</td>
+	<td></td>
+</tr>
+<!--- perform a search for the imported metadata-->
+<tr>
+	<td>type</td>
+	<td>id=anyField</td>
+	<td>Title2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ext-gen53</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=EN Titleae2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=EN Titleae2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+	<td></td>
+</tr>
+<!--- select all metadata-->
+<tr>
+	<td>click</td>
+	<td>link=all</td>
+	<td></td>
+</tr>
+<!--- verify that actions on selection combo is enabled-->
+<tr>
+	<td>verifyEditable</td>
+	<td>id=actionOnSelection</td>
+	<td></td>
+</tr>
+<!--- select update privileges-->
+<tr>
+	<td>select</td>
+	<td>id=actionOnSelection</td>
+	<td>label=Update privileges</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=button.content</td>
+	<td></td>
+</tr>
+<!--- select all for 'All' 'Intranet' and 'Guest'-->
+<tr>
+	<td>click</td>
+	<td>//button[@onclick=&quot;setAll('row.0'); return false;&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@onclick=&quot;setAll('row.-1'); return false;&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='privileges']//button[contains(string(@onclick),'checkBoxModalUpdate')]</td>
+	<td></td>
+</tr>
+<!--- logout and verify that the metadata are present as expected-->
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logoutButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=anyField</td>
+	<td>Title2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ext-gen53</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=EN Titleae2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=EN Titleae2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+	<td></td>
+</tr>
+<!--- log back in, perform search and verify the metadata are also in that view-->
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>Hup9ieBe</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=loginButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=anyField</td>
+	<td>Title2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td.x-btn-center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=EN Titleae2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=EN Titleae2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+	<td></td>
+</tr>
+<!--- reset privileges (so no longer published-->
+<tr>
+	<td>click</td>
+	<td>link=all</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=actionOnSelection</td>
+	<td>label=Update privileges</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//tr[./td/span/text() = 'testjesse']//button[contains(string(@onclick),'setAll')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='privileges']//button[contains(string(@onclick),'checkBoxModalUpdate')]</td>
+	<td></td>
+</tr>
+<!--- logout again and verify they are correctly unpublished-->
+<tr>
+	<td>clickAndWait</td>
+	<td>id=logoutButton</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>Hup9ieBe</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td.x-btn-center</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=anyField</td>
+	<td>Title2f5658-2bc6-4be3-93fe-24dbc8a12fa0</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=td.x-btn-center</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

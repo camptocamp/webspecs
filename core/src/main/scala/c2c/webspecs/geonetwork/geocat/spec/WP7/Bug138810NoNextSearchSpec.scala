@@ -18,8 +18,8 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def isImpl = 
   "Bug fix for 138810".title ^ 
-    "Import 11 copies of a particular MD" ^ Step(importMd) ^
-    "Verify there are 11 results from the search for those MD" ! correctResults ^
+    "Import 11 copies of a particular MD"                                       ^ Step(importMd(11)) ^
+    "Verify there are 11 results from the search for those MD"                  ! correctResults(11) ^
     "This spec tests searching for a uuid in the title in each language"        ! scala_specs2_1^
     "login"                                                                     ! scala_specs2_2^
     "perform a search for Titled"+uuid            ! scala_specs2_3^
@@ -38,18 +38,6 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
     "check that the results are displayed"                                      ! scala_specs2_16^
     "Log back out"                                                              ! scala_specs2_17
 
-  def importMd = {
-    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/bare.iso19139.che.xml",false,getClass,ImportStyleSheets.NONE)._2
-    
-    1 to 11 foreach {_ => registerNewMd(Id(importRequest().value.id))}
-  }
-
-  def correctResults = {
-    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+uuid).xml)().value.getXml
-    
-    (xml \\ "@numberOfRecordsMatched").text.toInt must_== 11
-  }
-  
   def scala_specs2_1 = {
     import selenium._
     open("/geonetwork/srv/eng/geocat")

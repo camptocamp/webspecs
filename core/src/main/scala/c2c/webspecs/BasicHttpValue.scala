@@ -1,6 +1,7 @@
 package c2c.webspecs
 import org.apache.http.Header
 import java.net.URI
+import org.apache.commons.io.IOUtils
 
 
 object BasicHttpValue {

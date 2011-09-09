@@ -28,20 +28,15 @@ import org.specs2.control.LazyParameter
 @RunWith(classOf[JUnitRunner])
 class CswResetIndexReaderAfterImportSpec extends SearchSpecification { def is =
     sequential ^ "This spec verifies a fix of a bug where imported data cannot be immediately found" ^ Step(setup) ^
-    "Perform a search and verify the metadata has not yet been imported"                                   ! search(0) ^
-    "Import a metadata"                                                                              ^ Step(importMd) ^
-    "Assert that the metadata is found" ! search(1) ^
-                                                                   Step(tearDown)
-             
- def importMd = {
-    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/bare.iso19139.che.xml",false,getClass,ImportStyleSheets.NONE)._2
-    registerNewMd(Id(importRequest().value.id))
-  }
-
-  def search(expected:Int) = {
-    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+uuid).xml)().value.getXml
-    
-    (xml \\ "@numberOfRecordsMatched").text.toInt must_== expected
-  }
-  
+    "Perform a search and verify the metadata has not yet been imported"                             ! correctResults(0) ^
+    "Import a metadata"                                                                              ^ Step(importMd(1)) ^
+    "Assert that the metadata is found"                                                              ! correctResults(1) ^
+    "For the second part of the bug logout"                                                          ^ Step(logout) ^
+    "perform the search (expecting 0 results)"                                                       ! correctResults(0) ^
+    "Then log back in"                                                                               ^ Step(login) ^
+    "perform search and expect to find record again (there used to be caching issues"                ! correctResults(1) ^
+                                                                                                       Step(tearDown)
+                                                                   
+  def logout = GeonetworkLogout()
+  def login = UserLogin()
 }

@@ -19,7 +19,7 @@ class Bug15242FormatListOrderSpec extends GeocatSeleniumSpecification with Throw
 
   def isImpl = 
   "This specification tests Bug15242FormatListOrderSpec"    ^ 
-    "Import a couple metadata with a distinct format"                           ^ Step(importMd) ^ 
+    "Import a couple metadata with a distinct format"                           ^ Step(importMd(2,"/geocat/data/metadata-validate-formats-spec.xml")) ^ 
     "verify that a csw search for that format finds the format"                 ! search ^ 
     "This spec fixes the format ordering issue listed in Bug 15242"             ! scala_specs2_1^
     "Login and go to geocat search page"                                        ! scala_specs2_2^
@@ -27,11 +27,6 @@ class Bug15242FormatListOrderSpec extends GeocatSeleniumSpecification with Throw
     "expand format combo"                                                       ! scala_specs2_4^
     "assert that formats are sorted correctly"                                  ! scala_specs2_5
     
- def importMd = {
-    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/metadata-validate-formats-spec.xml",false,getClass,ImportStyleSheets.NONE)._2
-    1 to 2 foreach (_ => registerNewMd(Id(importRequest().value.id)))
-  }
-
   def search = {
     val filter = PropertyIsEqualTo("format",uuid.toString)
     val xml = CswGetRecordsRequest(filter.xml)().value.getXml
