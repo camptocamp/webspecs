@@ -35,7 +35,7 @@ object WebSpecsBuild extends Build
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     "org.apache.httpcomponents" % "httpclient" % "4.1",
     "org.apache.httpcomponents" % "httpmime" % "4.1",
-    "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0-SNAPSHOT"
+    "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0"
   )
   
   val coreSettings = Seq[Setting[_]](
