@@ -1,6 +1,6 @@
 package c2c.webspecs.suite
 
-import org.specs2.SpecificationWithJUnit
+import org.specs2.Specification
 import org.specs2.runner.SpecificationsFinder
 import c2c.webspecs.geonetwork.geocat.spec.WP1._
 import c2c.webspecs.geonetwork.geocat.spec.WP2._
@@ -19,7 +19,7 @@ import org.specs2.specification.Step
 
 
 @RunWith(classOf[JUnitRunner])
-class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class AllSpecs extends Specification with SpecificationsFinder { def is =
     examplesLinks("All Work Packages - "+dateTime)
 
     def examplesLinks(t: String) = {
@@ -48,7 +48,7 @@ class AllSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is
 
 
 
-class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP1 extends Specification with SpecificationsFinder { def is =
 
     examplesLinks("WP 1: Add CHE Schema")
 
@@ -61,7 +61,7 @@ class WP1 extends SpecificationWithJUnit with SpecificationsFinder { def is =
     }
 
 }
-class WP2 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP2 extends Specification with SpecificationsFinder { def is =
 
     examplesLinks("WP 2: Compares every metadatas from old version against the new one")
 
@@ -75,7 +75,7 @@ class WP2 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 }
 
-class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP3 extends Specification with SpecificationsFinder { def is =
 
     examplesLinks("WP 3: Shared Object (No UI)")
 
@@ -101,7 +101,7 @@ class WP3 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 
 }
 
-class WP4 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP4 extends Specification with SpecificationsFinder { def is =
 
 	examplesLinks("WP 4: Resolve XLinks")
 
@@ -114,7 +114,7 @@ class WP4 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 	}
 }
 
-class WP5 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP5 extends Specification with SpecificationsFinder { def is =
 
 examplesLinks("WP 5: Indexing and searching")
 
@@ -131,7 +131,7 @@ def examplesLinks(t: String) = {
 }
 }
 
-class WP6 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP6 extends Specification with SpecificationsFinder { def is =
 
 	examplesLinks("WP 6: Check CSW service")
 
@@ -147,7 +147,7 @@ class WP6 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 }
 
 @RunWith(classOf[JUnitRunner]) 
-class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP10 extends Specification with SpecificationsFinder { def is =
 
 	examplesLinks("WP 10: Reusable Object UI")
 
@@ -162,7 +162,7 @@ class WP10 extends SpecificationWithJUnit with SpecificationsFinder { def is =
 	}
 }
 @RunWith(classOf[JUnitRunner]) 
-class WP11 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP11 extends Specification with SpecificationsFinder { def is =
 
 examplesLinks("WP 11/12: GM03 Import and Export")
 
@@ -175,7 +175,7 @@ def examplesLinks(t: String) = {
   }
 }
 
-class WP16 extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class WP16 extends Specification with SpecificationsFinder { def is =
 
 examplesLinks("WP 16: Misc. tests")
 

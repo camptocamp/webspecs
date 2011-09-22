@@ -18,7 +18,7 @@ object BasicHttpValue {
 
     val data = {
       try {
-        import scalax.io.Input._
+        import scalax.io.JavaConverters._
         val all = httpResponse.getEntity.getContent.asInput
         Right(all.byteArray)
       } catch {

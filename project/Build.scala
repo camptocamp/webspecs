@@ -31,11 +31,12 @@ object WebSpecsBuild extends Build
   // ------------------------------ Core Project ------------------------------ //
 
   val coreDependencies = Seq(
-    "org.specs2" %% "specs2" % "1.6-SNAPSHOT",
+    "org.specs2" %% "specs2" % "1.6.1",
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     "org.apache.httpcomponents" % "httpclient" % "4.1",
     "org.apache.httpcomponents" % "httpmime" % "4.1",
-    "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0"
+    "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0",
+    "junit" % "junit" % "4.9" % "test"
   )
   
   val coreSettings = Seq[Setting[_]](

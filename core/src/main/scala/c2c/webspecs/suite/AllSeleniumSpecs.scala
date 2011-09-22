@@ -1,6 +1,6 @@
 package c2c.webspecs.suite
 
-import org.specs2.SpecificationWithJUnit
+import org.specs2.Specification
 import org.specs2.runner.SpecificationsFinder
 import c2c.webspecs.geonetwork.geocat.spec.WP1._
 import c2c.webspecs.geonetwork.geocat.spec.WP2._
@@ -20,7 +20,7 @@ import org.specs2.specification.Step
 
 
 @RunWith(classOf[JUnitRunner])
-class AllSeleniumSpecs extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class AllSeleniumSpecs extends Specification with SpecificationsFinder { def is =
     examplesLinks("All Work Packages - "+dateTime)
 
     def examplesLinks(t: String) = {
@@ -41,9 +41,8 @@ class AllSeleniumSpecs extends SpecificationWithJUnit with SpecificationsFinder 
     }
 }
 
-class WP10Selenium extends SpecificationWithJUnit with SpecificationsFinder {
+class WP10Selenium extends Specification with SpecificationsFinder {
   def is =
-
     examplesLinks("WP 10: Reusable Object Selenium Tests")
 
   def examplesLinks(t: String) = {
@@ -54,9 +53,8 @@ class WP10Selenium extends SpecificationWithJUnit with SpecificationsFinder {
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
 }
-class WP7Selenium extends SpecificationWithJUnit with SpecificationsFinder {
+class WP7Selenium extends Specification with SpecificationsFinder {
   def is =
-
     examplesLinks("WP 7: Geocat Search UI")
 
   def examplesLinks(t: String) = {
@@ -67,9 +65,8 @@ class WP7Selenium extends SpecificationWithJUnit with SpecificationsFinder {
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
 }
-class WP16Selenium extends SpecificationWithJUnit with SpecificationsFinder {
+class WP16Selenium extends Specification with SpecificationsFinder {
   def is =
-
     examplesLinks("WP 16: Misc. Selenium tests ")
 
   def examplesLinks(t: String) = {

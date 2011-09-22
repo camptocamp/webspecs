@@ -5,7 +5,7 @@ import org.specs2.Specification
 import org.specs2.SpecificationWithJUnit
 import org.specs2.runner.SpecificationsFinder
 
-class AllGeonetworkSpecifications extends SpecificationWithJUnit with SpecificationsFinder { def is =
+class AllGeonetworkSpecifications extends Specification with SpecificationsFinder { def is =
 
     examplesLinks("WP 1:  Shared Objects")
 
