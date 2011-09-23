@@ -124,7 +124,8 @@ def examplesLinks(t: String) = {
 			classOf[PagingSearchSpec],
 			classOf[DifferentLanguageSearchSpec],
 			classOf[CswResetIndexReaderAfterImportSpec],
-			classOf[SpatialSearchSpec]
+			classOf[SpatialSearchSpec],
+			classOf[SearchOrderSpec]
 			).flatMap{s => createSpecification(s.getName)}
 	specs.
 	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
