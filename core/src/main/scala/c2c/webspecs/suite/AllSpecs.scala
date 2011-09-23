@@ -175,6 +175,7 @@ def examplesLinks(t: String) = {
   }
 }
 
+@RunWith(classOf[JUnitRunner])
 class WP16 extends Specification with SpecificationsFinder { def is =
 
 examplesLinks("WP 16: Misc. tests")

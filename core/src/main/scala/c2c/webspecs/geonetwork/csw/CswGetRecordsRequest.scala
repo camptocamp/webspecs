@@ -14,7 +14,7 @@ case class CswGetRecordsRequest(filter:NodeSeq=Nil,
                                 maxRecords:Int=50,
                                 url:String="csw",
                                 elementSetName:ElementSetName = full,
-                                sortBy:Option[SortBy] = None)
+                                sortBy:Seq[SortBy] = Nil)
   extends AbstractXmlPostRequest[Any,XmlValue](url, XmlValueFactory) {
 
   def xmlData = CswXmlUtil.getRecordsXml( filter, resultType, outputSchema, startPosition, maxRecords, elementSetName,sortBy)

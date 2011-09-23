@@ -100,7 +100,7 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
       resultType = ResultTypes.resultsWithSummary,
       outputSchema = OutputSchemas.Record,
       maxRecords = maxRecords,
-      sortBy = Some(SortBy("date", false)),
+      sortBy = List(SortBy("date", false)),
       url = lang + "/csw")().value.getXml
 
     find(xmlResponse, expectedMetadata)
@@ -112,8 +112,8 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
     val sortedAscRequest = CswGetRecordsRequest(filter.xml,
       resultType = ResultTypes.resultsWithSummary,
       outputSchema = OutputSchemas.Record,
-      sortBy = Some(SortBy(field, false)))
-    val sortedDescRequest = sortedAscRequest.copy(sortBy = Some(SortBy(field, true)))
+      sortBy = List(SortBy(field, false)))
+    val sortedDescRequest = sortedAscRequest.copy(sortBy = List(SortBy(field, true)))
 
     val sortedAscResults = findCodesFromResults(sortedAscRequest().value.getXml)
     val sortedDescResults = findCodesFromResults(sortedDescRequest().value.getXml)
@@ -146,7 +146,7 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
     val xmlResponse = CswGetRecordsRequest(filter,
       resultType = ResultTypes.resultsWithSummary,
       maxRecords = 30,
-      sortBy = Some(SortBy("date", false)),
+      sortBy = List(SortBy("date", false)),
       outputSchema = OutputSchemas.Record)().value.getXml
 
     find(xmlResponse, "all")

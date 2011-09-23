@@ -25,7 +25,7 @@ class ConcurrentSearchSpec extends StressSpecification(40) { def is =
         <ogc:PropertyIsEqualTo><ogc:PropertyName>AnyText</ogc:PropertyName><ogc:Literal>raster</ogc:Literal></ogc:PropertyIsEqualTo>,
         ResultTypes.resultsWithSummary,
         maxRecords = 10,
-        sortBy = Some(SortBy("relevance", false)))
+        sortBy = List(SortBy("relevance", false)))
 
     run(UserLogin then MainPageSearch then RasterTextSearch then RasterTextSearchSortByPopularity)
   }

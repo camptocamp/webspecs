@@ -36,6 +36,7 @@ object WebSpecsBuild extends Build
     "org.apache.httpcomponents" % "httpclient" % "4.1",
     "org.apache.httpcomponents" % "httpmime" % "4.1",
     "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0",
+    "org.pegdown" % "pegdown" % "1.0.2",
     "junit" % "junit" % "4.9"
   )
   
