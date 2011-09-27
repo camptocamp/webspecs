@@ -2,7 +2,7 @@ package c2c.webspecs
 package geonetwork
 package geocat
 package spec
-package WP7
+package WP7.selenium
 
 import org.specs2._
 import matcher.ThrownExpectations
@@ -16,7 +16,8 @@ import org.specs2.runner.JUnitRunner
 class MassiveOpSeleniumSpec extends GeocatSeleniumSpecification with ThrownExpectations { 
 
   def isImpl = 
-  "This specification tests MassiveOpSeleniumSpec"                                  ^ Step(importMd(3)) ^ Step(correctResults(3)) ^
+  "This specification tests MassiveOpSeleniumSpec"                                  ^ Step(importMd(3, identifier=datestamp)) ^ 
+                                                                                      Step(correctResults(3, identifier=datestamp)) ^
     "This spec tests the functionality of massive operations from a UI perspective" ! scala_specs2_1^
     "perform a search for the imported metadata"                                    ! scala_specs2_2^
     "select all metadata"                                                           ! scala_specs2_3^
@@ -40,11 +41,10 @@ class MassiveOpSeleniumSpec extends GeocatSeleniumSpecification with ThrownExpec
 
   def scala_specs2_2 = {
     import selenium._
-    `type`("id=anyField", "Title"+uuid)
-    click("id=ext-gen53")
-    doWait(isElementPresent("link=EN Title"+uuid))
-    isElementPresent("link=EN Title"+uuid) must beTrue
-    success
+    `type`("id=anyField", "Title"+datestamp)
+    clickSearch()
+    doWait(isElementPresent("link=EN Title"+datestamp))
+    isElementPresent("link=EN Title"+datestamp) must beTrue
   }
 
   def scala_specs2_3 = {
@@ -79,10 +79,10 @@ class MassiveOpSeleniumSpec extends GeocatSeleniumSpecification with ThrownExpec
     import selenium._
     click("id=logoutButton")
     waitForPageToLoad("30000")
-    `type`("id=anyField", "Title"+uuid)
-    click("id=ext-gen53")
-    doWait(isElementPresent("link=EN Title"+uuid))
-    isElementPresent("link=EN Title"+uuid) must beTrue
+    `type`("id=anyField", "Title"+datestamp)
+    clickSearch()
+    doWait(isElementPresent("link=EN Title"+datestamp))
+    isElementPresent("link=EN Title"+datestamp) must beTrue
   }
 
   def scala_specs2_8 = {
@@ -91,10 +91,10 @@ class MassiveOpSeleniumSpec extends GeocatSeleniumSpecification with ThrownExpec
     `type`("id=password", adminPass)
     click("id=loginButton")
     waitForPageToLoad("30000")
-    `type`("id=anyField", "Title"+uuid)
+    `type`("id=anyField", "Title"+datestamp)
     click("css=td.x-btn-center")
-    doWait(isElementPresent("link=EN Title"+uuid))
-    isElementPresent("link=EN Title"+uuid) must beTrue
+    doWait(isElementPresent("link=EN Title"+datestamp))
+    isElementPresent("link=EN Title"+datestamp) must beTrue
   }
 
   def scala_specs2_9 = {
@@ -114,10 +114,10 @@ class MassiveOpSeleniumSpec extends GeocatSeleniumSpecification with ThrownExpec
     waitForPageToLoad("30000")
     `type`("id=username", adminUser)
     `type`("id=password", adminPass)
-    `type`("id=anyField", "Title"+uuid)
+    `type`("id=anyField", "Title"+datestamp)
     click("css=td.x-btn-center")
     doWait(false, 1, 1000)
-    isElementPresent("link=EN Title"+uuid) must beFalse
+    isElementPresent("link=EN Title"+datestamp) must beFalse
   }
 
   val TIMEOUT = 30

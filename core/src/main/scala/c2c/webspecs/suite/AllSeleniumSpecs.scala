@@ -54,6 +54,7 @@ class WP7Selenium extends Specification with SpecificationsFinder {
     val specs = List(
       classOf[Bug138810NoNextSearchSpec],
       classOf[SearchesReturnResultsSeleniumSpec],
+      classOf[MassiveOpSeleniumSpec],
       classOf[Bug15242FormatListOrderSpec]).flatMap { s => createSpecification(s.getName) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }

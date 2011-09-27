@@ -13,8 +13,9 @@ abstract class GeocatSeleniumSpecification extends GeocatSpecification {
 
   lazy val adminUser = Properties(config.ADMIN_USER_KEY).get 
   lazy val adminPass = Properties(config.ADMIN_USER_PASS).get
-  val eventuallyBeTrue = beTrue.eventually(10,1.second)
 
+  val eventuallyBeTrue = beTrue.eventually(10,1.second)
+  def clickSearch() = selenium.click("//table[@id='searchBt']//button")
   def is = sequential ^ Step(setup) ^ isImpl ^ Step(tearDown)
 
   def isImpl: Fragments

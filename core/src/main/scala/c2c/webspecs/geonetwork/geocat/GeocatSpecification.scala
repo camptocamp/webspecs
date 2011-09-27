@@ -42,8 +42,10 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
     href must startingWith(XLink.PROTOCOL)
   }
 
-  def importMd(numberOfRecords:Int, md:String = "/geocat/data/bare.iso19139.che.xml") = {
-    val importRequest = ImportMetadata.defaults(uuid,md,false,getClass,ImportStyleSheets.NONE)._2
+  lazy val datestamp = System.currentTimeMillis().toString
+  def importMd(numberOfRecords:Int, md:String = "/geocat/data/bare.iso19139.che.xml", identifier:String) = {
+    val replacements = Map("{uuid}" -> identifier) 
+    val importRequest = ImportMetadata.defaultsWithReplacements(replacements,md,false,getClass,ImportStyleSheets.NONE)._2
     
     1 to numberOfRecords map {_ =>
       val id = importRequest().value.id
@@ -52,8 +54,8 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
     }
   }
 
-  def correctResults(numberOfRecords:Int) = (s:String) => {
-    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+uuid).xml)().value.getXml
+  def correctResults(numberOfRecords:Int, identifier:String) = (s:String) => {
+    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+identifier).xml)().value.getXml
     
     (xml \\ "@numberOfRecordsMatched").text.toInt must_== numberOfRecords
   }

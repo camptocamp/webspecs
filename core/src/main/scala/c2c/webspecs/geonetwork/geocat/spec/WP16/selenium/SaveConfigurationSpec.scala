@@ -28,8 +28,8 @@ class `SaveConfigurationSpec` extends GeocatSeleniumSpecification with ThrownExp
   def scala_specs2_1 = {
     import selenium._
     open("/geonetwork/srv/eng/geocat")
-    `type`("id=username", "admin")
-    `type`("id=password", "Hup9ieBe")
+    `type`("id=username", adminUser)
+    `type`("id=password", adminPass)
     click("css=button.banner")
     waitForPageToLoad("30000")
     success

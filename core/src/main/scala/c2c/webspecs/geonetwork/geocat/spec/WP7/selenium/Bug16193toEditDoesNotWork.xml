@@ -4,66 +4,55 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>ViewNonValidatedObjectsSeleniumSpec</title>
+<title>Bug16193toEditDoesNotWork</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">ViewNonValidatedObjectsSeleniumSpec</td></tr>
+<tr><td rowspan="1" colspan="3">Bug16193toEditDoesNotWork</td></tr>
 </thead><tbody>
+<!--- this spec test that toEdit and toPublish return metadata records for editing and publishing-->
 <tr>
 	<td>open</td>
 	<td>/geonetwork/srv/eng/geocat</td>
 	<td></td>
 </tr>
+<!--- Import a metadata as a user and then switch to the advanced search form-->
+<tr>
+	<td>click</td>
+	<td>link=Advanced</td>
+	<td></td>
+</tr>
+<!--- check toEdit and then perform a search.  The imported metadata should appear-->
 <tr>
 	<td>type</td>
-	<td>id=username</td>
-	<td>XXX</td>
+	<td>id=anyField</td>
+	<td>datestamp</td>
 </tr>
 <tr>
-	<td>type</td>
-	<td>id=password</td>
-	<td>XXXX</td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>css=button.banner</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Metadata management</td>
-	<td></td>
-</tr>
-<tr>
-	<td>clickAndWait</td>
-	<td>link=Non-validated shared objects</td>
-	<td></td>
-</tr>
-<tr>
-	<td>verifyTextPresent</td>
-	<td>{automated_test_metadata}3 {automated_test_metadata}3 &lt;{uuid}@c2c.com&gt;</td>
+	<td>click</td>
+	<td>//div[./input/@id='toEdit']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=Formats</td>
+	<td>id=ext-gen53</td>
 	<td></td>
 </tr>
+<!--- uncheck toEdit and check toPublish.  The MD should be there-->
 <tr>
-	<td>verifyTextPresent</td>
-	<td>{uuid}Format ({uuid})</td>
+	<td>click</td>
+	<td>//div[./input/@id='toEdit']</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>link=Keywords</td>
+	<td>//div[./input/@id='toPublish']</td>
 	<td></td>
 </tr>
 <tr>
-	<td>verifyTextPresent</td>
-	<td>{uuid}EN</td>
+	<td>click</td>
+	<td>id=ext-gen53</td>
 	<td></td>
 </tr>
 

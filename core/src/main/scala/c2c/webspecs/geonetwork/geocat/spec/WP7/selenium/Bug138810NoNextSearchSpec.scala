@@ -18,21 +18,21 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def isImpl = 
   "Bug fix for 138810".title ^ 
-    "Import 11 copies of a particular MD"                                       ^ Step(importMd(11)) ^
-    "Verify there are 11 results from the search for those MD"                  ! correctResults(11) ^
+    "Import 11 copies of a particular MD"                                       ^ Step(importMd(11, identifier=datestamp)) ^
+    "Verify there are 11 results from the search for those MD"                  ! correctResults(11, identifier=datestamp) ^
     "This spec tests searching for a uuid in the title in each language"        ! scala_specs2_1^
     "login"                                                                     ! scala_specs2_2^
-    "perform a search for Titled"+uuid            ! scala_specs2_3^
+    "perform a search for Titled"+datestamp            ! scala_specs2_3^
     "assert there are 11 results and results 1 - 10 are showing"                ! scala_specs2_4^
     "assert there is a next button"                                             ! scala_specs2_5^
     "check that the results are displayed"                                      ! scala_specs2_6^
     "switch to french language"                                                 ! scala_specs2_7^
-    "perform a search for Titled"+uuid            ! scala_specs2_8^
+    "perform a search for Titled"+datestamp            ! scala_specs2_8^
     "assert there are 11 results and results 1 - 10 are showing"                ! scala_specs2_9^
     "assert there is a next button"                                             ! scala_specs2_10^
     "check that the results are displayed"                                      ! scala_specs2_11^
     "switch to german"                                                          ! scala_specs2_12^
-    "perform a search for Titled"+uuid            ! scala_specs2_13^
+    "perform a search for Titled"+datestamp            ! scala_specs2_13^
     "assert there are 11 results and results 1 - 10 are showing"                ! scala_specs2_14^
     "assert there is a next button"                                             ! scala_specs2_15^
     "check that the results are displayed"                                      ! scala_specs2_16^
@@ -57,9 +57,9 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def scala_specs2_3 = {
     import selenium._
-    `type`("id=anyField", "Title"+uuid)
-    click("id=ext-gen53")
-    doWait(isElementPresent("link=EN Title"+uuid))
+    `type`("id=anyField", "Title"+datestamp)
+    clickSearch()
+    doWait(isElementPresent("link=EN Title"+datestamp))
     success
   }
 
@@ -75,7 +75,7 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def scala_specs2_6 = {
     import selenium._
-    isElementPresent("link=EN Title"+uuid) must beTrue
+    isElementPresent("link=EN Title"+datestamp) must beTrue
   }
 
   def scala_specs2_7 = {
@@ -87,9 +87,9 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def scala_specs2_8 = {
     import selenium._
-    `type`("id=anyField", "Title"+uuid)
-    click("id=ext-gen53")
-    doWait(isElementPresent("link=FR Title"+uuid))
+    `type`("id=anyField", "Title"+datestamp)
+    clickSearch()
+    doWait(isElementPresent("link=FR Title"+datestamp))
     success
   }
 
@@ -105,7 +105,7 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def scala_specs2_11 = {
     import selenium._
-    isElementPresent("link=FR Title"+uuid) must beTrue
+    isElementPresent("link=FR Title"+datestamp) must beTrue
   }
 
   def scala_specs2_12 = {
@@ -117,9 +117,9 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def scala_specs2_13 = {
     import selenium._
-    `type`("id=anyField", "Title"+uuid)
+    `type`("id=anyField", "Title"+datestamp)
     click("css=td.x-btn-center")
-    doWait(isElementPresent("link=DE Title"+uuid))
+    doWait(isElementPresent("link=DE Title"+datestamp))
     success
   }
 
@@ -135,7 +135,7 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
 
   def scala_specs2_16 = {
     import selenium._
-    isElementPresent("link=DE Title"+uuid) must beTrue
+    isElementPresent("link=DE Title"+datestamp) must beTrue
   }
 
   def scala_specs2_17 = {

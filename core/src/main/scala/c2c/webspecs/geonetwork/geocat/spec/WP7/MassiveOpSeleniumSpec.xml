@@ -20,12 +20,12 @@
 <tr>
 	<td>type</td>
 	<td>id=username</td>
-	<td>admin</td>
+	<td>XXXXXXX</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=password</td>
-	<td>Hup9ieBe</td>
+	<td>XXXXXX</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -122,12 +122,12 @@
 <tr>
 	<td>type</td>
 	<td>id=username</td>
-	<td>admin</td>
+	<td>XXXXX</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=password</td>
-	<td>Hup9ieBe</td>
+	<td>XXXXX</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
@@ -184,12 +184,12 @@
 <tr>
 	<td>type</td>
 	<td>id=username</td>
-	<td>admin</td>
+	<td>XXXXX</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>id=password</td>
-	<td>Hup9ieBe</td>
+	<td>XXXXXX</td>
 </tr>
 <tr>
 	<td>click</td>

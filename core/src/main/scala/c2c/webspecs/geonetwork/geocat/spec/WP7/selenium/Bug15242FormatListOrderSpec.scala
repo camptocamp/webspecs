@@ -19,7 +19,7 @@ class Bug15242FormatListOrderSpec extends GeocatSeleniumSpecification with Throw
 
   def isImpl = 
   "This specification tests Bug15242FormatListOrderSpec"    ^ 
-    "Import a couple metadata with a distinct format"                           ^ Step(importMd(2,"/geocat/data/metadata-validate-formats-spec.xml")) ^ 
+    "Import a couple metadata with a distinct format"                           ^ Step(importMd(2,"/geocat/data/metadata-validate-formats-spec.xml", identifier=datestamp)) ^ 
     "verify that a csw search for that format finds the format"                 ! search ^ 
     "This spec fixes the format ordering issue listed in Bug 15242"             ! scala_specs2_1^
     "Login and go to geocat search page"                                        ! scala_specs2_2^
@@ -28,7 +28,7 @@ class Bug15242FormatListOrderSpec extends GeocatSeleniumSpecification with Throw
     "assert that formats are sorted correctly"                                  ! scala_specs2_5
     
   def search = {
-    val filter = PropertyIsEqualTo("format",uuid.toString)
+    val filter = PropertyIsEqualTo("format",datestamp.toString)
     val xml = CswGetRecordsRequest(filter.xml)().value.getXml
     
     (xml \\ "@numberOfRecordsMatched").text.toInt must_== 2
@@ -42,8 +42,8 @@ class Bug15242FormatListOrderSpec extends GeocatSeleniumSpecification with Throw
 
   def scala_specs2_2 = {
     import selenium._
-    `type`("id=username", "admin")
-    `type`("id=password", "Hup9ieBe")
+    `type`("id=username", adminUser)
+    `type`("id=password", adminPass)
     click("id=loginButton")
     waitForPageToLoad("30000")
     success

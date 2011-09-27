@@ -28,7 +28,7 @@ import org.specs2.control.LazyParameter
 @RunWith(classOf[JUnitRunner])
 class DifferentLanguageSearchSpec extends SearchSpecification { def is =
     "Different language searches" ^ Step(setup) ^
-    "Import a metadata" ^ Step(importMd(2)) ^
+    "Import a metadata" ^ Step(importMd(2, identifier=datestamp)) ^
     "Assert that the metadata is found when searching in ${eng}" ! search ^
     "Assert that the metadata is found when searching in ${fra}" ! search ^
     "Assert that the metadata is found when searching in ${deu}" ! search ^

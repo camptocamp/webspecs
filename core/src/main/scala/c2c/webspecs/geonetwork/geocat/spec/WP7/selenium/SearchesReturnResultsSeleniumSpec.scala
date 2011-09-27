@@ -17,7 +17,8 @@ class SearchesReturnResultsSeleniumSpec extends GeocatSeleniumSpecification with
     override lazy val selenium = new WebDriverBackedSelenium(driver, "http://" + Properties.testServer)
   
   def isImpl = 
-  "This specification tests SearchesReturnResultsSeleniumSpec"    ^ 
+  "This specification tests SearchesReturnResultsSeleniumSpec"                  ^ Step(importMd(4, identifier=datestamp)) ^ 
+                                                                                  Step(correctResults(4, datestamp)) ^
     "This spec runs several searches then modifies the ordering and verifies that a result still completes."! scala_specs2_1^
     "sortBy date and ensure that results are correctly displayed"               ! scala_specs2_2^
     "sortBy populatiry and ensure that results are correctly displayed"         ! scala_specs2_3^
@@ -28,8 +29,8 @@ class SearchesReturnResultsSeleniumSpec extends GeocatSeleniumSpecification with
   def scala_specs2_1 = {
     import selenium._
     open("/geonetwork/srv/eng/geocat")
-    `type`("id=username", "admin")
-    `type`("id=password", "Hup9ieBe")
+    `type`("id=username", adminUser)
+    `type`("id=password", adminPass)
     click("id=loginButton")
     waitForPageToLoad("30000")
     success
@@ -37,7 +38,7 @@ class SearchesReturnResultsSeleniumSpec extends GeocatSeleniumSpecification with
 
   def scala_specs2_2 = {
     import selenium._
-    click("id=ext-gen53")
+    clickSearch()
     doWait(isElementPresent("//div[@id='sortBy']//img"))
     click("//div[@id='sortBy']//img")
     click("css=div.x-combo-list-item")
@@ -50,7 +51,7 @@ class SearchesReturnResultsSeleniumSpec extends GeocatSeleniumSpecification with
     import selenium._
     refresh()
     waitForPageToLoad("30000")
-    click("id=ext-gen53")
+    clickSearch()
     doWait(isElementPresent("//div[@id='sortBy']//img"))
     click("//div[@id='sortBy']//img")
     click("css=div.x-combo-list-item + div")
@@ -63,7 +64,7 @@ class SearchesReturnResultsSeleniumSpec extends GeocatSeleniumSpecification with
     import selenium._
     refresh()
     waitForPageToLoad("30000")
-    click("id=ext-gen53")
+    clickSearch()
     doWait(isElementPresent("//div[@id='sortBy']//img"))
     click("//div[@id='sortBy']//img")
     click("css=div.x-combo-list-item + div + div")
@@ -76,7 +77,7 @@ class SearchesReturnResultsSeleniumSpec extends GeocatSeleniumSpecification with
     import selenium._
     refresh()
     waitForPageToLoad("30000")
-    click("id=ext-gen53")
+    clickSearch()
     doWait(isElementPresent("//div[@id='sortBy']//img"))
     click("//div[@id='sortBy']//img")
     click("css=div.x-combo-list-item + div + div + div")
@@ -89,7 +90,7 @@ class SearchesReturnResultsSeleniumSpec extends GeocatSeleniumSpecification with
     import selenium._
     refresh()
     waitForPageToLoad("30000")
-    click("id=ext-gen53")
+    clickSearch()
     doWait(isElementPresent("//div[@id='sortBy']//img"))
     click("//div[@id='sortBy']//img")
     click("css=div.x-combo-list-item + div + div + div + div")

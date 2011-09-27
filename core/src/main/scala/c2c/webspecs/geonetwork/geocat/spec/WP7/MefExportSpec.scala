@@ -49,10 +49,10 @@ class MefExportSpec extends GeocatSpecification { def is =
     "verify the metadata is in iso19139"                                                             ! che ^
                                                                                                        Step(tearDown)
  
-  lazy val importAndGetIds = importMd(2)
+  lazy val importAndGetIds = importMd(2, identifier=datestamp)
   def select = {
   // first do a search because that is required for a selection
-  val correctSearch = correctResults(2)("")
+  val correctSearch = correctResults(2, identifier=datestamp)("")
   GetRequest("metadata.select","id" -> 0, "selected" -> "add-all")()
   val correctSelection = GetRequest("metadata.select","selected" -> "status")().value.getXml.text.trim must_== "2"
   
