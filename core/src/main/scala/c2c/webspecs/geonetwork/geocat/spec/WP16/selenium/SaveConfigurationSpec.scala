@@ -2,7 +2,7 @@ package c2c.webspecs
 package geonetwork
 package geocat
 package spec
-package WP16
+package WP16.selenium
 
 import org.specs2._
 import matcher.ThrownExpectations

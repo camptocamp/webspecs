@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>SearchesReturnResultsSeleniumSpec</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SearchesReturnResultsSeleniumSpec</td></tr>
+</thead><tbody>
+<!--- This spec runs several searches then modifies the ordering and verifies that a result still completes.-->
+<tr>
+	<td>open</td>
+	<td>/geonetwork/srv/eng/geocat</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>admin</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>Hup9ieBe</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=loginButton</td>
+	<td></td>
+</tr>
+<!--- sortBy date and ensure that results are correctly displayed-->
+<tr>
+	<td>click</td>
+	<td>id=ext-gen53</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sortBy']//img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[text() = 'Change date']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<!--- sortBy populatiry and ensure that results are correctly displayed-->
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ext-gen53</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sortBy']//img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[text() = 'Popularity']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<!--- sortBy rating and ensure that results are correctly displayed-->
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sortBy']//img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[text() = 'Rating']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='ext-gen1342']/div[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<!--- sortBy relevance and ensure that results are correctly displayed-->
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ext-gen53</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sortBy']//img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[text() = 'Relevance']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<!--- sortBy title and ensure that results are correctly displayed-->
+<tr>
+	<td>refreshAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=ext-gen53</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='sortBy']//img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[text() = 'Title']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>//div[@id='records']/table/tbody/tr/td[2]</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

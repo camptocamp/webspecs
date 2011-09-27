@@ -2,16 +2,9 @@ package c2c.webspecs.suite
 
 import org.specs2.Specification
 import org.specs2.runner.SpecificationsFinder
-import c2c.webspecs.geonetwork.geocat.spec.WP1._
-import c2c.webspecs.geonetwork.geocat.spec.WP2._
-import c2c.webspecs.geonetwork.geocat.spec.WP3._
-import c2c.webspecs.geonetwork.geocat.spec.WP4._
-import c2c.webspecs.geonetwork.geocat.spec.WP5._
-import c2c.webspecs.geonetwork.geocat.spec.WP6._
-import c2c.webspecs.geonetwork.geocat.spec.WP7._
-import c2c.webspecs.geonetwork.geocat.spec.WP10._
-import c2c.webspecs.geonetwork.geocat.spec.WP12._
-import c2c.webspecs.geonetwork.geocat.spec.WP16._
+import c2c.webspecs.geonetwork.geocat.spec.WP7.selenium._
+import c2c.webspecs.geonetwork.geocat.spec.WP10.selenium._
+import c2c.webspecs.geonetwork.geocat.spec.WP16.selenium._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import java.text.SimpleDateFormat
@@ -60,6 +53,7 @@ class WP7Selenium extends Specification with SpecificationsFinder {
   def examplesLinks(t: String) = {
     val specs = List(
       classOf[Bug138810NoNextSearchSpec],
+      classOf[SearchesReturnResultsSeleniumSpec],
       classOf[Bug15242FormatListOrderSpec]).flatMap { s => createSpecification(s.getName) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }

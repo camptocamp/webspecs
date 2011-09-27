@@ -2,7 +2,7 @@ package c2c.webspecs
 package geonetwork
 package geocat
 package spec
-package WP7
+package WP7.selenium
 
 import csw._
 import org.specs2._
