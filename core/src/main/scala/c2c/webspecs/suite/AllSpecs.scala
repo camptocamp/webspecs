@@ -8,6 +8,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP5._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
+import c2c.webspecs.geonetwork.geocat.spec.WP7._
 import c2c.webspecs.geonetwork.geocat.spec.WP10._
 import c2c.webspecs.geonetwork.geocat.spec.WP12._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
@@ -30,6 +31,7 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
 	  classOf[WP4],
 	  classOf[WP5],
 	  classOf[WP6],
+	  classOf[WP7],
       classOf[WP10],
 	  classOf[WP11],
       classOf[WP16]  
@@ -145,6 +147,19 @@ class WP6 extends Specification with SpecificationsFinder { def is =
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
+}
+class WP7 extends Specification with SpecificationsFinder { def is =
+
+examplesLinks("WP 7: Search user interface")
+
+def examplesLinks(t: String) = {
+	val specs = List(
+			classOf[MefExportSpec],
+			classOf[MefImportSpec]
+			).flatMap{s => createSpecification(s.getName)}
+	specs.
+	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+}
 }
 
 @RunWith(classOf[JUnitRunner]) 
