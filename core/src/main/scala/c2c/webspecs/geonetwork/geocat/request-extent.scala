@@ -70,5 +70,6 @@ case class DeleteExtent(typeName:Extents.TypeName, id:String, forceDelete:Boolea
     DeletedSharedObjectIdFactory,
     SP("typename" -> typeName),
     SP("id" -> id),
+    SP("testing" -> true),
     SP("forceDelete", forceDelete)
   )

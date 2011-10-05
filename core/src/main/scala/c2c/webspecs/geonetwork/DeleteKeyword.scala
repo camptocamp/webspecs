@@ -14,5 +14,6 @@ case class DeleteKeyword(thesaurus:String, namespace:String, code:String, forceD
     SP("pThesaurus" -> thesaurus),
     SP("namespace" -> namespace.encode),
     SP("forceDelete" -> forceDelete),
+    SP("testing" -> true),
     SP("id"-> code.encode)
   )

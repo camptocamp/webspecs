@@ -7,5 +7,6 @@ case class DeleteSharedUser(id:String, forceDelete:Boolean)
         "shared.user.remove",
         DeletedSharedObjectIdFactory, 
         P("id",id), 
-        SP("forceDelete", forceDelete)
+        SP("forceDelete", forceDelete),
+        SP("testing" -> true)
     )

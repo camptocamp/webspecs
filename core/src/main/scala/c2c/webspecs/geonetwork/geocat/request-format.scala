@@ -68,6 +68,7 @@ case class DeleteFormat(forceDelete:Boolean)
   extends AbstractGetRequest[Int,IdValue]( "format", DeletedSharedObjectIdFactory,
     P("action", "DELETE"),
     IdP("id"),
+    SP("testing" -> true),
     SP("forceDelete", forceDelete)) {
 
   def apply(name:String,version:String,forceDelete:Boolean):Request[Any,IdValue] =

@@ -30,12 +30,12 @@ class TestMetadataExpiredServicesSpec extends GeocatSpecification(UserProfiles.A
 			
 
     def testMetadataExpiredFormService = {
- 		GetRequest("metadata.expired.form")(Nil) must haveA200ResponseCode
+ 		GetRequest("metadata.expired.form", "testing" -> true)(Nil) must haveA200ResponseCode
     }
     def testMetadataExpiredUnpublishService = {
- 		GetRequest("metadata.expired.unpublish", "limit" ->  "5")(Nil) must haveA200ResponseCode
+ 		GetRequest("metadata.expired.unpublish", "limit" ->  "5", "testing" -> true)(Nil) must haveA200ResponseCode
     }
     def testMetadataExpiredMailService = {
- 		GetRequest("metadata.expired.email", "limit" ->  "3")(Nil) must haveA200ResponseCode
+ 		GetRequest("metadata.expired.email", "limit" ->  "3", "testing" -> true)(Nil) must haveA200ResponseCode
     }		
 }

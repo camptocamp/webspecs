@@ -132,18 +132,21 @@ case class RejectNonValidatedObject(sharedObjectId: String,
     "reusable.reject",
     DeletedSharedObjectIdFactory,
     P("id", sharedObjectId.toString),
+    SP("testing" -> true),
     P("type", sharedType.toString),
     P("msg", rejectionMessage))
 case class DeleteSharedObject(sharedObjectId: String)
   extends AbstractGetRequest[Any, XmlValue](
     "reusable.delete",
     XmlValueFactory,
+    SP("testing" -> true),
     P("id", sharedObjectId))
 case class ValidateSharedObject(sharedObjectId: String, sharedType: SharedObjectType)
   extends AbstractGetRequest[Any, IdValue](
     "reusable.validate",
     ExplicitIdValueFactory(sharedObjectId),
     P("id", sharedObjectId.toString),
+    SP("testing" -> true),
     P("type", sharedType.toString))
 
 case class ProcessSharedObject(xmlData: Node, addOnly: Boolean = false, defaultLang: String = "EN")
