@@ -7,4 +7,6 @@ case class PropertyIsEqualTo(name:String,literal:String) extends OgcFilter {
    <ogc:PropertyIsEqualTo>
     <ogc:PropertyName>{name}</ogc:PropertyName> <ogc:Literal>{literal}</ogc:Literal>
   </ogc:PropertyIsEqualTo>
+
+  override def not = PropertyIsNotEqualTo(name,literal)
 }
