@@ -65,7 +65,7 @@ case class UpdateFormat(id:String,name:String,version:String)
  *
  */
 case class DeleteFormat(forceDelete:Boolean)
-  extends AbstractGetRequest[Int,IdValue]( "format", DeletedSharedObjectIdFactory,
+  extends AbstractGetRequest[Int,IdValue]( "format", new DeletedSharedObjectIdFactory(),
     P("action", "DELETE"),
     IdP("id"),
     SP("testing" -> true),

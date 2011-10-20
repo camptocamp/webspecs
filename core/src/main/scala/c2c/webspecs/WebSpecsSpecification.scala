@@ -1,5 +1,7 @@
 package c2c.webspecs
 
+import org.specs2.runner.JUnitRunner
+import org.junit.runner.RunWith
 import org.specs2.Specification
 import org.specs2.specification.{Then, When, Given, RegexStep}
 import org.specs2.execute.Result
@@ -12,7 +14,7 @@ import org.specs2.matcher.Matcher
 /**
  * Contains methods commons to many WebSpecs Specifications
  */
-
+@RunWith(classOf[JUnitRunner]) 
 trait WebSpecsSpecification[C <: Config] extends Specification {
   implicit val config:C
   implicit val context = new DefaultExecutionContext()

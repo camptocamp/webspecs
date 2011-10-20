@@ -49,7 +49,7 @@ object WebSpecsBuild extends Build
 	  settings( sharedSettings ++ coreSettings :_*)
   
   // ------------------------------ Geonetwork Project ------------------------------ //
-	 /*
+	 
 	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")).
 	  dependsOn(core % "test->test").settings(sharedSettings:_*)
 	  
@@ -57,7 +57,12 @@ object WebSpecsBuild extends Build
 
 	lazy val geocat = Project("geocat", file("geonetwork/geocat")).
 	  dependsOn (core % "test->test", geonetwork % "test->test", selenium) settings (sharedSettings:_*)
-*/
+
+  // ------------------------------ Geocat Project ------------------------------ //
+
+	lazy val geoserver = Project("geoserver", file("geoserver")).
+	  dependsOn (core % "test->test", selenium) settings (sharedSettings:_*)
+
   // ------------------------------ Selenium Project ------------------------------ //
 	
   val seleniumVersion = "0.9.7376"
@@ -73,7 +78,7 @@ object WebSpecsBuild extends Build
   
   lazy val selenium = Project("selenium",file("selenium")).
     settings (sharedSettings ++ seleniumSettings :_*)
-/*
+
   // ------------------------------ Suites Project ------------------------------ //
   lazy val apps = Project("apps",file("apps")).
     dependsOn (geocat % "compile->test",geonetwork % "compile->test").
@@ -85,12 +90,15 @@ object WebSpecsBuild extends Build
       sources in Docs <<=
         (sources in (core,Compile),
         sources in (geonetwork,Test),
-        sources in (geocat,Test)) map { _ ++ _ ++ _ filterNot {_.getPath matches """(\S+accumulating.Accumulat\S+\d+\.scala)"""}}
+        sources in (geocat,Test),
+        sources in (apps,Compile),
+        sources in (geoserver,Test)
+	   ) map { _ ++ _ ++ _ ++ _ ++ _ filterNot {_.getPath matches """(\S+accumulating.Accumulat\S+\d+\.scala)"""}}
     )
   lazy val docsProj:Project = Project("documentation", file("docsProj")).
     dependsOn(core % "compile -> test").
     settings(sharedSettings ++ docsSettings :_*)
-*/
+
   // ------------------------------ GenerateAccumClasses Command (Part of Core) ------------------------------ //
   
   val generateAccumClasses = Command.command("gen-classes") { state =>

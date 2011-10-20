@@ -130,7 +130,7 @@ case class RejectNonValidatedObject(sharedObjectId: String,
   rejectionMessage: String = "This is a test script rejecting your object, if this is a mistake please inform the system administrators")
   extends AbstractFormPostRequest[Any, IdValue](
     "reusable.reject",
-    DeletedSharedObjectIdFactory,
+    new DeletedSharedObjectIdFactory,
     P("id", sharedObjectId.toString),
     SP("testing" -> true),
     P("type", sharedType.toString),
@@ -170,6 +170,6 @@ case class UpdateSharedObject(xmlData: Node, defaultLang: String = "EN")
   def createValue(rawValue: BasicHttpValue): NodeSeq = rawValue.toXmlValue.getXml
 }
 
-object DeletedSharedObjectIdFactory extends BasicValueFactory[IdValue] {
+class DeletedSharedObjectIdFactory extends BasicValueFactory[IdValue] {
   def createValue(rawValue: BasicHttpValue): IdValue = (rawValue.toXmlValue.getXml \\ "id" map {n => IdValue(n.text,rawValue)}).headOption.getOrElse(IdValue(null, rawValue))    
 }

@@ -5,7 +5,7 @@ package geocat
 case class DeleteSharedUser(id:String, forceDelete:Boolean) 
     extends AbstractGetRequest(
         "shared.user.remove",
-        DeletedSharedObjectIdFactory, 
+        new DeletedSharedObjectIdFactory(), 
         P("id",id), 
         SP("forceDelete", forceDelete),
         SP("testing" -> true)
