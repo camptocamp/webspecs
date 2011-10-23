@@ -86,7 +86,6 @@ class WFSSpec extends GeoserverSpecification {
         case _ => throw new IllegalStateException("boom")
       }
       val response = XmlPostRequest(GeoserverRequests.url(None, "wfs"),xml)()
-      println(response.value.getXml)
       (response.value.getXml must \\("FeatureCollection")) and
       	(response.value.getXml must \\("featureMembers")) and
       	(response.value.getXml \\ featureTypeName must haveSize(1))
