@@ -51,6 +51,15 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   def beA200ResponseCode = haveAResponseCode(200)
   val a200ResponseThen = (r:Response[Any], _:String) => r must haveA200ResponseCode
 
+  def haveOperation(opName:String) =
+      haveAttribute("Operation", "name", opName)
+  
+  def haveAttribute(elemName:String, attName:String, expected:String):Matcher[Response[XmlValue]] = 
+      ((response:Response[XmlValue]) => ((response.value.getXml \\ elemName \@ attName) contains(expected)), 
+       (resp:Response[XmlValue]) => "No "+elemName+" was found with the "+attName+" attribute "+expected+" in "+
+    		   (resp.value.getXml \\ elemName \@ attName))
+    		   
+    		   
   /* Support for creating given and toThen's */
   object Extracts extends RegexStep[Unit, Any]("")
   def extract1(text:String) = Extracts.extract1(text)

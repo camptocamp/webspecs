@@ -5,6 +5,7 @@ abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactor
   extends AbstractRequest[In,Out](valueFactory) {
   def request(in:In) = {
     val stringParams = params.map(p => p.name -> p.value(in))
-    new HttpGet(Config.resolveURI(uri,stringParams:_*))
+    val resolvedUri = Config.resolveURI(uri,stringParams:_*)
+    new HttpGet(resolvedUri)
   }
 }

@@ -8,7 +8,7 @@ import scala.xml.NodeSeq
 case class CswGetDomain(firstParam:DomainParam, params:DomainParam*)
   extends AbstractXmlPostRequest[Any,XmlValue]("csw", XmlValueFactory) {
 
-  val (propertyNames, parameterNames) = {
+  private[this] val (propertyNames, parameterNames) = {
     val (propertyNames, parameterNames) = params.partition(_.isInstanceOf[DomainProperty])
     firstParam match {
       case p:DomainParameter =>
@@ -18,7 +18,7 @@ case class CswGetDomain(firstParam:DomainParam, params:DomainParam*)
     }
   }
 
-  def xmlData =
+  val xmlData =
     <csw:GetDomain xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW">
       {
         if(propertyNames.nonEmpty) {

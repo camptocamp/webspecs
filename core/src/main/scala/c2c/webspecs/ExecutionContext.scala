@@ -10,6 +10,10 @@ import org.apache.http.client.methods.HttpRequestBase
 import org.apache.http.impl.client.DefaultHttpClient
 import org.apache.http.client.methods.HttpUriRequest
 import c2c.webspecs.login.LoginRequest
+import org.apache.http.impl.client.BasicAuthCache
+import org.apache.http.impl.auth.BasicScheme
+import org.apache.http.client.protocol.ClientContext
+import org.apache.http.HttpHost
 
 object ExecutionContext {
   def apply[R](context:ExecutionContext)(f : ExecutionContext => R):R = {
@@ -28,6 +32,7 @@ trait ExecutionContext {
 
   var currentUser:Option[(LoginRequest,ExecutionContext.Response)] = None
 
+  def logout:Unit
   def httpClient:HttpClient
   def createHttpContext:() => HttpContext
   val conn: ClientConnectionManager = httpClient.getConnectionManager
@@ -52,6 +57,14 @@ trait ExecutionContext {
       }
 
       val localContext = createHttpContext()
+      // Create AuthCache instance
+      val authCache = new BasicAuthCache();
+      // Generate BASIC scheme object and add it to the local auth cache
+      val basicAuth = new BasicScheme();
+      authCache.put(new HttpHost(request.getURI().getHost()), basicAuth);
+      // Add AuthCache to the execution context
+      localContext.setAttribute(ClientContext.AUTH_CACHE, authCache);        
+
       val response = httpClient.execute(request,localContext);
       val finalHost = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_TARGET_HOST).toString
       val finalURI = localContext.getAttribute(org.apache.http.protocol.ExecutionContext.HTTP_REQUEST) match {

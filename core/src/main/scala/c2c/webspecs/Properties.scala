@@ -138,7 +138,7 @@ object Properties {
 
     def load(file: String): InputStreamResource[InputStream] = {
       val relativePath = Path(baseDir) \ file
-      val rawPath = Path(file)
+      val rawPath = Path(file) 
       val cl = Thread.currentThread().getContextClassLoader
       val relativeResource = cl.getResource(baseDir+"/"+file)
       val rawResource = cl.getResource(file)

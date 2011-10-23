@@ -16,6 +16,7 @@ class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] wit
         client.getParams.setParameter(AuthPNames.TARGET_AUTH_PREF, BASIC :: DIGEST :: Nil asJava)
         val cred = new UsernamePasswordCredentials(user,pass)
         client.getCredentialsProvider.setCredentials(AuthScope.ANY,cred)
+        
       case _ =>
         throw new IllegalStateException(getClass.getSimpleName+" does not apply to "+context.httpClient.getClass.getName)
     }

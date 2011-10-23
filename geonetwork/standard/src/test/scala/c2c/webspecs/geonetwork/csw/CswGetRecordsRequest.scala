@@ -17,6 +17,6 @@ case class CswGetRecordsRequest(filter:NodeSeq=Nil,
                                 sortBy:Seq[SortBy] = Nil)
   extends AbstractXmlPostRequest[Any,XmlValue](url, XmlValueFactory) {
 
-  def xmlData = CswXmlUtil.getRecordsXml( filter, resultType, outputSchema, startPosition, maxRecords, elementSetName,sortBy)
+  val xmlData = CswXmlUtil.getRecordsXml( filter, resultType, outputSchema, startPosition, maxRecords, elementSetName,sortBy)
   override def toString() = "CswGetRecordsRequest(<filter>,"+resultType+","+outputSchema+","+startPosition+","+maxRecords+","+elementSetName+")"
 }

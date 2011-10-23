@@ -6,18 +6,13 @@ import java.io.StringWriter
 
 
 abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueFactory[In,Out])
-  extends AbstractRequest(valueFactory) {
-  override def request(in:In) = {
+  extends AbstractStringPostRequest(uri, valueFactory) {
+  val xmlData:xml.NodeSeq
+  final val data = {
     val out = new StringWriter()
     XML.write(out, xmlData.head, "UTF-8",true,null) 
-    Log.apply(Log.RequestXml, out.toString())
-    val post = new HttpPost(Config.resolveURI(uri))
-    post.setEntity(new StringEntity(out.toString(),"UTF-8"));
-    post.setHeader("Content-type", "text/xml; charset=utf-8");
-    post
+    out
   }
-
-  def xmlData:xml.NodeSeq
-
+  override val contentType = "text/xml; charset=utf-8" 
   override def toString() = "XmlRequest("+uri+")"
 }

@@ -33,11 +33,12 @@ object WebSpecsBuild extends Build
   val coreDependencies = Seq(
     "org.specs2" %% "specs2" % "1.6.1",
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
-    "org.apache.httpcomponents" % "httpclient" % "4.1",
-    "org.apache.httpcomponents" % "httpmime" % "4.1",
+    "org.apache.httpcomponents" % "httpclient" % "4.1.2",
+    "org.apache.httpcomponents" % "httpmime" % "4.1.2",
     "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0",
     "org.pegdown" % "pegdown" % "1.0.2",
-    "junit" % "junit" % "4.9"
+    "junit" % "junit" % "4.9",
+		"net.liftweb" %% "lift-json" % "2.4-M4"
   )
   
   val coreSettings = Seq[Setting[_]](
@@ -51,17 +52,22 @@ object WebSpecsBuild extends Build
   // ------------------------------ Geonetwork Project ------------------------------ //
 	 
 	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")).
-	  dependsOn(core % "test->test").settings(sharedSettings:_*)
+	  dependsOn(core).settings(sharedSettings:_*)
 	  
   // ------------------------------ Geocat Project ------------------------------ //
 
 	lazy val geocat = Project("geocat", file("geonetwork/geocat")).
-	  dependsOn (core % "test->test", geonetwork % "test->test", selenium) settings (sharedSettings:_*)
+	  dependsOn (core, geonetwork % "test->test", selenium) settings (sharedSettings:_*)
 
   // ------------------------------ Geocat Project ------------------------------ //
 
 	lazy val geoserver = Project("geoserver", file("geoserver")).
-	  dependsOn (core % "test->test", selenium) settings (sharedSettings:_*)
+	  dependsOn (core, selenium) settings (sharedSettings:_*)
+
+  // ------------------------------ Geocat Project ------------------------------ //
+
+	lazy val georchestra = Project("georchestra", file("georchestra")).
+	  dependsOn (geoserver % "test->test", selenium) settings (sharedSettings:_*)
 
   // ------------------------------ Selenium Project ------------------------------ //
 	
@@ -92,8 +98,9 @@ object WebSpecsBuild extends Build
         sources in (geonetwork,Test),
         sources in (geocat,Test),
         sources in (apps,Compile),
-        sources in (geoserver,Test)
-	   ) map { _ ++ _ ++ _ ++ _ ++ _ filterNot {_.getPath matches """(\S+accumulating.Accumulat\S+\d+\.scala)"""}}
+        sources in (geoserver,Test),
+        sources in (georchestra,Test)
+	   ) map { _ ++ _ ++ _ ++ _ ++ _ ++ _ filterNot {_.getPath matches """(\S+accumulating.Accumulat\S+\d+\.scala)"""}}
     )
   lazy val docsProj:Project = Project("documentation", file("docsProj")).
     dependsOn(core % "compile -> test").

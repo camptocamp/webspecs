@@ -28,7 +28,7 @@ object Config {
   def resolveURI(uri:String,params:(String,String)*) = {
     loadStrategy[UriResolver]("uriResolver") fold (
       _ => uri,
-      _.newInstance()(uri,params)
+      _.newInstance()(uri, params)
     )
   }
 }

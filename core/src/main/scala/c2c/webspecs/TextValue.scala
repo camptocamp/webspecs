@@ -10,4 +10,5 @@ trait TextValue {
     case Left(error) => Left(error)
   }
   def withText[R](f:String => R):R = text.fold(throw _, f)
+  lazy val getText = withText(s => s)
 }
