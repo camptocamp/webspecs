@@ -7,10 +7,10 @@ import DomainParameters._
 import c2c.webspecs.login.LoginRequest
 object CswGetRecordsApp extends App {
   ExecutionContext.withDefault{ implicit context =>
-  	LoginRequest("admin","admin")
+  	//LoginRequest("admin","admin")()
 //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
-  	val filter = PropertyIsEqualTo("protocol", "OGC:WMS-1.1.1-http-get-map")
-    val res = CswGetRecordsRequest(filter.xml, resultType=ResultTypes.resultsWithSummary)()
-    res.value.xml.right.get \\ "id" foreach (id => println(id.text))
+  	val filter = PropertyIsEqualTo("keyword", "e-geo.ch geoportal")
+    val res = CswGetRecordsRequest(filter.xml, resultType=ResultTypes.hits, maxRecords = 1000)()
+    println(res.value.getXml)
   }
 }

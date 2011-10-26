@@ -20,10 +20,11 @@ abstract class BasicServerResolver(scheme:String, autoAddSegment:String) extends
       uri + sep + paramString
     } else {
       
-      val serviceUrl = 
-        if(segments contains autoAddSegment) (scheme+":/") :: baseURL :: uri :: Nil mkString "/"
-        else (scheme+":/") :: baseURL :: autoAddSegment :: uri :: Nil mkString "/"
+      val serviceUrlParts = 
+        if(segments contains autoAddSegment) (scheme+":/") :: baseURL :: uri :: Nil
+        else (scheme+":/") :: baseURL :: autoAddSegment :: uri :: Nil
 
+      val serviceUrl = serviceUrlParts.filterNot(_.isEmpty()).mkString("/")
       if (params.isEmpty) {
         serviceUrl
       } else {

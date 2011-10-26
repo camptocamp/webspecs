@@ -15,7 +15,6 @@ class SecuritySpec extends GeoserverSpecification {
       "A GetMap request of a protected layer when authorized must result in an image" ! protectedAuthorized
 
   def protectedNonAuthorized = {
-		  val protectedLayer = Properties("geoserver.protected.layer")
     pending
   }
   def protectedAuthorized = {

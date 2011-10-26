@@ -17,14 +17,4 @@ class DefaultExecutionContext(httpClientFactory: => HttpClient = new DefaultHttp
   httpClient.getConnectionManager().asInstanceOf[ThreadSafeClientConnManager].setMaxTotal(50)
 
   def createNew = new DefaultExecutionContext(httpClientFactory, createHttpContext)
-  def logout: Unit = {
-    currentUser = None
-    httpClient match {
-      case client: DefaultHttpClient =>
-        client.getParams.setParameter(AuthPNames.TARGET_AUTH_PREF, Nil asJava)
-        client.getCredentialsProvider.clear()
-      case _ =>
-        ()
-    }
-  }
 }

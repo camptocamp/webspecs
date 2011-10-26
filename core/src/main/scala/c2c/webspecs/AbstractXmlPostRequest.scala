@@ -8,7 +8,7 @@ import java.io.StringWriter
 abstract class AbstractXmlPostRequest[-In, +Out](uri:String, valueFactory:ValueFactory[In,Out])
   extends AbstractStringPostRequest(uri, valueFactory) {
   val xmlData:xml.NodeSeq
-  final val data = {
+  final lazy val data = {
     val out = new StringWriter()
     XML.write(out, xmlData.head, "UTF-8",true,null) 
     out

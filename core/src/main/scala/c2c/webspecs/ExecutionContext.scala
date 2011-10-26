@@ -32,7 +32,6 @@ trait ExecutionContext {
 
   var currentUser:Option[(LoginRequest,ExecutionContext.Response)] = None
 
-  def logout:Unit
   def httpClient:HttpClient
   def createHttpContext:() => HttpContext
   val conn: ClientConnectionManager = httpClient.getConnectionManager

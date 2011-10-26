@@ -27,3 +27,21 @@ class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] wit
   override def toString() = "BasicAuthLogin(%s,xxx)".format(user)
 }
 
+ 
+class BasicAuthLogout extends Request[Any,Null] with LogoutRequest {
+  def apply (in: Any)(implicit context:ExecutionContext) = {
+    context.currentUser = None
+    import AuthPolicy._
+    context.httpClient match {
+      case client:DefaultHttpClient =>
+        client.getCredentialsProvider.clear()
+      case _ =>
+        throw new IllegalStateException(getClass.getSimpleName+" does not apply to "+context.httpClient.getClass.getName)
+    }
+
+    EmptyResponse
+  }
+
+  override def toString() = "BasicAuthLogout"
+  
+}

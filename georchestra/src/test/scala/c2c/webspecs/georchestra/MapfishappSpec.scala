@@ -27,7 +27,7 @@ class MapfishappSpec extends GeorchestraSpecification {
     |"class_count": 5,
     |"first_color": "#FFFFFF",
     |"last_color": "#497BD1"
-    |}""".stripMargin.trim.replace("\n", "").format(Properties.testServer, Properties("wfs.layer").get, Properties("wfs.layer.choropleths.attribute").get)
+    |}""".stripMargin.trim.replace("\n", "").format(Properties.testServer, Properties("geoserver.protected.vector.layer").get, Properties("geoserver.protected.vector.layer.choropleths.attribute").get)
     val response = StringPostRequest("mapfishapp/ws/sld/", json, "text/json; charset=utf-8")()
     (response must haveA200ResponseCode) and
       (response.value.getText must /("success" -> true)) and 

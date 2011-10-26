@@ -19,6 +19,7 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
     def examplesLinks(t: String) = {
   val specs = List(
       classOf[MapfishappSpec],
+      classOf[ExtractorappSpec],
       classOf[SecuritySpec],
       classOf[WFSSpec]
 	).flatMap{s => createSpecification(s.getName)}
