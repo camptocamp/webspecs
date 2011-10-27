@@ -52,7 +52,7 @@ class AddSharedExtentsSpec extends GeocatSpecification { def is =
     }
 
     val fullExtent = extentXML(xml)
-    (config.adminLogin then ProcessSharedObject(fullExtent, addOnly = true))(None)
+    (config.adminLogin then ProcessSharedObject(fullExtent, addOnly = true)).execute()
   }
   val hrefInElementWithString = (result:Response[NodeSeq],s:String) => {
     val (format,extentTC) = extract2(s)
@@ -69,7 +69,7 @@ class AddSharedExtentsSpec extends GeocatSpecification { def is =
     val (format,typeCode) = extract2(s)
 
     val href = (result.value \\ "extent" \@ "xlink:href").head
-    val xlink = ResolveXLink(href)
+    val xlink = ResolveXLink.execute(href)
     val localisedNodes = xlink.value.withXml{_ \\ "LocalisedCharacterString" map (_.text.trim)}
     val extentTypeCode = xlink.value.withXml{_ \\ "extentTypeCode"}
     val polygon = xlink.value.withXml{_ \\ "polygon"}
@@ -104,11 +104,11 @@ class AddSharedExtentsSpec extends GeocatSpecification { def is =
   }
 
   val Search = SearchExtent(typeName = List(Extents.NonValidated))
-  def newExtent = Search(uuid.toString).value must not beEmpty
+  def newExtent = Search.execute(uuid.toString).value must not beEmpty
 
-  val deleteNewExtent = () => Search(uuid.toString).value.flatMap{c =>
+  val deleteNewExtent = () => Search.execute(uuid.toString).value.flatMap{c =>
     val request = config.adminLogin then DeleteExtent(Extents.NonValidated, c.id, true) then Search.copy(property = Extents.IdProperty).setIn(c.id)
-    request.apply(None).value
+    request.execute().value
   }
 
   val noSharedExtent = (_:List[ExtentSummary]) must beEmpty
@@ -131,7 +131,7 @@ class AddSharedExtentsSpec extends GeocatSpecification { def is =
     		{noHrefXml.child}
       </gmd:extent>
     
-    val updateResponse = (UpdateSharedObject(xml) startTrackingThen GetRequest(href))(None)
+    val updateResponse = (UpdateSharedObject(xml) startTrackingThen GetRequest(href)).execute()
     
     updateResponse._1.map{_ => updateResponse.last.value}
   }

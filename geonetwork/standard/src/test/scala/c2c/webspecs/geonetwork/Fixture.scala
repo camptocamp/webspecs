@@ -27,11 +27,11 @@ object GeonetworkFixture {
         profile = profile) 
 
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteUser(id))(None)(context)
+      (config.adminLogin then DeleteUser(id)).execute()(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val userReq = user
-      val createResponse = (config.adminLogin then CreateUser(userReq))(None)(context)
+      val createResponse = (config.adminLogin then CreateUser(userReq)).execute()(context)
       _id = createResponse.value.userId
     }
   }
@@ -48,11 +48,11 @@ object GeonetworkFixture {
     lazy val id = uuid
     
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteKeyword(thesaurus,namespace,id,true))(None)(context)
+      (config.adminLogin then DeleteKeyword(thesaurus,namespace,id,true)).execute()(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val request = (config.adminLogin then CreateKeyword(namespace,id,thesaurus,"EN" -> en, "FR" -> fr, "DE" -> de, "IT" -> it))
-      request(None)(context)
+      request.execute()(context)
     }
   }
 }

@@ -29,7 +29,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
   val importISO19139CCHE = (_:String) => {
     val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)
     
-    val response = (importMd startTrackingThen GetRawMetadataXml)(ImportStyleSheets.NONE)
+    val response = (importMd startTrackingThen GetRawMetadataXml).execute()
 
     response:ImportResponseType
     
@@ -67,7 +67,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
 
   val cswGetInsertedMd = (response:ImportResponseType) => {
     val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
-    val md = CswGetByFileId(fileId, OutputSchemas.IsoRecord)(None)
+    val md = CswGetByFileId(fileId, OutputSchemas.IsoRecord).execute()
     (md must haveA200ResponseCode) and
       (md.value.withXml {_ \\ "GetRecordByIdResponse" must not beEmpty})
   }
@@ -75,7 +75,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
   val cswGetInsertedMdByCswGetRecords = (response:ImportResponseType) => {
     val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
     val filter = PropertyIsEqualTo("Identifier", fileId).xml
-	val md = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.IsoRecord, resultType = ResultTypes.results)(None)
+	val md = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.IsoRecord, resultType = ResultTypes.results)()
 	val xml = md.value.getXml
 	(md must haveA200ResponseCode) and
 		((xml \\ "SearchResults" \@ "numberOfRecordsReturned").head.trim.toInt must be_>= (1)) and
@@ -84,7 +84,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
   
   val deleteMetadata = (response:ImportResponseType) => {
     val id = response._1.value
-    DeleteMetadata(id)
+    DeleteMetadata.execute(id)
     success
   }
 }

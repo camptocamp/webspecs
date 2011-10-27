@@ -33,7 +33,7 @@ class DeletedValidatedSharedObjectSpec extends DeletedNonValidatedSharedObjectSp
                                                                                               Step(tearDown)
 
   override def doFindSharedContact = {
-    val list = GeocatListUsers(contactSpec.uuid.toString)
+    val list = GeocatListUsers.execute(contactSpec.uuid.toString)
     list.value.headOption.map { contact =>
       new {
         def id = contact.userId
@@ -51,7 +51,7 @@ class DeletedValidatedSharedObjectSpec extends DeletedNonValidatedSharedObjectSp
     }
   }*/
   override def doFindSharedFormat = {
-    val formats = ListFormats(formatSpec.uuid.toString).value
+    val formats = ListFormats.execute(formatSpec.uuid.toString).value
     formats.headOption map { format =>
       new {
         def id = format.id.toString
@@ -60,7 +60,7 @@ class DeletedValidatedSharedObjectSpec extends DeletedNonValidatedSharedObjectSp
     }
   }
   override def doFindSharedExtent = {
-    val extents = SearchExtent(format = ExtentFormat.gmd_bbox, typeName = List(Extents.Validated))(extentSpec.uuid.toString)
+    val extents = SearchExtent(format = ExtentFormat.gmd_bbox, typeName = List(Extents.Validated)).execute(extentSpec.uuid.toString)
     extents.value.headOption map { extent =>
       new {
         def id = extent.id
@@ -70,13 +70,13 @@ class DeletedValidatedSharedObjectSpec extends DeletedNonValidatedSharedObjectSp
   }
   def validateSharedObjects = {
     val contact = super.findSharedContact.get
-    val validateContactResult = ValidateSharedObject(contact.id, contact.objType)()
+    val validateContactResult = ValidateSharedObject(contact.id, contact.objType).execute()
     val format = super.findSharedFormat.get
-    val validateFormatResult = ValidateSharedObject(format.id, format.objType)()
+    val validateFormatResult = ValidateSharedObject(format.id, format.objType).execute()
     val extent = super.findSharedExtent.get
-    val validateExtentResult = ValidateSharedObject(extent.id, extent.objType)()
+    val validateExtentResult = ValidateSharedObject(extent.id, extent.objType).execute()
     val keyword = super.findSharedKeyword.get
-    val validateKeywordResult = ValidateSharedObject(keyword.id, keyword.objType)()
+    val validateKeywordResult = ValidateSharedObject(keyword.id, keyword.objType).execute()
 
     (validateContactResult must haveA200ResponseCode) and
     (validateExtentResult must haveA200ResponseCode) and
@@ -92,10 +92,10 @@ class DeletedValidatedSharedObjectSpec extends DeletedNonValidatedSharedObjectSp
   }
   
   def indexIsCorrect = {
-    (ListReferencingMetadata(findSharedContact.get.id, SharedObjectTypes.contacts)().value must beEmpty) and
-        (ListReferencingMetadata(findSharedExtent.get.id, SharedObjectTypes.extents)().value must beEmpty) and
-        (ListReferencingMetadata(findSharedFormat.get.id, SharedObjectTypes.formats)().value must beEmpty) and 
-        (ListReferencingMetadata(findSharedKeyword.get.id, SharedObjectTypes.keywords)().value must beEmpty)
+    (ListReferencingMetadata(findSharedContact.get.id, SharedObjectTypes.contacts).execute().value must beEmpty) and
+        (ListReferencingMetadata(findSharedExtent.get.id, SharedObjectTypes.extents).execute().value must beEmpty) and
+        (ListReferencingMetadata(findSharedFormat.get.id, SharedObjectTypes.formats).execute().value must beEmpty) and 
+        (ListReferencingMetadata(findSharedKeyword.get.id, SharedObjectTypes.keywords).execute().value must beEmpty)
   }
   def allXLinksValidated = {
     val xlinks = getMetadataWithXLinks.getXml \\ "_" filter { _ @@ "xlink:href" nonEmpty}

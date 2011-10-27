@@ -27,10 +27,10 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
 							"password" -> Properties("geocat.admin.password"))
 							ExecutionContext.withDefault { prodContext =>
 							implicit val c = prodContext
-							geocatLogin(Nil)
+							geocatLogin.execute()
 
 							val filter = PropertyIsEqualTo("_isHarvested", "n")
-							val xmlRet = XmlPostRequest(prodUrl + "csw", CswXmlUtil.getRecordsXml(filter = filter.xml, maxRecords = 10000))(Nil).value.getXml
+							val xmlRet = XmlPostRequest(prodUrl + "csw", CswXmlUtil.getRecordsXml(filter = filter.xml, maxRecords = 10000)).execute().value.getXml
 							println(xmlRet)
 
 							val numRecords = (xmlRet \\ "SearchResults" \@ "numberOfRecordsMatched").head.toInt
@@ -43,7 +43,7 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
 										filter = filter.xml,
 										resultType = ResultTypes.resultsWithSummary,
 										outputSchema = CheRecord,
-										maxRecords = pageSize))(Nil).value.getXml
+										maxRecords = pageSize)).execute().value.getXml
 										//println(xmlCurrent)
 										val mds = (xmlCurrent \\ "MD_Metadata") ++ (xmlCurrent \\ "CHE_MD_Metadata")
 										assert(mds.size == pageSize || mds.size == numRecords % pageSize)
@@ -72,9 +72,9 @@ class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatc
     
     val mdFromGeocatWithoutInfoInfoXml = new RuleTransformer(RemoveGeonetInfo)(md)
 
-    config.adminLogin(None)
+    config.adminLogin.execute()
     
-    val mdFromLocalCatalogue = GetRawMetadataXml(Id(mdIds.head))
+    val mdFromLocalCatalogue = GetRawMetadataXml.execute(Id(mdIds.head))
     val mdErrorAnchors = mdFromLocalCatalogue.value.getHtml \\ "error"
     (mdFromLocalCatalogue.value.getXml must beEqualToIgnoringSpace(mdFromGeocatWithoutInfoInfoXml) and
     	(mdErrorAnchors must beEmpty))

@@ -26,14 +26,14 @@ class MonitoringSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 			
 			
   lazy val getMonitoringXmlReport = {
-  	val xmlMonitoringResult = GetRequest("monitoring")(Nil)
+  	val xmlMonitoringResult = GetRequest("monitoring").execute()
 	xmlMonitoringResult must haveA200ResponseCode
   	val response = xmlMonitoringResult.value.getXml
     response
   }
 
   def testMonitoringReport =  {
-    val ret = GetRequest("monitoring.report")(Nil)
+    val ret = GetRequest("monitoring.report").execute()
     ret must haveA200ResponseCode
   }
 

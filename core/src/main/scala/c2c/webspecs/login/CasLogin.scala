@@ -16,7 +16,7 @@ import org.apache.http.client.utils.URIUtils
  * Requires property casURL
  */
 class CasLogin(val user:String, pass:String) extends Request[Any,XmlValue] with LoginRequest {
-  def apply(in: Any)(implicit context: ExecutionContext) = {
+  def execute(in: Any)(implicit context: ExecutionContext) = {
 
     // note redirecting is required for cas login to work and must be left on
     HttpClientParams.setRedirecting(context.httpClient.getParams, true)
@@ -62,9 +62,9 @@ class CasLogin(val user:String, pass:String) extends Request[Any,XmlValue] with 
       }
     }
 
-    val response = login(None)
+    val response = login.execute()
     //assert(response.basicValue.responseCode == 200, "Login failed. reponseCode = "+response.basicValue.responseCode)
-    assert(GetRequest("config")(None).basicValue.responseCode != 403, "Login failed")
+    assert(GetRequest("config").execute().basicValue.responseCode != 403, "Login failed")
 
     response
   }

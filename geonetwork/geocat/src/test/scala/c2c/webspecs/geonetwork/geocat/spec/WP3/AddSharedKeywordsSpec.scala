@@ -33,10 +33,10 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
     "Must correctly delete said keyword"                                                                         ! noKeyword
                                                                                                                   Step(tearDown)
 
-  def keywordAdd(deValue:String) = () => (config.adminLogin then ProcessSharedObject(keywordXML(deValue)))(None)
+  def keywordAdd(deValue:String) = () => (config.adminLogin then ProcessSharedObject(keywordXML(deValue))).execute()
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     val href = (result.value \\ "descriptiveKeywords" \@ "xlink:href")(0)
-    val xlink = ResolveXLink(href)
+    val xlink = ResolveXLink.execute(href)
     (xlink must haveA200ResponseCode) and
       haveCorrectTranslation (xlink, "#DE", deValue) and
       haveCorrectTranslation (xlink, "#EN", enValue) and
@@ -50,10 +50,10 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
       xml \\ nodeName find {_ @@ "locale" == List(locale)} map (_.text) aka repr must beSome(expected)}
 
   def Search = SearchKeywords(List(NON_VALIDATED_THESAURUS))
-  def onlyKeywordInstance = Search(frValue).value.filter(_.value == frValue) must haveSize(1)
+  def onlyKeywordInstance = Search.execute(frValue).value.filter(_.value == frValue) must haveSize(1)
 
   val updateKeyword = () => {
-    val uri = Search(frValue).value.head.uri.encode
+    val uri = Search.execute(frValue).value.head.uri.encode
     val xml = 
       <gmd:descriptiveKeywords
     		xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -64,10 +64,10 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
     		{keywordXML(newDeValue).child}
       </gmd:descriptiveKeywords>
  
-    val response = (config.adminLogin then UpdateSharedObject(xml) startTrackingThen Search.setIn(frValue))(None)
+    val response = (config.adminLogin then UpdateSharedObject(xml) startTrackingThen Search.setIn(frValue)).execute()
     assert(response.last.value.size == 1, "Expected a single keyword with "+frValue)
     val keyword = response.last.value.head
-    val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr"))(keyword.uri)
+    val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr")).execute(keyword.uri)
     response._1.map(_ => isoKeyword.value)
   }
   
@@ -76,9 +76,9 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
     		(resp.value.label("FR") aka "french translation" must_== frValue) and
     		(resp.value.label("EN") aka "english translation" must_== enValue)
   
-  def deleteNewKeyword = Search(frValue).value.foreach{c => 
-    DeleteKeyword(NON_VALIDATED_THESAURUS,c.namespace,c.code,true)(None)}
-  def noKeyword = Search(frValue).value must beEmpty
+  def deleteNewKeyword = Search.execute(frValue).value.foreach{c => 
+    DeleteKeyword(NON_VALIDATED_THESAURUS,c.namespace,c.code,true).execute()}
+  def noKeyword = Search.execute(frValue).value must beEmpty
 
   lazy val deValue = uuid+"de*automated*"
   lazy val newDeValue = uuid+"NewDe*automated*"

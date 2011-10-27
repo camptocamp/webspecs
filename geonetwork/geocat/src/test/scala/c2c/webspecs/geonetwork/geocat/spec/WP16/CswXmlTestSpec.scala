@@ -57,13 +57,13 @@ class CswXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 			
   lazy val importMetadataId = {
     val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
-	val md = (importMdRequest then GetRawMetadataXml)(ImportStyleSheets.NONE).value.getXml
+	val md = (importMdRequest then GetRawMetadataXml).execute().value.getXml
 	val response = (md \\ "fileIdentifier").text.trim
 	response
   }
 
     def deleteMetadata = {
-		  GetRequest("metadata.delete", ("uuid" -> importMetadataId))(Nil)
+		  GetRequest("metadata.delete", ("uuid" -> importMetadataId)).execute()
 
     }
 

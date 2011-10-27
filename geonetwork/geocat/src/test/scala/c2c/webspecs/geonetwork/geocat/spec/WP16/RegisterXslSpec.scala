@@ -35,7 +35,7 @@ class RegisterXslSpec extends GeocatSpecification() {  def is =
 			
   lazy val importMetadataId = {
     	val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
-    	val (importId, mdValue)= (importMdRequest startTrackingThen GetRawMetadataXml)(ImportStyleSheets.NONE).values
+    	val (importId, mdValue)= (importMdRequest startTrackingThen GetRawMetadataXml).execute().values
     	registerNewMd(importId)
     	val fileId = (mdValue.getXml \\ "fileIdentifier").text.trim
     	fileId
@@ -53,7 +53,7 @@ class RegisterXslSpec extends GeocatSpecification() {  def is =
     }
     def testXslCustomTransform = (desc:String) => {
     	def name = extract1(desc)
-		GetRequest("metadata.formatter.html", "uuid" -> importMetadataId, "xsl" -> xslId(name))(Nil) must haveA200ResponseCode
+		GetRequest("metadata.formatter.html", "uuid" -> importMetadataId, "xsl" -> xslId(name)).execute() must haveA200ResponseCode
     }
 			
     override def extraTeardown(teardownContext:ExecutionContext):Unit = {
@@ -64,6 +64,6 @@ class RegisterXslSpec extends GeocatSpecification() {  def is =
     def deleteXslStyleSheets= {
 	  List("bs_extended_test_110718.xsl",
 	       "bs_full_test_110718.xsl",
-	       "bs_simple_test_110718.xsl").foreach { n => GetRequest("metadata.xsl.remove", ("id" -> xslId(n)))(Nil)  must haveA200ResponseCode }
+	       "bs_simple_test_110718.xsl").foreach { n => GetRequest("metadata.xsl.remove", ("id" -> xslId(n))).execute()  must haveA200ResponseCode }
     }
 }

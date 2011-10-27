@@ -39,7 +39,7 @@ class CreateSpec extends GeonetworkSpecification { def is =
           DeleteMetadata trackThen
           GetRawMetadataXml)
 
-      request(None)
+      request.execute(None)
   }
   
 

@@ -18,16 +18,16 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
 	  implicit val currentScopeContext = teardownContext
 	  super.extraTeardown(teardownContext)
 
-	  config.adminLogin(None)
+	  config.adminLogin.execute(None)
 	  
-	  val newUsers = GeocatListUsers("").value.filter(user => user.username contains uuid.toString)
-	  newUsers.foreach(user => DeleteSharedUser(user.userId,true)(None))
+	  val newUsers = GeocatListUsers.execute("").value.filter(user => user.username contains uuid.toString)
+	  newUsers.foreach(user => DeleteSharedUser(user.userId,true).execute())
 	  
-	  val newFormats = ListFormats("").value filter (_.name contains uuid.toString)
-	  newFormats.foreach(format => DeleteFormat(true)(format.id))
+	  val newFormats = ListFormats.execute("").value filter (_.name contains uuid.toString)
+	  newFormats.foreach(format => DeleteFormat(true).execute(format.id))
 	  
 	  val thesauri = GeocatConstants.GEOCAT_THESAURUS :: GeocatConstants.NON_VALIDATED_THESAURUS :: Nil
-	  val newKeywords = SearchKeywords(thesauri)(uuid.toString).value
+	  val newKeywords = SearchKeywords(thesauri).execute(uuid.toString).value
 	  newKeywords.foreach(word => DeleteKeyword(word, true)())
 	}
 	

@@ -36,8 +36,8 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
   }
 
   def loadMetadata = {
-    val md1 = GetEditingMetadataXml(ImportTwoMetadata._1).value.getXml
-    val md2 = GetEditingMetadataXml(ImportTwoMetadata._2).value.getXml
+    val md1 = GetEditingMetadataXml.execute(ImportTwoMetadata._1).value.getXml
+    val md2 = GetEditingMetadataXml.execute(ImportTwoMetadata._2).value.getXml
 
     val contact1 =  md1 \\ "contact" filter (n => (n \\ "electronicMailAddress").text.trim == uuid + "@c2c.com")
     val href1 = (contact1.head @@ "xlink:href")
@@ -71,13 +71,13 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     val Create = CreateNonValidatedUser(User(uuid,SharedUserProfile))
     val newEmail = "newemail"+uuid+"@cc.cc"
     
-    config.adminLogin()
+    config.adminLogin.execute()
     
     val creation = Create()
-    val id = GeocatListUsers(uuid.toString()).value.head.userId
-    val update = new UpdateSharedUser(Create.user.copy(idOption = Some(id),email = newEmail),false)()
+    val id = GeocatListUsers.execute(uuid.toString()).value.head.userId
+    val update = new UpdateSharedUser(Create.user.copy(idOption = Some(id),email = newEmail),false).execute()
     val updatedUser = update.value.loadUser
-    val deleteUser = DeleteSharedUser(id,true)()
+    val deleteUser = DeleteSharedUser(id,true).execute()
 
     (creation.basicValue.responseCode must_== 200) and
     (updatedUser.email must_== newEmail) and  // id does not look up correct id for some reason :(
@@ -93,7 +93,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
 
     val (_, importMd) = ImportMetadata.defaults(uuid, "/geocat/data/" + name, false, getClass)
 
-    val originalMetadataValue = (UserLogin then importMd then GetEditingMetadataXml)(None).value
+    val originalMetadataValue = (UserLogin then importMd then GetEditingMetadataXml).execute().value
     val (id, originalXml) = (originalMetadataValue.id, originalMetadataValue.xml.right.get)
     
     registerNewMd(Id(id))
@@ -104,7 +104,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
 
     val validationResponse = (config.adminLogin then
       ValidateSharedObject(formatId, SharedObjectTypes.formats) then
-      GetEditingMetadataXml.setIn(Id(id)))(None)
+      GetEditingMetadataXml.setIn(Id(id))).execute()
 
     val mdAfterValidation = validationResponse.value.getXml
 
@@ -123,7 +123,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
 
     val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/"+name, false, getClass)
 
-    val originalMetadataValue = (UserLogin then importMd then GetEditingMetadataXml)(None).value
+    val originalMetadataValue = (UserLogin then importMd then GetEditingMetadataXml).execute().value
     val (id,originalXml) = (originalMetadataValue.id,originalMetadataValue.xml.right.get)
     registerNewMd(Id(id))
 
@@ -133,7 +133,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     val contactId = xlinks(0).id
     val afterValidation = (config.adminLogin
       then ValidateSharedObject(contactId,SharedObjectTypes.contacts) then
-      GetEditingMetadataXml.setIn(Id(id)))(None)
+      GetEditingMetadataXml.setIn(Id(id))).execute()
 
     afterValidation.value.withXml { xml =>
       val newXlinks = XLink.findAll(xml,AddSites.contact)

@@ -28,7 +28,7 @@ class ImportSpec extends GeocatSpecification {
       GetMetadataXml())
 
 
-    val (importResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
+    val (importResponse, findResponse,deleteResponse,secondFindResponse) = request.execute().tuple
     importResponse.basicValue.responseCode must_== 200
     findResponse.basicValue.responseCode must_== 200
     findResponse.value.withXml{ md  =>
@@ -53,7 +53,7 @@ class ImportSpec extends GeocatSpecification {
         GetMetadataXml()
       )
 
-      val (importResponse, findResponse,deleteResponse,secondFindResponse) = request(None).tuple
+      val (importResponse, findResponse,deleteResponse,secondFindResponse) = request.execute().tuple
 
       importResponse.basicValue.responseCode must_== 200
       findResponse.basicValue.responseCode must_== 200
@@ -77,7 +77,7 @@ class ImportSpec extends GeocatSpecification {
         DeleteMetadata trackThen
         GetMetadataXml())
 
-      val (importResponse, findResponse, deleteResponse, secondFindResponse) = request(None).tuple
+      val (importResponse, findResponse, deleteResponse, secondFindResponse) = request.execute().tuple
 
       importResponse.basicValue.responseCode must_== 200
       findResponse.basicValue.responseCode must_== 200

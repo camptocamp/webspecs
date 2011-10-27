@@ -21,7 +21,7 @@ class SandboxLifeCycle(config:GeonetConfig) extends SystemLifeCycle {
 
     val DeleteMetadata = GetUser.fromUserName(user) then DeleteOwnedMetadata
 
-    val response = (adminLogin then DeleteMetadata then DeleteGroup(groupId,true))(None)
+    val response = (adminLogin then DeleteMetadata then DeleteGroup(groupId,true)).execute()
     if(response.basicValue.responseCode > 200)
       throw new AssertionError("Error occurred during teardown.  Group was not deleted.  ResponseCode = "+response.basicValue.responseCode)
   }

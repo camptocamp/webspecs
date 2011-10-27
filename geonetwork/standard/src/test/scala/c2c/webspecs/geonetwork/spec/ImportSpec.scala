@@ -22,7 +22,7 @@ class ImportSpec extends GeonetworkSpecification {def is =
         DeleteMetadata trackThen
         GetMetadataXml())
 
-      val (importResponse, findResponse, deleteResponse, secondFindResponse) = request(None).tuple
+      val (importResponse, findResponse, deleteResponse, secondFindResponse) = request.execute().tuple
 
       (importResponse must haveA200ResponseCode) and
       (findResponse must haveA200ResponseCode) and

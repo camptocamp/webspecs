@@ -47,7 +47,7 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
 
   val listExtents = (s:String) => {
     val (search, format) = extract2(s)
-    SearchExtent(numResults = 10000, format = ExtentFormat.withName(format))(search):ListResponse
+    SearchExtent(numResults = 10000, format = ExtentFormat.withName(format)).execute(search):ListResponse
   }
   def findBern[U](response:ListResponse)(mapping: ExtentSummary => U) = response.value.find(_.id == "351").map(mapping)
   val l200Response = a200ResponseThen.narrow[ListResponse]
@@ -78,7 +78,7 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
     "wfs" -> "default",
     "format" -> extract1(s),
     "id" -> 351,
-    "typename" -> "gn:gemeindenBB")(None):Response[XmlValue]
+    "typename" -> "gn:gemeindenBB").execute():Response[XmlValue]
   val i200Response = a200ResponseThen.narrow[Response[XmlValue]]
   val bboxExtent = (response:Response[XmlValue]) => response.value.withXml{ _ must \\("EX_GeographicBoundingBox") }
   val polygonExtent = (response:Response[XmlValue]) => response.value.withXml{ _ must \\("EX_BoundingPolygon") }

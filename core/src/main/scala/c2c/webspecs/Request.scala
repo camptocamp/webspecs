@@ -17,7 +17,7 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager
 
 object Request {
   def const[A](in:A) = new Request[Any,A] {
-    def apply(empty: Any)(implicit context: ExecutionContext) = Response(in)
+    def execute(empty: Any)(implicit context: ExecutionContext) = Response(in)
   }
 }
 trait Request[-In, +Out] {
@@ -35,12 +35,12 @@ trait Request[-In, +Out] {
   def map[A] (mapping: Out => A):Request[In,A] = {
     val outer = this;
     new Request[In,A] {
-      def apply(in: In)(implicit context: ExecutionContext) = outer(in).map(mapping)
+      def execute(in: In)(implicit context: ExecutionContext) = outer.execute(in).map(mapping)
     }
   }
-  def apply (in: In)(implicit context:ExecutionContext) : Response[Out]
+  def execute (in: In)(implicit context:ExecutionContext) : Response[Out]
   
-  def assertPassed(in:In)(implicit context:ExecutionContext) = apply(in) match {
+  def assertPassed(in:In)(implicit context:ExecutionContext) = execute(in) match {
     case response if response.basicValue.responseCode > 399 =>
       throw new AssertionError(toString+" did not complete correctly, reponseCode="+
         response.basicValue.responseCode+" message: "+

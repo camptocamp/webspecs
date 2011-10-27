@@ -10,7 +10,7 @@ class ModifiedURIRequest[-In,+Out](newURI:String, wrapped:AbstractRequest[In,Out
       base
     }
     
-   final def apply (in: In)(implicit context:ExecutionContext) = {
+   final def execute (in: In)(implicit context:ExecutionContext) = {
     val createdRequest = request(in)
     val httpResponse = context.execute(createdRequest)
     val basicValue = BasicHttpValue(httpResponse)

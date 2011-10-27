@@ -16,7 +16,7 @@ abstract class StressSpecification(threads:Int,userProfile: UserProfile = Editor
   def exec[R](test: => R) = {
     run(new Request[Any,Null]{
 
-      def apply(in: Any)(implicit context: _root_.c2c.webspecs.ExecutionContext) = {
+      def execute(in: Any)(implicit context: _root_.c2c.webspecs.ExecutionContext) = {
         test
         EmptyResponse
       }
@@ -30,7 +30,7 @@ abstract class StressSpecification(threads:Int,userProfile: UserProfile = Editor
           println("Starting user simulation "+i)
           implicit val threadContext = new DefaultExecutionContext()
 
-          try { validation(request(None)(threadContext)) }
+          try { validation(request.execute(None)(threadContext)) }
           finally { threadContext.close }
 
           println("Finished user simulation for "+i)

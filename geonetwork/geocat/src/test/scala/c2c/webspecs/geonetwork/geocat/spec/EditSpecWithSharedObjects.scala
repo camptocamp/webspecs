@@ -23,7 +23,7 @@ class EditSpecWithSharedObjects extends GeonetworkSpecification { def is =
       GetMetadataXml() trackThen
       DeleteMetadata)
 
-    val (originalMd, finalMetadata,_) = request(None).values
+    val (originalMd, finalMetadata,_) = request.execute().values
 
     val originalExtents = originalMd.withXml { _ \\ "extent"}
     val finalExtents = finalMetadata.withXml {_ \\ "extent"}

@@ -28,7 +28,7 @@ class NonValidatedSharedObjectSpec extends GeocatSpecification(UserProfiles.Edit
 	
   def ReusableServiceTest = (descr:String) => {
     val serviceName = extract1(descr)
-    val serviceReq  = GetRequest(serviceName)(Nil)
+    val serviceReq  = GetRequest(serviceName).execute()
     serviceReq must haveA200ResponseCode
   }
   // TODO : this is a first shot on testing the service

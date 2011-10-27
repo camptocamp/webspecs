@@ -32,14 +32,14 @@ class AccessKeywordsSpec extends GeocatSpecification { def is =
 
   def searchForKeyword = (string:String) => {
     val (thesaurus,word) = extract2(string)
-    SearchKeywords(List(thesaurus))(word):ListResponse
+    SearchKeywords(List(thesaurus)).execute(word):ListResponse
   }
   val l200Response = a200ResponseThen.narrow[ListResponse]
   val containKeyword = (response:ListResponse, s:String) =>
     response.value.foldLeft(success:Result){(acc,next) => acc and (next.value must =~ (extract1(s)))}
 
   val locales = List("FR","EN","DE")
-  val keywordInIso = () => GetIsoKeyword(GeocatConstants.INSPIRE_THESAURUS, locales)("http://rdfdata.eionet.europa.eu/inspirethemes/themes/26"):Response[IsoKeyword]
+  val keywordInIso = () => GetIsoKeyword(GeocatConstants.INSPIRE_THESAURUS, locales).execute("http://rdfdata.eionet.europa.eu/inspirethemes/themes/26"):Response[IsoKeyword]
   val i200Response = a200ResponseThen.narrow[Response[IsoKeyword]]
   val isoTranslation = (response:Response[IsoKeyword]) => {
     val languages = response.value.labels.keys

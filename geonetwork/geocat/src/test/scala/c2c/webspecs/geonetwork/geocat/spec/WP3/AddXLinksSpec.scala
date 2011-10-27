@@ -38,7 +38,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   lazy val ImportMdId = {
     val (_, importMd) = ImportMetadata.defaults(uuid, "/geocat/data/bare.iso19139.che.xml", false, getClass)
-    importMd(None).value.id
+    importMd.execute().value.id
   }
   def addXLink(context:ExecutionContext):PartialFunction[Any,Result] = {
       case "contact" => addContact
@@ -54,7 +54,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
     }
 
   def addContact = {
-    val addResponse = AddXlink.requestWithMd(AddContactXLink(Id(userFixture.id), AddSites.contact))(Id(ImportMdId))
+    val addResponse = AddXlink.requestWithMd(AddContactXLink(Id(userFixture.id), AddSites.contact)).execute(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val email = (addValue.newElement \\ "electronicMailAddress" \\ "CharacterString").text.trim
     val emailFromNew = (updatedMd.getXml \\ AddSites.contact.name \\ "electronicMailAddress" \\ "CharacterString").head.text.trim
@@ -64,7 +64,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   }
 
   def addFormat = {
-    val addResponse = AddXlink.requestWithMd(AddFormatXLink(Id(formatFixture.id.toString), AddSites.distributionFormat))(Id(ImportMdId))
+    val addResponse = AddXlink.requestWithMd(AddFormatXLink(Id(formatFixture.id.toString), AddSites.distributionFormat)).execute(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val format = (addValue.newElement \\ "name" \\ "CharacterString").text.trim
     val formatFromNew = (updatedMd.getXml \\ AddSites.distributionFormat.name \\ "name" \\ "CharacterString").head.text.trim
@@ -73,7 +73,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   }
   def addExtent = {
-    val addResponse = AddXlink.requestWithMd(AddExtentXLink(StandardSharedExtents.KantonBern, true, AddSites.extent))(Id(ImportMdId))
+    val addResponse = AddXlink.requestWithMd(AddExtentXLink(StandardSharedExtents.KantonBern, true, AddSites.extent)).execute(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val extentDesc = (addValue.newElement \\ "description" \\ "CharacterString").text.trim
     val extentDescFromNew = (updatedMd.getXml \\ AddSites.extent.name \\ "description" \\ "CharacterString").head.text.trim
@@ -87,7 +87,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   def addKeyword = {
     import keywordFixture._
-    val addResponse = AddXlink.requestWithMd(AddKeywordXLink(thesaurus, namespace, id, AddSites.descriptiveKeywords))(Id(ImportMdId))
+    val addResponse = AddXlink.requestWithMd(AddKeywordXLink(thesaurus, namespace, id, AddSites.descriptiveKeywords)).execute(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
     val keyword = (addValue.newElement \\ "LocalisedCharacterString" ) map (_.text.trim)
     val keywordFromNew = (updatedMd.getXml \\ AddSites.descriptiveKeywords.name \\ "LocalisedCharacterString") map (_.text.trim)
@@ -98,16 +98,16 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   def updateContact = {
     val newLastName = "newLastName"
     val updateUser = new UpdateSharedUser(userFixture.user.copy(surname = newLastName),true)
-    (config.adminLogin then updateUser)()
-    val md = GetRawMetadataXml(Id(ImportMdId)).value.getXml
+    (config.adminLogin then updateUser).execute()
+    val md = GetRawMetadataXml.execute(Id(ImportMdId)).value.getXml
     val lastName = (md \\ AddSites.contact.name \\ "individualLastName").text.trim
     lastName must_== newLastName 
   }
   
   def updateFormat = {
     val newVersion = "newVersion"
-    (config.adminLogin then UpdateFormat(formatFixture.id.toString, formatFixture.name, newVersion))()
-    val md = GetRawMetadataXml(Id(ImportMdId)).value.getXml
+    (config.adminLogin then UpdateFormat(formatFixture.id.toString, formatFixture.name, newVersion)).execute()
+    val md = GetRawMetadataXml.execute(Id(ImportMdId)).value.getXml
     val newFormatVersion = (md \\ AddSites.distributionFormat.name \\ "version" \\ "CharacterString").head.text.trim
     newFormatVersion must_== newVersion
   }
@@ -116,13 +116,13 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   def updateKeyword = {
     val newde = "newDe"
     import keywordFixture._
-    (config.adminLogin then UpdateKeyword(namespace, id, thesaurus, "DE" -> newde))()
-    val md = GetRawMetadataXml(Id(ImportMdId)).value.getXml
+    (config.adminLogin then UpdateKeyword(namespace, id, thesaurus, "DE" -> newde)).execute()
+    val md = GetRawMetadataXml.execute(Id(ImportMdId)).value.getXml
     val keywordFromNew = (md \\ AddSites.descriptiveKeywords.name \\ "LocalisedCharacterString") map (_.text.trim)
       (keywordFromNew must contain(it,fr,newde,en))
   }
   override def extraTeardown(teardownContext: ExecutionContext): Unit = {
-    DeleteMetadata(Id(ImportMdId))(teardownContext)
+    DeleteMetadata.execute(Id(ImportMdId))(teardownContext)
     super[GeocatSpecification].extraTeardown(teardownContext)
   }
 

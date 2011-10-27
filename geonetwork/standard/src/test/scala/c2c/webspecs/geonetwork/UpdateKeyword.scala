@@ -21,7 +21,7 @@ object UpdateKeyword {
  */
 case class UpdateKeyword(namespace: String, id: String, thesaurus: String, words: (String, String)*)
   extends Request[Any, XmlValue] {
-  def apply(in: Any)(implicit context: ExecutionContext) = {
+  def execute(in: Any)(implicit context: ExecutionContext) = {
     
     val request = words.foldLeft(NoRequest:Request[Any,XmlValue]) {
       case (accRequest,(lang, word)) =>
@@ -30,6 +30,6 @@ case class UpdateKeyword(namespace: String, id: String, thesaurus: String, words
             "definition" -> "")
         accRequest then GetRequest("thesaurus.updateelement", allParams: _*)
     }
-    request.apply(Nil)
+    request.execute()
   }
 }

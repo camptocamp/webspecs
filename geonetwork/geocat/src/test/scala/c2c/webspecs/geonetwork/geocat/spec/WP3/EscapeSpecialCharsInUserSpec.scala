@@ -20,27 +20,27 @@ class EscapeSpecialCharsInUserSpec extends GeocatSpecification { def is =
 
   val wordWithSpecialChars = uuid+"&or&amp;/ < > </> % èüöÇ"
   lazy val createNewSharedUser = {
-    config.adminLogin()
+    config.adminLogin.execute()
     val user = User(uuid, SharedUserProfile).copy(
       name = wordWithSpecialChars,
       position = LocalisedString(en = wordWithSpecialChars))
-    CreateNonValidatedUser(user)().value
+    CreateNonValidatedUser(user).execute().value
   }
   def listUsers = {
-    val userRequest = GeocatListUsers("")
+    val userRequest = GeocatListUsers.execute("")
     (userRequest must haveA200ResponseCode) and
       (userRequest.value.find(_.userId == createNewSharedUser.userId) must beSome) and
       (userRequest.value.find(_.name == wordWithSpecialChars) must beSome)
   }
   def searchUsers = {
-    val userRequest = GeocatListUsers(uuid.toString)
+    val userRequest = GeocatListUsers.execute(uuid.toString)
     (userRequest must haveA200ResponseCode) and
       (userRequest.value.find(_.userId == createNewSharedUser.userId) must beSome) and
       (userRequest.value.find(_.name == wordWithSpecialChars) must beSome)
   }
   def deleteUser = {
-    DeleteSharedUser(createNewSharedUser.userId, true)()
-    val userRequest = GeocatListUsers("")
+    DeleteSharedUser(createNewSharedUser.userId, true).execute()
+    val userRequest = GeocatListUsers.execute("")
     (userRequest must haveA200ResponseCode) and
       (userRequest.value.find(_.userId == createNewSharedUser.userId) must beNone)
   }

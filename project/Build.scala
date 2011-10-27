@@ -24,7 +24,7 @@ object WebSpecsBuild extends Build
   
   // ------------------------------ Root Project ------------------------------ //
 	lazy val root:Project = Project("root",file(".")).
-//  aggregate(core,geonetwork,geocat, selenium, apps,docsProj).
+  aggregate(core,geonetwork,geocat, selenium, apps,geoserver, georchestra).
     aggregate(core, selenium).
     settings(publishArtifact := false)
 

@@ -38,10 +38,10 @@ class GeonetConfig(val userProfile:UserProfiles.UserProfile, specName:String)
   def extractId(li: String): Option[String] = XmlUtils.extractId(li)
 
   lazy val usersList: List[User with UserRef] = ExecutionContext.withDefault{c =>
-    val l = (adminLogin then ListUsers)(None)(c).value
+    val l = (adminLogin then ListUsers).execute()(c).value
     l
   }
-  lazy val groupsList:List[GroupValue] = ExecutionContext.withDefault{c => (adminLogin then ListGroups)(None)(c).value}
+  lazy val groupsList:List[GroupValue] = ExecutionContext.withDefault{c => (adminLogin then ListGroups).execute()(c).value}
 
 def mdSearchXml(props:Traversable[PropertyIsLike]) =
     <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType="results" startPosition="1" maxRecords="100">
@@ -69,7 +69,7 @@ def mdSearchXml(props:Traversable[PropertyIsLike]) =
   }
 
   private lazy val findUsersGroup:GroupValue = ExecutionContext.withDefault{ implicit c =>
-    val groups = (GetUserGroups.setIn(userId).apply(None)).value
+    val groups = (GetUserGroups.setIn(userId).execute()).value
     val group = groups.find{_.name == user} orElse {groups.find{_.id.toInt > 1}}
     group getOrElse {
       throw new IllegalStateException("A group was not found that matches the userYou must call setUpTestEnv before calling groupId")
@@ -83,7 +83,7 @@ def mdSearchXml(props:Traversable[PropertyIsLike]) =
   }
 
   private def sampleTemplates(filter:Node):List[String] = ExecutionContext.withDefault{ implicit context =>
-    val xml = CswGetRecordsRequest(filter, maxRecords = 20, resultType = ResultTypes.results)(None).value.xml
+    val xml = CswGetRecordsRequest(filter, maxRecords = 20, resultType = ResultTypes.results).execute().value.xml
 
     Log(Log.Constants, xml)
     val ids = xml.fold(throw _, _ \\ "info" \ "id")

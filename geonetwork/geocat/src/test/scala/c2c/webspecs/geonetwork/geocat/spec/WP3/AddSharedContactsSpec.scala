@@ -36,10 +36,10 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
   val originalOrg = "swisstopo"
   val newOrg = "camptocamp"
   var href:String = _
-  def contactAdd(withParent:Boolean) = () => (config.adminLogin then ProcessSharedObject(contactXML(withParent,originalOrg)) startTrackingThen UserLogin)(None)._1
+  def contactAdd(withParent:Boolean) = () => (config.adminLogin then ProcessSharedObject(contactXML(withParent,originalOrg)) startTrackingThen UserLogin).execute()._1
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     href = (result.value \\ "contact" \@ "xlink:href")(0)
-    val xlink = ResolveXLink(href)
+    val xlink = ResolveXLink.execute(href)
 
     val xml = xlink.value.withXml{ i => i}
     (xlink must haveA200ResponseCode) and
@@ -50,20 +50,20 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
   }
 
   def newContact = 
-    GeocatListUsers(contactFirstName).value.filter(_.name == contactFirstName) must haveSize(1)
+    GeocatListUsers.execute(contactFirstName).value.filter(_.name == contactFirstName) must haveSize(1)
   def newParent = 
-    GeocatListUsers(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
+    GeocatListUsers.execute(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
 
   val updateContact = () => {
-    val id = GeocatListUsers(contactFirstName).value.find(_.name == contactFirstName).get.userId
+    val id = GeocatListUsers.execute(contactFirstName).value.find(_.name == contactFirstName).get.userId
     val xml =
       <gmd:contact xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed" xlink:role="http://www.geonetwork.org/non_valid_obj" xlink:href={"local://xml.user.get?id="+id+"&amp;schema=iso19139.che&amp;role=originator"} gco:isotype="gmd:CI_ResponsibleParty" gco:isoType="gmd:CI_ResponsibleParty" xmlns:che="http://www.geocat.ch/2008/che" xmlns:xalan="http://xml.apache.org/xalan" xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" >
         {contactXML(false,newOrg).child}
         </gmd:contact>
-    (config.adminLogin then UpdateSharedObject(xml) startTrackingThen UserLogin)(None)._1
+    (config.adminLogin then UpdateSharedObject(xml) startTrackingThen UserLogin).execute()._1
   }
   val noParent = (result:Response[NodeSeq]) => {
-    val xlink = GetRequest(href)(None)
+    val xlink = GetRequest(href).execute()
 
     val xml = xlink.value.withXml{ i => i }
     (xlink must haveA200ResponseCode) and
@@ -73,14 +73,14 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
   }
 
   def deleteNewContacts = {
-    config.adminLogin(None)
-    (GeocatListUsers(contactId).value ++ GeocatListUsers(parentId).value).foreach{c =>
+    config.adminLogin.execute()
+    (GeocatListUsers.execute(contactId).value ++ GeocatListUsers.execute(parentId).value).foreach{c =>
       assert(c.name contains "FirstName*automated*", c.userId+" -> "+c.username+" was to be deleted but is not part of the automated testing")
-      val response = (DeleteSharedUser(c.userId,true))(None)
+      val response = (DeleteSharedUser(c.userId,true)).execute()
       assert(response.basicValue.responseCode == 200, "DeleteSharedUser("+c.userId+" had a "+response.basicValue.responseCode +" response code")
     }
   }
-  def noContacts = (GeocatListUsers(contactId).value ++ GeocatListUsers(parentId).value) must beEmpty
+  def noContacts = (GeocatListUsers.execute(contactId).value ++ GeocatListUsers.execute(parentId).value) must beEmpty
 
   lazy val contactId = uuid.toString
   lazy val parentId = UUID.randomUUID().toString

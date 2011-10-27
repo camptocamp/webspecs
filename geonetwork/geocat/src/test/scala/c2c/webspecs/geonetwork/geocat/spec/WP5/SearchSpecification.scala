@@ -15,7 +15,7 @@ private[WP5] abstract class SearchSpecification extends GeocatSpecification {
     def performImport(lang: String) = {
       val baseImportRequest = ImportMetadata.defaultsWithReplacements(replacements, "/geocat/data/" + lang + "_Search_MD.iso19139.che.xml", false, classOf[ProcessImportedMetadataSpec])._2
       val importRequest = baseImportRequest.copy(uuidAction = UuidAction.None)
-      lang -> importRequest().value.id
+      lang -> importRequest.execute().value.id
     }
     val idsAndLangCodes = List("FR", "DE", "EN", "XX") map (performImport)
     idsAndLangCodes foreach { case (_, id) => registerNewMd(Id(id)) }

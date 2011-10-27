@@ -27,7 +27,7 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest3
     new AccumulatingRequest2[Any, T1,T2,Out](last, Elem(Request.const(in),false) +: elems: _*)
 
 
-  def apply(in: In)(implicit context: ExecutionContext):AccumulatedResponse2[T1,T2,Out] = {
+  def execute(in: In)(implicit context: ExecutionContext):AccumulatedResponse2[T1,T2,Out] = {
     val ResultData(lastResponse,trackedResponses) = doApply(in,last.asInstanceOf[RequestFactory],elems)
 
     new AccumulatedResponse2(

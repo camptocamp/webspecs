@@ -29,7 +29,7 @@ class AccessFormatsSpec extends GeocatSpecification { def is =
                                                                                      Step(tearDown)    ^
     "Format Fixture should be deleted"                                             ! noFormat
 
-  val listFormats = (s:String) => ListFormats.setIn(extract1(s).trim())(None)
+  val listFormats = (s:String) => ListFormats.setIn(extract1(s).trim()).execute()
   val l200Response = a200ResponseThen.narrow[Response[List[Format]]]
   val listNames = (response:Response[List[Format]], _:String) => {
     response.value.map{_.name} must contain (formatFixture.name)
@@ -44,7 +44,7 @@ class AccessFormatsSpec extends GeocatSpecification { def is =
     response.value.find{_.version == formatFixture.version}.map{_.validated} must beSome(false)
   }
 
-  val formatInIso = (s:String) => (GetRequest("xml.format.get","id" -> formatFixture.id)(None)):Response[XmlValue]
+  val formatInIso = (s:String) => (GetRequest("xml.format.get","id" -> formatFixture.id).execute()):Response[XmlValue]
   val i200Response = a200ResponseThen.narrow[Response[XmlValue]]
   val isoName = (r:Response[XmlValue], _:String) =>
     r.value.withXml { xml =>
@@ -63,7 +63,7 @@ class AccessFormatsSpec extends GeocatSpecification { def is =
 
   def noFormat =
     ExecutionContext.withDefault{c =>
-      val response = GetRequest("xml.format.get!","id" -> formatFixture.id)(None)(c).value
+      val response = GetRequest("xml.format.get!","id" -> formatFixture.id).execute()(c).value
       response.withXml(_ \\ "record" must beEmpty)
     }
 

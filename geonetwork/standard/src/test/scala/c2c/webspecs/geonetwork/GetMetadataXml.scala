@@ -8,8 +8,8 @@ case class GetMetadataXml(schema:OutputSchemas.OutputSchema = OutputSchemas.IsoR
   private val getRequest = this
   private def csw(id:String) = CswGetRecordsRequest(PropertyIsEqualTo("geonetworkId",id).xml,ResultTypes.results,schema)
 
-  override def apply(in: Id)(implicit context: ExecutionContext):Response[MetadataValue] = {
-    val metadataXml: BasicHttpResponse[XmlValue] = csw(in.id)(None)
+  override def execute(in: Id)(implicit context: ExecutionContext):Response[MetadataValue] = {
+    val metadataXml: BasicHttpResponse[XmlValue] = csw(in.id).execute()
     new ExtractMdXmlResponse(in.id,metadataXml)
   }
 

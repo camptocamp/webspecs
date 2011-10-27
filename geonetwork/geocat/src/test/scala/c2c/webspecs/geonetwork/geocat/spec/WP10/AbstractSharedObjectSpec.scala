@@ -26,17 +26,17 @@ abstract class AbstractSharedObjectSpec extends GeocatSpecification {
   }
 
   def CreateNonValidatedObjects = {
-    config.adminLogin()
+    config.adminLogin.execute()
     contactSpec.contactAdd(false)()
     formatSpec.formatAdd(formatSpec.version)()
     extentSpec.extentAdd("${" + ExtentFormat.gmd_bbox + "}" + "${0}")
     keywordHref = (keywordSpec.keywordAdd("deValue" + uuid)().value \\ "descriptiveKeywords" \@ "xlink:href")(0)
   }
 
-  lazy val nonValidatedContacts = ListNonValidatedContacts()
-  lazy val nonValidatedExtents = ListNonValidatedExtents()
-  lazy val nonValidatedFormats = ListNonValidatedFormats()
-  lazy val nonValidatedKeywords = ListNonValidatedKeywords()
+  lazy val nonValidatedContacts = ListNonValidatedContacts.execute()
+  lazy val nonValidatedExtents = ListNonValidatedExtents.execute()
+  lazy val nonValidatedFormats = ListNonValidatedFormats.execute()
+  lazy val nonValidatedKeywords = ListNonValidatedKeywords.execute()
 
   def list(s: String) = extract1(s) match {
     case "contacts" => nonValidatedContacts
@@ -62,26 +62,26 @@ abstract class AbstractSharedObjectSpec extends GeocatSpecification {
   def findSharedExtent:Option[SharedStructure] = nonValidatedExtents.value find { _.description contains extentSpec.uuid.toString }
   
   lazy val createMetadata = {
-    val importMdId = Id(ImportMetadata.defaults(uuid, "/geocat/data/bare.iso19139.che.xml", false, getClass)._2().value.id)
+    val importMdId = Id(ImportMetadata.defaults(uuid, "/geocat/data/bare.iso19139.che.xml", false, getClass)._2.execute().value.id)
     registerNewMd(importMdId)
     findSharedKeyword foreach { obj =>
       val id = keywordHref.split("&").find(_ startsWith "id=").get.decode.split("#")(1)
-      AddXlink.request(AddKeywordXLink(GeocatConstants.NON_VALIDATED_THESAURUS, GeocatConstants.KEYWORD_NAMESPACE, id, AddSites.descriptiveKeywords))(importMdId)
+      AddXlink.request(AddKeywordXLink(GeocatConstants.NON_VALIDATED_THESAURUS, GeocatConstants.KEYWORD_NAMESPACE, id, AddSites.descriptiveKeywords)).execute(importMdId)
     }
     findSharedContact foreach { contact =>
-      AddXlink.request(AddContactXLink(Id(contact.id), AddSites.contact))(importMdId)
+      AddXlink.request(AddContactXLink(Id(contact.id), AddSites.contact)).execute(importMdId)
     }
     findSharedExtent foreach { obj =>
-      AddXlink.request(AddExtentXLink(StandardSharedExtents.Custom("gn:non_validated", obj.id), true, AddSites.extent))(importMdId)
+      AddXlink.request(AddExtentXLink(StandardSharedExtents.Custom("gn:non_validated", obj.id), true, AddSites.extent)).execute(importMdId)
     }
     findSharedFormat foreach { obj =>
-      AddXlink.request(AddFormatXLink(Id(obj.id), AddSites.distributionFormat))(importMdId)
+      AddXlink.request(AddFormatXLink(Id(obj.id), AddSites.distributionFormat)).execute(importMdId)
     }
     importMdId
   }
 
   def getMetadataWithXLinks = {
-    val response = GetEditingMetadataXml(createMetadata)
+    val response = GetEditingMetadataXml.execute(createMetadata)
     assert(response.basicValue.responseCode == 200)
     response.value
   }
@@ -92,8 +92,8 @@ abstract class AbstractSharedObjectSpec extends GeocatSpecification {
 
     val updatedHref = href must be_==("local://xml.reusable.deleted?id=" + deletedId).foreach
 
-    DeleteSharedObject(deletedId)()
-    val isDeletedAfterDeletion = ListDeletedSharedObjects().value.map(_.id) must not contain (deletedId)
+    DeleteSharedObject(deletedId).execute()
+    val isDeletedAfterDeletion = ListDeletedSharedObjects.execute().value.map(_.id) must not contain (deletedId)
     updatedHref and isDeletedAfterDeletion
   }
 

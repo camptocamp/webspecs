@@ -32,7 +32,7 @@ object GeocatFixture {
         profile = SharedUserProfile) 
 
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteSharedUser(id,true))(None)(context)
+      (config.adminLogin then DeleteSharedUser(id,true)).execute()(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
       val userReq = user
@@ -40,7 +40,7 @@ object GeocatFixture {
         if(validated) CreateValidatedUser(userReq)
         else          CreateNonValidatedUser(userReq)
         
-      val createResponse = (config.adminLogin then createRequest)(None)(context)
+      val createResponse = (config.adminLogin then createRequest).execute()(context)
       _id = createResponse.value.userId
     }
   }
@@ -52,10 +52,10 @@ object GeocatFixture {
     def id = _id
 
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteFormat(true).setIn(id))(None)(context)
+      (config.adminLogin then DeleteFormat(true).setIn(id)).execute()(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
-      val formats = (config.adminLogin then AddFormat(name, version) then ListFormats.setIn(name))(None)(context)
+      val formats = (config.adminLogin then AddFormat(name, version) then ListFormats.setIn(name)).execute()(context)
       _id = formats.value.find(_.version == version).get.id
     }
   }
@@ -65,10 +65,10 @@ object GeocatFixture {
     def id = _id
     
     def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteExtent(Extents.NonValidated,id,true))(None)(context)
+      (config.adminLogin then DeleteExtent(Extents.NonValidated,id,true)).execute()(context)
 
     def create(config: GeonetConfig, context: ExecutionContext) = {
-      val extents = (config.adminLogin then ProcessSharedObject(extentXml, true))(None)(context)
+      val extents = (config.adminLogin then ProcessSharedObject(extentXml, true)).execute()(context)
       val xml = extents.value
       _id = XLink.id(extents.value \\ "extent" head).get
     }

@@ -11,7 +11,7 @@ import java.net.URLEncoder
  */
 case class CreateKeyword(namespace: String, id: String, thesaurus: String, words: (String, String)*)
   extends Request[Any, XmlValue] {
-  def apply(in: Any)(implicit context: ExecutionContext) = {
+  def execute(in: Any)(implicit context: ExecutionContext) = {
     
     val request = words.headOption.map {
       case (lang, word) => GetRequest("thesaurus.addelement", UpdateKeyword.params(namespace, id, thesaurus,lang,word): _*)

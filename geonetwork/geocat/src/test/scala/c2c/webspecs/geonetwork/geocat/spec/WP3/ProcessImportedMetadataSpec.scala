@@ -51,17 +51,17 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
    case class TestData(id:IdValue, mdWithoutXLinks:NodeSeq, mdWithXLinks:NodeSeq)
 
    def deleteMd(testData: => Response[TestData]) = {
-     val deleteResponse = DeleteMetadata(testData.value.id)
+     val deleteResponse = DeleteMetadata.execute(testData.value.id)
      assert(deleteResponse.basicValue.responseCode == 200, "Failed to delete imported metadata")
    }
    def doImport(fileName:String):Response[TestData] = {
      val (xmlString,importRequest) = ImportMetadata.defaults(uuid, "/geocat/data/"+fileName,false, classOf[ProcessImportedMetadataSpec])
      val originalXml = XML.loadString(xmlString)
      
-     val importResponse = (UserLogin then importRequest)(None)
+     val importResponse = (UserLogin then importRequest).execute(None)
      val id = importResponse.value
-     val mdWithXLinks =  GetEditingMetadataXml(id).value.getXml
-     val mdWithoutXLinks = GetRawMetadataXml(id).value.getXml
+     val mdWithXLinks =  GetEditingMetadataXml.execute(id).value.getXml
+     val mdWithoutXLinks = GetRawMetadataXml.execute(id).value.getXml
 
      importResponse.map(mv => TestData(id,mdWithoutXLinks, mdWithXLinks)) 
 	}
@@ -107,9 +107,9 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
     
     val updateParentPositionsName = "_"+parentPostitionRef -> newParentPositionName
     
-    (StartEditing() then UpdateMetadata(updateDe,addFr,addEn,addIt,updateParentPositionsName))(id)
+    (StartEditing() then UpdateMetadata(updateDe,addFr,addEn,addIt,updateParentPositionsName)).execute(id)
 
-    GetRawMetadataXml(id).value.getXml
+    GetRawMetadataXml.execute(id).value.getXml
   }
   
   val newDeOrgName = "NewDeOrg"

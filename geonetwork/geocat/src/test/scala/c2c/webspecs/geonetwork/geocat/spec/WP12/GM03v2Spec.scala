@@ -29,21 +29,21 @@ class GM03V2Spec extends GeocatSpecification(UserProfiles.Editor) {
 	
 	lazy val importMetadataId = {
 		val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V2.xml",true, getClass, GeocatImportStyleSheets.GM03_V2)
-		val md = (importMd then GetRawMetadataXml)(NONE).value.getXml
+		val md = (importMd then GetRawMetadataXml).execute().value.getXml
 		val response = (md \\ "fileIdentifier").text.trim
 		response
 	}
 	def deleteMetadata = {
-		GetRequest("metadata.delete", ("uuid" -> importMetadataId))(Nil)
+		GetRequest("metadata.delete", ("uuid" -> importMetadataId)).execute()
 	}
 	
 	def getAsGm03v2 = {
-		val response = GetRequest("gm03.xml", ("uuid" -> importMetadataId))(Nil)
+		val response = GetRequest("gm03.xml", ("uuid" -> importMetadataId)).execute()
 		(response.value.getXml \\  "GM03_2Core.Core.MD_Metadata" \ "fileIdentifier").text.trim must beEqualTo (importMetadataId)
 	}
 
 	def getAsGm03v2small = {
-		val response = GetRequest("gm03small.xml", ("uuid" -> importMetadataId))(Nil)
+		val response = GetRequest("gm03small.xml", ("uuid" -> importMetadataId)).execute()
 		(response.value.getXml \\   "fileIdentifier").text.trim must beEqualTo (importMetadataId)
 	}
 	

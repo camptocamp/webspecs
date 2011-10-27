@@ -10,7 +10,7 @@ object CreateGroupApp extends App {
     val groupName = "new_group"
     val createGroup = CreateGroup(new Group(groupName))
 
-    val res = (LoginRequest("admin","admin") then createGroup)(None)
+    val res = (LoginRequest("admin","admin") then createGroup).execute()
     println("new groupId == "+ res.value.id )
   }
 }

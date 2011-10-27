@@ -49,31 +49,31 @@ class CswOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  de
 	}
   def testDublinCore =  {
 	  // how to get the fileId of the inserted MD ?
-	  val getRecordResult = CswGetByFileId(importMetadataId,  new OutputSchema("http://www.opengis.net/cat/csw/2.0.2"){})(Nil)
+	  val getRecordResult = CswGetByFileId(importMetadataId,  new OutputSchema("http://www.opengis.net/cat/csw/2.0.2"){}).execute()
 	  (getRecordResult.value.getXml \\ "title").head.prefix must_== "dc"
   }
   def testiso19139 = {
-	  val getRecordResult = CswGetByFileId(importMetadataId,  new OutputSchema("http://www.isotc211.org/2005/gmd"){})(Nil)
+	  val getRecordResult = CswGetByFileId(importMetadataId,  new OutputSchema("http://www.isotc211.org/2005/gmd"){}).execute()
 	  (getRecordResult.value.getXml \\ "MD_Metadata").head.prefix must_== "gmd"
 
   }
   def testiso19139che = {
-	  val getRecordResult = CswGetByFileId(importMetadataId,  OutputSchemas.CheIsoRecord)(Nil)
+	  val getRecordResult = CswGetByFileId(importMetadataId,  OutputSchemas.CheIsoRecord).execute()
 	  (getRecordResult.value.getXml \\ "CHE_MD_Metadata").head.prefix must_== "che"
   }
   def testGM03 = {
-	  val getRecordResult = CswGetByFileId(importMetadataId,  OutputSchemas.GM03Record)(Nil)
+	  val getRecordResult = CswGetByFileId(importMetadataId,  OutputSchemas.GM03Record).execute()
 	  (getRecordResult.value.getXml \\ "GM03_2Comprehensive.Comprehensive") must not beEmpty
   }
   
   lazy val importMetadataId = {
     val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)
     
-    val md = (importMd then GetRawMetadataXml)(ImportStyleSheets.NONE).value.getXml
+    val md = (importMd then GetRawMetadataXml).execute(ImportStyleSheets.NONE).value.getXml
     val response = (md \\ "fileIdentifier").text.trim
     response
   }
     def deleteMetadata = {
-		  GetRequest("metadata.delete", ("uuid" -> importMetadataId))(Nil)
+		  GetRequest("metadata.delete", ("uuid" -> importMetadataId)).execute()
     }
 }

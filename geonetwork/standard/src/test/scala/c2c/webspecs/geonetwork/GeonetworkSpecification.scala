@@ -34,7 +34,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
-    UserLogin(None)(context)
+    UserLogin.execute(None)(context)
   }
   
   override def extraTeardown(tearDownContext:ExecutionContext) = {
@@ -43,7 +43,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
     config.adminLogin()
     
     mdToDelete foreach {id => 
-      try {DeleteMetadata(id) }
+      try {DeleteMetadata.execute(id) }
       catch { case _ => println("Error deleting: "+ id) }
     }
   }

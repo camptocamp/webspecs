@@ -18,7 +18,7 @@ class GetUserSpec extends GeonetworkSpecification() {
 
   type AllUsersResponse = List[User with UserRef]
   val AllUsers = 
-    (text: String) => (config.adminLogin then ListUsers)(None).value
+    (text: String) => (config.adminLogin then ListUsers).execute().value
 
   val NotEmpty =
     (users: AllUsersResponse, text: String) => users aka "users" must not beEmpty
@@ -35,6 +35,6 @@ class GetUserSpec extends GeonetworkSpecification() {
   }
 
   private def makeRequest(id: String) =
-    (config.adminLogin then GetUser(id))(None) must haveA200ResponseCode
+    (config.adminLogin then GetUser(id)).execute() must haveA200ResponseCode
 
 }

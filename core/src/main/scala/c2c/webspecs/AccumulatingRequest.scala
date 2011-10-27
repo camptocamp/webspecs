@@ -30,7 +30,7 @@ trait AccumulatingRequest[-In,+Out] extends Request[In,Out] {
                        track:Boolean) = {
       import resultData._
       val request = requestFactory(lastResponse)
-      request(lastResponse.value) match {
+      request.execute(lastResponse.value) match {
         case response if response.basicValue.responseCode > 399 =>
           val basicValue = response.basicValue
           throw new IOException("Executing "+request+" failed with a "+basicValue.responseCode+" responseCode, message = "+basicValue.responseMessage)//+"\ntext:\n"+response.text)

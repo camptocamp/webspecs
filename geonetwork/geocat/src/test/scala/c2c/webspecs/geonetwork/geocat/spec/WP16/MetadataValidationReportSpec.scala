@@ -25,8 +25,8 @@ class MetadataValidationReportSpec extends GeocatSpecification(UserProfiles.Admi
 																								       
   def callValidationReport = (desc:String) => {
 	  	  val valid = if (extract1(desc) == "valid") true else false
-		  def serviceCall = if (valid) GetRequest("metadata.validation.report", ("id" -> importValidMetadataId))(Nil) else
-		                       GetRequest("metadata.validation.report", ("id" -> importInvalidMetadataId))(Nil)
+		  def serviceCall = if (valid) GetRequest("metadata.validation.report", ("id" -> importValidMetadataId)).execute() else
+		                       GetRequest("metadata.validation.report", ("id" -> importInvalidMetadataId)).execute()
 		                       
 		  serviceCall must haveA200ResponseCode
 		  
@@ -38,21 +38,21 @@ class MetadataValidationReportSpec extends GeocatSpecification(UserProfiles.Admi
 }														    
   lazy val importValidMetadataId = {
        val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
-       val md = (importMdRequest then GetRawMetadataXml)(ImportStyleSheets.NONE).value.getXml
+       val md = (importMdRequest then GetRawMetadataXml).execute().value.getXml
        val response = (md \\ "fileIdentifier").text.trim
        response
   	}
   lazy val importInvalidMetadataId = {
     // TODO : setting true in the following line reveals a bug in the mef.import service
        val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.invalid.xml",false, getClass)._2
-       val md = (importMdRequest then GetRawMetadataXml)(ImportStyleSheets.NONE).value.getXml
+       val md = (importMdRequest then GetRawMetadataXml).execute().value.getXml
        val response = (md \\ "fileIdentifier").text.trim
        response
   	}
   
     def deleteMetadatas = {
-		  GetRequest("metadata.delete", ("uuid" -> importValidMetadataId))(Nil)
-		  GetRequest("metadata.delete", ("uuid" -> importInvalidMetadataId))(Nil)
+		  GetRequest("metadata.delete", ("uuid" -> importValidMetadataId)).execute()
+		  GetRequest("metadata.delete", ("uuid" -> importInvalidMetadataId)).execute()
     }
 			
 }

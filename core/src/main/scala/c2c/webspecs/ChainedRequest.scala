@@ -16,13 +16,13 @@ object ChainedRequest {
 }
 
 class ChainedRequest[-A,B,+C] private(first:Request[A,B],second:Function[Response[B], Request[B,C]]) extends Request[A,C] {
-  def apply (in: A)(implicit context:ExecutionContext) = {
-    first.apply(in) match {
+  def execute (in: A)(implicit context:ExecutionContext) = {
+    first.execute(in) match {
       case response if response.basicValue.responseCode > 399 =>
         val basicValue = response.basicValue
         throw new IOException("Executing "+first+" failed with a "+basicValue.responseCode+" responseCode, message = "+basicValue.responseMessage)//+"\ntext:\n"+response.text)
       case response =>
-        second(response).apply(response.value)
+        second(response).execute(response.value)
     }
   }
 }

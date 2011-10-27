@@ -8,7 +8,7 @@ object ListGroupsApp extends App {
   ExecutionContext.withDefault{ implicit context =>
 
     val res = (LoginRequest
-        ("admin","admin") then ListGroups)(None)
+        ("admin","admin") then ListGroups).execute()
     assert(res.value.nonEmpty)
     res.value foreach println
   }

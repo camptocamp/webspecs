@@ -9,7 +9,7 @@ import org.apache.http.auth.UsernamePasswordCredentials
 import org.apache.http.auth.AuthScope
 
 class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] with LoginRequest{
-  def apply (in: Any)(implicit context:ExecutionContext) = {
+  def execute (in: Any)(implicit context:ExecutionContext) = {
     import AuthPolicy._
     context.httpClient match {
       case client:DefaultHttpClient =>
@@ -29,7 +29,7 @@ class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] wit
 
  
 class BasicAuthLogout extends Request[Any,Null] with LogoutRequest {
-  def apply (in: Any)(implicit context:ExecutionContext) = {
+  def execute (in: Any)(implicit context:ExecutionContext) = {
     context.currentUser = None
     import AuthPolicy._
     context.httpClient match {

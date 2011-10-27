@@ -33,7 +33,7 @@ class ImportSpecialExtentsSpec extends GeocatSpecification { def is =
      
                                                                            
   def ImportObj(xml:Node) = 
-    () => (config.adminLogin then ProcessSharedObject(xml,addOnly=false))(None);
+    () => (config.adminLogin then ProcessSharedObject(xml,addOnly=false)).execute();
   
   def noXlink(extentTag:String) = (resp:Response[NodeSeq]) => {println(resp.value);(resp.value \\ extentTag \@ "xlink:href") must beEmpty}
   def xlink(extentTag:String) = (resp:Response[NodeSeq]) => (resp.value \\ extentTag \@ "xlink:href") must not (beEmpty)

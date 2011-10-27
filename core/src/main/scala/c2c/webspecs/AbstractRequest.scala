@@ -6,7 +6,7 @@ abstract class AbstractRequest[-In, +Out]
   def mapURI(uri:String) = new ModifiedURIRequest(uri,this)
   def request(in:In):HttpRequestBase
   
-  final def apply (in: In)(implicit context:ExecutionContext) = {
+  final def execute (in: In)(implicit context:ExecutionContext) = {
     val createdRequest = request(in)
     val httpResponse = context.execute(createdRequest)
     val basicValue = BasicHttpValue(httpResponse)

@@ -39,7 +39,7 @@ class AccessContactsSpec extends GeocatSpecification { def is =
 
   def find[U](list:ListUserResponse)(map: User with UserRef with Validateable => U) = { list.value.find(_.userId == userFixture.id).map(map)}
   val searchContacts = (s:String) => 
-    GeocatListUsers(extract1(s).replace('*',' ').trim()):ListUserResponse
+    GeocatListUsers.execute(extract1(s).replace('*',' ').trim()):ListUserResponse
   val l200Response = a200ResponseThen.narrow[ListUserResponse]
 
   val listUserNames = (response:ListUserResponse) => 
@@ -60,7 +60,7 @@ class AccessContactsSpec extends GeocatSpecification { def is =
   }
 
   val contactInIso = (s:String) =>
-    (GetRequest("xml.user.get","id" -> userFixture.id)(None)):Response[XmlValue]
+    (GetRequest("xml.user.get","id" -> userFixture.id).execute()):Response[XmlValue]
   val i200Response = a200ResponseThen.narrow[Response[XmlValue]]
   val isoName = (r:Response[XmlValue], _:String) =>
     r.value.withXml { xml =>
@@ -92,7 +92,7 @@ class AccessContactsSpec extends GeocatSpecification { def is =
   }
   def fixtureIsGone =
     ExecutionContext.withDefault{c =>
-      val response = (config.login then GetRequest("xml.user.get", "id" -> userFixture.id))(None)(c).value
+      val response = (config.login then GetRequest("xml.user.get", "id" -> userFixture.id)).execute()(c).value
       response.withHtml(_ \\ "record" must beEmpty)
     }
 

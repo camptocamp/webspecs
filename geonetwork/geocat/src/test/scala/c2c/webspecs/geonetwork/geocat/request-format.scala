@@ -34,8 +34,8 @@ object ListFormats
  */
 object GetFormat
   extends Request[Int,Format] {
-  def apply(in: Int)(implicit context: ExecutionContext): Response[Format] = {
-    val response = ListFormats.setIn("")(None)
+  def execute(in: Int)(implicit context: ExecutionContext): Response[Format] = {
+    val response = ListFormats.setIn("").execute()
     response.map {_.find(_.id == in).get}
   }
 }

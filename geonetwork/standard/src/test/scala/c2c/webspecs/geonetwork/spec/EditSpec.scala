@@ -56,7 +56,7 @@ class EditSpec extends GeonetworkSpecification { def is =
         GetMetadataXml() trackThen
         DeleteMetadata)
 
-      (XML.loadString(data):NodeSeq,request(None))
+      (XML.loadString(data):NodeSeq,request.execute(None))
     }
 
   val GoodResponseCode = (data: (NodeSeq,EditResponse), text: String) => {

@@ -105,7 +105,7 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
 
   lazy val updatedUser:Option[User] = id match {
     case Some(userId) =>
-      val response = GetUser(userId)(None)(executionContext)
+      val response = GetUser(userId).execute(None)(executionContext)
       Some(response.value.user)
     case None => None
   }
@@ -114,7 +114,7 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
 class UserValue(val user:User, val basicValue:BasicHttpValue) extends XmlValue with UserRef {
   def userId = user.idOption.get
   def loadUser(implicit context:ExecutionContext) = 
-    GetUser(userId)(None).value.user
+    GetUser(userId).execute(None).value.user
 }
 
 class GetUserValue(override val userId:String, basicValue:BasicHttpValue) extends UserValue(null, basicValue) {

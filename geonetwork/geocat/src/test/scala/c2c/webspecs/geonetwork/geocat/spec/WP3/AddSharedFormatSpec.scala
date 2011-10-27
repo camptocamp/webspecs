@@ -31,18 +31,18 @@ class AddSharedFormatSpec extends GeocatSpecification { def is =
     "Must correctly remove that format from the system"                                                         ! noFormat ^
                                                                                                                   Step(tearDown)
 
-  def formatAdd(version:String) = () => (config.adminLogin then ProcessSharedObject(formatXML(version)))(None)
+  def formatAdd(version:String) = () => (config.adminLogin then ProcessSharedObject(formatXML(version))).execute()
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     val href = (result.value \\ "resourceFormat" \@ "xlink:href")(0)
-    val xlink = ResolveXLink(href)
+    val xlink = ResolveXLink.execute(href)
     (xlink must haveA200ResponseCode) and
       (xlink.value.withXml{_ \\ "name" map (_.text.trim) must contain (formatName)})
   }
 
-  def newFormat = ListFormats(formatName).value.find(_.name == formatName) must beSome
+  def newFormat = ListFormats.execute(formatName).value.find(_.name == formatName) must beSome
 
   val updateFormat = () => {
-    val id = ListFormats(formatName).value.find(_.name == formatName).get.id
+    val id = ListFormats.execute(formatName).value.find(_.name == formatName).get.id
     val xml = 
       <gmd:resourceFormat
     		xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -50,7 +50,7 @@ class AddSharedFormatSpec extends GeocatSpecification { def is =
     		xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd">
     	{formatXML(updatedVersion).child}
       </gmd:resourceFormat>
-    val response = (config.adminLogin then UpdateSharedObject(xml) startTrackingThen ListFormats.setIn(formatName))(None)
+    val response = (config.adminLogin then UpdateSharedObject(xml) startTrackingThen ListFormats.setIn(formatName)).execute()
     assert(response.last.value.size == 1, "A unique format was expected")
     response._1.map{_ => response.last.value.head}
   }
@@ -60,14 +60,14 @@ class AddSharedFormatSpec extends GeocatSpecification { def is =
   }
   
   def sameFormat = {
-     val formats = ListFormats(formatName).value
+     val formats = ListFormats.execute(formatName).value
      (formats must haveSize (1)) and
      	(formats.head.name must_== formatName) and
      	(formats.head.version must_== updatedVersion)
   }
   
-  def deleteNewFormat = ListFormats(formatName).value.foreach{c => DeleteFormat(true)(c.id)}
-  def noFormat = ListFormats(formatName).value must beEmpty
+  def deleteNewFormat = ListFormats.execute(formatName).value.foreach{c => DeleteFormat(true).execute(c.id)}
+  def noFormat = ListFormats.execute(formatName).value must beEmpty
 
   val formatName = uuid+"name*automated*"
   val version = uuid+"version*automated*"

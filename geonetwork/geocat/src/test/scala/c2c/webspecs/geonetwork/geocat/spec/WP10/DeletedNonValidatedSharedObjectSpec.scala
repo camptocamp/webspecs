@@ -30,10 +30,10 @@ class DeletedNonValidatedSharedObjectSpec extends AbstractSharedObjectSpec { def
 
   def deleteContact = {
     val userId = doFindSharedContact.get.id
-    val deleteResponse = DeleteUser(userId)()
+    val deleteResponse = DeleteUser(userId).execute()
     val normalDeleteFails = deleteResponse must haveAResponseCode(500)
 
-    val correctDeletionResponse = DeleteSharedUser(userId, false)()
+    val correctDeletionResponse = DeleteSharedUser(userId, false).execute()
     val sharedUserDeleteHas200Response = correctDeletionResponse must haveA200ResponseCode
 
     normalDeleteFails and sharedUserDeleteHas200Response and validateCorrectRejection(correctDeletionResponse.value.id, contact)
@@ -41,7 +41,7 @@ class DeletedNonValidatedSharedObjectSpec extends AbstractSharedObjectSpec { def
   def deleteExtent(validated: Boolean) = (s: String) => {
     val extentId = doFindSharedExtent.get.id
     val extentType = if (validated) Extents.Validated else Extents.NonValidated
-    val deletionResponse = DeleteExtent(extentType, extentId, false)()
+    val deletionResponse = DeleteExtent(extentType, extentId, false).execute()
     val deleteHas200Response = deletionResponse must haveA200ResponseCode
 
     deleteHas200Response and validateCorrectRejection(deletionResponse.value.id, extent)
@@ -49,7 +49,7 @@ class DeletedNonValidatedSharedObjectSpec extends AbstractSharedObjectSpec { def
 
   def deleteFormat = {
     val formatId = doFindSharedFormat.get.id
-    val deletionResponse = DeleteFormat(false)(formatId.toInt)
+    val deletionResponse = DeleteFormat(false).execute(formatId.toInt)
     val deleteHas200Response = deletionResponse must haveA200ResponseCode
 
     deleteHas200Response and validateCorrectRejection(deletionResponse.value.id, distributionFormat)
@@ -57,7 +57,7 @@ class DeletedNonValidatedSharedObjectSpec extends AbstractSharedObjectSpec { def
   def deleteKeyword(validated: Boolean) = (s:String) => {
     val keywordId = keywordHref.split("&").find(_ startsWith "id=").get.decode.split("#")(1)
     val thesaurus = if (validated) GeocatConstants.GEOCAT_THESAURUS else GeocatConstants.NON_VALIDATED_THESAURUS
-    val deletionResponse = DeleteKeyword(thesaurus, GeocatConstants.KEYWORD_NAMESPACE, keywordId, false)()
+    val deletionResponse = DeleteKeyword(thesaurus, GeocatConstants.KEYWORD_NAMESPACE, keywordId, false).execute()
     
     val deleteHas200Response = deletionResponse must haveA200ResponseCode
 

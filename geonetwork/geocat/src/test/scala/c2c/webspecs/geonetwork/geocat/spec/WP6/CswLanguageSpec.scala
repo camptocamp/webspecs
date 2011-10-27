@@ -36,12 +36,12 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 	lazy val importMetadataId = {
 				val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)
 	
-				val md = (importMd then GetRawMetadataXml)(NONE).value.getXml
+				val md = (importMd then GetRawMetadataXml).execute().value.getXml
 				val response = (md \\ "fileIdentifier").text.trim
 					response
 	}
 	def deleteMetadata = {
-			GetRequest("metadata.delete", ("uuid" -> importMetadataId))(Nil)
+			GetRequest("metadata.delete", ("uuid" -> importMetadataId)).execute()
 	}
 	def CswGet = (description : String) => {
 	  val (languageCode, expectedLang, cswService) = extract3(description)
@@ -60,7 +60,7 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 									  			   url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw")
 	  									
 			  									
-	  val title = (CswRequest(Nil).value.getXml \\ "title").text.trim.toUpperCase		  									
+	  val title = (CswRequest.execute().value.getXml \\ "title").text.trim.toUpperCase		  									
 
       if (languageCode != "ita")
     	  title must_== (expectedLang + " TITLE")

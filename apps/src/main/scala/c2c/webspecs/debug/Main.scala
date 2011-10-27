@@ -16,7 +16,7 @@ case class DivCount(uri:String)
 case class DivCountAcc(uri:String,polar:Int) extends AbstractGetRequest[Int,Int](uri,new AccDivCountFactory(polar))
 
 object AddCookie extends Request[Any,Null] {
-  def apply(in: Any)(implicit context: ExecutionContext) = {
+  def execute(in: Any)(implicit context: ExecutionContext) = {
     context.modifications ::= RequestModification(_.addHeader("addedHeader","the value"))
     EmptyResponse
   }
@@ -30,7 +30,7 @@ object Main extends App {
     DivCountAcc("http://localhost:43080/cas/login",3) trackThen
     DivCountAcc("http://localhost:43080/cas/login",4) trackThen
     DivCountAcc("http://localhost:43080/cas/login",5))
-  val response = req(None)
+  val response = req.execute()
 
   println(response.values)
 

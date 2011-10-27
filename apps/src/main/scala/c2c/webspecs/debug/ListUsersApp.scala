@@ -7,7 +7,7 @@ import c2c.webspecs.login.LoginRequest
 object ListUsersApp extends App {
   ExecutionContext.withDefault{ implicit context =>
 
-    val res = (LoginRequest("testjesse","testjesse") then ListUsers)(None)
+    val res = (LoginRequest("testjesse","testjesse") then ListUsers).execute()
     assert(res.value.nonEmpty)
     res.value foreach println
   }
