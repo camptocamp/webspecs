@@ -47,7 +47,7 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 	  val (languageCode, expectedLang, cswService) = extract3(description)
 	  
 	  val CswRequest =  if (cswService == "GetRecordById")
-							  CswGetByFileId(importMetadataId,
+							  CswGetRecordById(importMetadataId,
 								  						 outputSchema = OutputSchemas.Record,
 								  						 url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw", 
 								  									resultType = ResultTypes.results)

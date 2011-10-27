@@ -4,7 +4,7 @@ package csw
 
 import ResultTypes._
 
-case class CswGetByFileId(
+case class CswGetRecordById(
     fileId:String, 
     outputSchema:OutputSchemas.OutputSchema,
     resultType:ResultType=results,

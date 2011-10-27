@@ -49,20 +49,20 @@ class CswOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  de
 	}
   def testDublinCore =  {
 	  // how to get the fileId of the inserted MD ?
-	  val getRecordResult = CswGetByFileId(importMetadataId,  new OutputSchema("http://www.opengis.net/cat/csw/2.0.2"){}).execute()
+	  val getRecordResult = CswGetRecordById(importMetadataId,  new OutputSchema("http://www.opengis.net/cat/csw/2.0.2"){}).execute()
 	  (getRecordResult.value.getXml \\ "title").head.prefix must_== "dc"
   }
   def testiso19139 = {
-	  val getRecordResult = CswGetByFileId(importMetadataId,  new OutputSchema("http://www.isotc211.org/2005/gmd"){}).execute()
+	  val getRecordResult = CswGetRecordById(importMetadataId,  new OutputSchema("http://www.isotc211.org/2005/gmd"){}).execute()
 	  (getRecordResult.value.getXml \\ "MD_Metadata").head.prefix must_== "gmd"
 
   }
   def testiso19139che = {
-	  val getRecordResult = CswGetByFileId(importMetadataId,  OutputSchemas.CheIsoRecord).execute()
+	  val getRecordResult = CswGetRecordById(importMetadataId,  OutputSchemas.CheIsoRecord).execute()
 	  (getRecordResult.value.getXml \\ "CHE_MD_Metadata").head.prefix must_== "che"
   }
   def testGM03 = {
-	  val getRecordResult = CswGetByFileId(importMetadataId,  OutputSchemas.GM03Record).execute()
+	  val getRecordResult = CswGetRecordById(importMetadataId,  OutputSchemas.GM03Record).execute()
 	  (getRecordResult.value.getXml \\ "GM03_2Comprehensive.Comprehensive") must not beEmpty
   }
   

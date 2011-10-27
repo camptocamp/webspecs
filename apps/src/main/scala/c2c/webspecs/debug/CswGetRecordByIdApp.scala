@@ -5,12 +5,12 @@ import geonetwork._
 import c2c.webspecs.geonetwork.csw._
 import DomainParameters._
 import c2c.webspecs.login.LoginRequest
-object CswGetRecordsApp extends App {
+object CswGetRecordByIdApp extends App {
   ExecutionContext.withDefault{ implicit context =>
   	//LoginRequest("admin","admin")()
 //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
-  	val filter = PropertyIsEqualTo("keyword", "e-geo.ch geoportal")
-    val res = CswGetRecordsRequest(filter.xml, outputSchema=OutputSchemas.CheIsoRecord, resultType=ResultTypes.resultsWithSummary, maxRecords = 1)()
+    
+    val res = CswGetRecordById("67047f47-13d7-491a-bb7e-bb2c8016582d", outputSchema=OutputSchemas.GmdNamespace, resultType=ResultTypes.resultsWithSummary)()
     println(res.value.getXml)
   }
 }

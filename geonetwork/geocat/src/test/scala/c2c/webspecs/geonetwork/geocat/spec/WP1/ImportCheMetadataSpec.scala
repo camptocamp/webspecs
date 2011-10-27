@@ -67,7 +67,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
 
   val cswGetInsertedMd = (response:ImportResponseType) => {
     val fileId = response.last.value.withXml(_ \\ "fileIdentifier" text).trim()
-    val md = CswGetByFileId(fileId, OutputSchemas.IsoRecord).execute()
+    val md = CswGetRecordById(fileId, OutputSchemas.IsoRecord).execute()
     (md must haveA200ResponseCode) and
       (md.value.withXml {_ \\ "GetRecordByIdResponse" must not beEmpty})
   }
