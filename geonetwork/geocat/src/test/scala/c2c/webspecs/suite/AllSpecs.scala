@@ -142,7 +142,10 @@ class WP6 extends Specification with SpecificationsFinder { def is =
 		val specs = List(
 				classOf[CswGetCapabilitiesServiceUrlSpec],
 				classOf[CswLanguageSpec],
-				classOf[CswOutputSchemaSpec]
+				classOf[CswOutputSchemaSpec],
+				classOf[CswTransactionalXmlTestSpec],
+				classOf[CswXmlTestSpec],
+				classOf[CswTransactionSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
