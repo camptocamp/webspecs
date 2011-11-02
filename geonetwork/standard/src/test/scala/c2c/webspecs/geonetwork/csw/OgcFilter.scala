@@ -6,4 +6,5 @@ trait OgcFilter {
 	def or(other:OgcFilter) = Or(this, other)
 	def not:OgcFilter = Not(this)
 	def xml:Node
+	def cql:String
 }
