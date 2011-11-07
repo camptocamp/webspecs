@@ -77,7 +77,7 @@ class SpatialSearchSpec extends SearchSpecification {  def is =
                                            resultType = ResultTypes.resultsWithSummary, 
     									   outputSchema = OutputSchemas.Record, 
     									   maxRecords = maxRecords,
-    									   url = lang+"/csw")().value.getXml
+    									   url = lang+"/csw").execute().value.getXml
     
     find(xmlResponse, expectedMetadata)
   }

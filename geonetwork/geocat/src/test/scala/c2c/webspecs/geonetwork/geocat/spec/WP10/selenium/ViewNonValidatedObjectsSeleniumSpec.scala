@@ -24,8 +24,8 @@ class `ViewNonValidatedObjectsSeleniumSpec` extends GeocatSeleniumSpecification 
 
 
   def importMd = {
-    config.adminLogin()
-    val importResponse = ImportMetadata.defaults(uuid, "/geocat/data/comprehensive-iso19139che.xml", false, getClass)._2()
+    config.adminLogin.execute()
+    val importResponse = ImportMetadata.defaults(uuid, "/geocat/data/comprehensive-iso19139che.xml", false, getClass)._2.execute()
     registerNewMd(Id(importResponse.value.id))
     importResponse must haveA200ResponseCode
   }

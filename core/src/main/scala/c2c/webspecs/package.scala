@@ -32,7 +32,7 @@ package object webspecs
 	def decode = URLDecoder.decode(s,"UTF-8")
   }
 
-  implicit def applyForAny[U](request:Request[Any,U]) = new {
-    def apply()(implicit c:ExecutionContext) = request.execute(None)(c)
+  implicit def executeForAny[U](request:Request[Any,U]) = new {
+    def execute()(implicit c:ExecutionContext) = request.execute(None)(c)
   }
 }

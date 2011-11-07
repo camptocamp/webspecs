@@ -50,13 +50,13 @@ class MefImportSpec extends GeocatSpecification { def is =
     
     val data = Resource.fromClasspath("geocat/data/sampleMefFileOneMdThreeFormats.zip").byteArray
     val contentBody = new ByteArrayBody(data, "application/zip", "sampleMefFileOneMdThreeFormats.zip")
-    val response = ImportMetadata(contentBody,ImportStyleSheets.NONE,false,config.groupId, fileType=ImportMdFileType.mef)()
+    val response = ImportMetadata(contentBody,ImportStyleSheets.NONE,false,config.groupId, fileType=ImportMdFileType.mef).execute()
     registerNewMd(response.value)
     response:Response[IdValue]
   }
 
   val importedCorrectly = (resp:Response[IdValue], s:String) => {
-    val xml = CswGetRecordsRequest(PropertyIsEqualTo("_defaultTitle","Title_ImportMEFTextFile").xml)().value.getXml
+    val xml = CswGetRecordsRequest(PropertyIsEqualTo("_defaultTitle","Title_ImportMEFTextFile").xml).execute().value.getXml
     
     (xml \\ "@numberOfRecordsMatched").text.toInt must_== 1
   }

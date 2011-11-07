@@ -37,7 +37,7 @@ class DifferentLanguageSearchSpec extends SearchSpecification { def is =
                                                                    
   def search = (string:String) => {
     val lang = extract1(string)
-    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+uuid).xml, url=lang+"/csw")().value.getXml
+    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+datestamp).xml, url=lang+"/csw").execute().value.getXml
     
     (xml \\ "@numberOfRecordsMatched").text.toInt must_== 2
   }

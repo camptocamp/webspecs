@@ -20,7 +20,7 @@ abstract class AbstractAddRequest(_serv:String, nodeRef:EditValue => String, add
 	    "currTab" -> "complete"):_*
 	   )
 	    
-    val addResponse = addRequest() 
+    val addResponse = addRequest.execute() 
     val value = new AddValue(in, addResponse.basicValue, extractElementXmlFromResponse(addResponse.value.getXml))
     new BasicHttpResponse(addResponse.basicValue,value)
   }

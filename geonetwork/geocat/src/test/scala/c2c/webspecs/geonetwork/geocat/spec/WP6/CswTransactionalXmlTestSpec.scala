@@ -15,7 +15,7 @@ import c2c.webspecs.geonetwork.UserProfiles
 class CswTransactionalXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 	"GeoNetwork-trunk XML testsuite for CSW server (transactional)".title 					^ Step(setup)                     ^
 	  "Loads a sample metadata"      	 	                			  	                ^ Step(importMetadataId)          ^
-	  "Login as admin"																		^ Step(config.adminLogin())       ^
+	  "Login as admin"																		^ Step(config.adminLogin.execute())       ^
   	    "Process test using XML file : ${csw-TransactionDelete}"        					! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-TransactionInsert}"        					! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-TransactionUpdate}"        					! ProceedXmlTest		          ^
@@ -36,7 +36,7 @@ class CswTransactionalXmlTestSpec extends GeocatSpecification(UserProfiles.Admin
   def ProceedXmlTest = (desc:String) => {
     val xmlFile = extract1(desc) + ".xml"
     val (xmlResource,_) = ResourceLoader.loadDataFromClassPath("/geocat/csw-xml-tests/"+xmlFile, getClass, uuid)
-    val cswTestRequest = XmlPostRequest("csw", XML.loadString(xmlResource))()
+    val cswTestRequest = XmlPostRequest("csw", XML.loadString(xmlResource)).execute()
 
     (cswTestRequest must haveA200ResponseCode)
   }

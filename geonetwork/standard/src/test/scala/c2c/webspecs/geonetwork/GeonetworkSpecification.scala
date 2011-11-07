@@ -40,7 +40,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   override def extraTeardown(tearDownContext:ExecutionContext) = {
     super.extraTeardown(tearDownContext)
     
-    config.adminLogin()
+    config.adminLogin.execute()
     
     mdToDelete foreach {id => 
       try {DeleteMetadata.execute(id) }

@@ -75,8 +75,8 @@ class Bug16193toEditDoesNotWorkSpec extends GeocatSeleniumSpecification with Thr
   
   def publish = {
     val mdId = importedMdId(0)
-    config.adminLogin()
-    GetRequest("metadata.admin","id" -> mdId, "_1_0" -> "on")()
+    config.adminLogin.execute()
+    GetRequest("metadata.admin","id" -> mdId, "_1_0" -> "on").execute()
   }
   
   def checkNotToPublish = {

@@ -12,7 +12,7 @@ object KeywordSearchApp extends App {
   	val filter = PropertyIsEqualTo("keyword", "e-geo.ch Geoportal") 
     val result = CswGetRecordsRequest(filter.xml, 
         resultType=ResultTypes.results, 
-        outputSchema=OutputSchemas.DublinCore)()
+        outputSchema=OutputSchemas.DublinCore).execute()
     val records = result.value.getXml \\ "Record" map{ p =>
 	      (p \\ "title" text) +": "+(p \\ "subject" filter(s => s.text contains("géoportail e-geo.ch")) text)
 	    }

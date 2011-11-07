@@ -29,7 +29,7 @@ class Bug15242FormatListOrderSpec extends GeocatSeleniumSpecification with Throw
     
   def search = {
     val filter = PropertyIsEqualTo("format",datestamp.toString)
-    val xml = CswGetRecordsRequest(filter.xml)().value.getXml
+    val xml = CswGetRecordsRequest(filter.xml).execute().value.getXml
     
     (xml \\ "@numberOfRecordsMatched").text.toInt must_== 2
   }

@@ -16,7 +16,7 @@ class MetadataValidationReportSpec extends GeocatSpecification(UserProfiles.Admi
 	"metadata.validation.report test".title 														 ^ Step(setup)                       ^
 	"Loads a valid sample metadata"      	 	              									     ^ Step(importValidMetadataId)       ^
 	"Loads an invalid sample metadata"      	 	              									 ^ Step(importInvalidMetadataId)     ^
-	"Logs in as administrator (note : should the service be available to editors too ?)"      	 	 ^ Step(config.adminLogin())         ^
+	"Logs in as administrator (note : should the service be available to editors too ?)"      	 	 ^ Step(config.adminLogin.execute())         ^
 	"Tests the ${valid} inserted metadata against the metadata.validation.report webservice"		 ! callValidationReport              ^
 	"Tests the ${invalid} inserted metadata against the metadata.validation.report webservice"		 ! callValidationReport              ^
 	"Delete the inserted metadatas"																	 ^ Step(deleteMetadatas)             ^

@@ -28,9 +28,9 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
 
   lazy val ImportTwoMetadata: (IdValue, IdValue) = {
     val importRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml", true, classOf[ValidateSharedObject], ImportStyleSheets.NONE)._2
-    config.adminLogin()
-    val id1 = importRequest().value
-    val id2 = importRequest().value
+    config.adminLogin.execute()
+    val id1 = importRequest.execute().value
+    val id2 = importRequest.execute().value
     registerNewMd(id1, id2)
     (id1, id2)
   }
@@ -56,7 +56,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     val contact = loadMetadata._1
     val SharedObjectHrefExtractor(obj) = (contact @@ "xlink:href").head 
     
-    ValidateSharedObject(obj.id, obj.objType)()
+    ValidateSharedObject(obj.id, obj.objType).execute()
   }
 
   def isValidatedContact = {
@@ -73,7 +73,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     
     config.adminLogin.execute()
     
-    val creation = Create()
+    val creation = Create.execute()
     val id = GeocatListUsers.execute(uuid.toString()).value.head.userId
     val update = new UpdateSharedUser(Create.user.copy(idOption = Some(id),email = newEmail),false).execute()
     val updatedUser = update.value.loadUser

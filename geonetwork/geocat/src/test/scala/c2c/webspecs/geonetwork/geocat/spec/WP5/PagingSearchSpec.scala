@@ -49,7 +49,7 @@ class PagingSearchSpec extends SearchSpecification {
       outputSchema = OutputSchemas.Record,
       maxRecords = 2,
       startPosition = i,
-      sortBy = List(SortBy("date", false)))().value.getXml
+      sortBy = List(SortBy("date", false))).execute().value.getXml
 
     new { 
       val codes = findCodesFromResults(xmlResponse)

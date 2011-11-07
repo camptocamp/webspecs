@@ -28,7 +28,7 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
 	  
 	  val thesauri = GeocatConstants.GEOCAT_THESAURUS :: GeocatConstants.NON_VALIDATED_THESAURUS :: Nil
 	  val newKeywords = SearchKeywords(thesauri).execute(uuid.toString).value
-	  newKeywords.foreach(word => DeleteKeyword(word, true)())
+	  newKeywords.foreach(word => DeleteKeyword(word, true).execute())
 	}
 	
 	
@@ -48,14 +48,14 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
     val importRequest = ImportMetadata.defaultsWithReplacements(replacements,md,false,getClass,ImportStyleSheets.NONE)._2
     
     1 to numberOfRecords map {_ =>
-      val id = importRequest().value.id
+      val id = importRequest.execute().value.id
       registerNewMd(Id(id))
       id
     }
   }
 
   def correctResults(numberOfRecords:Int, identifier:String) = (s:String) => {
-    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+identifier).xml)().value.getXml
+    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+identifier).xml).execute().value.getXml
     
     (xml \\ "@numberOfRecordsMatched").text.toInt must_== numberOfRecords
   }

@@ -85,10 +85,10 @@ class DeletedValidatedSharedObjectSpec extends DeletedNonValidatedSharedObjectSp
  }
 
   def noLongerNonValidated = {
-    (ListNonValidatedContacts().value.find(_.description contains contactSpec.uuid.toString()) must beNone) and
-        (ListNonValidatedExtents().value.find(_.description contains extentSpec.uuid.toString()) must beNone) and
-        (ListNonValidatedFormats().value.find(_.description contains formatSpec.uuid.toString()) must beNone) and
-        (ListNonValidatedKeywords().value.find(_.description contains keywordSpec.uuid.toString()) must beNone)
+    (ListNonValidatedContacts.execute().value.find(_.description contains contactSpec.uuid.toString()) must beNone) and
+        (ListNonValidatedExtents.execute().value.find(_.description contains extentSpec.uuid.toString()) must beNone) and
+        (ListNonValidatedFormats.execute().value.find(_.description contains formatSpec.uuid.toString()) must beNone) and
+        (ListNonValidatedKeywords.execute().value.find(_.description contains keywordSpec.uuid.toString()) must beNone)
   }
   
   def indexIsCorrect = {

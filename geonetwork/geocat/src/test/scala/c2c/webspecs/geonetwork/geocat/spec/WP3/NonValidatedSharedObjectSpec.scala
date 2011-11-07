@@ -19,7 +19,7 @@ import org.specs2.specification.Step
 class NonValidatedSharedObjectSpec extends GeocatSpecification(UserProfiles.Editor) {
 	def is = {
 	  "Non-validated reusable objects test".title 	                 ^ Step(setup)               ^
-	  	   "Login as admin"								             ^ Step(config.adminLogin()) ^
+	  	   "Login as admin"								             ^ Step(config.adminLogin.execute()) ^
 	  	   "Checking the ${reusable.non_validated.admin} webservice" ! ReusableServiceTest       ^
 	  	   "Checking the ${reusable.non_validated.list}  webservice" ! ReusableServiceTest       ^
 	  	   "Checking the ${xml.reusable.deleted}         webservice" ! ReusableServiceTest       ^

@@ -101,7 +101,7 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
       outputSchema = OutputSchemas.Record,
       maxRecords = maxRecords,
       sortBy = List(SortBy("date", false)),
-      url = lang + "/csw")().value.getXml
+      url = lang + "/csw").execute().value.getXml
 
     find(xmlResponse, expectedMetadata)
   }
@@ -115,8 +115,8 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
       sortBy = List(SortBy(field, false)))
     val sortedDescRequest = sortedAscRequest.copy(sortBy = List(SortBy(field, true)))
 
-    val sortedAscResults = findCodesFromResults(sortedAscRequest().value.getXml)
-    val sortedDescResults = findCodesFromResults(sortedDescRequest().value.getXml)
+    val sortedAscResults = findCodesFromResults(sortedAscRequest.execute().value.getXml)
+    val sortedDescResults = findCodesFromResults(sortedDescRequest.execute().value.getXml)
 
     (sortedDescResults must contain("DE", "EN", "FR", "XX")) and
       (sortedDescResults must contain("XX", "FR", "EN", "DE"))
@@ -128,8 +128,8 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
       url = "fra/csw")
     val deRequest = frRequest.copy(url = "deu/csw")
 
-    val frResults = findCodesFromResults(frRequest().value.getXml)
-    val deResults = findCodesFromResults(deRequest().value.getXml)
+    val frResults = findCodesFromResults(frRequest.execute().value.getXml)
+    val deResults = findCodesFromResults(deRequest.execute().value.getXml)
 
     (frResults must contain("FR", "XX").only.inOrder) and
       (deResults must contain("XX", "FR").only.inOrder)
@@ -147,7 +147,7 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
       resultType = ResultTypes.resultsWithSummary,
       maxRecords = 30,
       sortBy = List(SortBy("date", false)),
-      outputSchema = OutputSchemas.Record)().value.getXml
+      outputSchema = OutputSchemas.Record).execute().value.getXml
 
     find(xmlResponse, "all")
   }

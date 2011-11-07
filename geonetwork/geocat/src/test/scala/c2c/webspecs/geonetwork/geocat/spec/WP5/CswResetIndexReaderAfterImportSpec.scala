@@ -37,6 +37,6 @@ class CswResetIndexReaderAfterImportSpec extends SearchSpecification { def is =
     "perform search and expect to find record again (there used to be caching issues"                ! correctResults(1, identifier=datestamp) ^
                                                                                                        Step(tearDown)
                                                                    
-  def logout = GeonetworkLogout()
-  def login = UserLogin()
+  def logout = GeonetworkLogout.execute()
+  def login = UserLogin.execute()
 }

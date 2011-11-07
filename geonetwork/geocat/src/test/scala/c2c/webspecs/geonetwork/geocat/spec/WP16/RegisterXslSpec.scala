@@ -22,7 +22,7 @@ import c2c.webspecs.GetRequest
 @RunWith(classOf[JUnitRunner]) 
 class RegisterXslSpec extends GeocatSpecification() {  def is =
 	"Xsl custom metadata XML output".title 															 ^ Step(setup) ^
-			"Login as admin"																		 ^ Step(config.adminLogin()) ^
+			"Login as admin"																		 ^ Step(config.adminLogin.execute()) ^
 			"must load the XSL stylesheet via the the REST API (${bs_extended_test_110718.xsl})"     ! customXslLoad ^
 			"must load the XSL stylesheet via the the REST API (${bs_full_test_110718.xsl})"         ! customXslLoad ^
 			"must load the XSL stylesheet via the the REST API (${bs_simple_test_110718.xsl})"       ! customXslLoad ^
@@ -49,7 +49,7 @@ class RegisterXslSpec extends GeocatSpecification() {  def is =
     																	 XmlValueFactory, 
     																	 P("file", content),
     																	 P("id", new StringBody(xslId(name)))){}
-	    restRequest()  must haveA200ResponseCode
+	    restRequest.execute()  must haveA200ResponseCode
     }
     def testXslCustomTransform = (desc:String) => {
     	def name = extract1(desc)

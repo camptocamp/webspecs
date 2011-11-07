@@ -38,7 +38,7 @@ class CswOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  de
 																			end ^ Step(tearDown)
 		
 	
-	val testGetCapabilities = () =>  CswGetCapabilities()().value.getXml
+	val testGetCapabilities = () =>  CswGetCapabilities().execute().value.getXml
 	
 	val outputSchema = (capabilities : NodeSeq, descriptor : String) => {
 	  val schema = extract1(descriptor)

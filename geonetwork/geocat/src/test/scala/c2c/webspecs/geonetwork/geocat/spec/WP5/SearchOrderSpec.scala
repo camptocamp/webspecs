@@ -24,7 +24,7 @@ class SearchOrderSpec extends GeocatSpecification { def is =
     def doImport(lang:String,title:Node) = {
         val replacements = Map("{lang}" -> lang, "{title}" -> title.toString, "{uuid}" -> timeStamp.toString)
         val impRequest = ImportMetadata.defaultsWithReplacements(replacements, "/geocat/data/templated-name-lang.iso19139.che.xml", false, classOf[SearchOrderSpec], ImportStyleSheets.NONE)._2
-        registerNewMd(impRequest().value)
+        registerNewMd(impRequest.execute().value)
     }
 
     doImport("eng", <gmd:PT_FreeText>
@@ -51,7 +51,7 @@ class SearchOrderSpec extends GeocatSpecification { def is =
   }
 
   lazy val baselineSearch = {
-    val cswResponse = CswGetRecordsRequest(PropertyIsEqualTo("abstract", timeStamp.toString).xml, ResultTypes.results, elementSetName = ElementSetNames.summary, outputSchema = OutputSchemas.Record)()
+    val cswResponse = CswGetRecordsRequest(PropertyIsEqualTo("abstract", timeStamp.toString).xml, ResultTypes.results, elementSetName = ElementSetNames.summary, outputSchema = OutputSchemas.Record).execute()
     cswResponse.value.getXml \\ "SummaryRecord" \\ "title"
   }
   def frTitleSearch = {
@@ -61,7 +61,7 @@ class SearchOrderSpec extends GeocatSpecification { def is =
       outputSchema = OutputSchemas.Record,
       elementSetName = ElementSetNames.summary,
       url = "fra/csw",
-      sortBy = List(SortBy("_defaultTitle", true)))()
+      sortBy = List(SortBy("_defaultTitle", true))).execute()
     val records = cswResponse.value.getXml \\ "SummaryRecord" \\ "title" map (_.text)
 
     records must contain("A FRA EN and FR is FR", "b fra is fr", "A ENG EN and FR is FR", "b eng en and fr is fr", "G eng is fr", "zz").only.inOrder
@@ -73,7 +73,7 @@ class SearchOrderSpec extends GeocatSpecification { def is =
       elementSetName = ElementSetNames.summary,
       url = "eng/csw",
       outputSchema = OutputSchemas.Record,
-      sortBy = List(SortBy("_defaultTitle", true)))()
+      sortBy = List(SortBy("_defaultTitle", true))).execute()
     val records = cswResponse.value.getXml \\ "SummaryRecord" \\ "title" map (_.text)
 
     records must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "zz", "A FRA EN and FR is EN", "b fra is fr").only.inOrder

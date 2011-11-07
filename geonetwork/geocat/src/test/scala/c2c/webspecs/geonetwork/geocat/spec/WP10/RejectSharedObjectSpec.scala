@@ -29,8 +29,8 @@ class RejectSharedObjectSpec extends AbstractSharedObjectSpec { def is =
                                                                                               Step(tearDown)
 
   def doReject(obj: SharedStructure, link: AddSite) = {
-    val rejected = RejectNonValidatedObject(obj.id, obj.objType)().value
-    val isInRejectedTable = ListDeletedSharedObjects().value.map(_.id) must contain(rejected.id)
+    val rejected = RejectNonValidatedObject(obj.id, obj.objType).execute().value
+    val isInRejectedTable = ListDeletedSharedObjects.execute().value.map(_.id) must contain(rejected.id)
 
     isInRejectedTable and validateCorrectRejection(rejected.id, link)
   }

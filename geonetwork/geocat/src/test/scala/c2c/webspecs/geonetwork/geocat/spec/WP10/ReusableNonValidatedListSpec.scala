@@ -67,7 +67,7 @@ class ReusableNonValidatedListSpec extends AbstractSharedObjectSpec  { def is =
 
     val obj = listing find { _.description contains specificUuid.toString } get
 
-    val referenced = ListReferencingMetadata(obj.id, obj.objType)().value
+    val referenced = ListReferencingMetadata(obj.id, obj.objType).execute().value
     val correctId = referenced.map(_.mdId) must contain(createMetadata.id.toInt)
     val correctTitle = referenced.map(_.title) must contain(uuid.toString).atLeastOnce
     correctId and correctTitle

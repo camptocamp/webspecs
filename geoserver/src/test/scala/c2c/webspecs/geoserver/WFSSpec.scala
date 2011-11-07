@@ -18,7 +18,7 @@ class WFSSpec extends GeoserverSpecification {
       "Wfs GetType must be valid" ! getFeature
 
   def capabilities100 = {
-    val response = GetWfsRequest("1.0.0", "GetCapabilities")()
+    val response = GetWfsRequest("1.0.0", "GetCapabilities").execute()
     (response must haveA200ResponseCode) and
       (response.value.getXml must \\("Capability")) and
       (response.value.getXml must \\("GetCapabilities")) and
@@ -32,7 +32,7 @@ class WFSSpec extends GeoserverSpecification {
       (response.value.getXml must \\("Filter_Capabilities"))
   }
   def capabilities110 = {
-    val response = GetWfsRequest("1.1.0", "GetCapabilities")()
+    val response = GetWfsRequest("1.1.0", "GetCapabilities").execute()
     (response must haveA200ResponseCode) and
       (response.value.getXml must \\("WFS_Capabilities")) and
       (response.value.getXml must \\("ServiceIdentification")) and
@@ -54,13 +54,14 @@ class WFSSpec extends GeoserverSpecification {
   }
 
   lazy val typeNames = {
-    val response = GetWfsRequest("1.1.0", "GetCapabilities")()
+    val response = GetWfsRequest("1.1.0", "GetCapabilities").execute()
     (response.value.getXml \\ "FeatureType" \\ "Name").map(_.text.trim)
   }
   def describeFeatureType = {
     def describe(typeName: String) = {
-      val response = GetWfsRequest("1.1.0", "DescribeFeatureType", "TypeName" -> typeName)()
+      val response = GetWfsRequest("1.1.0", "DescribeFeatureType", "TypeName" -> typeName).execute()
       ((response must haveA200ResponseCode) and
+      	(response.value.getText must contain("schema")) and
       	(response.value.getXml must \\("schema")) and
       	(response.value.getXml must \\("complexType")) and
       	(response.value.getXml must \\("extension")) and
@@ -85,7 +86,7 @@ class WFSSpec extends GeoserverSpecification {
         case name :: Nil => name
         case _ => throw new IllegalStateException("boom")
       }
-      val response = XmlPostRequest(GeoserverRequests.url(None, "wfs"),xml)()
+      val response = XmlPostRequest(GeoserverRequests.url(None, "wfs"),xml).execute()
       (response.value.getXml must \\("FeatureCollection")) and
       	(response.value.getXml must \\("featureMembers")) and
       	(response.value.getXml \\ featureTypeName must haveSize(1))

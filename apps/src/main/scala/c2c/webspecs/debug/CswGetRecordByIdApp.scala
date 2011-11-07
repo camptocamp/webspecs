@@ -10,7 +10,7 @@ object CswGetRecordByIdApp extends App {
   	//LoginRequest("admin","admin")()
 //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
     
-    val res = CswGetRecordById("67047f47-13d7-491a-bb7e-bb2c8016582d", outputSchema=OutputSchemas.GmdNamespace, resultType=ResultTypes.resultsWithSummary)()
+    val res = CswGetRecordById("67047f47-13d7-491a-bb7e-bb2c8016582d", outputSchema=OutputSchemas.GmdNamespace, resultType=ResultTypes.resultsWithSummary).execute()
     println(res.value.getXml)
   }
 }

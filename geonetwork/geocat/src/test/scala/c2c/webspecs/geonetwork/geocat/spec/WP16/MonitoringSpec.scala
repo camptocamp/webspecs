@@ -13,7 +13,7 @@ import c2c.webspecs.geonetwork.UserProfiles
 @RunWith(classOf[JUnitRunner]) 
 class MonitoringSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 	"Xsl custom metadata XML output".title 														^ Step(setup)                     ^
-			"Login as admin"																	^ Step(config.adminLogin()) 	  ^
+			"Login as admin"																	^ Step(config.adminLogin.execute()) 	  ^
 			"Check if the monitor webservice which outputs its report as HTML is available"		^ Step(testMonitoringReport)    ^
 			"Get the results of the monitoring webservice"										^ Step(getMonitoringXmlReport)    ^
 			"Checking ${db} status"																! checkServicesStatus		      ^

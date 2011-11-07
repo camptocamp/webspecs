@@ -11,10 +11,10 @@ import scala.xml.transform._
 
 object CopyRecordsApp extends App {
   ExecutionContext.withDefault { implicit context =>
-    LoginRequest("admin", "admin")()
+    LoginRequest("admin", "admin").execute()
     //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
     val filter = PropertyIsEqualTo("keyword", "e-geo.ch geoportal")
-    val res = CswGetRecordsRequest(filter.xml, resultType = ResultTypes.results, maxRecords = 1, url = "http://www.geocat.ch/geonetwork/srv/eng/csw")()
+    val res = CswGetRecordsRequest(filter.xml, resultType = ResultTypes.results, maxRecords = 1, url = "http://www.geocat.ch/geonetwork/srv/eng/csw").execute()
 
     val transformed = new RuleTransformer(RemoveResults)(res.value.getXml)
     for (md <- transformed \\  "CHE_MD_Metadata") {
@@ -28,10 +28,10 @@ object CopyRecordsApp extends App {
         data,
         styleSheet = ImportStyleSheets.NONE,
         validate = false,
-        groupId = "17")().value.getXml
+        groupId = "17").execute().value.getXml
         
       val id = (importResponse \\ "ok" text).split(";")(0)
-      GetRequest("metadata.admin", "id" -> id, "_1_0" -> "on", "_1_1" -> "on")()
+      GetRequest("metadata.admin", "id" -> id, "_1_0" -> "on", "_1_1" -> "on").execute()
       println("new id = "+id)
       
     }

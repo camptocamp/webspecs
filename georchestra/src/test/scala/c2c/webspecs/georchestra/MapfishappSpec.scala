@@ -13,7 +13,7 @@ class MapfishappSpec extends GeorchestraSpecification {
       "Style service should be able to classify when logged in" ! loggedInClassify
 
   def loggedInClassify = {
-    config.login.apply()
+    config.login.execute()
     classify()
   }
 
@@ -28,7 +28,7 @@ class MapfishappSpec extends GeorchestraSpecification {
     |"first_color": "#FFFFFF",
     |"last_color": "#497BD1"
     |}""".stripMargin.trim.replace("\n", "").format(Properties.testServer, Properties("geoserver.protected.vector.layer").get, Properties("geoserver.protected.vector.layer.choropleths.attribute").get)
-    val response = StringPostRequest("mapfishapp/ws/sld/", json, "text/json; charset=utf-8")()
+    val response = StringPostRequest("mapfishapp/ws/sld/", json, "text/json; charset=utf-8").execute()
     (response must haveA200ResponseCode) and
       (response.value.getText must /("success" -> true)) and 
       downloadedSldIsValid(response.value.getText)
@@ -36,8 +36,11 @@ class MapfishappSpec extends GeorchestraSpecification {
   
   def downloadedSldIsValid(json:String) = {
     implicit val formats = DefaultFormats
-    val filePath = (parse(json) \\ "filepath").extract[String] 
-    val sldResponse = GetRequest("mapfishapp/"+filePath)()
+    val filePath = 
+      try {(parse(json) \\ "filepath").extract[String]}
+      catch { case e => throw new AssertionError("Failed to json: "+json)}
+    
+    val sldResponse = GetRequest("mapfishapp/"+filePath).execute()
     (sldResponse must haveA200ResponseCode) and 
       (sldResponse.value.getXml must \\("StyledLayerDescriptor"))
   }

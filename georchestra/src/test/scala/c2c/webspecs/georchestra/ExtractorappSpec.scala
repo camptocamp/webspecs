@@ -47,13 +47,13 @@ class ExtractorappSpec extends GeorchestraSpecification {
   }
 
   def noLoginCoverage = {
-    login.LogoutRequest()()
+    login.LogoutRequest().execute()
     val response = doExtractCoverage("geotiff")
     response must not (haveA200ResponseCode)
   }
   def extractCoverage = (s: String) => {
     val format = extract1(s)
-    config.login.apply()
+    config.login.execute()
     val response = doExtractCoverage(format)
     response must haveA200ResponseCode
   }
@@ -61,17 +61,17 @@ class ExtractorappSpec extends GeorchestraSpecification {
     val bbox = BBox(Properties("extractor.wcs.bbox").get)
     val layerName = Properties("geoserver.protected.coverage.layer").get
     val jsonData = extractJSON(layerName, "WCS", "http://" + Properties.testServer + "/geoserver/wcs", bbox, rasterFormat = format)
-    JsonPostRequest("extractorapp/extractor/test/initiate", jsonData)()
+    JsonPostRequest("extractorapp/extractor/test/initiate", jsonData).execute()
   }
   
   def noLoginVector = {
-    login.LogoutRequest()()
+    login.LogoutRequest().execute()
     val response = doExtractVector("shp")
     response must not (haveA200ResponseCode)
   }
   def extractVector = (s: String) => {
     val format = extract1(s)
-    config.login.apply()
+    config.login.execute()
     val response = doExtractVector(format)
     response must haveA200ResponseCode
   }
@@ -79,7 +79,7 @@ class ExtractorappSpec extends GeorchestraSpecification {
     val bbox = BBox(Properties("extractor.wfs.bbox").get)
     val layerName = Properties("geoserver.protected.vector.layer").get
     val jsonData = extractJSON(layerName, "WFS", "http://" + Properties.testServer + "/geoserver/wfs", bbox, vectorFormat = format)
-    JsonPostRequest("extractorapp/extractor/test/initiate", jsonData)()
+    JsonPostRequest("extractorapp/extractor/test/initiate", jsonData).execute()
 
   }
 

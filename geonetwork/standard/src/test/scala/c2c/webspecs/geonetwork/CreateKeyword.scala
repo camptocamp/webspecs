@@ -16,6 +16,6 @@ case class CreateKeyword(namespace: String, id: String, thesaurus: String, words
     val request = words.headOption.map {
       case (lang, word) => GetRequest("thesaurus.addelement", UpdateKeyword.params(namespace, id, thesaurus,lang,word): _*)
     }
-    ((request getOrElse NoRequest) then UpdateKeyword(namespace, id, thesaurus, words.drop(1):_*))()
+    ((request getOrElse NoRequest) then UpdateKeyword(namespace, id, thesaurus, words.drop(1):_*)).execute()
   }
 }

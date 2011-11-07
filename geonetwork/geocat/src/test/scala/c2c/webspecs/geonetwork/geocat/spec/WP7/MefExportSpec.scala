@@ -53,14 +53,14 @@ class MefExportSpec extends GeocatSpecification { def is =
   def select = {
   // first do a search because that is required for a selection
   val correctSearch = correctResults(2, identifier=datestamp)("")
-  GetRequest("metadata.select","id" -> 0, "selected" -> "add-all")()
-  val correctSelection = GetRequest("metadata.select","selected" -> "status")().value.getXml.text.trim must_== "2"
+  GetRequest("metadata.select","id" -> 0, "selected" -> "add-all").execute()
+  val correctSelection = GetRequest("metadata.select","selected" -> "status").execute().value.getXml.text.trim must_== "2"
   
   correctSearch and correctSelection
 }
   lazy val download = {
     val request = new AbstractGetRequest[Any,ZipFile]("mef.export", ZipFileValueFactory, SP("format" -> "full"), SP("version" -> "2")) {}
-    request().value
+    request.execute().value
   }
 
   def entries = download.entries.asInstanceOf[Enumeration[ZipEntry]].asScala.toList
