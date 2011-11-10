@@ -14,7 +14,8 @@ class CswTransactionSpec extends GeocatSpecification(UserProfiles.Editor) {
   def is = {
     "CSW GetCapabilities services URL".title ^ Step(setup) ^
       "CswInsert should insert a new record" ! CswInsert ^
-      "CswUpdate should update the inserted record" ! CswUpdate ^
+      "CswUpdate should update the inserted record with a new metadata" ! CswFullUpdate ^
+      "CswUpdate should update the parts of the record with partial updates" ! CswPartialUpdate ^
       "CswDelete should delete the inserted record" ! CswDelete ^
       end ^ Step(tearDown)
   }
@@ -35,9 +36,17 @@ class CswTransactionSpec extends GeocatSpecification(UserProfiles.Editor) {
       newMetadataMustExistWith(initialData)
   }
 
-  def CswUpdate = {
+  def CswFullUpdate = {
     val updatedData = "updated data"
-    val response = CswTransactionUpdate(uuid.toString(), getData(updatedData)).execute()
+    val response = CswTransactionFullUpdate(getData(updatedData)).execute()
+    
+    (response must haveA200ResponseCode) and
+      newMetadataMustExistWith(updatedData)
+  }
+  
+  def CswPartialUpdate = {
+    val updatedData = "updated data 2"
+    val response = CswTransactionUpdate(uuid.toString, "abstract" -> updatedData).execute()
     (response must haveA200ResponseCode) and
       newMetadataMustExistWith(updatedData)
   }

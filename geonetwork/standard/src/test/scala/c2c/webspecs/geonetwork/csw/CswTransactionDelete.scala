@@ -14,7 +14,9 @@ case class CswTransactionDelete(filter:Node) extends AbstractXmlPostRequest("csw
     xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">
     <csw:Delete>
         <csw:Constraint version="1.0.0">
+			<ogc:Filter>
 			{filter}
+			</ogc:Filter>
         </csw:Constraint>
     </csw:Delete>
 </csw:Transaction>

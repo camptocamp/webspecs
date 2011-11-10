@@ -117,13 +117,13 @@
           <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#DE">Bundesamt für Landestopografie</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#DE">Bundesamt für Landestopografie ä é</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#FR">Office federal de topographie</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#FR">Office federal de topographie ä é</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#IT">Ufficio federale da topografia</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#IT">Ufficio federale da topografia ä é</gmd:LocalisedCharacterString>
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:organisationName>
