@@ -4,7 +4,7 @@ import c2c.webspecs.login.LoginRequest
 
 class CreateAsNeededUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle {
   import config._
-  def setup(implicit context: ExecutionContext) = {
+  def setup(implicit context: ExecutionContext, uriResolvers:UriResolver) = {
     val loginAsUserCode = LoginRequest(user, pass).execute(None).basicValue.responseCode
     if(loginAsUserCode > 200) {
       adminLogin.assertPassed(None)
@@ -24,7 +24,7 @@ class CreateAsNeededUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle 
     LoginRequest(user, pass).assertPassed(None)
   }
 
-  def tearDown(implicit context: ExecutionContext) = {
+  def tearDown(implicit context: ExecutionContext, uriResolvers:UriResolver) = {
 
     val DeleteMetadata = DeleteOwnedMetadata.setIn(UserRef(config.userId))
 

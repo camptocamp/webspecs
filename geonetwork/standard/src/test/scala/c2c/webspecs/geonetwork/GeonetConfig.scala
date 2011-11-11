@@ -31,17 +31,18 @@ class GeonetConfig(val userProfile:UserProfiles.UserProfile, specName:String)
   def ADMIN_USER_PASS = "admin.pass"
 
   def login = LoginRequest(user,pass)
+  private implicit val resolver=Config.defaultUriResolver
 
   def adminLogin = LoginRequest(Properties.get(ADMIN_USER_KEY), Properties.get(ADMIN_USER_PASS))
   lazy val userPrefix = "atest_" + UUID.randomUUID.toString.takeRight(8) +"_"
 
   def extractId(li: String): Option[String] = XmlUtils.extractId(li)
 
-  lazy val usersList: List[User with UserRef] = ExecutionContext.withDefault{c =>
-    val l = (adminLogin then ListUsers).execute()(c).value
+  lazy val usersList: List[User with UserRef] = ExecutionContext.withDefault{implicit c =>
+    val l = (adminLogin then ListUsers).execute().value
     l
   }
-  lazy val groupsList:List[GroupValue] = ExecutionContext.withDefault{c => (adminLogin then ListGroups).execute()(c).value}
+  lazy val groupsList:List[GroupValue] = ExecutionContext.withDefault{implicit c => (adminLogin then ListGroups).execute().value}
 
 def mdSearchXml(props:Traversable[PropertyIsLike]) =
     <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType="results" startPosition="1" maxRecords="100">

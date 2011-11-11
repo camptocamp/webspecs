@@ -6,7 +6,8 @@ class KeywordFactory(thesaurus:String) extends ValueFactory[String,IsoKeyword] {
       request: Request[A, B],
       uri: String,
       rawValue: BasicHttpValue,
-      executionContext: ExecutionContext): IsoKeyword = {
+      executionContext: ExecutionContext, 
+      uriResolver:UriResolver): IsoKeyword = {
     rawValue.toXmlValue.withXml{
       keywordXml =>
         val translationNodes = keywordXml \\ "LocalisedCharacterString"

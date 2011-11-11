@@ -16,7 +16,7 @@ import org.apache.http.client.utils.URIUtils
  * Requires property casURL
  */
 class CasLogin(val user:String, pass:String) extends Request[Any,XmlValue] with LoginRequest {
-  def execute(in: Any)(implicit context: ExecutionContext) = {
+  def execute(in: Any)(implicit context: ExecutionContext, uriResolvers:UriResolver) = {
 
     // note redirecting is required for cas login to work and must be left on
     HttpClientParams.setRedirecting(context.httpClient.getParams, true)

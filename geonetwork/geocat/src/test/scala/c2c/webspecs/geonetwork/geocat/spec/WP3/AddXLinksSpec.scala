@@ -122,7 +122,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
       (keywordFromNew must contain(it,fr,newde,en))
   }
   override def extraTeardown(teardownContext: ExecutionContext): Unit = {
-    DeleteMetadata.execute(Id(ImportMdId))(teardownContext)
+    DeleteMetadata.execute(Id(ImportMdId))(teardownContext, uriResolver)
     super[GeocatSpecification].extraTeardown(teardownContext)
   }
 

@@ -31,16 +31,16 @@ object GeocatFixture {
         position = position,
         profile = SharedUserProfile) 
 
-    def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteSharedUser(id,true)).execute()(context)
+    def delete(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) =
+      (config.adminLogin then DeleteSharedUser(id,true)).execute()(context,uriResolver)
 
-    def create(config: GeonetConfig, context: ExecutionContext) = {
+    def create(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) = {
       val userReq = user
       val createRequest = 
         if(validated) CreateValidatedUser(userReq)
         else          CreateNonValidatedUser(userReq)
         
-      val createResponse = (config.adminLogin then createRequest).execute()(context)
+      val createResponse = (config.adminLogin then createRequest).execute()(context, uriResolver)
       _id = createResponse.value.userId
     }
   }
@@ -51,11 +51,11 @@ object GeocatFixture {
 
     def id = _id
 
-    def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteFormat(true).setIn(id)).execute()(context)
+    def delete(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) =
+      (config.adminLogin then DeleteFormat(true).setIn(id)).execute()(context, uriResolver)
 
-    def create(config: GeonetConfig, context: ExecutionContext) = {
-      val formats = (config.adminLogin then AddFormat(name, version) then ListFormats.setIn(name)).execute()(context)
+    def create(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) = {
+      val formats = (config.adminLogin then AddFormat(name, version) then ListFormats.setIn(name)).execute()(context,uriResolver)
       _id = formats.value.find(_.version == version).get.id
     }
   }
@@ -64,11 +64,11 @@ object GeocatFixture {
     private var _id:String = _
     def id = _id
     
-    def delete(config: GeonetConfig, context: ExecutionContext) =
-      (config.adminLogin then DeleteExtent(Extents.NonValidated,id,true)).execute()(context)
+    def delete(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) =
+      (config.adminLogin then DeleteExtent(Extents.NonValidated,id,true)).execute()(context,uriResolver)
 
-    def create(config: GeonetConfig, context: ExecutionContext) = {
-      val extents = (config.adminLogin then ProcessSharedObject(extentXml, true)).execute()(context)
+    def create(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) = {
+      val extents = (config.adminLogin then ProcessSharedObject(extentXml, true)).execute()(context, uriResolver)
       val xml = extents.value
       _id = XLink.id(extents.value \\ "extent" head).get
     }

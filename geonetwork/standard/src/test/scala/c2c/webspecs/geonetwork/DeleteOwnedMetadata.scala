@@ -4,7 +4,7 @@ import c2c.webspecs.geonetwork.csw.PropertyIsLike
 import c2c.webspecs.geonetwork.csw.CswGetRecordsRequest
 
 case object DeleteOwnedMetadata extends Request[UserRef,DeleteMetadataReport] {
-  override def execute(in: UserRef)(implicit context: ExecutionContext) = {
+  override def execute(in: UserRef)(implicit context: ExecutionContext, uriResolvers:UriResolver) = {
     val props = PropertyIsLike("_owner",in.userId)
     val csw = CswGetRecordsRequest(props.xml)
     csw.execute().value.withXml{ xml =>

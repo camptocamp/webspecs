@@ -5,5 +5,6 @@ case class InputTransformerValueFactory[A,B](f:(A,BasicHttpValue) => B) extends 
                  (request: Request[C, D],
                   in: A,
                   rawValue:BasicHttpValue,
-                  executionContext: ExecutionContext) = f(in,rawValue)
+                  executionContext: ExecutionContext, 
+                  uriResolver:UriResolver) = f(in,rawValue)
 }

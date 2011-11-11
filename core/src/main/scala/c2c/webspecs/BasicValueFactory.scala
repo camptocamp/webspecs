@@ -5,5 +5,6 @@ trait BasicValueFactory[Out] extends ValueFactory[Any,Out] {
   def createValue[A <: Any, B >: Out](request:Request[A,B],
                             in:Any,
                             rawValue:BasicHttpValue,
-                            executionContext:ExecutionContext):Out = createValue(rawValue)
+                            executionContext:ExecutionContext, 
+                            uriResolver:UriResolver):Out = createValue(rawValue)
 }

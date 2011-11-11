@@ -9,8 +9,8 @@ abstract class AbstractMultiPartFormRequest[In,Out](url:String, valueFactory:Val
 
   require(form.size > 0, "At least one form element is required")
 
-   def request(in:In) = {
-     val httppost = new HttpPost(Config.resolveURI(url))
+   override def request(in:In, uriResolver:UriResolver) = {
+     val httppost = new HttpPost(uriResolver(url,Nil))
 
      val reqEntity = new MultipartEntity()
      form.foreach {part =>

@@ -24,7 +24,7 @@ class AccumulatingRequest0[-In,+Out](last:Response[Any] => Request[Any,Out],
     new AccumulatingRequest0[Any,Out](last, Elem(Request.const(in),false) +: elems: _*)
 
 
-  def execute(in: In)(implicit context: ExecutionContext):Response[Out] = {
+  def execute(in: In)(implicit context: ExecutionContext, uriResolvers:UriResolver):Response[Out] = {
     val resultData = doApply(in,last.asInstanceOf[RequestFactory],elems)
     resultData.lastResponse.asInstanceOf[Response[Out]]
   }

@@ -9,7 +9,7 @@ class UpdateSharedUser(val user:User, validated:Boolean)
       P("operation", "fullupdate") :: SP("validated",if(validated) "y" else "n") :: user.formParams() : _*)
   with ValueFactory[Any,UserValue] {
 
-  def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+  def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext, uriResolver:UriResolver) = {
     new UserValue(user.copy(idOption = Some(user.idOption.get)),rawValue)
   }
 }

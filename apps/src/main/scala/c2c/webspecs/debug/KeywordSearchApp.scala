@@ -7,8 +7,7 @@ import c2c.webspecs.geonetwork.csw.OutputSchemas
 
 
 
-object KeywordSearchApp extends App {
-  ExecutionContext.withDefault { implicit context =>
+object KeywordSearchApp extends WebspecsApp {
   	val filter = PropertyIsEqualTo("keyword", "e-geo.ch Geoportal") 
     val result = CswGetRecordsRequest(filter.xml, 
         resultType=ResultTypes.results, 
@@ -18,5 +17,4 @@ object KeywordSearchApp extends App {
 	    }
   	println(records.size)
     println(records mkString ("\n"))
-  }
 }

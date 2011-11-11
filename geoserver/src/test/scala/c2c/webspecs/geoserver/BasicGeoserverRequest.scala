@@ -15,7 +15,7 @@ object GeoserverRequests {
 abstract class WfsRequest(version: String, op: String, params: (String, Any)*) extends Request[Any, XmlValue] {
   def url = "wfs"
   def request: Request[Any, XmlValue]
-  def apply(in: Any)(implicit context: ExecutionContext) = request.execute(in)
+  def apply(in: Any)(implicit context: ExecutionContext, uriResolver:UriResolver) = request.execute(in)
 }
 
 

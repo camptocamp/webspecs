@@ -6,7 +6,7 @@ import login._
 class SandboxLifeCycle(config:GeonetConfig) extends SystemLifeCycle {
   import config._
 
-  def setup(implicit context: ExecutionContext) = {
+  def setup(implicit context: ExecutionContext, uriResolver:UriResolver) = {
 
     val createGroup = CreateGroup(new Group(user))
     val groupId = (adminLogin then createGroup).assertPassed(None).value.id
@@ -17,7 +17,7 @@ class SandboxLifeCycle(config:GeonetConfig) extends SystemLifeCycle {
   }
 
 
-  def tearDown(implicit context: ExecutionContext) = {
+  def tearDown(implicit context: ExecutionContext, uriResolver:UriResolver) = {
 
     val DeleteMetadata = GetUser.fromUserName(user) then DeleteOwnedMetadata
 

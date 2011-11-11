@@ -10,7 +10,7 @@ class AccumulatingRequest3[-In,+T1,+T2,+T3,+Out](
     elems:Elem*) 
   extends AccumulatingRequest [In,Out]{
 
-  override def assertPassed(in: In)(implicit context: ExecutionContext):AccumulatedResponse3[T1,T2,T3,Out] =
+  override def assertPassed(in: In)(implicit context: ExecutionContext, uriResolvers:UriResolver):AccumulatedResponse3[T1,T2,T3,Out] =
     super.assertPassed(in).asInstanceOf[AccumulatedResponse3[T1,T2,T3,Out]]
   override def then [A,B] (next: Request[Out,A]) : AccumulatingRequest3[In, T1,T2,T3,A] =
     then(new ConstantRequestFunction(next))
@@ -27,7 +27,7 @@ def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest4
     new AccumulatingRequest3[Any, T1,T2,T3,Out](last, Elem(Request.const(in),false) +: elems: _*)
 
 
-  def execute(in: In)(implicit context: ExecutionContext):AccumulatedResponse3[T1,T2,T3,Out] = {
+  def execute(in: In)(implicit context: ExecutionContext, uriResolvers:UriResolver):AccumulatedResponse3[T1,T2,T3,Out] = {
     val ResultData(lastResponse,trackedResponses) = doApply(in,last.asInstanceOf[RequestFactory],elems)
 
     new AccumulatedResponse3(

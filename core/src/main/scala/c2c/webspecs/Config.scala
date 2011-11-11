@@ -25,13 +25,15 @@ object Config {
       Left(new IllegalArgumentException("the '"+property+"' property is required"))
   }
 
-  def resolveURI(uri:String,params:(String,String)*) = {
-    loadStrategy[UriResolver]("uriResolver") fold (
-      _ => uri,
-      _.newInstance()(uri, params)
-    )
-  }
+  lazy val defaultUriResolver = loadStrategy[UriResolver]("uriResolver").fold(_ => {
+    Log.apply(Log.Warning, "No uriResolver defined, using the default")
+    IdentityUriResolver
+  },
+  r => r.newInstance())
+  
+  def resolveURI(uri:String,params:(String,String)*) = defaultUriResolver(uri, params)
 }
+
 class Config(val specName:String) extends Log {
   def resourceFile[T](path:String)(implicit resourceBase:Class[T]) = {
     Option(resourceBase.getClassLoader.getResource(path)).
@@ -49,7 +51,7 @@ class Config(val specName:String) extends Log {
     log(LifeCycle, "Setup Test Environment")
     try {
 
-      lifeCycle.setup(context)
+      lifeCycle.setup(context,Config.defaultUriResolver)
 
       log(LifeCycle, "Done Setting up Test Environment \r\n\r\n\r\n")
     } catch {
@@ -66,7 +68,7 @@ class Config(val specName:String) extends Log {
   def tearDownTestEnv(implicit context:ExecutionContext) = {
     try {
       log(LifeCycle, "\r\n\r\n\r\nTearing down Test Environment")
-      lifeCycle.tearDown(context)
+      lifeCycle.tearDown(context,Config.defaultUriResolver)
     } catch {
       case e:Throwable =>
         Log(Log.Error, "Exception occurred during teardown:"+e.getMessage+"\n" + e.getStackTraceString)

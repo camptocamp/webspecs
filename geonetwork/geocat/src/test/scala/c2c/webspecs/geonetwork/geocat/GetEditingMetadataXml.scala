@@ -18,7 +18,8 @@ object GetEditingMetadataXml
             (request:Request[A,B],
              in:Id,
              rawValue:BasicHttpValue,
-             executionContext:ExecutionContext) = {
+             executionContext:ExecutionContext, 
+             uriResolver:UriResolver) = {
     new MetadataValue {
       def basicValue = rawValue
       val id = in.id

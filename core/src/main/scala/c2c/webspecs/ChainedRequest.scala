@@ -16,7 +16,7 @@ object ChainedRequest {
 }
 
 class ChainedRequest[-A,B,+C] private(first:Request[A,B],second:Function[Response[B], Request[B,C]]) extends Request[A,C] {
-  def execute (in: A)(implicit context:ExecutionContext) = {
+  def execute (in: A)(implicit context:ExecutionContext, uriResolvers:UriResolver) = {
     first.execute(in) match {
       case response if response.basicValue.responseCode > 399 =>
         val basicValue = response.basicValue

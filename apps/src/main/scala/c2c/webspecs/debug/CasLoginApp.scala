@@ -3,9 +3,7 @@ package c2c.webspecs
 package debug
 import c2c.webspecs.login.CasLogin
 
-object CasLoginApp extends App {
-  ExecutionContext.withDefault {context =>
-    implicit val c = context
+object CasLoginApp extends WebspecsApp {
     new CasLogin("jeichar","jeichar").execute().value.withXml{xml =>
       println(xml)
     }
@@ -15,5 +13,4 @@ object CasLoginApp extends App {
       xml \\ "form" filter {n => (n \\ "@name" text) contains "logout"}
     }
     println(loginBanner)
-  }
 }

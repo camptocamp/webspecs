@@ -23,7 +23,7 @@ trait AccumulatingRequest[-In,+Out] extends Request[In,Out] {
   type RequestFactory = Response[Any] => Request[Any,Any]
   protected def doApply(in:Any,
                         last:Response[Any] => Request[Any,Any],
-                        elems:Seq[Elem] )(implicit context: ExecutionContext) = {
+                        elems:Seq[Elem] )(implicit context: ExecutionContext, uriResolvers:UriResolver) = {
 
     def processRequest(resultData:ResultData,
                        requestFactory:RequestFactory,

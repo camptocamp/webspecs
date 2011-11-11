@@ -72,7 +72,7 @@ case class User(val idOption:Option[String]=None,
     position = user.position,
     profile = user.profile,
     groups = user.groups)
-  def loadId(implicit executionContext:ExecutionContext):Option[String] = idOption orElse {
+  def loadId(implicit executionContext:ExecutionContext, uriResolver:UriResolver):Option[String] = idOption orElse {
     ListUsers.execute().value find {_.username == username} map {_.userId}
   }
 
@@ -92,7 +92,7 @@ case class User(val idOption:Option[String]=None,
   }
 }
 
-case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:ExecutionContext) extends XmlValue {
+case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:ExecutionContext, uriResolver:UriResolver) extends XmlValue {
   lazy val id:Option[String] = withXml{
     xml =>
       val tables = xml \\ "table"
@@ -105,7 +105,7 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
 
   lazy val updatedUser:Option[User] = id match {
     case Some(userId) =>
-      val response = GetUser(userId).execute(None)(executionContext)
+      val response = GetUser(userId).execute(None)(executionContext,uriResolver)
       Some(response.value.user)
     case None => None
   }
@@ -113,7 +113,7 @@ case class UserListValue(user:User, basicValue:BasicHttpValue,executionContext:E
 
 class UserValue(val user:User, val basicValue:BasicHttpValue) extends XmlValue with UserRef {
   def userId = user.idOption.get
-  def loadUser(implicit context:ExecutionContext) = 
+  def loadUser(implicit context:ExecutionContext, uriResolver:UriResolver) = 
     GetUser(userId).execute(None).value.user
 }
 
@@ -179,9 +179,9 @@ case class CreateUser(user:User)
     (P("operation", "newuser") :: user.formParams):_*)
   with ValueFactory[Any,UserValue] {
 
-  override def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+  override def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext, uriResolver:UriResolver) = {
     new UserValue(user,rawValue) {
-      override lazy val userId = user.loadId(executionContext).get
+      override lazy val userId = user.loadId(executionContext, uriResolver).get
     }
   }
 }
@@ -195,7 +195,7 @@ case class UpdateUser(val user:User)
   with ValueFactory[Any,UserValue] {
   assert(user.profile.toString() != "Shared")
 
-  def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+  def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext, uriResolver:UriResolver) = {
     new UserValue(user.copy(idOption = Some(user.idOption.get)),rawValue)
   }
 }

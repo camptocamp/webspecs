@@ -3,7 +3,7 @@ package geonetwork
 
 
 object GeonetworkLogout extends AbstractGetRequest[Any,XmlValue]("user.logout", XmlValueFactory) {
-  override def request(in:Any) = {
-    super.request(in)
+  override def request(in:Any, uriResolver:UriResolver) = {
+    super.request(in, uriResolver)
   }
 }

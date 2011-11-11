@@ -6,7 +6,15 @@
  */
 package c2c.webspecs;
 trait UriResolver {
+  def paramsToString(params: Seq[(String, String)], prefix:String) = {
+    params.map { e => e._1 + "=" + e._2 }.mkString(prefix,"&","")
+  }
   def apply(service: String, params: Seq[(String,String)]):String
+}
+
+object IdentityUriResolver extends UriResolver {
+  def apply(service: String, params: Seq[(String,String)]):String = 
+    service + paramsToString(params, "?")
 }
 
 abstract class BasicServerResolver(scheme:String, autoAddSegment:String) extends UriResolver {
@@ -16,8 +24,7 @@ abstract class BasicServerResolver(scheme:String, autoAddSegment:String) extends
     val segments = uri.split("/")
     if(uri.startsWith("http:/") | uri.startsWith(scheme)){
       val sep = if (uri contains "?") "&" else "?"
-      val paramString = params.map { e => e._1 + "=" + e._2 }.mkString("&")
-      uri + sep + paramString
+      uri + paramsToString(params, sep)
     } else {
       
       val serviceUrlParts = 
@@ -28,10 +35,7 @@ abstract class BasicServerResolver(scheme:String, autoAddSegment:String) extends
       if (params.isEmpty) {
         serviceUrl
       } else {
-        val paramString = params.map {
-          case (key, value) => key + "=" + value
-        } mkString ("?", "&", "")
-        serviceUrl + paramString
+        serviceUrl + paramsToString(params, "?")
       }
     }
   }

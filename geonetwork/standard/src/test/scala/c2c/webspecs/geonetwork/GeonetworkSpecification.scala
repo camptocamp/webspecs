@@ -34,7 +34,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
-    UserLogin.execute(None)(context)
+    UserLogin.execute(None)(context, uriResolver)
   }
   
   override def extraTeardown(tearDownContext:ExecutionContext) = {

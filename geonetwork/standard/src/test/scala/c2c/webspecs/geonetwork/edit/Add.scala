@@ -7,7 +7,7 @@ import scala.xml.Node
 
 abstract class AbstractAddRequest(_serv:String, nodeRef:EditValue => String, addSite:AddSite, extraFields:Param[EditValue,String]*)
 	extends Request[EditValue,AddValue] {
-  def execute(in: EditValue)(implicit context: ExecutionContext) = {
+  def execute(in: EditValue)(implicit context: ExecutionContext, uriResolver:UriResolver) = {
     
     val addRequest = FormPostRequest(_serv,
     extraFields.map{p => p.name ->  p.value(in)} ++ 
@@ -47,7 +47,7 @@ abstract class Add(_serv:String, id:String, editVersion:String, nodeRef:String, 
   val afterMetadata = GetMetadataXml().setIn(Id(id))
 
 
-  def execute(in: EditValue)(implicit context: ExecutionContext) = {
+  def execute(in: EditValue)(implicit context: ExecutionContext, uriResolver:UriResolver) = {
     val before = beforeMetadata.execute()
     val add = addRequest.execute()
     val after = afterMetadata.execute()
@@ -74,7 +74,7 @@ abstract class Add(_serv:String, id:String, editVersion:String, nodeRef:String, 
 
     assert(newElement.size == 1, "Expected there to be 1 new element but instead there was "+newElement.size)
 
-    val newEditValue = EditValueFactory.createValue(this,in,add.basicValue, context)
+    val newEditValue = EditValueFactory.createValue(this,in,add.basicValue, context, uriResolver)
     val value = new AddValue(newEditValue, add.basicValue, newElement.head)
     new BasicHttpResponse(add.basicValue,value)
   }

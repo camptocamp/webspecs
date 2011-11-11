@@ -33,6 +33,6 @@ package object webspecs
   }
 
   implicit def executeForAny[U](request:Request[Any,U]) = new {
-    def execute()(implicit c:ExecutionContext) = request.execute(None)(c)
+    def execute()(implicit c:ExecutionContext, uriResolvers:UriResolver) = request.execute(None)(c, uriResolvers)
   }
 }

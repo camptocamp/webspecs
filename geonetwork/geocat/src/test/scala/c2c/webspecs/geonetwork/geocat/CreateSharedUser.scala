@@ -9,10 +9,10 @@ abstract class CreateSharedUser(user:User,validated:Boolean)
     (P("operation", "newuser") :: SP("validated",if(validated) "y" else "n") :: user.formParams):_*)
   with ValueFactory[Any,UserValue] {
 
-  override def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext) = {
+  override def createValue[A <: Any, B >: UserValue](request: Request[A, B], in: Any, rawValue: BasicHttpValue,executionContext:ExecutionContext, uriResolver:UriResolver) = {
     new UserValue(user,rawValue) {
       override lazy val userId:String = {
-        (ListUsers.valueFactory.createValue(ListUsers,in,rawValue,executionContext) find {_.username == user.username} map {_.userId}).get
+        (ListUsers.valueFactory.createValue(ListUsers,in,rawValue,executionContext, uriResolver) find {_.username == user.username} map {_.userId}).get
       }
     }
   }

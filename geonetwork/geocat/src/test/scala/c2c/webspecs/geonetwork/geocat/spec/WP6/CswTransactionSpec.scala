@@ -22,7 +22,7 @@ class CswTransactionSpec extends GeocatSpecification(UserProfiles.Editor) {
 
   override def extraTeardown(teardownContext: ExecutionContext): Unit = {
     super.extraTeardown(teardownContext)
-    GetRequest("metadata.delete", "uuid" -> uuid).execute()(teardownContext)
+    GetRequest("metadata.delete", "uuid" -> uuid).execute()(teardownContext,uriResolver)
   }
 
   val data = ResourceLoader.loadDataFromClassPath("/geocat/data/comprehensive-iso19139che.xml", classOf[CswTransactionSpec], uuid)._1

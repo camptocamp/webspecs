@@ -18,6 +18,7 @@ import org.specs2.matcher.Matcher
 trait WebSpecsSpecification[C <: Config] extends Specification {
   implicit val config:C
   implicit val context = new DefaultExecutionContext()
+  implicit val uriResolver = Config.defaultUriResolver
   implicit val resourceBase = getClass
 
   lazy val fixtures:Traversable[Fixture[C]] = Nil
@@ -25,7 +26,7 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
   def setup = ExecutionContext.withDefault { context2 =>
     Log.apply(Log.LifeCycle, "Starting WebSpecs Setup")
     config.setUpTestEnv(context2)
-    fixtures.foreach{_.create(config, context2)}
+    fixtures.foreach{_.create(config, context2, uriResolver)}
     extraSetup(context2)
     Log.apply(Log.LifeCycle, "Finished WebSpecs Setup\n\n")
   }
@@ -34,7 +35,7 @@ trait WebSpecsSpecification[C <: Config] extends Specification {
     context2 =>
       Log.apply(Log.LifeCycle, "\n\nStarting WebSpecs tearDown")
       try {
-	      fixtures.foreach{_.delete(config, context2)}
+	      fixtures.foreach{_.delete(config, context2, uriResolver)}
 	      extraTeardown(context2)
 	      config.tearDownTestEnv (context2)
       } finally {

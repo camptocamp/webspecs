@@ -3,9 +3,9 @@ import org.apache.http.client.methods.HttpGet
 
 abstract class AbstractGetRequest[-In, +Out](uri:String,valueFactory:ValueFactory[In,Out],params:Param[In,String]*)
   extends AbstractRequest[In,Out](valueFactory) {
-  def request(in:In) = {
+  override def request(in:In, uriResolver:UriResolver) = {
     val stringParams = params.map(p => p.name -> p.value(in))
-    val resolvedUri = Config.resolveURI(uri,stringParams:_*)
+    val resolvedUri = uriResolver(uri,stringParams)
     new HttpGet(resolvedUri)
   }
 }

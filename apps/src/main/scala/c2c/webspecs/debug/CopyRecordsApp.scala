@@ -9,8 +9,7 @@ import org.apache.http.entity.mime.content.{ AbstractContentBody, ByteArrayBody,
 import scala.xml._
 import scala.xml.transform._
 
-object CopyRecordsApp extends App {
-  ExecutionContext.withDefault { implicit context =>
+object CopyRecordsApp extends WebspecsApp {
     LoginRequest("admin", "admin").execute()
     //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
     val filter = PropertyIsEqualTo("keyword", "e-geo.ch geoportal")
@@ -33,8 +32,6 @@ object CopyRecordsApp extends App {
       val id = (importResponse \\ "ok" text).split(";")(0)
       GetRequest("metadata.admin", "id" -> id, "_1_0" -> "on", "_1_1" -> "on").execute()
       println("new id = "+id)
-      
-    }
   }	
 }
 

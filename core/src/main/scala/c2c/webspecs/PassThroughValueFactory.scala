@@ -6,6 +6,7 @@ case class PassThroughValueFactory[A]() extends ValueFactory[A,A] {
                   in: A,
                   rawValue:
                   BasicHttpValue,
-                  executionContext: ExecutionContext) = in
+                  executionContext: ExecutionContext, 
+                  uriResolver:UriResolver) = in
 }
 

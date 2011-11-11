@@ -6,13 +6,13 @@ import util.control.Exception
  * Implementation either take a config object as a parameter or no parameters
  */
 trait SystemLifeCycle {
-  def tearDown(implicit context:ExecutionContext):Unit
-  def setup(implicit context:ExecutionContext):Unit
+  def tearDown(implicit context:ExecutionContext, uriResolver:UriResolver):Unit
+  def setup(implicit context:ExecutionContext, uriResolver:UriResolver):Unit
 }
 
 class NoActionLifeCycle extends SystemLifeCycle {
-  def setup(implicit context:ExecutionContext) = ()
-  def tearDown(implicit context:ExecutionContext) = ()
+  def setup(implicit context:ExecutionContext, uriResolver:UriResolver) = ()
+  def tearDown(implicit context:ExecutionContext, uriResolver:UriResolver) = ()
 }
 
 object SystemLifeCycle {
