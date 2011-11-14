@@ -46,6 +46,8 @@ class MetadataShowSpec extends GeocatSpecification {
       "Import the example metadata" ^ Step(importSampleFile) ^
       "metadata.show should not have xlinks tags" ! noXLinks ^
       "descriptiveKeywords should be correctly translated" ! translatedKeywords ^
+      "titles should be correctly translated" ! translatedTitle ^
+      "abstracts should be correctly translated" ! translatedAbstract ^
       Step(tearDown)
 
   lazy val importSampleFile = {
@@ -71,25 +73,54 @@ class MetadataShowSpec extends GeocatSpecification {
   }
 
   def translatedKeywords = {
-    def keyword(metadata: NodeSeq, keywordTranslation:String, word:String) = {
+    def keyword(metadata: NodeSeq, keywordTranslation: String, word: String) = {
       val allRows = metadata \\ "tr"
 
       val rows = allRows filter (_.descendant \\ "tr" isEmpty)
-      val keywordRows = rows filter {_.text contains "keywords"}
-      rows flatMap(_.descendant) collect {
+      rows flatMap (_.descendant) collect {
         case Text(text) if text.trim.toLowerCase contains word => text.trim.toLowerCase()
       }
     }
     val enKeyword = keyword(importSampleFile.en, "descriptive", "cartography")
     val frKeyword = keyword(importSampleFile.fr, "descriptifs", "cartographie")
-    
-    (enKeyword must haveTheSameElementsAs(Seq("cartography"))) and
-    	(frKeyword must haveTheSameElementsAs(Seq("cartographie")))
+
+    (enKeyword must haveTheSameElementsAs(Seq("cartography."))) and
+      (frKeyword must haveTheSameElementsAs(Seq("cartographie.")))
+  }
+  def translatedTitle = {
+    def keyword(metadata: NodeSeq, keywordTranslation: String, word: String) = {
+      val allRows = metadata \\ "tr"
+
+      val rows = allRows filter (_.descendant \\ "tr" isEmpty)
+      rows flatMap (_.descendant) collect {
+        case Text(text) if text.trim.toLowerCase contains word => text.trim.toLowerCase()
+      }
+    }
+    val enKeyword = keyword(importSampleFile.en, "Title", "National Map")
+    val frKeyword = keyword(importSampleFile.fr, "Titre", "Carte nationale")
+
+    (enKeyword must haveTheSameElementsAs(Seq("National Map 1:500'000"))) and
+      (frKeyword must haveTheSameElementsAs(Seq("Carte nationale 1:500'000")))
+  }
+  def translatedAbstract = {
+    def keyword(metadata: NodeSeq, keywordTranslation: String, word: String) = {
+      val allRows = metadata \\ "tr"
+
+      val rows = allRows filter (_.descendant \\ "tr" isEmpty)
+      rows flatMap (_.descendant) collect {
+        case Text(text) if text.trim.toLowerCase contains word => text.trim.toLowerCase()
+      }
+    }
+    val enKeyword = keyword(importSampleFile.en, "descriptive", "cartography")
+    val frKeyword = keyword(importSampleFile.fr, "Résumé", "carte nationale")
+
+    (enKeyword must contain("The National Map 1:500'000 is a topographic map giving an overview of Switzerland")) and
+      (frKeyword must contain("La carte nationale au 1:500'000"))
   }
 
   case class ShowMetadataResolver(lang: String) extends UriResolver {
     def apply(service: String, params: Seq[(String, String)]): String = {
-      "http://"+Properties.testServer + "/geonetwork/srv/" + lang + "/" + service + paramsToString(params, "?")
+      "http://" + Properties.testServer + "/geonetwork/srv/" + lang + "/" + service + paramsToString(params, "?")
     }
   }
 }
