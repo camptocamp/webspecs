@@ -66,7 +66,8 @@ class WP16Selenium extends Specification with SpecificationsFinder {
 
   def examplesLinks(t: String) = {
     val specs = List(
-      classOf[SaveConfigurationSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[SaveConfigurationSpec],
+      classOf[AdminChangePasswordSpec]).flatMap { s => createSpecification(s.getName) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }

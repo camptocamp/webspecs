@@ -9,6 +9,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP4._
 import c2c.webspecs.geonetwork.geocat.spec.WP5._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
 import c2c.webspecs.geonetwork.geocat.spec.WP7._
+import c2c.webspecs.geonetwork.geocat.spec.WP9._
 import c2c.webspecs.geonetwork.geocat.spec.WP10._
 import c2c.webspecs.geonetwork.geocat.spec.WP12._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
@@ -32,6 +33,7 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
 	  classOf[WP5],
 	  classOf[WP6],
 	  classOf[WP7],
+	  classOf[WP9],
       classOf[WP10],
 	  classOf[WP11],
       classOf[WP16]  
@@ -164,6 +166,18 @@ def examplesLinks(t: String) = {
 	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 }
 }
+class WP9 extends Specification with SpecificationsFinder {
+  def is =
+
+    examplesLinks("WP 9: Metadata Viewer")
+
+  def examplesLinks(t: String) = {
+    val specs = List(
+      classOf[MetadataShowSpec]).flatMap { s => createSpecification(s.getName) }
+    specs.
+      foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+  }
+}
 
 @RunWith(classOf[JUnitRunner]) 
 class WP10 extends Specification with SpecificationsFinder { def is =
@@ -204,6 +218,8 @@ def examplesLinks(t: String) = {
             classOf[MetadataValidationReportSpec],
             classOf[MonitoringSpec],
             classOf[PreStyleSheetSpec],
+            classOf[XmlInfoServiceLocalisationSpec],
+            classOf[GroupNameLocalizationSpec],
             classOf[RegisterXslSpec],
             classOf[TestMetadataExpiredServicesSpec]
             ).flatMap{s => createSpecification(s.getName)}

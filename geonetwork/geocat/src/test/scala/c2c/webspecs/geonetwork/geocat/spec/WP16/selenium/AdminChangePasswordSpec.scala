@@ -2,7 +2,7 @@ package c2c.webspecs
 package geonetwork
 package geocat
 package spec
-package WP16
+package WP16.selenium
 
 import org.specs2._
 import matcher.ThrownExpectations
@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class `AdminChangePasswordSpec` extends GeocatSeleniumSpecification with ThrownExpectations { 
+class AdminChangePasswordSpec extends GeocatSeleniumSpecification with ThrownExpectations { 
 
   def isImpl = 
   "This specification tests AdminChangePasswordSpec"    ^ 

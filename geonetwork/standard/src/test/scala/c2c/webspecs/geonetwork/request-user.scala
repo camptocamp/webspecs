@@ -6,7 +6,7 @@ import Properties.TEST_TAG
 import xml.Node
 
 object UserProfiles {
-   abstract class UserProfile(val alternatives:String*) {
+   abstract class UserProfile(val alternatives:String*) { 
     val name = toString()
     val allNames = name +: alternatives
   }
@@ -15,7 +15,9 @@ object UserProfiles {
   case object Editor extends UserProfile
   case object UserAdmin extends UserProfile
   case object Reviewer extends UserProfile
-  case object Admin extends UserProfile("Administrator")
+  case object Admin extends UserProfile("Administrator") {
+    override val toString = alternatives.head
+  }
 
   var all = Guest :: RegisteredUser :: Editor :: Reviewer :: UserAdmin :: Admin :: Nil
 
