@@ -30,6 +30,12 @@ class SearchOrderSpec extends GeocatSpecification { def is =
     doImport("eng", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#DE">zz</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
+    doImport("ita", <gmd:PT_FreeText>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#DE">yy</gmd:LocalisedCharacterString></gmd:textGroup>
+                   </gmd:PT_FreeText>)
+    doImport("ita", <gmd:PT_FreeText>
+                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#DE">xx</gmd:LocalisedCharacterString></gmd:textGroup>
+                    </gmd:PT_FreeText>)
     doImport("eng", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">A ENG EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">A ENG EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
@@ -64,7 +70,7 @@ class SearchOrderSpec extends GeocatSpecification { def is =
       sortBy = List(SortBy("_defaultTitle", true))).execute()
     val records = cswResponse.value.getXml \\ "SummaryRecord" \\ "title" map (_.text)
 
-    records must contain("A FRA EN and FR is FR", "b fra is fr", "A ENG EN and FR is FR", "b eng en and fr is fr", "G eng is fr", "zz").only.inOrder
+    records must contain("A FRA EN and FR is FR", "b fra is fr", "A ENG EN and FR is FR", "b eng en and fr is fr", "G eng is fr", "xx", "yy", "zz").only.inOrder
   }
   def enTitleSearch = {
     val cswResponse = CswGetRecordsRequest(
@@ -76,6 +82,6 @@ class SearchOrderSpec extends GeocatSpecification { def is =
       sortBy = List(SortBy("_defaultTitle", true))).execute()
     val records = cswResponse.value.getXml \\ "SummaryRecord" \\ "title" map (_.text)
 
-    records must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "zz", "A FRA EN and FR is EN", "b fra is fr").only.inOrder
+    records must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "zz", "A FRA EN and FR is EN", "b fra is fr", "xx", "yy").only.inOrder
   }
 }

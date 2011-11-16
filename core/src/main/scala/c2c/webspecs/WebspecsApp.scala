@@ -27,11 +27,9 @@ trait WebspecsApp extends DelayedInit {
    *  @param body the initialization code to be stored for later execution
    */
   override def delayedInit(body: => Unit) {
-    try {
-    	initCode += (() => body)
-    } finally {
-    	executionContext.close()
-    }
+    initCode += (() => 
+      try body
+      finally executionContext.close())
   }
 
   /** The main method.
