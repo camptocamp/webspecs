@@ -450,7 +450,7 @@
       <gmd:citation>
         <gmd:CI_Citation>
           <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
-            <gco:CharacterString>Comprehenisve Test</gco:CharacterString>
+            <gco:CharacterString>Comprehenisve Test {uuid}</gco:CharacterString>
             <gmd:PT_FreeText>
               <gmd:textGroup>
                 <gmd:LocalisedCharacterString locale="#FR">Comprehenisve Test</gmd:LocalisedCharacterString>
@@ -1071,6 +1071,29 @@
           </gmd:version>
         </gmd:MD_Format>
       </gmd:resourceFormat>
+      <gmd:descriptiveKeywords>
+          <gmd:MD_Keywords >
+              <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+                  <gmd:PT_FreeText>
+                      <gmd:textGroup>
+                          <gmd:LocalisedCharacterString locale="#DE">e-geo.ch Geoportal</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                          <gmd:LocalisedCharacterString locale="#EN">e-geo.ch geoportal</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                          <gmd:LocalisedCharacterString locale="#FR">géoportail e-geo.ch</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                          <gmd:LocalisedCharacterString locale="#IT">geoportale e-geo.ch</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                          <gmd:LocalisedCharacterString locale="#RO"/>
+                      </gmd:textGroup>
+                  </gmd:PT_FreeText>
+              </gmd:keyword>
+          </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
       <gmd:descriptiveKeywords>
         <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
@@ -3274,13 +3297,13 @@
           <gmd:onLine>
             <gmd:CI_OnlineResource>
               <gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
-                <gmd:URL>http://www.toposhop.admin.ch/de/shop/products/maps/national/digital/index</gmd:URL>
+                <gmd:URL>http://www.toposhop.admin.ch/de/shop/products/maps/national/{uuid}/index</gmd:URL>
                 <che:PT_FreeURL>
                   <che:URLGroup>
-                    <che:LocalisedURL locale="#EN">http://www.toposhop.admin.ch/en/shop/products/maps/national/digital/index</che:LocalisedURL>
+                    <che:LocalisedURL locale="#EN">http://www.toposhop.admin.ch/en/shop/products/maps/national/{uuid}/index</che:LocalisedURL>
                   </che:URLGroup>
                   <che:URLGroup>
-                    <che:LocalisedURL locale="#FR">http://www.toposhop.admin.ch/fr/shop/products/maps/national/digital/index</che:LocalisedURL>
+                    <che:LocalisedURL locale="#FR">http://www.toposhop.admin.ch/fr/shop/products/maps/national/{uuid}/index</che:LocalisedURL>
                   </che:URLGroup>
                 </che:PT_FreeURL>
               </gmd:linkage>

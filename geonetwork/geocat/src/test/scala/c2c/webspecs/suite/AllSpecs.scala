@@ -216,6 +216,7 @@ examplesLinks("WP 16: Misc. tests")
 def examplesLinks(t: String) = {
     val specs = List(
             classOf[MetadataValidationReportSpec],
+            classOf[GeoportalSpec],
             classOf[MonitoringSpec],
             classOf[PreStyleSheetSpec],
             classOf[XmlInfoServiceLocalisationSpec],

@@ -2,9 +2,9 @@ package c2c.webspecs
 package geonetwork
 
 class GeonetworkURIResolver extends UriResolver {
+  def locale = Properties(GeonetConfig.LOCALE_KEY) getOrElse "eng" 
   def apply(uri: String, params: Seq[(String, String)]) = {
     val baseURL = Properties.testServer
-    val locale = Properties(GeonetConfig.LOCALE_KEY) getOrElse "eng"
 
     val service =
       if (!uri.startsWith(XLink.PROTOCOL)) uri
