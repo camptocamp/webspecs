@@ -42,11 +42,14 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
 
     xmlResponse.value.withXml{md =>
 
-      val node = (md \\ "citation"  \ "CI_Citation" \ "title" \ "CharacterString").text
+      println(md)
+      val charString = (md \\ "citation"  \ "CI_Citation" \ "title" \ "CharacterString")
+      val frLocalizedString = (md \\ "citation"  \ "CI_Citation" \ "title" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#FR")).map(_.text)
 
-      val abstractText = (md \\ "abstract" \\ "CharacterString").text.trim
-      val abstractLocalisedENtext = (md \\ "abstract" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#EN")).get.text
-      val abstractLocalisedDEtext = (md \\ "abstract" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#DE")).get.text
+      val abstractText = (md \\ "abstract" \\ "CharacterString")
+      val abstractLocalisedFRtext = (md \\ "abstract" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#FR")).map(_.text)
+      val abstractLocalisedENtext = (md \\ "abstract" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#EN")).map(_.text)
+      val abstractLocalisedDEtext = (md \\ "abstract" \\ "LocalisedCharacterString" find (n =>  (n \\ "@locale").text == "#DE")).map(_.text)
 
       val ciContact = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "contactInfo" \ "CI_Contact"
       val online = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "contactInfo" \ "CI_Contact" \ "onlineResource" \ "CI_OnlineResource" 
@@ -56,12 +59,13 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
         "onlineResource" \ "CI_OnlineResource" \ "linkage" \ "PT_FreeURL" \ "URLGroup" \ "LocalisedURL").text
 
 //        ((node must_== "COmprehenisve Test") and (abstractText must_== "xx"))
-        ((node must_== "FR Title")
-          and (abstractText must_== "FR abstract")
-          and (cheLocalisedUrl must_== "http://www.awnl.llv.li")
-          and (abstractLocalisedENtext must_== "EN  abstract")
-          and (abstractLocalisedDEtext must_== "DE  abstract")
-          )
+        (charString must beEmpty) and
+          (frLocalizedString must beSome("FR Title")) and
+          (cheLocalisedUrl must_== "http://www.awnl.llv.li") and
+          (abstractText must beEmpty) and 
+          (abstractLocalisedFRtext must beSome("FR abstract")) and
+          (abstractLocalisedENtext must beSome("EN  abstract")) and
+          (abstractLocalisedDEtext must beSome("DE  abstract"))
     }
   }
 
