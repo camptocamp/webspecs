@@ -17,7 +17,16 @@ abstract class GeocatSeleniumSpecification extends GeocatSpecification {
   val eventuallyBeTrue = beTrue.eventually(10,1.second)
   def clickSearch() = selenium.click("//table[@id='searchBt']//button")
   def is = sequential ^ Step(setup) ^ isImpl ^ Step(tearDown)
-
+  def seleniumLogin() = {
+    import selenium._
+    open("/geonetwork/srv/eng/geocat")
+    `type`("id=username", adminUser)
+    `type`("id=password", adminPass)
+    
+    click("css=button.banner")
+    waitForPageToLoad("30000")
+    
+  }
   def isImpl: Fragments
 
   override def extraSetup(setupContext: ExecutionContext): Unit = {

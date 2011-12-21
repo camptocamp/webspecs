@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class `ViewNonValidatedObjectsSeleniumSpec` extends GeocatSeleniumSpecification with ThrownExpectations { 
+class ViewNonValidatedObjectsSeleniumSpec extends GeocatSeleniumSpecification with ThrownExpectations { 
 
   def isImpl = 
   "This specification tests Viewing all the NonValidated Objects"    ^ Step(importMd) ^

@@ -4,6 +4,7 @@ import org.specs2.Specification
 import org.specs2.runner.SpecificationsFinder
 import c2c.webspecs.geonetwork.geocat.spec.WP7.selenium._
 import c2c.webspecs.geonetwork.geocat.spec.WP10.selenium._
+import c2c.webspecs.geonetwork.geocat.spec.WP15.selenium._
 import c2c.webspecs.geonetwork.geocat.spec.WP16.selenium._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
@@ -20,6 +21,7 @@ class AllSeleniumSpecs extends Specification with SpecificationsFinder { def is 
   val specs = List(
       classOf[WP7Selenium],      
       classOf[WP10Selenium],      
+      classOf[WP15Selenium],      
 	  classOf[WP16Selenium]	  
 	).flatMap{s => createSpecification(s.getName)}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
@@ -46,6 +48,7 @@ class WP10Selenium extends Specification with SpecificationsFinder {
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
 }
+
 class WP7Selenium extends Specification with SpecificationsFinder {
   def is =
     examplesLinks("WP 7: Geocat Search UI")
@@ -59,6 +62,17 @@ class WP7Selenium extends Specification with SpecificationsFinder {
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
+}
+class WP15Selenium extends Specification with SpecificationsFinder {
+    def is =
+            examplesLinks("WP 15: Metadata Edit")
+            
+            def examplesLinks(t: String) = {
+        val specs = List(
+                classOf[EditContactSpec]).flatMap { s => createSpecification(s.getName) }
+        specs.
+        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
 }
 class WP16Selenium extends Specification with SpecificationsFinder {
   def is =

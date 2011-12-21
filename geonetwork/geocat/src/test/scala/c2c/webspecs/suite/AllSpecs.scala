@@ -12,6 +12,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP7._
 import c2c.webspecs.geonetwork.geocat.spec.WP9._
 import c2c.webspecs.geonetwork.geocat.spec.WP10._
 import c2c.webspecs.geonetwork.geocat.spec.WP12._
+import c2c.webspecs.geonetwork.geocat.spec.WP15._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
@@ -35,7 +36,8 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
 	  classOf[WP7],
 	  classOf[WP9],
       classOf[WP10],
-	  classOf[WP11],
+      classOf[WP11_12],
+      classOf[WP15], 
       classOf[WP16]  
 	).flatMap{s => createSpecification(s.getName)}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
@@ -93,6 +95,8 @@ class WP3 extends Specification with SpecificationsFinder { def is =
         classOf[AddSharedExtentsSpec],
         classOf[AddSharedFormatSpec],
         classOf[AddSharedKeywordsSpec],
+        classOf[ContactsMatchSpec],
+        classOf[UpdateXlinksCachingSpec],
         classOf[AddXLinksSpec],
         classOf[ImportSpecialExtentsSpec],
         classOf[ProcessImportedMetadataSpec],
@@ -195,7 +199,7 @@ class WP10 extends Specification with SpecificationsFinder { def is =
 	}
 }
 @RunWith(classOf[JUnitRunner]) 
-class WP11 extends Specification with SpecificationsFinder { def is =
+class WP11_12 extends Specification with SpecificationsFinder { def is =
 
 examplesLinks("WP 11/12: GM03 Import and Export")
 
@@ -207,7 +211,17 @@ def examplesLinks(t: String) = {
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
 }
-
+class WP15 extends Specification with SpecificationsFinder {
+    def is =
+            examplesLinks("WP 15: Metadata Edit")
+            
+            def examplesLinks(t: String) = {
+        val specs = List(
+                classOf[UpdateContactViaMetadataUpdate]).flatMap { s => createSpecification(s.getName) }
+        specs.
+        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
+}
 @RunWith(classOf[JUnitRunner])
 class WP16 extends Specification with SpecificationsFinder { def is =
 

@@ -43,9 +43,9 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
   }
 
   lazy val datestamp = System.currentTimeMillis().toString
-  def importMd(numberOfRecords:Int, md:String = "/geocat/data/bare.iso19139.che.xml", identifier:String) = {
+  def importMd(numberOfRecords:Int, md:String = "/geocat/data/bare.iso19139.che.xml", identifier:String, styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE) = {
     val replacements = Map("{uuid}" -> identifier) 
-    val importRequest = ImportMetadata.defaultsWithReplacements(replacements,md,false,getClass,ImportStyleSheets.NONE)._2
+    val importRequest = ImportMetadata.defaultsWithReplacements(replacements,md,false,getClass,styleSheet)._2
     
     1 to numberOfRecords map {_ =>
       val id = importRequest.execute().value.id

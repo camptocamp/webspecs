@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>EditContactSpec</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">EditContactSpec</td></tr>
+</thead><tbody>
+<!--- Editing Contact updates reusable object-->
+<!--- edit metadata-->
+<tr>
+	<td>open</td>
+	<td>/geonetwork/srv/eng/metadata.edit?id=3</td>
+	<td></td>
+</tr>
+<!--- edit firstname of contact-->
+<tr>
+	<td>type</td>
+	<td>id=_279</td>
+	<td>newname{uuid}</td>
+</tr>
+<!--- save-->
+<tr>
+	<td>click</td>
+	<td>id=btnSave</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Point of contact</td>
+	<td></td>
+</tr>
+<!---verify that there reusable object has been updated-->
+<tr>
+	<td>verifyValue</td>
+	<td>id=_137</td>
+	<td>newname{uuid}</td>
+</tr>
+<!--- verify that there are still 3 contacts in metadata-->
+<tr>
+	<td>verifyAllLinks</td>
+	<td>this.browserbot.findElement(&quot;id=foo&quot;)</td>
+	<td>1</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
