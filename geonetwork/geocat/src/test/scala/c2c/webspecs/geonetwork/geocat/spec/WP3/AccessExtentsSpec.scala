@@ -84,7 +84,8 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
   val polygonExtent = (response:Response[XmlValue]) => response.value.withXml{ _ must \\("EX_BoundingPolygon") }
   val haveDesc = (response:Response[XmlValue]) => response.value.withXml{ _ must \\("description") }
   val haveLocalisedDesc = (response:Response[XmlValue]) => {
-    val desc = response.value.getXml \\ "description"
+    val xml = response.value.getXml
+    val desc = xml \\ "description"
     val characterStrings =  desc \\ "CharacterString"
     val localisedStrings =  desc \\ "LocalisedCharacterString"
     

@@ -38,9 +38,9 @@ trait Request[-In, +Out] {
       def execute(in: In)(implicit context: ExecutionContext, uriResolvers:UriResolver) = outer.execute(in).map(mapping)
     }
   }
-  def execute (in: In)(implicit context:ExecutionContext, uriResolvers:UriResolver) : Response[Out]
+  def execute (in: In)(implicit context:ExecutionContext=new DefaultExecutionContext(), uriResolvers:UriResolver) : Response[Out]
   
-  def assertPassed(in:In)(implicit context:ExecutionContext, uriResolvers:UriResolver) = execute(in) match {
+  def assertPassed(in:In)(implicit context:ExecutionContext=new DefaultExecutionContext(), uriResolvers:UriResolver) = execute(in) match {
     case response if response.basicValue.responseCode > 399 =>
       throw new AssertionError(toString+" did not complete correctly, reponseCode="+
         response.basicValue.responseCode+" message: "+

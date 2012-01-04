@@ -18,8 +18,8 @@ object IdentityUriResolver extends UriResolver {
 }
 
 abstract class BasicServerResolver(scheme:String, autoAddSegment:String) extends UriResolver {
+  def baseServer = Properties.testServer
   def apply( uri: String, params: Seq[(String, String)]) = {
-    val baseURL = Properties.testServer
 
     val segments = uri.split("/")
     if(uri.startsWith("http:/") | uri.startsWith(scheme)){
@@ -28,8 +28,8 @@ abstract class BasicServerResolver(scheme:String, autoAddSegment:String) extends
     } else {
       
       val serviceUrlParts = 
-        if(segments contains autoAddSegment) (scheme+":/") :: baseURL :: uri :: Nil
-        else (scheme+":/") :: baseURL :: autoAddSegment :: uri :: Nil
+        if(segments contains autoAddSegment) (scheme+":/") :: baseServer :: uri :: Nil
+        else (scheme+":/") :: baseServer :: autoAddSegment :: uri :: Nil
 
       val serviceUrl = serviceUrlParts.filterNot(_.isEmpty()).mkString("/")
       if (params.isEmpty) {

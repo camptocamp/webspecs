@@ -15,7 +15,6 @@ object WebSpecsBuild extends Build
   val sharedSettings = Seq[Setting[_]](
     resolvers := Seq(mapfishResolver),
     resolvers += ScalaToolsReleases,
-    resolvers += ScalaToolsSnapshots,
     scalaVersion := "2.9.1",
     organization := "com.c2c",
     version := "1.0-SNAPSHOT",
@@ -31,14 +30,14 @@ object WebSpecsBuild extends Build
   // ------------------------------ Core Project ------------------------------ //
 
   val coreDependencies = Seq(
-    "org.specs2" %% "specs2" % "1.6.1",
+    "org.specs2" %% "specs2" % "1.7.1",
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     "org.apache.httpcomponents" % "httpclient" % "4.1.2",
     "org.apache.httpcomponents" % "httpmime" % "4.1.2",
-    "com.github.scala-incubator.io" %% "scala-io-file" % "0.2.0",
+    "com.github.scala-incubator.io" %% "scala-io-file" % "0.3.0",
     "org.pegdown" % "pegdown" % "1.0.2",
     "junit" % "junit" % "4.9",
-		"net.liftweb" %% "lift-json" % "2.4-M4"
+		"net.liftweb" %% "lift-json" % "2.4-M5"
   )
   
   val coreSettings = Seq[Setting[_]](
@@ -73,7 +72,7 @@ object WebSpecsBuild extends Build
 	
   val seleniumVersion = "0.9.7376"
   val seleniumDependencies = Seq(
-    "org.seleniumhq.selenium" % "selenium-remote-control" % "2.0rc2" withSources
+    "org.seleniumhq.selenium" % "selenium-java" % "2.15.0"
     )
   val seleniumSettings = Seq[Setting[_]](
       resolvers += mapfishResolver,

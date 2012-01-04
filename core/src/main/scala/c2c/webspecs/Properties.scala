@@ -132,13 +132,13 @@ object Properties {
 
       Log(Log.LifeCycle,"Loading configuration properties from "+path)
 
-      val dir = Path(path).parent.map{_.path} getOrElse "."
-      (dir,Path(path).name)
+      val dir = Path.fromString(path).parent.map{_.path} getOrElse "."
+      (dir,Path.fromString(path).name)
     }
 
     def load(file: String): InputStreamResource[InputStream] = {
-      val relativePath = Path(baseDir) \ file
-      val rawPath = Path(file) 
+      val relativePath = Path.fromString(baseDir) \ file
+      val rawPath = Path.fromString(file) 
       val cl = Thread.currentThread().getContextClassLoader
       val relativeResource = cl.getResource(baseDir+"/"+file)
       val rawResource = cl.getResource(file)
