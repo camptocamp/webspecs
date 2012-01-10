@@ -47,6 +47,7 @@ case class AddFormat(name:String,version:String)
   extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory,
     P("action", "ADD"),
     P("name",name),
+    SP("testing",true),
     P("version",version))
 
 /**
@@ -57,6 +58,7 @@ case class UpdateFormat(id:String,name:String,version:String)
     P("action", "ADD"),
     P("id",id),
     P("name",name),
+    SP("testing",true),
     P("version",version))
 
     

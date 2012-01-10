@@ -60,8 +60,10 @@ class AccessExtentsSpec extends GeocatSpecification { def is =
   }
   val listhref = (response:ListResponse, _:String) => {
     val uri = findBern(response)(_.href.toString).get
-    (uri must contain("/xml.extent.get?wfs=default&format=")) and
-    (uri must contain("&typename=gn:gemeindenBB&id=351"))
+    (uri must contain("/xml.extent.get?")) and
+    (uri must contain("wfs=default")) and
+    (uri must contain("id=351")) and
+    (uri must contain("typename=gn:gemeindenBB"))
   }
   val listLocalizedDesc = (response:ListResponse, _:String) => {
     val bernDesc = findBern(response)(_.desc).get

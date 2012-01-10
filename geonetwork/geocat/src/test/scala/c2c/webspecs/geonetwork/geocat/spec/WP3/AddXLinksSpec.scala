@@ -75,8 +75,8 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   def addExtent = {
     val addResponse = AddXlink.requestWithMd(AddExtentXLink(StandardSharedExtents.KantonBern, true, AddSites.extent)).execute(Id(ImportMdId))
     val (addValue, updatedMd) = addResponse.values
-    val extentDesc = (addValue.newElement \\ "description" \\ "CharacterString").text.trim
-    val extentDescFromNew = (updatedMd.getXml \\ AddSites.extent.name \\ "description" \\ "CharacterString").head.text.trim
+    val extentDesc = (addValue.newElement \\ "description" \\ "LocalisedCharacterString").text.trim
+    val extentDescFromNew = (updatedMd.getXml \\ AddSites.extent.name \\ "description" \\ "LocalisedCharacterString").head.text.trim
     val polygons = addValue.newElement \\ "polygon" 
     val bbox = addValue.newElement \\ "EX_GeographicBoundingBox" 
     (extentDesc.toLowerCase() must contain ("bern")) and

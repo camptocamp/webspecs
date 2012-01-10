@@ -217,7 +217,9 @@ class WP15 extends Specification with SpecificationsFinder {
             
             def examplesLinks(t: String) = {
         val specs = List(
-                classOf[UpdateContactViaMetadataUpdate]).flatMap { s => createSpecification(s.getName) }
+                classOf[UpdateContactViaMetadataUpdate],
+                classOf[KeywordsXlinkAddSpec],
+                classOf[UpdateNonXlinkViaMetadataUpdate]).flatMap { s => createSpecification(s.getName) }
         specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }

@@ -48,7 +48,7 @@ case class SearchExtent(numResults:Int = 25,
           val href = feature \\ "@href" text
           val desc = parseLanguages(feature \\ "desc")
           val validated = !href.contains("typename=gn:non_validated")
-          val fullHref = "http://"+Properties.testServer+href
+          val fullHref = if(href startsWith "local://") href.replace("local://","http://"+Properties.testServer+"/") else href
           ExtentSummary(id,new URL(fullHref), desc,validated)
         }
     }
