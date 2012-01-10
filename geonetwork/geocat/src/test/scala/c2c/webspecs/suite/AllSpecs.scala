@@ -96,6 +96,7 @@ class WP3 extends Specification with SpecificationsFinder { def is =
         classOf[AddSharedFormatSpec],
         classOf[AddSharedKeywordsSpec],
         classOf[ContactsMatchSpec],
+        classOf[AccessSharedObjectHtmlListSpecExtentsSpec],
         classOf[UpdateXlinksCachingSpec],
         classOf[AddXLinksSpec],
         classOf[ImportSpecialExtentsSpec],
@@ -219,6 +220,7 @@ class WP15 extends Specification with SpecificationsFinder {
         val specs = List(
                 classOf[UpdateContactViaMetadataUpdate],
                 classOf[KeywordsXlinkAddSpec],
+                classOf[ExtentXlinkAddSpec],
                 classOf[UpdateNonXlinkViaMetadataUpdate]).flatMap { s => createSpecification(s.getName) }
         specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }

@@ -6,13 +6,23 @@ trait Log {
 
   // To show httpclient logging run application with:
   // -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog -Dorg.apache.commons.logging.simplelog.showdatetime=true -Dorg.apache.commons.logging.simplelog.log.org.apache.http=DEBUG -Dorg.apache.commons.logging.simplelog.log.org.apache.http.wire=ERROR
-  private object LoggingConfig {
+  object LoggingConfig {
     val all = false
-    val enabled = Error :: Warning :: Connection :: LifeCycle :: Nil
+    
+    val enabled = {
+      val enabledNames = Option(System.getProperty("logging_enabled")).getOrElse("LifeCycle,Connection,Warning,Errors,Constants").split(',').map(_.trim)
+      println(enabledNames.toList,allLevels)
+      allLevels.filter(level => enabledNames.contains(level.toString))
+    }
 
   }
-
-  sealed trait Level
+  
+  private[this] var _allLevels = 
+    RequestXml :: Connection :: Headers :: RequestForm :: LifeCycle ::
+    Constants :: Warning :: Error :: Plugins :: TextResponse :: Nil
+  def allLevels = _allLevels
+  
+  trait Level
   case object RequestXml extends Level
   case object Connection extends Level
   case object Headers extends Level
