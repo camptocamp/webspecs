@@ -2,7 +2,7 @@ package c2c.webspecs
 package geonetwork
 
 class GeonetworkURIResolver extends UriResolver {
-  def locale = Properties(GeonetConfig.LOCALE_KEY) getOrElse "eng" 
+  def locale = Properties(GeonetConfig.LOCALE_KEY) getOrElse "en"
   def apply(uri: String, params: Seq[(String, String)]) = {
     val baseURL = Properties.testServer
 

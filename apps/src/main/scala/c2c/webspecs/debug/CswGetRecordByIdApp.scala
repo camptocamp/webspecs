@@ -9,6 +9,6 @@ object CswGetRecordByIdApp extends WebspecsApp {
   	//LoginRequest("admin","admin")()
 //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
     
-    val res = CswGetRecordById("67047f47-13d7-491a-bb7e-bb2c8016582d", outputSchema=OutputSchemas.GmdNamespace, resultType=ResultTypes.resultsWithSummary).execute()
+    val res = CswGetRecordById("bd57c354-d13d-4fcb-8d87-e55997e93b8f").execute()
     println(res.value.getXml)
 }

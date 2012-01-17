@@ -6,7 +6,7 @@ import ResultTypes._
 
 case class CswGetRecordById(
     fileId:String, 
-    outputSchema:OutputSchemas.OutputSchema,
+    outputSchema:OutputSchemas.OutputSchema = OutputSchemas.IsoRecord,
     resultType:ResultType=results,
     url:String="csw")
   extends AbstractXmlPostRequest[Any,XmlValue](url, XmlValueFactory) {

@@ -16,6 +16,7 @@ object Config {
   def loadStrategy[T](property:String):Either[IllegalArgumentException,Class[T]] = Properties(property) match {
     case Some(strategyName) =>
       val fullClassName = Exception.allCatch.opt(Class.forName(strategyName).asInstanceOf[Class[T]])
+      Class.forName("c2c.webspecs."+ strategyName)
       val appendedPackage = Exception.allCatch.opt(Class.forName("c2c.webspecs."+ strategyName).asInstanceOf[Class[T]])
       fullClassName orElse appendedPackage match {
         case Some(instance) => Right(instance)

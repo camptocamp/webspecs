@@ -121,8 +121,8 @@ object Properties {
    * Will look for the file on filesystem and in classpath resource path.
    */
   class DefaultFileResolver extends ConfigFileResolver {
-    val sysProps = getProperties.asScala /// NEED to load sstem and env properties and add them all to the map
-    val envProps = getenv.asScala /// NEED to load sstem and env properties and add them all to the map
+    val sysProps = getProperties.asScala /// NEED to load system and env properties and add them all to the map
+    val envProps = getenv.asScala /// NEED to load system and env properties and add them all to the map
 
     // calculate the directory that is the relative directory and
     // the base configuration file and whether the files come from
@@ -131,27 +131,49 @@ object Properties {
       val path = sysProps.get("webspecs.config") orElse envProps.get("webspecs.config") getOrElse "config.properties"
 
       Log(Log.LifeCycle,"Loading configuration properties from "+path)
-
+      
       val dir = Path.fromString(path).parent.map{_.path} getOrElse "."
-      (dir,Path.fromString(path).name)
+      val file = Path.fromString(path).name
+      
+      if(util.control.Exception.allCatch.opt(load(dir,file)).isDefined) {
+        (dir,file)
+      } else {
+        defaultOnClassPath getOrElse (dir,file)
+      }
+    }
+
+    private def defaultOnClassPath: Option[(String, String)] = {
+      val discovered = for {
+        trace <- new Exception().getStackTrace
+        classAtTrace = Class.forName(trace.getClassName)
+        if classOf[WebSpecsSpecification[_]] isAssignableFrom classAtTrace
+        resource <- Option(classAtTrace.getResource("config.properties")) orElse Option(classAtTrace.getResource("defaultConfig.properties"))
+      } yield {
+        val path = Path(resource.toURI).get
+        (path.parent.get.path, path.name)
+      }
+      discovered.reverse.headOption
     }
 
     def load(file: String): InputStreamResource[InputStream] = {
+        load(baseDir, file)
+    }
+    private def load(baseDir:String, file: String) = {
       val relativePath = Path.fromString(baseDir) \ file
-      val rawPath = Path.fromString(file) 
+      val rawPath = Path.fromString(file)
       val cl = Thread.currentThread().getContextClassLoader
-      val relativeResource = cl.getResource(baseDir+"/"+file)
+      val relativeResource = cl.getResource(baseDir + "/" + file)
       val rawResource = cl.getResource(file)
-      if(relativePath.exists) {
+      if (relativePath.exists) {
         relativePath.inputStream()
-      } else if(rawPath.exists) {
+      } else if (rawPath.exists) {
         rawPath.inputStream()
       } else if (relativeResource != null) {
         Resource.fromURL(relativeResource)
       } else if (rawResource != null) {
         Resource.fromURL(rawResource)
       } else {
-        throw new IllegalArgumentException("The configuration file "+file+" was not found either as a raw file string or as relative to "+baseDir)
+        throw new IllegalArgumentException("The configuration file " + file + " was not found either as a raw file string or as relative to " + baseDir)
       }
     }
   }
