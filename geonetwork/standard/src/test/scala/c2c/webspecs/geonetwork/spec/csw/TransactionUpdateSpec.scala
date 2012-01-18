@@ -7,7 +7,6 @@ import csw._
 import org.specs2.specification.Step
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
-import xml.NodeSeq
 
 @RunWith (classOf[JUnitRunner])
 class TransactionUpdateSpec extends GeonetworkSpecification {

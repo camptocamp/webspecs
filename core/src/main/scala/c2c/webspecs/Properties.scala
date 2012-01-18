@@ -7,6 +7,7 @@ import collection.JavaConverters._
 import java.io.InputStream
 import scalax.io.{InputStreamResource, Resource}
 import java.lang.IllegalArgumentException
+import java.net.URL
 
 /**
  * Loads the configuration from properties files.  The configuration files
@@ -138,16 +139,16 @@ object Properties {
       if(util.control.Exception.allCatch.opt(load(dir,file)).isDefined) {
         (dir,file)
       } else {
-        defaultOnClassPath getOrElse (dir,file)
+        defaultOnClassPath("config.properties","defaultConfig.properties") getOrElse (dir,file)
       }
     }
 
-    private def defaultOnClassPath: Option[(String, String)] = {
+    private def defaultOnClassPath(filenameOptions:String*): Option[(String, String)] = {
       val discovered = for {
         trace <- new Exception().getStackTrace
         classAtTrace = Class.forName(trace.getClassName)
         if classOf[WebSpecsSpecification[_]] isAssignableFrom classAtTrace
-        resource <- Option(classAtTrace.getResource("config.properties")) orElse Option(classAtTrace.getResource("defaultConfig.properties"))
+        resource <- filenameOptions.foldLeft(None:Option[URL]) {(result, next) => result orElse Option(classAtTrace.getResource(next))}
       } yield {
         val path = Path(resource.toURI).get
         (path.parent.get.path, path.name)
@@ -159,19 +160,18 @@ object Properties {
         load(baseDir, file)
     }
     private def load(baseDir:String, file: String) = {
-      val relativePath = Path.fromString(baseDir) \ file
+      val relativePath = Path.fromString(baseDir) resolve Path(file.split('/'):_*)
       val rawPath = Path.fromString(file)
       val cl = Thread.currentThread().getContextClassLoader
-      val relativeResource = cl.getResource(baseDir + "/" + file)
-      val rawResource = cl.getResource(file)
+      val loadedFromClasspath = (Option(cl.getResource(baseDir + "/" + file)) orElse Option(cl.getResource(file))).map(Resource.fromURL(_).inputStream)
+      val defaults = (defaultOnClassPath(file,rawPath.name).map(paths => (Path.fromString(paths._1) / paths._2).inputStream()))
+      val resources = loadedFromClasspath orElse defaults
       if (relativePath.exists) {
         relativePath.inputStream()
       } else if (rawPath.exists) {
         rawPath.inputStream()
-      } else if (relativeResource != null) {
-        Resource.fromURL(relativeResource)
-      } else if (rawResource != null) {
-        Resource.fromURL(rawResource)
+      } else if (resources.isDefined) {
+        resources.get
       } else {
         throw new IllegalArgumentException("The configuration file " + file + " was not found either as a raw file string or as relative to " + baseDir)
       }
