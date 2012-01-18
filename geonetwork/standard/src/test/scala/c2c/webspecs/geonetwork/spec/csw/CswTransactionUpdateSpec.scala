@@ -9,23 +9,27 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith (classOf[JUnitRunner])
-class TransactionUpdateSpec extends GeonetworkSpecification {
+class CswTransactionUpdateSpec extends GeonetworkSpecification {
   def is =
-    "TransactionUpdateSpec".title ^ Step(setup) ^
+    "CswTransactionUpdateSpec".title ^ Step(setup) ^
     "Insert a metadata using CSW Insert" ^ insertMetadata ^
       "Verify metadata has been inserted" ! metadataIsOriginalMetadata ^endp^
-    "UpdateMetadata title"                       ^ updateMetadataTitle ^
+    /*"UpdateMetadata title"                       ^ updateMetadataTitle ^
       "Verify title is updated"     ! titleHasBeenUpdated ^endp^
     "Reset metadata" ^ resetMetadata ^
       "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^
     "UpdateMetadata abstract"                       ^ updateMetadataAbstract ^
       "Verify abstract is updated"     ! abstractHasBeenUpdated ^endp^
+    "UpdateMetadata title using an xpath expression" ^ updateMetadataTitleUsingXPath ^
+      "Verify title is updated"     ! titleHasBeenUpdated ^endp^
+    "Reset metadata" ^ resetMetadata ^
+      "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^
     "Reset metadata" ^ resetMetadata ^
       "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^
     "UpdateMetadata twice quickly in serial"      ^ updateMetadataSerial ^
       "Verify that both updates have been accomplished" ! metadataHasBeenUpdated ^endp^
     "Reset metadata" ^ resetMetadata ^
-      "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^
+      "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^*/
     "UpdateMetadata twice quickly in parallel"      ^ updateMetadataParallel ^
       "Verify that both updates have been accomplished" ! metadataHasBeenUpdated ^endp^
     "Delete metadata using CSW Delete" ^ deleteMetadata ^
@@ -42,6 +46,7 @@ class TransactionUpdateSpec extends GeonetworkSpecification {
   }
 
   def metadataIsOriginalMetadata = {
+    Thread.sleep(500) // let geonetwork finishing indexing
     val response = CswGetRecordById(uuid.toString).execute()
 
     (response must haveA200ResponseCode) and
@@ -51,6 +56,9 @@ class TransactionUpdateSpec extends GeonetworkSpecification {
 
   def updateMetadataTitle = Step{
     CswTransactionUpdate(uuid.toString, "Title" -> (updatedTitle)).execute() must haveA200ResponseCode
+  }
+  def updateMetadataTitleUsingXPath = Step{
+    CswTransactionUpdate(uuid.toString, "gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:title/gco:CharacterString" -> (updatedTitle)).execute() must haveA200ResponseCode
   }
   def titleHasBeenUpdated = titleVal(CswGetRecordById(uuid.toString).execute()) must_== updatedTitle
 
@@ -86,7 +94,6 @@ class TransactionUpdateSpec extends GeonetworkSpecification {
     (response must haveA200ResponseCode) and
       ((response.value.getXml \\ "MD_Metadata") must beEmpty)
   }
-
 
   val initialTitle = "initial title"
   val initialAbstract = "initial abstract"

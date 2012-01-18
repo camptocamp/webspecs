@@ -37,7 +37,10 @@ class CSW extends Specification with SpecificationsFinder { def is =
 
     def examplesLinks(t: String) = {
   val specs = List(
-        classOf[csw.TransactionUpdateSpec]
+        classOf[csw.CswTransactionUpdateSpec],
+        classOf[csw.CswGetCapabilitiesServiceUrlSpec],
+        classOf[csw.CswLanguageSpec],
+        classOf[csw.CswOutputSchemaSpec]
       ).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
