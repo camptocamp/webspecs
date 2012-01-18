@@ -14,7 +14,7 @@ class CswTransactionUpdateSpec extends GeonetworkSpecification {
     "CswTransactionUpdateSpec".title ^ Step(setup) ^
     "Insert a metadata using CSW Insert" ^ insertMetadata ^
       "Verify metadata has been inserted" ! metadataIsOriginalMetadata ^endp^
-    /*"UpdateMetadata title"                       ^ updateMetadataTitle ^
+    "UpdateMetadata title"                       ^ updateMetadataTitle ^
       "Verify title is updated"     ! titleHasBeenUpdated ^endp^
     "Reset metadata" ^ resetMetadata ^
       "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^
@@ -29,7 +29,7 @@ class CswTransactionUpdateSpec extends GeonetworkSpecification {
     "UpdateMetadata twice quickly in serial"      ^ updateMetadataSerial ^
       "Verify that both updates have been accomplished" ! metadataHasBeenUpdated ^endp^
     "Reset metadata" ^ resetMetadata ^
-      "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^*/
+      "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^
     "UpdateMetadata twice quickly in parallel"      ^ updateMetadataParallel ^
       "Verify that both updates have been accomplished" ! metadataHasBeenUpdated ^endp^
     "Delete metadata using CSW Delete" ^ deleteMetadata ^

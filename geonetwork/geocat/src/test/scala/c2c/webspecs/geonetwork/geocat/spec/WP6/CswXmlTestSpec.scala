@@ -69,7 +69,7 @@ class CswXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 
   def ProceedXmlTest = (desc:String) => {
     val xmlFile = extract1(desc) + ".xml"
-    val (xmlResource,_) = ResourceLoader.loadDataFromClassPath("/geocat/csw-xml-tests/"+xmlFile, getClass, uuid)
+    val (xmlResource,_) = ResourceLoader.loadDataFromClassPath("/geonetwork/data/cswXmlTests/"+xmlFile, getClass, uuid)
     val cswTestRequest = XmlPostRequest("csw", XML.loadString(xmlResource)).execute()
     
     // In some cases (a failure is expected), we do not want to trigger errors by parsing XML
