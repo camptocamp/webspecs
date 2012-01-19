@@ -51,7 +51,7 @@
                 <argument>-XX:MaxPermSize=256m</argument>
                 <argument>-jar</argument>
                 <argument>sbt-launch.jar</argument>
-                <argument>${project}/run-test-suite-xml</argument>
+                <argument>${project}/test-only c2c.webspecs.suite.AllSpecs</argument>
               </arguments>
             </configuration>
           </execution>

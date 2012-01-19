@@ -86,6 +86,8 @@ class CswTransactionUpdateSpec extends GeonetworkSpecification {
     (response must haveA200ResponseCode) and
       (titleVal(response) must_== updatedTitle) and
       (abstractVal(response) must_== updatedAbstract)
+
+    pending
   }
   def deleteMetadata = Step{CswTransactionDelete(uuid.toString).execute()}
   def metadataHasBeenDeleted = {

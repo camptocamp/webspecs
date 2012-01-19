@@ -21,7 +21,14 @@ object WebSpecsBuild extends Build
     organization := "com.c2c",
     version := "1.0-SNAPSHOT",
     runTaskHtml,
-    runTaskXml
+    runTaskXml,
+    parallelExecution in Test := false,
+    testOptions in Test ++= Seq(
+      Tests.Argument("junitxml"),
+      Tests.Argument("html"),
+      Tests.Argument("console")),
+    testOptions in Test += Tests.Setup( () => 
+      System.setProperty("specs2.junit.outDir", "target/surefire-reports") )
   )
   
   // ------------------------------ Root Project ------------------------------ //

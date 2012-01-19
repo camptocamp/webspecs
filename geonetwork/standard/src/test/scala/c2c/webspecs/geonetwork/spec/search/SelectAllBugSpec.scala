@@ -17,10 +17,12 @@ import org.specs2.runner.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class SelectAllBugSpec extends GeonetworkSpecification {
   def is =
-    "SelectAllBugSpec".title ^ Step(setup) ^
+    "SelectAllBugSpec".title ^ sequential ^ Step(setup)  ^
       "Import test data"  ^ Step(importData) ^ br ^
-        "Perform a search with xml.search; select all; batch delete" ^ Step(search) ^
-        "Search should no longer return the test data" ! noTestData ^
+        "Search should return ${5} records" ! search ^
+        "Select should select 5 records" ! select ^
+        "Delete should execute correctly" ! delete ^
+        "Search should now return ${0} records" ! search ^
         endp ^
       "Re-import test data" ^ Step(importData) ^
         "Perform a search with xml.search the search with the old search and no error should be loaded" ! noErrorBothSearches ^
@@ -30,22 +32,9 @@ class SelectAllBugSpec extends GeonetworkSpecification {
       end ^ Step (tearDown)
 
   def importData = importMd(5,"/geonetwork/data/valid-metadata.iso19139.xml", datestamp)
-
-  def search = {
-    val getResult = searchRequest.execute()
-    val selectResult = SelectAll.execute()
-    val deleteResult = MetadataBatchDelete.execute()
-
-    val foundCount = (getResult.value.getXml \\ "summary" \ "@count").text
-    val selectedCount = (selectResult.value.getXml \\ "Selected").text.trim
-
-    (List(getResult, selectResult, deleteResult) must haveA200ResponseCode.forall)/* and
-      (foundCount must_== "5") and
-      (selectedCount must_== "5")                                                   */
-  }
-
-  def noTestData =
-    (searchRequest.execute().value.getXml \\ "summary" \ "@count").text must_== "0"
+  def select = (SelectAll.execute().value.getXml \\ "Selected").text.trim must_== "5"
+  def delete = MetadataBatchDelete.execute() must haveA200ResponseCode
+  val search = (s:String) => (searchRequest.execute().value.getXml \\ "summary" \ "@count").text must_== extract1(s)
 
   def noErrorBothSearches = {
     val xmlSearchResult = searchRequest.execute()
@@ -65,8 +54,8 @@ class SelectAllBugSpec extends GeonetworkSpecification {
     (SelectAll.execute().value.getXml \\ "Selected").text.trim.toInt must_== 5
   }
 
-  val searchRequest = GetRequest("q", 'fast -> 'index, 'abstract -> datestamp)
-  val embeddedRequest = GetRequest("main.search.embedded", 'abstract -> datestamp)
-  val cswRequest = CswGetRecordsRequest(PropertyIsEqualTo("abstract", datestamp).xml)
+  val searchRequest = GetRequest("q", 'fast -> 'index, 'any -> ("Abstract "+datestamp))
+  val embeddedRequest = GetRequest("main.search.embedded", 'any -> ("Abstract "+datestamp))
+  val cswRequest = CswGetRecordsRequest(PropertyIsEqualTo("any", ("Abstract "+datestamp)).xml)
 
 }
