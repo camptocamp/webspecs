@@ -48,7 +48,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   def importMd(numberOfRecords:Int, md:String, identifier:String, styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE) = {
     val replacements = Map("{uuid}" -> identifier)
     val importRequest = ImportMetadata.defaultsWithReplacements(replacements,md,false,getClass,styleSheet)._2
-
+    Thread.sleep(500)
     1 to numberOfRecords map {_ =>
       val id = importRequest.execute().value.id
       registerNewMd(Id(id))

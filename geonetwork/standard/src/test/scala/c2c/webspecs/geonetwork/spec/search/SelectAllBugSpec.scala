@@ -36,7 +36,7 @@ class SelectAllBugSpec extends GeonetworkSpecification {
     val selectResult = SelectAll.execute()
     val deleteResult = MetadataBatchDelete.execute()
 
-    val foundCount = (getResult.value.getXml \\ "response" \\ "@count").text
+    val foundCount = (getResult.value.getXml \\ "summary" \ "@count").text
     val selectedCount = (selectResult.value.getXml \\ "Selected").text.trim
 
     (List(getResult, selectResult, deleteResult) must haveA200ResponseCode.forall)/* and
@@ -45,7 +45,7 @@ class SelectAllBugSpec extends GeonetworkSpecification {
   }
 
   def noTestData =
-    (searchRequest.execute().value.getXml \\ "response" \\ "@count").text must_== "0"
+    (searchRequest.execute().value.getXml \\ "summary" \ "@count").text must_== "0"
 
   def noErrorBothSearches = {
     val xmlSearchResult = searchRequest.execute()
@@ -62,12 +62,11 @@ class SelectAllBugSpec extends GeonetworkSpecification {
     }
     
     request.execute()
-    (SelectAll.execute().value.getXml \\ "Selected").text.trim must_== 5
+    (SelectAll.execute().value.getXml \\ "Selected").text.trim.toInt must_== 5
   }
 
-
-  val searchRequest = GetRequest("q", 'fast -> 'index, 'fileId -> datestamp)
-  val embeddedRequest = GetRequest("main.search.embedded", 'fileId -> datestamp)
-  val cswRequest = CswGetRecordsRequest(PropertyIsEqualTo("fileId", datestamp).xml)
+  val searchRequest = GetRequest("q", 'fast -> 'index, 'abstract -> datestamp)
+  val embeddedRequest = GetRequest("main.search.embedded", 'abstract -> datestamp)
+  val cswRequest = CswGetRecordsRequest(PropertyIsEqualTo("abstract", datestamp).xml)
 
 }

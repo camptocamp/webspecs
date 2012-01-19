@@ -9,8 +9,10 @@ object WebSpecsBuild extends Build
     Resolver.url("Mapfish Ivy Repository", mapfishRepoUrl)(Resolver.ivyStylePatterns)
   }
 
-  lazy val runTestSuite = TaskKey[Unit]("run-test-suite", "Run the main test suite for the current project")
-  lazy val runTask = fullRunTask(runTestSuite , Test, "specs2.html", "c2c.webspecs.suite.AllSpecs")
+  lazy val runTestSuiteHtml = TaskKey[Unit]("run-test-suite-html", "Run the main test suite for the current project")
+  lazy val runTaskHtml = fullRunTask(runTestSuiteHtml, Test, "specs2.html", "c2c.webspecs.suite.AllSpecs")
+  lazy val runTestSuiteXml = TaskKey[Unit]("run-test-suite-xml", "Run the main test suite for the current project")
+  lazy val runTaskXml = fullRunTask(runTestSuiteXml, Test, "specs2.junitxml", "c2c.webspecs.suite.AllSpecs")
 
   val sharedSettings = Seq[Setting[_]](
     resolvers := Seq(mapfishResolver),
@@ -18,7 +20,8 @@ object WebSpecsBuild extends Build
     scalaVersion := "2.9.1",
     organization := "com.c2c",
     version := "1.0-SNAPSHOT",
-    runTask
+    runTaskHtml,
+    runTaskXml
   )
   
   // ------------------------------ Root Project ------------------------------ //

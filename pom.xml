@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.camptocamp</groupId>
+  <name>webspecs</name>
+  <artifactId>webspecs</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+  <url>http://www.georchestra.org</url>
+
+  <profiles>
+    <profile>
+      <id>geocat</id>
+      <properties>
+        <project>geocat</project>
+        <config>/c2c/webspecs/geonetwork/geocat/defaultConfig.properties</config>
+      </properties>
+    </profile>
+    <profile>
+      <id>geonetwork</id>
+      <properties>
+        <project>geonetwork</project>
+        <config>/c2c/webspecs/geonetwork/defaultConfig.properties</config>
+      </properties>
+    </profile>
+  </profiles>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <id>run-sbt-tests</id>
+            <phase>test</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>java</executable>
+              <arguments>
+                <argument>-Dfile.encoding=UTF8</argument>
+                <argument>-Dsbt.log.noformat=true</argument>
+                <argument>-Dwebspecs.config=${config}</argument>
+                <argument>-Dspecs2.junit.outDir=target/surefire-reports</argument>
+                <argument>-Xmx1536M</argument>
+                <argument>-Xss10M</argument>
+                <argument>-XX:MaxPermSize=256m</argument>
+                <argument>-jar</argument>
+                <argument>sbt-launch.jar</argument>
+                <argument>${project}/run-test-suite-xml</argument>
+              </arguments>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  </project>
