@@ -2,6 +2,11 @@ package c2c.webspecs
 
 
 object SP {
-  def apply(pair:(String,Any)):SP = SP(pair._1,pair._2)
+  def apply(pair: (Any, Any)): SP = SP(pair._1, pair._2)
 }
-case class SP(n:String, v:Any) extends Param[Any,String](n, _ => v.toString)
+
+case class SP(n: Any, v: Any) extends Param[Any, String](
+  n match {
+    case s: Symbol => s.name
+    case _ => n.toString
+  }, _ => v.toString)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmd:MD_Metadata xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:gml="http://www.opengis.net/gml" xsi:schemaLocation="http://www.isotc211.org/2005/gmd http://www.isotc211.org/2005/gmd/gmd.xsd">
     <gmd:fileIdentifier>
-        <gco:CharacterString>56841a47-02b7-48cd-b635-55749f47f79e</gco:CharacterString>
+        <gco:CharacterString>{uuid}</gco:CharacterString>
     </gmd:fileIdentifier>
     <gmd:language>
         <gmd:LanguageCode codeList="http://www.loc.gov/standards/iso639-2/" codeListValue="eng"/>
@@ -141,7 +141,7 @@
                 </gmd:CI_Citation>
             </gmd:citation>
             <gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
-                <gco:CharacterString>EN Abstract</gco:CharacterString>
+                <gco:CharacterString>EN Abstract {uuid}</gco:CharacterString>
                 <gmd:PT_FreeText>
                     <gmd:textGroup>
                         <gmd:LocalisedCharacterString locale="#CH">元数据标准的ISO19115是首选元数据标准使用。这个模板是多语种的默认语言设置为英语。其他语言可以用来翻译部分的元数据记录。主要语言是界定元一节。其他语言可以增加元数据节/地区因素。</gmd:LocalisedCharacterString>
@@ -156,10 +156,10 @@
                         <gmd:LocalisedCharacterString locale="#SP">El estándar de metadatos ISO19115 es el estándar de metadatos a utilizar. Esta plantilla es multilingüe, con un idioma por defecto configurado en Inglés. En otros idiomas puede ser usado para traducir parte del registro de metadatos. Idioma principal es definir los metadatos en la sección. Otros idiomas pueden ser añadidos a la sección de metadatos / locale elemento.</gmd:LocalisedCharacterString>
                     </gmd:textGroup>
                     <gmd:textGroup>
-                        <gmd:LocalisedCharacterString locale="#GE">DE Abstract</gmd:LocalisedCharacterString>
+                        <gmd:LocalisedCharacterString locale="#GE">DE Abstract {uuid}</gmd:LocalisedCharacterString>
                     </gmd:textGroup>
                     <gmd:textGroup>
-                        <gmd:LocalisedCharacterString locale="#FR">FR Language</gmd:LocalisedCharacterString>
+                        <gmd:LocalisedCharacterString locale="#FR">FR Language {uuid}</gmd:LocalisedCharacterString>
                     </gmd:textGroup>
                 </gmd:PT_FreeText>
             </gmd:abstract>

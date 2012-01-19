@@ -24,7 +24,6 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
     def extract(text: String): String = config.sampleDataTemplateIds(0)
   }
 
-  lazy val uuid = UUID.randomUUID
   
   private var mdToDelete = new SynchronizedQueue[Id]()
   

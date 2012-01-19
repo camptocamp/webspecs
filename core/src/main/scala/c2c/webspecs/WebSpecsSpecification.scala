@@ -3,23 +3,28 @@ package c2c.webspecs
 import org.specs2.runner.JUnitRunner
 import org.junit.runner.RunWith
 import org.specs2.Specification
-import org.specs2.specification.{Then, When, Given, RegexStep}
 import org.specs2.execute.Result
 import xml.{Node, NodeSeq}
 import java.net.URLEncoder
 import java.net.URLDecoder
-import org.specs2.specification.GivenThen
 import org.specs2.matcher.Matcher
+import org.specs2.specification._
+import org.specs2.mutable.SpecificationFeatures
+import java.util.UUID
 
 /**
  * Contains methods commons to many WebSpecs Specifications
  */
 @RunWith(classOf[JUnitRunner]) 
-trait WebSpecsSpecification[C <: Config] extends Specification {
+trait WebSpecsSpecification[C <: Config] extends SpecificationStructure with SpecificationFeatures {
+
   implicit val config:C
   implicit val context = new DefaultExecutionContext()
   implicit val uriResolver = Config.defaultUriResolver
   implicit val resourceBase = getClass
+
+  lazy val uuid = UUID.randomUUID
+  lazy val datestamp = System.currentTimeMillis().toString
 
   lazy val fixtures:Traversable[Fixture[C]] = Nil
 

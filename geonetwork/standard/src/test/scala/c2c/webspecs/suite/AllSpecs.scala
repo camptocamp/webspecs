@@ -40,7 +40,10 @@ class CSW extends Specification with SpecificationsFinder { def is =
         classOf[csw.CswTransactionUpdateSpec],
         classOf[csw.CswGetCapabilitiesServiceUrlSpec],
         classOf[csw.CswLanguageSpec],
-        classOf[csw.CswOutputSchemaSpec]
+        classOf[csw.CswOutputSchemaSpec],
+        classOf[csw.CswGetRecordsSpec],
+        classOf[csw.CswGetRecordsByIdSpec]
+
       ).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }

@@ -42,7 +42,6 @@ abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends Ge
     href must startingWith(XLink.PROTOCOL)
   }
 
-  lazy val datestamp = System.currentTimeMillis().toString
   override def importMd(numberOfRecords:Int, md:String = "/geocat/data/bare.iso19139.che.xml", identifier:String, styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE) =
     super.importMd(numberOfRecords,md,identifier,styleSheet)
 

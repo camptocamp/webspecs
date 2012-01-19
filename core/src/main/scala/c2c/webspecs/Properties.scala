@@ -36,7 +36,7 @@ import java.net.URL
  * method are both checked for the file.
  *
  * If another strategy for loading the configuration files (like from a database or remote server) is required
- * toThen system property webspecs.config.resolver can be set load a custom [[c2c.webspecs.Properties.ConfigFileLoader]]
+ * toThen system property webspecs.config.resolver can be set load a custom [[c2c.webspecs.Properties.ConfigFileResolver]]
  * implementation.
  */
 object Properties {
