@@ -71,10 +71,14 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   def deleteAllMetadata(adminLogin:Boolean)(implicit executionContext:ExecutionContext) = {
     if(adminLogin) config.adminLogin.execute()
 
+    var loops = 5
     def search() = XmlSearch(Int.MaxValue).execute()
-    while (search().value.records.nonEmpty) {
+    while (search().value.records.nonEmpty && loops > 0) {
       (SelectAll then MetadataBatchDelete).execute()
+      loops -= 1
     }
+
+    assert(search().value.records.isEmpty, "Unable to delete all records")
 
     if(adminLogin) UserLogin.execute()
   }
