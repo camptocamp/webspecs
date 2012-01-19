@@ -11,7 +11,7 @@ trait Log {
     
     val enabled = {
       val enabledNames = {
-        val baseNames = Option(System.getProperty("logging_enabled")).getOrElse("LifeCycle,Connection,Warning,Errors,Constants").split(',').map(_.trim)
+        val baseNames = Option(System.getProperty("logging_enabled")).getOrElse("LifeCycle,Connection,Warning,Error,Constants").split(',').map(_.trim)
         val extrasEnabled = for { 
           extras <- Option(System.getProperty("extra_logs_enabled")).toList
           each <- extras.split(',')} yield each.trim
@@ -21,7 +21,6 @@ trait Log {
 
         (baseNames ++ extrasEnabled) filterNot (disabled.contains)
       }
-      println(enabledNames.toList,allLevels)
       allLevels.filter(level => enabledNames.contains(level.toString))
     }
 

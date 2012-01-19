@@ -28,7 +28,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
   private var mdToDelete = new SynchronizedQueue[Id]()
   
   def registerNewMd(ids:Id*):Unit = mdToDelete ++= ids
-  
+
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
     UserLogin.execute(None)(context, uriResolver)
@@ -62,5 +62,21 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
     (xml \\ "@numberOfRecordsMatched").text.toInt must_== numberOfRecords
   }
 
+  /**
+   * delete all metadata.  If adminLogin is true it will login as admin,
+   * delete all metadata and the login back in as the user.
+   *
+   * implicit parameter is present so that the method can be used by tearDown methods
+   */
+  def deleteAllMetadata(adminLogin:Boolean)(implicit executionContext:ExecutionContext) = {
+    if(adminLogin) config.adminLogin.execute()
+
+    def search() = XmlSearch(Int.MaxValue).execute()
+    while (search().value.records.nonEmpty) {
+      (SelectAll then MetadataBatchDelete).execute()
+    }
+
+    if(adminLogin) UserLogin.execute()
+  }
 
 }

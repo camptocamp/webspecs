@@ -8,6 +8,22 @@
   <packaging>jar</packaging>
   <url>http://www.georchestra.org</url>
 
+  <properties>
+    <!-- logs to show.  Options are: 
+            RequestXml
+            Connection
+            Headers
+            RequestForm
+            RequestMPForm
+            LifeCycle
+            Constants
+            Warning
+            Error
+            Plugins
+            TextResponse -->
+    <logLevel>Error,Warning</logLevel>
+    <testServer>localhost:8080</testServer>
+  </properties>
   <profiles>
     <profile>
       <id>geocat</id>
@@ -27,6 +43,7 @@
 
 
   <build>
+    <defaultGoal>exec:exec</defaultGoal>
     <plugins>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -39,23 +56,25 @@
             <goals>
               <goal>exec</goal>
             </goals>
-            <configuration>
-              <executable>java</executable>
-              <arguments>
-                <argument>-Dfile.encoding=UTF8</argument>
-                <argument>-Dsbt.log.noformat=true</argument>
-                <argument>-Dwebspecs.config=${config}</argument>
-                <argument>-Dspecs2.junit.outDir=target/surefire-reports</argument>
-                <argument>-Xmx1536M</argument>
-                <argument>-Xss10M</argument>
-                <argument>-XX:MaxPermSize=256m</argument>
-                <argument>-jar</argument>
-                <argument>sbt-launch.jar</argument>
-                <argument>${project}/test-only c2c.webspecs.suite.AllSpecs</argument>
-              </arguments>
-            </configuration>
           </execution>
         </executions>
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-Dfile.encoding=UTF8</argument>
+            <argument>-Dsbt.log.noformat=true</argument>
+            <argument>-Dwebspecs.config=${config}</argument>
+            <argument>-Dlogging_enabled=${logLevel}</argument>
+            <argument>-DtestServer=${testServer}</argument>
+            <argument>-Dspecs2.junit.outDir=target/surefire-reports</argument>
+            <argument>-Xmx1536M</argument>
+            <argument>-Xss10M</argument>
+            <argument>-XX:MaxPermSize=256m</argument>
+            <argument>-jar</argument>
+            <argument>sbt-launch.jar</argument>
+            <argument>${project}/test-only c2c.webspecs.suite.AllSpecs</argument>
+          </arguments>
+        </configuration>
       </plugin>
     </plugins>
   </build>

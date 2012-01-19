@@ -6,6 +6,7 @@ import geonetwork._
 import org.specs2.specification.Step
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import collection.immutable.List
 
 /**
  * User: jeichar
@@ -15,31 +16,19 @@ import org.specs2.runner.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class AddSampleDataSpec extends GeonetworkSpecification {
   def is =
-    "AddSpec".title         ^ Step(setup) ^ Step(cleanOutDatabase) ^
+    "AddSpec".title         ^ Step(setup) ^ Step{deleteAllMetadata(adminLogin = true);config.adminLogin.execute()} ^
       "Add Sample data"     ^ Step(addSampleData) ^
+      "Add Sample data request must have completed correctly"     ! addSampleRequestCompletedCorrectly ^
       "sample data added"   ! dataHasBeenAdded ^
-                           Step(cleanOutDatabase) ^ Step (tearDown)
+                           Step(deleteAllMetadata(adminLogin = true)) ^ Step (tearDown)
 
-  def cleanOutDatabase = {
-    (XmlSearch() then SelectAll then MetadataBatchDelete).execute()
+  lazy  val addSampleData = AddAllSampleData.execute()
 
-    XmlSearch().execute()
+  def addSampleRequestCompletedCorrectly = {
+    (addSampleData must haveA200ResponseCode) and
+      ((addSampleData.value.getXml \\ "@status").text.trim must_== "true")
+
   }
-
-  def addSampleData = {
-    val addResult = new GetRequest(
-      "metadata.samples.add",
-      'uuidAction -> 'nothing,
-      'file_type -> 'mef,
-      'schema -> "csw-record,dublin-core,fgdc-std,iso19110,iso19115,iso19139").execute()
-    
-    (addResult must haveA200ResponseCode) and
-      ((addResult.value.getXml \\ "@status") must_== "true")
-  }
-
-  def dataHasBeenAdded = {
-    println(XmlSearch().execute().value.getText)
-    pending
-  } 
+  def dataHasBeenAdded = XmlSearch(5).execute().value.records.size must be_> (0)
     
 }

@@ -9,13 +9,19 @@ import xml.NodeSeq
  * Time: 4:23 PM
  */
 
-case class XmlSearch(params:(Any, Any)*) extends AbstractGetRequest("q", XmlValueFactory, params.map(Param.stringMapping):_*)
-                             /*
-object XmlSearchResultFactory extends BasicValueFactory[List[XmlSearchValue]] {
-  
+case class XmlSearch(maxRecords:Int, params:(Any, Any)*)
+  extends AbstractGetRequest("q", XmlSearchResultFactory,
+    (params ++ Seq('to -> maxRecords, 'fast -> 'index, 'hitsperpage -> maxRecords)).map(Param.stringMapping):_*)
+
+object XmlSearchResultFactory extends BasicValueFactory[XmlSearchValues] {
+  def createValue(rawValue: BasicHttpValue) = new XmlSearchValues(rawValue)
 }
 
-case class XmlSearchValues(xml:NodeSeq) {
-  val records =
+case class XmlSearchValues(rawValue:BasicHttpValue) {
+  lazy val xml = XmlValueFactory.createValue(rawValue).getXml
+  lazy val records = (xml \\ "metadata").toList map (new XmlSearchValue(_))
+  lazy val summary = (xml \\ "summary").headOption
 }
-case class XmlSearchValue(xml)    */
+class XmlSearchValue(xml:NodeSeq) {
+  override val toString = xml \\ "title" text
+}

@@ -16,7 +16,9 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
 
     def examplesLinks(t: String) = {
   val specs = List(
-      classOf[CSW]
+      classOf[CSWSpecs],
+      classOf[SampleDataSpecs],
+      classOf[SearchSpecs]
 	).flatMap{s => createSpecification(s.getName)}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
@@ -31,9 +33,8 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
 }
 
 
-class CSW extends Specification with SpecificationsFinder { def is =
-
-    examplesLinks("WP 1: Add CHE Schema")
+class CSWSpecs extends Specification with SpecificationsFinder { def is =
+    examplesLinks("Csw related tests")
 
     def examplesLinks(t: String) = {
   val specs = List(
@@ -42,8 +43,35 @@ class CSW extends Specification with SpecificationsFinder { def is =
         classOf[csw.CswLanguageSpec],
         classOf[csw.CswOutputSchemaSpec],
         classOf[csw.CswGetRecordsSpec],
-        classOf[csw.CswGetRecordsByIdSpec]
+        classOf[csw.CswGetRecordsByIdSpec],
+        classOf[csw.CswOutputSchemaSpec]
+      ).flatMap{s => createSpecification(s.getName)}
+      specs.
+        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
 
+}
+
+class SampleDataSpecs extends Specification with SpecificationsFinder { def is =
+    examplesLinks("Sample data related tests")
+
+    def examplesLinks(t: String) = {
+  val specs = List(
+        classOf[sampledata.AddSampleDataSpec]
+      ).flatMap{s => createSpecification(s.getName)}
+      specs.
+        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+    }
+
+}
+
+class SearchSpecs extends Specification with SpecificationsFinder { def is =
+    examplesLinks("Search related tests")
+
+    def examplesLinks(t: String) = {
+  val specs = List(
+        classOf[search.SelectAllBugSpec],
+        classOf[search.BasicXmlSearchSpec]
       ).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
