@@ -65,7 +65,7 @@
             <argument>-Dsbt.log.noformat=true</argument>
             <argument>-Dwebspecs.config=${config}</argument>
             <argument>-Dlogging_enabled=${logLevel}</argument>
-            <argument>-DtestServer=${testServer}</argument>
+            <argument>-Dtest.server=${testServer}</argument>
             <argument>-Dspecs2.junit.outDir=target/surefire-reports</argument>
             <argument>-Xmx1536M</argument>
             <argument>-Xss10M</argument>
