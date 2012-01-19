@@ -41,11 +41,12 @@ import java.net.URL
  */
 object Properties {
 
+  var classLoader:ClassLoader = getClass.getClassLoader
   def TEST_TAG = "{automated_test_metadata}"
   lazy val testServer = apply("test.server") getOrElse "localhost:8080"
   lazy val all:Map[String,String] = {
-    val sysProps = getProperties.asScala /// NEED to load sstem and env properties and add them all to the map
-    val envProps = getenv.asScala /// NEED to load sstem and env properties and add them all to the map
+    val sysProps = getProperties.asScala /// NEED to load system and env properties and add them all to the map
+    val envProps = getenv.asScala /// NEED to load system and env properties and add them all to the map
 
     val resolver = sysProps.get("webspecs.config.resolver").map{
       c => Thread.currentThread().getContextClassLoader.loadClass(c).asInstanceOf[ConfigFileResolver]
@@ -146,7 +147,8 @@ object Properties {
     private def defaultOnClassPath(filenameOptions:String*): Option[(String, String)] = {
       val discovered = for {
         trace <- new Exception().getStackTrace
-        classAtTrace = Class.forName(trace.getClassName)
+        canLoadClass <- try { Properties.classLoader.loadClass(trace.getClassName); Some(true) } catch { case _ => None}
+        classAtTrace = Properties.classLoader.loadClass(trace.getClassName)
         if classOf[WebSpecsSpecification[_]] isAssignableFrom classAtTrace
         resource <- filenameOptions.foldLeft(None:Option[URL]) {(result, next) => result orElse Option(classAtTrace.getResource(next))}
       } yield {
@@ -162,8 +164,9 @@ object Properties {
     private def load(baseDir:String, file: String) = {
       val relativePath = Path.fromString(baseDir) resolve Path(file.split('/'):_*)
       val rawPath = Path.fromString(file)
-      val cl = Thread.currentThread().getContextClassLoader
-      val loadedFromClasspath = (Option(cl.getResource(baseDir + "/" + file)) orElse Option(cl.getResource(file))).map(Resource.fromURL(_).inputStream)
+      val cl = Properties.classLoader
+      val loadedFromClasspath = (Option(cl.getResource(baseDir + "/" + file)) orElse
+        Option(cl.getResource(file)) orElse Option(cl.getResource("/" + baseDir + "/" + file))).map(Resource.fromURL(_).inputStream)
       val defaults = (defaultOnClassPath(file,rawPath.name).map(paths => (Path.fromString(paths._1) / paths._2).inputStream()))
       val resources = loadedFromClasspath orElse defaults
       if (relativePath.exists) {
