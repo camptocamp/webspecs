@@ -18,7 +18,7 @@ class CswGetRecordsByIdSpec extends GeonetworkSpecification with Specification {
   "GetRecordsById" should {
     "retrieve a metadata its uuid" in {
       val id = importMd(1,"/geonetwork/data/valid-metadata.iso19139.xml",uuid.toString).head
-      val fileId = (GetRawMetadataXml.execute(Id(id)).value.getXml \\ "fileIdentifier").text.trim
+      val fileId = (GetRawMetadataXml.execute(id).value.getXml \\ "fileIdentifier").text.trim
       val result = CswGetRecordById(fileId).execute()
       (result must haveA200ResponseCode) and
         (result.value.getXml.toString must not beEmpty) and

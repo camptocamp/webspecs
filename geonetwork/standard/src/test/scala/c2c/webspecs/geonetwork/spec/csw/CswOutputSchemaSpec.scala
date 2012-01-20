@@ -56,7 +56,7 @@ class CswOutputSchemaSpec extends GeonetworkSpecification {
   lazy val importMetadataId = {
     val mdId = importMd(1, "/geonetwork/data/valid-metadata.iso19139.xml", uuid.toString).head
 
-    val md = GetRawMetadataXml.execute(Id(mdId)).value.getXml
+    val md = GetRawMetadataXml.execute(mdId).value.getXml
     val fileId = (md \\ "fileIdentifier").text.trim
     fileId
   }

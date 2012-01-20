@@ -159,7 +159,7 @@
                         <gmd:LocalisedCharacterString locale="#GE">DE Abstract {uuid}</gmd:LocalisedCharacterString>
                     </gmd:textGroup>
                     <gmd:textGroup>
-                        <gmd:LocalisedCharacterString locale="#FR">FR Language {uuid}</gmd:LocalisedCharacterString>
+                        <gmd:LocalisedCharacterString locale="#FR">FR Abstract {uuid}</gmd:LocalisedCharacterString>
                     </gmd:textGroup>
                 </gmd:PT_FreeText>
             </gmd:abstract>

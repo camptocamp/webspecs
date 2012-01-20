@@ -30,7 +30,7 @@ class CswLanguageSpec extends GeonetworkSpecification {
   lazy val importMetadataId = {
     val mdId = importMd(1, "/geonetwork/data/multilingual-metadata.iso19139.xml", uuid.toString).head
 
-    val md = GetRawMetadataXml.execute(Id(mdId)).value.getXml
+    val md = GetRawMetadataXml.execute(mdId).value.getXml
     val response = (md \\ "fileIdentifier").text.trim
     response
   }

@@ -56,7 +56,7 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
     1 to numberOfRecords map {_ =>
       val id = importRequest.execute().value.id
       registerNewMd(Id(id))
-      id
+      Id(id)
     }
   }
 

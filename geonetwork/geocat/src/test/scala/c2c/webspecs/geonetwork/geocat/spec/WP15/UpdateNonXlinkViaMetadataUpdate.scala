@@ -27,7 +27,7 @@ class UpdateNonXlinkViaMetadataUpdate extends GeocatSpecification { def is =
   val newTitle = "NewTitle"+uuid
   lazy val updatedMetadata = {
     val id = importMd(1,"/geocat/data/contact_has_repeated_contact.xml", uuid.toString(), GeocatConstants.GM03_2_TO_CHE_STYLESHEET)
-    val editValue = StartEditing().execute(Id(id.head)).value
+    val editValue = StartEditing().execute(id.head).value
     
     def printrefs(n:NodeSeq):Unit = n match {
       case e:xml.Elem if((e \ "element" headOption).isDefined) =>
