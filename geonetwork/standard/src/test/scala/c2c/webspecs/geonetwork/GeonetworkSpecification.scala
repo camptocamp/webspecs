@@ -31,14 +31,18 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
 
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
-    UserLogin.execute(None)(context, uriResolver)
+    (config.adminLogin then
+      SetSequentialExecution(true) then
+      UserLogin).execute()(context, uriResolver)
+
   }
   
   override def extraTeardown(tearDownContext:ExecutionContext) = {
     super.extraTeardown(tearDownContext)
-    
     config.adminLogin.execute()
-    
+
+    SetSequentialExecution(false).execute()
+
     mdToDelete foreach {id => 
       try {DeleteMetadata.execute(id) }
       catch { case _ => println("Error deleting: "+ id) }
