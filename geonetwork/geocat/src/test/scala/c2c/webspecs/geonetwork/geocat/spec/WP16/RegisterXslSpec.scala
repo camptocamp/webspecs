@@ -34,12 +34,12 @@ class RegisterXslSpec extends GeocatSpecification() {  def is =
 																									   Step(tearDown)	
 			
   lazy val importMetadataId = {
-    	val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
-    	val (importId, mdValue)= (importMdRequest startTrackingThen GetRawMetadataXml).execute().values
-    	registerNewMd(importId)
-    	val fileId = (mdValue.getXml \\ "fileIdentifier").text.trim
-    	fileId
-  	}
+    val importId = importMd(1,"/geocat/data/metadata.iso19139.che.xml",uuid.toString).head
+    val mdValue = GetRawMetadataXml.execute(importId)
+
+    (mdValue.value.getXml \\ "fileIdentifier").text.trim
+  }
+
 	def xslId(xslFileName: String) = uuid.toString+xslFileName.dropRight(4)
 	
     def customXslLoad = (descriptor : String) => {

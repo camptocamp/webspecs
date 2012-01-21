@@ -5,9 +5,21 @@ package geocat
 import edit._
 
 object AddXlink {
-    def request(addRequest:AddXLinkRequest) =
-      (StartEditing() then addRequest startTrackingThen EndEditing)
-      
-    def requestWithMd(addRequest:AddXLinkRequest) =
-      (StartEditing() then addRequest startTrackingThen EndEditing then GetRawMetadataXml)
+  /**
+   * Add a particular xlink
+   */
+    def execute(addRequest:AddXLinkRequest,id:Id)(implicit c:ExecutionContext, r:UriResolver) = {
+      val result = (StartEditing() then addRequest).execute(id)
+      EndEditing.execute(result.value)
+      result
+    }
+
+  /**
+   * Add an xlink and get the resulting metadata
+    */
+    def addAndGetMetadata(addRequest:AddXLinkRequest, id:Id)(implicit c:ExecutionContext, r:UriResolver) = {
+      val addResult = (StartEditing() then addRequest).execute(id)
+      val rawXmlResult = (EndEditing then GetRawMetadataXml).execute(addResult.value)
+      (addResult, rawXmlResult)
+    }
 }

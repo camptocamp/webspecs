@@ -37,7 +37,7 @@ class AddSharedExtentsSpec extends GeocatSpecification { def is =
   def updateExtentSpec:Fragments = {
     "First import a known extent (${gmd_bbox} ${0})"														   ^ extentAdd.toGiven ^
     "Then update the extent to have a new geometry"								 							   ^ updateGeom.toWhen ^
-    "The request should suceed with a 200 result"															   ^ a200ResponseThen.narrow[Response[XmlValue]] ^
+    "The request should succeed with a 200 result"															     ^ a200ResponseThen.narrow[Response[XmlValue]] ^
     "The resulting extent should have the new geometry"														   ^ newBBox.toThen ^ end ^
     "Deleting the extent"                                                                                      ^ Step(deleteNewExtent)
   }
@@ -131,9 +131,11 @@ class AddSharedExtentsSpec extends GeocatSpecification { def is =
     		{noHrefXml.child}
       </gmd:extent>
     
-    val updateResponse = (UpdateSharedObject(xml) startTrackingThen GetRequest(href)).execute()
+    val updateResponse = UpdateSharedObject(xml).execute()
+
+    val getRequest = GetRequest(href).execute()
     
-    updateResponse._1.map{_ => updateResponse.last.value}
+    updateResponse.map{_ => getRequest.value}
   }
 
   val newBBox = (updateResponse:Response[XmlValue]) => {

@@ -62,20 +62,24 @@ abstract class AbstractSharedObjectSpec extends GeocatSpecification {
   def findSharedExtent:Option[SharedStructure] = nonValidatedExtents.value find { _.description contains extentSpec.uuid.toString }
   
   lazy val createMetadata = {
-    val importMdId = Id(ImportMetadata.defaults(uuid, "/geocat/data/bare.iso19139.che.xml", false, getClass)._2.execute().value.id)
-    registerNewMd(importMdId)
+    val importMdId = importMd(1,"/geocat/data/bare.iso19139.che.xml", uuid.toString).head
+
     findSharedKeyword foreach { obj =>
       val id = keywordHref.split("&").find(_ startsWith "id=").get.decode.split("#")(1)
-      AddXlink.request(AddKeywordXLink(GeocatConstants.NON_VALIDATED_THESAURUS, GeocatConstants.KEYWORD_NAMESPACE, id, AddSites.descriptiveKeywords)).execute(importMdId)
+      val link = AddKeywordXLink(GeocatConstants.NON_VALIDATED_THESAURUS, GeocatConstants.KEYWORD_NAMESPACE, id, AddSites.descriptiveKeywords)
+      AddXlink.execute(link, importMdId)
     }
     findSharedContact foreach { contact =>
-      AddXlink.request(AddContactXLink(Id(contact.id), AddSites.contact)).execute(importMdId)
+      val link = AddContactXLink(Id(contact.id), AddSites.contact)
+      AddXlink.execute(link, importMdId)
     }
     findSharedExtent foreach { obj =>
-      AddXlink.request(AddExtentXLink(StandardSharedExtents.Custom("gn:non_validated", obj.id), true, AddSites.extent)).execute(importMdId)
+      val link = AddExtentXLink(StandardSharedExtents.Custom("gn:non_validated", obj.id), true, AddSites.extent)
+      AddXlink.execute(link,importMdId)
     }
     findSharedFormat foreach { obj =>
-      AddXlink.request(AddFormatXLink(Id(obj.id), AddSites.distributionFormat)).execute(importMdId)
+      val link = AddFormatXLink(Id(obj.id), AddSites.distributionFormat)
+      AddXlink.execute(link,importMdId)
     }
     importMdId
   }

@@ -10,6 +10,8 @@ import c2c.webspecs.Request
 object ResolveXLink extends Request[String, XmlValue] {
   def execute(in: String)(implicit context: ExecutionContext, uriResolver:UriResolver) = {
     val login = context.currentUser.map(_._1) getOrElse NoRequest
-    (GetRequest("user.logout") then GetRequest(in) startTrackingThen login).execute()._1
+    val result = (GetRequest("user.logout") then GetRequest(in)).execute()
+    login.execute()
+    result
   }
 }

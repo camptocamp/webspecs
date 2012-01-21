@@ -13,31 +13,28 @@ class EditSpecWithSharedObjects extends GeonetworkSpecification { def is =
                                                                     Step(tearDown)
 
   def addExtent = {
-    val create = CreateMetadata(config,config.sampleDataTemplateIds(0))
-    val request = (
-      config.login then
-      create then
-      GetMetadataXml() startTrackingThen
-      StartEditing.chain() then
-      AddExtentXLink(KantonBern,true) then
-      GetMetadataXml() trackThen
-      DeleteMetadata)
+    UserLogin.execute()
+    val id = CreateMetadata(config, config.sampleDataTemplateIds(0)).execute().value
+    registerNewMd(id)
+    val beforeEditing = GetMetadataXml().execute(id)
+    val metadataAfterAddXLink = (StartEditing() then AddExtentXLink(KantonBern, true) then  GetMetadataXml()).execute(id)
 
-    val (originalMd, finalMetadata,_) = request.execute().values
 
-    val originalExtents = originalMd.withXml { _ \\ "extent"}
-    val finalExtents = finalMetadata.withXml {_ \\ "extent"}
+    val originalExtents = beforeEditing.value.getXml \\ "extent"
+    val finalExtents = metadataAfterAddXLink.value.getXml \\ "extent"
 
-    finalExtents.size must beGreaterThan (0)
-    (originalExtents.size + 1) must beEqualTo (finalExtents.size)
+    finalExtents.size must beGreaterThan(0)
+    (originalExtents.size + 1) must beEqualTo(finalExtents.size)
 
-    val addedExtent = finalExtents filterNot {originalExtents contains _}
+    val addedExtent = finalExtents filterNot {
+      originalExtents contains _
+    }
 
     val identifier = addedExtent \\ "MD_Identifier" \\ "CharacterString"
-    identifier must haveSize (1)
-    identifier.text.trim must beEqualTo ("BE")
+    identifier must haveSize(1)
+    identifier.text.trim must beEqualTo("BE")
 
-    (addedExtent \\ "EX_BoundingPolygon") must haveSize (1)
-    (addedExtent \\ "EX_GeographicBoundingBox") must haveSize (1)
+    (addedExtent \\ "EX_BoundingPolygon") must haveSize(1)
+    (addedExtent \\ "EX_GeographicBoundingBox") must haveSize(1)
   }
 }

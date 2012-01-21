@@ -54,31 +54,34 @@ class AddXLinksSpec extends GeocatSpecification { def is =
     }
 
   def addContact = {
-    val addResponse = AddXlink.requestWithMd(AddContactXLink(Id(userFixture.id), AddSites.contact)).execute(Id(ImportMdId))
-    val (addValue, updatedMd) = addResponse.values
-    val email = (addValue.newElement \\ "electronicMailAddress" \\ "CharacterString").text.trim
-    val emailFromNew = (updatedMd.getXml \\ AddSites.contact.name \\ "electronicMailAddress" \\ "CharacterString").head.text.trim
+    val link = AddContactXLink(Id(userFixture.id), AddSites.contact)
+    val (addValue, updatedMd) = AddXlink.addAndGetMetadata(link,Id(ImportMdId))
+
+    val email = (addValue.value.newElement \\ "electronicMailAddress" \\ "CharacterString").text.trim
+    val emailFromNew = (updatedMd.value.getXml \\ AddSites.contact.name \\ "electronicMailAddress" \\ "CharacterString").head.text.trim
     (email must_== userFixture.email) and
       (emailFromNew must_== userFixture.email)
 
   }
 
   def addFormat = {
-    val addResponse = AddXlink.requestWithMd(AddFormatXLink(Id(formatFixture.id.toString), AddSites.distributionFormat)).execute(Id(ImportMdId))
-    val (addValue, updatedMd) = addResponse.values
-    val format = (addValue.newElement \\ "name" \\ "CharacterString").text.trim
-    val formatFromNew = (updatedMd.getXml \\ AddSites.distributionFormat.name \\ "name" \\ "CharacterString").head.text.trim
+    val link = AddFormatXLink(Id(formatFixture.id.toString), AddSites.distributionFormat)
+    val (addValue, updatedMd) = AddXlink.addAndGetMetadata(link, Id(ImportMdId))
+
+    val format = (addValue.value.newElement \\ "name" \\ "CharacterString").text.trim
+    val formatFromNew = (updatedMd.value.getXml \\ AddSites.distributionFormat.name \\ "name" \\ "CharacterString").head.text.trim
     (format must_== formatFixture.name) and
       (formatFromNew must_== formatFixture.name)
 
   }
   def addExtent = {
-    val addResponse = AddXlink.requestWithMd(AddExtentXLink(StandardSharedExtents.KantonBern, true, AddSites.extent)).execute(Id(ImportMdId))
-    val (addValue, updatedMd) = addResponse.values
-    val extentDesc = (addValue.newElement \\ "description" \\ "LocalisedCharacterString").text.trim
-    val extentDescFromNew = (updatedMd.getXml \\ AddSites.extent.name \\ "description" \\ "LocalisedCharacterString").head.text.trim
-    val polygons = addValue.newElement \\ "polygon" 
-    val bbox = addValue.newElement \\ "EX_GeographicBoundingBox" 
+    val link = AddExtentXLink(StandardSharedExtents.KantonBern, true, AddSites.extent)
+    val (addValue, updatedMd) = AddXlink.addAndGetMetadata(link,Id(ImportMdId))
+
+    val extentDesc = (addValue.value.newElement \\ "description" \\ "LocalisedCharacterString").text.trim
+    val extentDescFromNew = (updatedMd.value.getXml \\ AddSites.extent.name \\ "description" \\ "LocalisedCharacterString").head.text.trim
+    val polygons = addValue.value.newElement \\ "polygon"
+    val bbox = addValue.value.newElement \\ "EX_GeographicBoundingBox"
     (extentDesc.toLowerCase() must contain ("bern")) and
       (extentDescFromNew.toLowerCase()  must contain ("bern")) and
       (polygons must haveSize(1)) and
@@ -87,10 +90,11 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   def addKeyword = {
     import keywordFixture._
-    val addResponse = AddXlink.requestWithMd(AddKeywordXLink(thesaurus, namespace, id, AddSites.descriptiveKeywords)).execute(Id(ImportMdId))
-    val (addValue, updatedMd) = addResponse.values
-    val keyword = (addValue.newElement \\ "LocalisedCharacterString" ) map (_.text.trim)
-    val keywordFromNew = (updatedMd.getXml \\ AddSites.descriptiveKeywords.name \\ "LocalisedCharacterString") map (_.text.trim)
+    val link = AddKeywordXLink(thesaurus, namespace, id, AddSites.descriptiveKeywords)
+    val (addValue, updatedMd) = AddXlink.addAndGetMetadata(link,Id(ImportMdId))
+
+    val keyword = (addValue.value.newElement \\ "LocalisedCharacterString" ) map (_.text.trim)
+    val keywordFromNew = (updatedMd.value.getXml \\ AddSites.descriptiveKeywords.name \\ "LocalisedCharacterString") map (_.text.trim)
     (keyword must contain(it,fr,de,en)) and
       (keywordFromNew must contain(it,fr,de,en))
   }

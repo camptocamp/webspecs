@@ -50,9 +50,10 @@ class AddSharedFormatSpec extends GeocatSpecification { def is =
     		xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd">
     	{formatXML(updatedVersion).child}
       </gmd:resourceFormat>
-    val response = (config.adminLogin then UpdateSharedObject(xml) startTrackingThen ListFormats.setIn(formatName)).execute()
-    assert(response.last.value.size == 1, "A unique format was expected")
-    response._1.map{_ => response.last.value.head}
+    val updateResponse = (config.adminLogin then UpdateSharedObject(xml)).execute()
+    val listResponse = ListFormats.setIn(formatName).execute()
+    assert(listResponse.value.size == 1, "A unique format was expected")
+    updateResponse.map{_ => listResponse.value.head}
   }
   
   val hasNewVersion = (resp:Response[Format]) => {

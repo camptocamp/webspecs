@@ -36,7 +36,12 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
   val originalOrg = "swisstopo"
   val newOrg = "camptocamp"
   var href:String = _
-  def contactAdd(withParent:Boolean) = () => (config.adminLogin then ProcessSharedObject(contactXML(withParent,originalOrg)) startTrackingThen UserLogin).execute()._1
+  def contactAdd(withParent:Boolean) = () => {
+    config.adminLogin.execute()
+    val result = ProcessSharedObject(contactXML(withParent,originalOrg)).execute()
+    UserLogin.execute()
+    result
+  }
   val xlinkGetElement = (result:Response[NodeSeq]) => {
     href = (result.value \\ "contact" \@ "xlink:href")(0)
     val xlink = ResolveXLink.execute(href)
@@ -60,7 +65,9 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
       <gmd:contact xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed" xlink:role="http://www.geonetwork.org/non_valid_obj" xlink:href={"local://xml.user.get?id="+id+"&amp;schema=iso19139.che&amp;role=originator"} gco:isotype="gmd:CI_ResponsibleParty" gco:isoType="gmd:CI_ResponsibleParty" xmlns:che="http://www.geocat.ch/2008/che" xmlns:xalan="http://xml.apache.org/xalan" xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" >
         {contactXML(false,newOrg).child}
         </gmd:contact>
-    (config.adminLogin then UpdateSharedObject(xml) startTrackingThen UserLogin).execute()._1
+    val response = (config.adminLogin then UpdateSharedObject(xml)).execute()
+    UserLogin.execute()
+    response
   }
   val noParent = (result:Response[NodeSeq]) => {
     val xlink = GetRequest(href).execute()

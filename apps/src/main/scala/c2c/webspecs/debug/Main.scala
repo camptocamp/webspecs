@@ -24,12 +24,12 @@ object AddCookie extends Request[Any,Null] {
 
 object Main extends WebspecsApp {
   val req = (AddCookie then
-    DivCount("http://localhost:43080/cas/logout") startTrackingThen
+    DivCount("http://localhost:43080/cas/logout") then
     DivCountAcc("http://localhost:43080/cas/login",2) then
-    DivCountAcc("http://localhost:43080/cas/login",3) trackThen
-    DivCountAcc("http://localhost:43080/cas/login",4) trackThen
+    DivCountAcc("http://localhost:43080/cas/login",3) then
+    DivCountAcc("http://localhost:43080/cas/login",4) then
     DivCountAcc("http://localhost:43080/cas/login",5))
   val response = req.execute()
 
-  println(response.values)
+  println(response.value)
 }

@@ -51,9 +51,10 @@ class TestXlinksUpdate extends GeocatSpecification(UserProfiles.Editor) {  def i
     
      val originalXml = XML.loadString(xmlString)
      
-     val response = (UserLogin then importRequest then GetEditingMetadataXml startTrackingThen DeleteMetadata).execute()
+     val response = (UserLogin then importRequest then GetEditingMetadataXml).execute()
+     DeleteMetadata.execute(response.value)
 
-     response._1.map(mv => (originalXml, mv.getXml.asInstanceOf[Node]))
+     response.map(mv => (originalXml, mv.getXml.asInstanceOf[Node]))
    }
  
    val xlinked = (r:Response[(Node,Node)],s:String) => {

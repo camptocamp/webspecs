@@ -27,8 +27,17 @@ object WebSpecsBuild extends Build
       Tests.Argument("junitxml"),
       Tests.Argument("html"),
       Tests.Argument("console")),
-    testOptions in Test += Tests.Setup( () => 
-      System.setProperty("specs2.junit.outDir", "target/surefire-reports") )
+    testOptions in Test += Tests.Setup {() =>
+      val key = "specs2.junit.outDir"
+      val default = "target/surefire-reports"
+      val property = System.getProperty(key, default)
+      if (property.trim.isEmpty)
+        System.setProperty(key, default)
+      else
+        System.setProperty(key, property)
+
+      println("Starting webspecs tests")
+    }
   )
   
   // ------------------------------ Root Project ------------------------------ //
@@ -51,8 +60,7 @@ object WebSpecsBuild extends Build
   )
   
   val coreSettings = Seq[Setting[_]](
-	  libraryDependencies ++= coreDependencies,
-	  commands ++= Seq(generateAccumClasses))
+	  libraryDependencies ++= coreDependencies)
 	
 	lazy val core = Project("core", file("core")).
 	  dependsOn(selenium).
@@ -109,105 +117,10 @@ object WebSpecsBuild extends Build
         sources in (apps,Compile),
         sources in (geoserver,Test),
         sources in (georchestra,Test)
-	   ) map { _ ++ _ ++ _ ++ _ ++ _ ++ _ filterNot {_.getPath matches """(\S+accumulating.Accumulat\S+\d+\.scala)"""}}
+	   ) map { _ ++ _ ++ _ ++ _ ++ _ ++ _ }
     )
   lazy val docsProj:Project = Project("documentation", file("docsProj")).
     dependsOn(core % "compile -> test").
     settings(sharedSettings ++ docsSettings :_*)
-
-  // ------------------------------ GenerateAccumClasses Command (Part of Core) ------------------------------ //
-  
-  val generateAccumClasses = Command.command("gen-classes") { state =>
-    val accumlatingRequestTemplate = """
-class AccumulatingRequest%8$s[-In,%1s,+Out](
-    last:Response[%2$s] => Request[%2$s,Out],
-    elems:Elem*) 
-  extends AccumulatingRequest [In,Out]{
-
-  override def assertPassed(in: In)(implicit context: ExecutionContext):AccumulatedResponse%8$s[%3$s,Out] =
-    super.assertPassed(in).asInstanceOf[AccumulatedResponse%8$s[%3$s,Out]]
-  override def then [A,B] (next: Request[Out,A]) : AccumulatingRequest%8$s[In, %3$s,A] =
-    then(new ConstantRequestFunction(next))
-  override def then [A,B] (next: Response[Out] => Request[Out,A]) : AccumulatingRequest%8$s[In, %3$s, A] =
-    new AccumulatingRequest%8$s(next, elems :+ new Elem(last,false) :_*)
-
-%10$s
-
-  override def setIn[A <: In](in: A) =
-    new AccumulatingRequest%8$s[Any, %3$s,Out](last, Elem(Request.const(in),false) +: elems: _*)
-
-  def apply(in: In)(implicit context: ExecutionContext):AccumulatedResponse%8$s[%3$s,Out] = {
-    val ResultData(lastResponse,trackedResponses) = doApply(in,last.asInstanceOf[RequestFactory],elems)
-
-    new AccumulatedResponse%8$s(
-      %4$s, 
-      lastResponse.asInstanceOf[Response[Out]]
-    )
-  }
-
-  override def toString() = elems.mkString("(","->",")")+" -> "+last
-}
-"""
-  val accumlatingResponseTemplate = """
-case class AccumulatedResponse%8$s[%1$s,+Z](
-    %5$s,
-    val last:Response[Z])
-  extends AccumulatedResponse[Z] {
-
-  def tuple = (
-    %6$s,
-    last
-  )
-
-  def values = (
-    %7$s,
-    last.value
-  )
-}"""
-
-  val trackThenTemplate = """def trackThen [A,B] (next: Request[Out,A]):AccumulatingRequest%9$s[In,%3$s,Out,A] =
-  trackThen(new ConstantRequestFunction(next))
-def trackThen [A,B] (next: Response[Out] => Request[Out,A]):AccumulatingRequest%9$s[In,%3$s,Out,A] =
-  new AccumulatingRequest%9$s[In,%3$s,Out,A](next,elems :+ new Elem(last,true) :_*)
-"""
-  val importsTemplate = """package c2c.webspecs
-package accumulating
-
-import AccumulatingRequest._
-import ChainedRequest.ConstantRequestFunction
-
-"""
-    val dir = new java.io.File("core/src/main/scala/c2c/webspecs/accumulating/")
-    Option(dir.listFiles).foreach{files => 
-      files.foreach {_.delete()}
-    }
-    dir.delete()
-    dir.mkdirs
-
-    val numGenerated = 21
-   1 to numGenerated foreach {i =>
-      val decTypes = 1 to i map {j => "+T"+j} mkString ","
-      val lastType = "T"+i
-      val types = 1 to i map {j => "T"+j} mkString ","
-      val responsesVals = 1 to i map {j => "trackedResponses("+(j-1)+").asInstanceOf[Response[T"+j+"]]"} mkString ",\n      "
-      val responseDec = 1 to i map {j => "val _"+j+":Response[T"+j+"]"} mkString ",\n    "
-      val tupleDec = 1 to i map {j => "_"+j} mkString ",\n    "
-      val valuesTupleDec = 1 to i map {j => "_"+j+".value"} mkString ",\n    "
-      val trackThen = if (i!=numGenerated) trackThenTemplate.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1)
-                      else ""
-
-      val filledRequest = accumlatingRequestTemplate.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1,trackThen)
-      val out = new java.io.FileOutputStream(new java.io.File(dir,"AccumulatingRequest"+(i)+".scala"))
-      out.write((importsTemplate+filledRequest).getBytes("UTF8"))
-      out.close
-      
-      val filledResponse = accumlatingResponseTemplate.format(decTypes,lastType,types,responsesVals,responseDec,tupleDec,valuesTupleDec,i,i+1,trackThen)
-      val out2 = new java.io.FileOutputStream(new java.io.File(dir,"AccumulatedResponse"+(i)+".scala"))
-      out2.write((importsTemplate+filledResponse).getBytes("UTF8"))
-      out2.close()
-      
-    }
-    state
-  }
 
 }
