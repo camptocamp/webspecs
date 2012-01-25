@@ -23,7 +23,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
                                                                               Step(tearDown)
 
   lazy val importAndGetMetadata = {
-    val mdId = importMd(1, "/geonetwork/data/multilingual-metadata.iso19139.xml", uuid.toString).head
+    val mdId = importMd(1, "/geocat/data/metadata.iso19139.che.xml", uuid.toString).head
     GetRawMetadataXml.execute(mdId)
   }
   lazy val metadataXml = importAndGetMetadata.value.getXml
@@ -31,7 +31,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
   def correctMetadataWasRetrieved = {
     val charString = (metadataXml \\ "citation" \ "CI_Citation" \ "title" \ "CharacterString")
     val frLocalizedString = (metadataXml \\ "citation" \ "CI_Citation" \ "title" \\ "LocalisedCharacterString" find (n => (n \\ "@locale").text == "#FR")).map(_.text)
-
+println(metadataXml)
     val abstractText = (metadataXml \\ "abstract" \\ "CharacterString")
     val abstractLocalisedFRtext = (metadataXml \\ "abstract" \\ "LocalisedCharacterString" find (n => (n \\ "@locale").text == "#FR")).map(_.text)
     val abstractLocalisedENtext = (metadataXml \\ "abstract" \\ "LocalisedCharacterString" find (n => (n \\ "@locale").text == "#EN")).map(_.text)
@@ -41,7 +41,6 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
     val cheLocalisedUrl = (metadataXml \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \ "contactInfo" \ "CI_Contact" \
       "onlineResource" \ "CI_OnlineResource" \ "linkage" \ "PT_FreeURL" \ "URLGroup" \ "LocalisedURL").text
 
-    //        ((node must_== "COmprehenisve Test") and (abstractText must_== "xx"))
     (charString must beEmpty) and
       (frLocalizedString must beSome("FR Title")) and
       (cheLocalisedUrl must_== "http://www.awnl.llv.li") and
@@ -53,7 +52,7 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
 
   def cswGetInsertedMd = {
     val fileId = (metadataXml \\ "fileIdentifier" text).trim()
-    val response = CswGetRecordById(fileId, OutputSchemas.IsoRecord).execute()
+    val response = CswGetRecordById(fileId, OutputSchemas.CheIsoRecord).execute()
     (response must haveA200ResponseCode) and
       (response.value.getXml \\ "CHE_MD_Metadata" must not beEmpty)
   }

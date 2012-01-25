@@ -23,7 +23,7 @@ class CswTransactionalXmlTestSpec extends GeocatSpecification(UserProfiles.Admin
 																		 			        end ^ Step(tearDown)
 			
   lazy val importMetadataId = {
-    val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
+    val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",false, getClass)._2
 	val md = (importMdRequest then GetRawMetadataXml).execute().value.getXml
 	val response = (md \\ "fileIdentifier").text.trim
 	response
@@ -35,7 +35,7 @@ class CswTransactionalXmlTestSpec extends GeocatSpecification(UserProfiles.Admin
 
   def ProceedXmlTest = (desc:String) => {
     val xmlFile = extract1(desc) + ".xml"
-    val (xmlResource,_) = ResourceLoader.loadDataFromClassPath("/geocat/csw-xml-tests/"+xmlFile, getClass, uuid)
+    val (xmlResource,_) = ResourceLoader.loadDataFromClassPath("/geonetwork/data/cswXmlTests/"+xmlFile, getClass, uuid)
     val cswTestRequest = XmlPostRequest("csw", XML.loadString(xmlResource)).execute()
 
     (cswTestRequest must haveA200ResponseCode)

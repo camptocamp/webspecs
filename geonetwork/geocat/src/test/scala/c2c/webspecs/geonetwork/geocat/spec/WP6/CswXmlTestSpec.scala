@@ -44,7 +44,6 @@ class CswXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
   	    "Process test using XML file : ${csw-GetRecordsNoFilterCswIsoRecord}"        		! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-GetRecordsNoFilterFraIsoRecord}"        		! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-GetRecordsNoFilterIsoRecord}"        			! ProceedXmlTest		          ^
-  	    "Process test using XML file : ${csw-GetRecordsNoFilterOwn}"        				! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-GetRecordsNoFilterResultsWithSummary}"        	! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-GetRecordsNoFilterResults}"        			! ProceedXmlTest		          ^
   	    "Process test using XML file : ${csw-GetRecordsNoFilterValidate}"        			! ProceedXmlTest		          ^
@@ -56,7 +55,7 @@ class CswXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 																		 			        end ^ Step(tearDown)
 			
   lazy val importMetadataId = {
-    val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
+    val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",false, getClass)._2
 	val md = (importMdRequest then GetRawMetadataXml).execute().value.getXml
 	val response = (md \\ "fileIdentifier").text.trim
 	response

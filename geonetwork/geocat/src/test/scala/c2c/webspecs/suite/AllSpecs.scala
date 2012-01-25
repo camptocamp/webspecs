@@ -56,6 +56,7 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
 
 
 
+@RunWith(classOf[JUnitRunner])
 class WP1 extends Specification with SpecificationsFinder { def is =
 
     examplesLinks("WP 1: Add CHE Schema")
@@ -69,6 +70,7 @@ class WP1 extends Specification with SpecificationsFinder { def is =
     }
 
 }
+@RunWith(classOf[JUnitRunner])
 class WP2 extends Specification with SpecificationsFinder { def is =
 
     examplesLinks("WP 2: Compares every metadatas from old version against the new one")
@@ -112,6 +114,7 @@ class WP3 extends Specification with SpecificationsFinder { def is =
 
 }
 
+@RunWith(classOf[JUnitRunner])
 class WP4 extends Specification with SpecificationsFinder { def is =
 
 	examplesLinks("WP 4: Resolve XLinks")
@@ -125,6 +128,7 @@ class WP4 extends Specification with SpecificationsFinder { def is =
 	}
 }
 
+@RunWith(classOf[JUnitRunner])
 class WP5 extends Specification with SpecificationsFinder { def is =
 
 examplesLinks("WP 5: Indexing and searching")
@@ -143,6 +147,7 @@ def examplesLinks(t: String) = {
 }
 }
 
+@RunWith(classOf[JUnitRunner])
 class WP6 extends Specification with SpecificationsFinder { def is =
 
 	examplesLinks("WP 6: Check CSW service")
@@ -160,6 +165,7 @@ class WP6 extends Specification with SpecificationsFinder { def is =
 		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 	}
 }
+@RunWith(classOf[JUnitRunner])
 class WP7 extends Specification with SpecificationsFinder { def is =
 
 examplesLinks("WP 7: Search user interface")
@@ -173,6 +179,7 @@ def examplesLinks(t: String) = {
 	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
 }
 }
+@RunWith(classOf[JUnitRunner])
 class WP9 extends Specification with SpecificationsFinder {
   def is =
 
@@ -214,6 +221,7 @@ def examplesLinks(t: String) = {
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
 }
+@RunWith(classOf[JUnitRunner])
 class WP15 extends Specification with SpecificationsFinder {
     def is =
             examplesLinks("WP 15: Metadata Edit")

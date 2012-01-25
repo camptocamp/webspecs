@@ -67,7 +67,7 @@ class CswOutputSchemaSpec extends GeocatSpecification(UserProfiles.Editor) {  de
   }
   
   lazy val importMetadataId = {
-    val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)
+    val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",false, getClass)
     
     val md = (importMd then GetRawMetadataXml).execute(ImportStyleSheets.NONE).value.getXml
     val response = (md \\ "fileIdentifier").text.trim
