@@ -7,15 +7,18 @@ import DomainParameters._
 import c2c.webspecs.login.LoginRequest
 object CswGetRecordsApp extends WebspecsApp {
   println(Log.LoggingConfig.enabled)
-  	LoginRequest("admin","Hup9ieBe").execute()
+  	//LoginRequest("admin","Hup9ieBe").execute()
 //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
-  	val filter = PropertyIsEqualTo("abstract", "1321439222610")// and PropertyIsLike("anyText", "wasser") 
+  	//val filter = PropertyIsEqualTo("abstract", "1321439222610")// and PropertyIsLike("anyText", "wasser")
 //    val res = CswGetRecordsRequest(filter.xml, outputSchema=OutputSchemas.CheIsoRecord, resultType=ResultTypes.hits, maxRecords = 1, url="http://www.geocat.ch/geonetwork/srv/deu/csw")()
 
-  	val nf = PropertyIsLike("AnyText","*pmt")
+  	//val nf = PropertyIsLike("AnyText","*pmt")
     val res = CswGetRecordsRequest(
-        nf.xml, 
-        outputSchema=OutputSchemas.Record, 
-        resultType=ResultTypes.results).execute()(executionContext,new BasicServerResolver("http", "geonetwork/srv/en"){})
-    println(res.value.getXml \\ "title" map (_.text))
+        Nil,
+        outputSchema=OutputSchemas.Record,
+        maxRecords = 10,
+        resultType=ResultTypes.results).execute()(executionContext,new BasicServerResolver("http", "geosource/srv/en"){
+      override def baseServer = "86.65.192.22"
+    })
+    println(res.value.getXml)
 }

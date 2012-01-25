@@ -31,9 +31,11 @@ abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extend
 
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
-    (config.adminLogin then
-      SetSequentialExecution(true) then
-      UserLogin).execute()(context, uriResolver)
+
+    // don't chain requests because SetSequential is available on all GN instances
+    config.adminLogin.execute()
+    SetSequentialExecution(true).execute()
+    UserLogin.execute()
 
   }
   

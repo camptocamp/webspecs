@@ -27,7 +27,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
     																										  Step(tearDown)
 
   lazy val ImportTwoMetadata: (IdValue, IdValue) = {
-    val importRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml", true, classOf[ValidateSharedObject], ImportStyleSheets.NONE)._2
+    val importRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml", false, classOf[ValidateSharedObject], ImportStyleSheets.NONE)._2
     config.adminLogin.execute()
     val id1 = importRequest.execute().value
     val id2 = importRequest.execute().value

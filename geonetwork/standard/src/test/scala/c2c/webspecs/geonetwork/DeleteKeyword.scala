@@ -14,8 +14,8 @@ case class DeleteKeyword(thesaurus:String, namespace:String, code:String, forceD
     "thesaurus.deleteelement",
     Config.loadStrategy[BasicValueFactory[IdValue]]("deletedObjectIdFactory").fold(_ => DeletedObjectIdFactory, f => f.newInstance()),
     SP("pThesaurus" -> thesaurus),
-    SP("namespace" -> namespace.encode),
+    SP("namespace" -> namespace),
     SP("forceDelete" -> forceDelete),
     SP("testing" -> true),
-    SP("id"-> code.encode)
+    SP("id"-> code)
   )

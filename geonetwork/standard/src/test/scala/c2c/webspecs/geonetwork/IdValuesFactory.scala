@@ -16,7 +16,7 @@ object IdValuesFactory {
           val nodes = (okNode orElse idNode).map { _.text.split(";").map { _.trim }.filter { _.nonEmpty } }.toList.flatten
 
           nodes.headOption getOrElse {
-            throw new IllegalStateException("Expected to find an id or ok element. Does the response come from a create or import request?")
+            throw new IllegalStateException("Expected to find an id or ok element. Does the response come from a create or import request?\n"+xml)
           }
         }
       }

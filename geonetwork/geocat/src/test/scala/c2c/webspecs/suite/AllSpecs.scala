@@ -19,6 +19,8 @@ import org.specs2.runner.JUnitRunner
 import java.text.SimpleDateFormat
 import java.util.Date
 import org.specs2.specification.Step
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
 
 @RunWith(classOf[JUnitRunner])
@@ -80,7 +82,7 @@ class WP2 extends Specification with SpecificationsFinder { def is =
     }
 
 }
-
+@RunWith(classOf[JUnitRunner])
 class WP3 extends Specification with SpecificationsFinder { def is =
 
     examplesLinks("WP 3: Shared Object (No UI)")

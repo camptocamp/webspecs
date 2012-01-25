@@ -1,16 +1,16 @@
 package c2c.webspecs
 package geonetwork
-import java.net.URLEncoder
 
 object UpdateKeyword {
   def params(namespace: String, id: String, thesaurus: String, lang: String, word: String) = Seq(
-        "namespace" -> namespace.encode,
-      "oldid" -> id.encode,
-      "newid" -> id.encode,
+        "namespace" -> namespace,
+      "oldid" -> id,
+      "newid" -> id,
       "refType" -> "unknown",
       "ref" -> thesaurus,
       "lang" -> lang.toUpperCase(),
-      "prefLab" -> word.encode)
+      "prefLab" -> word
+  )
 }
 /**
  * Create a new Keyword and add it to the thesaurus indicated
@@ -26,7 +26,7 @@ case class UpdateKeyword(namespace: String, id: String, thesaurus: String, words
     val request = words.foldLeft(NoRequest:Request[Any,XmlValue]) {
       case (accRequest,(lang, word)) =>
         val allParams = UpdateKeyword.params(namespace, id, thesaurus,lang,word) ++ Seq(
-            "oldid" -> id.encode, 
+            "oldid" -> id,
             "definition" -> "")
         accRequest then GetRequest("thesaurus.updateelement", allParams: _*)
     }

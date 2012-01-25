@@ -12,6 +12,6 @@ case class GetIsoKeyword(thesaurus:String, locales:List[String])
     "che.keyword.get",
     new KeywordFactory(thesaurus),
     SP("thesaurus",thesaurus),
-    InP("id", (id:String) => URLEncoder.encode(id,"UTF-8")),
+    InP("id", (id:String) => id),
     SP("locales", locales mkString ",")
   )
