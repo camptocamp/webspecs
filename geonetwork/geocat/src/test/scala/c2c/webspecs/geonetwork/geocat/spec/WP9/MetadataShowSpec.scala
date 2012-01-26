@@ -54,7 +54,7 @@ class MetadataShowSpec extends GeocatSpecification {
     val importMd = ImportMetadata.defaults(
       uuid,
       "/geocat/data/gm03_2_shows_xlinks_when_imported.xml",
-      true,
+      false,
       getClass,
       styleSheet = GeocatConstants.GM03_2_TO_CHE_STYLESHEET)._2
     val response = importMd.execute()
