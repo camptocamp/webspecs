@@ -17,6 +17,7 @@ abstract class AbstractMultiPartFormRequest[In,Out](url:String, valueFactory:Val
        {
          val name: String = part.name
          val contentBody: ContentBody = part.value(in)
+         Log.apply(Log.RequestMPForm, contentBody.toString())
          reqEntity.addPart(name, contentBody)
        }
      }

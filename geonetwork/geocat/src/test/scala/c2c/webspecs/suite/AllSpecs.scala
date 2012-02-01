@@ -231,6 +231,7 @@ class WP15 extends Specification with SpecificationsFinder {
                 classOf[UpdateContactViaMetadataUpdate],
                 classOf[KeywordsXlinkAddSpec],
                 classOf[ExtentXlinkAddSpec],
+                classOf[SameXlinkUpdatedBugSpec],
                 classOf[UpdateNonXlinkViaMetadataUpdate]).flatMap { s => createSpecification(s.getName) }
         specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }

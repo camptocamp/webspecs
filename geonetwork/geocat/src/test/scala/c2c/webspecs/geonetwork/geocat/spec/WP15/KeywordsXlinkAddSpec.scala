@@ -21,7 +21,7 @@ class KeywordsXlinkAddSpec extends GeocatSpecification { def is =
 
   lazy val startEditing = {
     val id = importMd(1,"/geocat/data/bare.iso19139.che.xml", uuid.toString()).head
-    val editValue = StartEditing(MetadataViews.ISOCore, true).execute(id).value
+    val editValue = StartEditingHtml(MetadataViews.ISOCore).execute(id).value
     val xlinks = editValue.getXml \\ "a"
     val addXlinkNode = xlinks find (n => (n @@ "id").headOption.exists(_ startsWith "addXlink_child_gmd:descriptiveKeywords"))
     (addXlinkNode, id)

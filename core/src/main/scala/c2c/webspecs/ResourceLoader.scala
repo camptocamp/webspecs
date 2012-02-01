@@ -11,11 +11,9 @@ import java.util.Date
 object ResourceLoader {
   def loadData(resource: URL, replacements: Map[String, String], fileName: String = "") = {
     require(resource != null, "resource is null." + fileName)
-
     val string = replacements.foldLeft(Resource.fromURL(resource).slurpString(Codec.UTF8)) {
       case (string, (key, replacement)) => string.replace(key, replacement)
     }
-
     val name =
       if (fileName.trim() == "") Path.fromString(resource.getFile).name
       else fileName

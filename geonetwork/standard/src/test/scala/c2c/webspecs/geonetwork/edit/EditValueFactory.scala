@@ -40,7 +40,15 @@ object EditValueFactory extends ValueFactory[Id, EditValue] {
 		   uriResolver:UriResolver) = new EditValue {
     protected def basicValue = rawValue
     lazy val id = in.id
-    lazy val version = rawValue.toXmlValue.getXml \\ "info" \ "version" text
+    lazy val version = {
+      val xml = rawValue.toXmlValue.getXml
+      val xmlVersion = xml \\ "info" \ "version"
+      if(xmlVersion nonEmpty) xmlVersion.text
+      else {
+        val versionInput = xml \\ "input" filter (n => (n @@ "name").headOption == Some("version") )
+        (versionInput flatMap (_ @@ "value")).head
+      }
+    }
   }
 }
 
