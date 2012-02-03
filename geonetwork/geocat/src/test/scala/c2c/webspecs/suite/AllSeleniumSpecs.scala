@@ -11,10 +11,14 @@ import org.specs2.runner.JUnitRunner
 import java.text.SimpleDateFormat
 import java.util.Date
 import org.specs2.specification.Step
+import c2c.webspecs.Properties
 
 
 @RunWith(classOf[JUnitRunner])
-class AllSeleniumSpecs extends Specification with SpecificationsFinder { def is =
+class AllSeleniumSpecs extends Specification with SpecificationsFinder {
+  Properties.classLoader=classOf[AllSpecs].getClassLoader()
+  
+  def is =
     examplesLinks("All Work Packages - "+dateTime)
 
     def examplesLinks(t: String) = {

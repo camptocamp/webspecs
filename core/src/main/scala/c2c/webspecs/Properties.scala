@@ -145,17 +145,20 @@ object Properties {
     }
 
     private def defaultOnClassPath(filenameOptions:String*): Option[(String, String)] = {
-      val discovered = for {
+      def discovered(classLoader:Option[ClassLoader]) = for {
         trace <- new Exception().getStackTrace
-        canLoadClass <- try { Properties.classLoader.loadClass(trace.getClassName); Some(true) } catch { case _ => None}
-        classAtTrace = Properties.classLoader.loadClass(trace.getClassName)
+        cl <- classLoader
+        canLoadClass <- try { cl.loadClass(trace.getClassName); Some(true) } catch { case _ => None}
+        classAtTrace = cl.loadClass(trace.getClassName)
         if classOf[WebSpecsSpecification[_]] isAssignableFrom classAtTrace
         resource <- filenameOptions.foldLeft(None:Option[URL]) {(result, next) => result orElse Option(classAtTrace.getResource(next))}
       } yield {
         val path = Path(resource.toURI).get
         (path.parent.get.path, path.name)
       }
-      discovered.reverse.headOption
+      discovered(Some(Properties.classLoader)).reverse.headOption orElse 
+          discovered(Option(Thread.currentThread().getContextClassLoader())).reverse.headOption  orElse 
+          discovered(Option(Properties.getClass().getClassLoader())).reverse.headOption 
     }
 
     def load(file: String): InputStreamResource[InputStream] = {
