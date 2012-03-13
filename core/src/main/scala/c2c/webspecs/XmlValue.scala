@@ -11,7 +11,7 @@ trait XmlValue extends TextValue {
         val error = xml \\ "ExceptionReport" \ "Exception" \ "ExceptionText"
         if(error.nonEmpty) {
           val report = error.text.replace("&lt;", "<").replace("&gt;", ">") match {
-            case "ogc" => xml \\ "ExceptionReport" \ "Exception"
+            case "ogc" => xml.toString
             case text => text
           }
 

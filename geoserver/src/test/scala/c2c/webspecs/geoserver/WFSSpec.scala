@@ -15,7 +15,7 @@ class WFSSpec extends GeoserverSpecification {
       "Wfs getCapabilities 1.0.0 must be valid" ! capabilities100 ^
       "Wfs getCapabilities 1.1.0 must be valid" ! capabilities110 ^
       "Wfs DescribeFeatureType must be valid" ! describeFeatureType ^
-      "Wfs GetType must be valid" ! getFeature
+      "Wfs GetFeature can get at least one features" ! getFeature
 
   def capabilities100 = {
     val response = GetWfsRequest("1.0.0", "GetCapabilities").execute()

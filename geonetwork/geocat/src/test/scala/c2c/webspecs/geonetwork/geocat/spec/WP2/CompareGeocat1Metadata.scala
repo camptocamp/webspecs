@@ -16,7 +16,6 @@ import scala.xml.Node
 @RunWith(classOf[JUnitRunner])
 class CompareGeocat1Metadata extends GeonetworkSpecification with MustThrownMatchers {
 	def is =
-
 			"This spec will compare GeoCat1 metadata to the migrated ones" ! doDiff
 
 	def doDiff = {
