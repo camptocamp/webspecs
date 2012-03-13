@@ -71,7 +71,8 @@ class SearchSpecs extends Specification with SpecificationsFinder { def is =
     def examplesLinks(t: String) = {
   val specs = List(
         classOf[search.SelectAllBugSpec],
-        classOf[search.BasicXmlSearchSpec]
+        classOf[search.BasicXmlSearchSpec],
+        classOf[search.SummaryAccuracySpec]
       ).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
