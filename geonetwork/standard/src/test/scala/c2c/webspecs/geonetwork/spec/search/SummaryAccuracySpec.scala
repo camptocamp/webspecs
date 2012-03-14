@@ -27,11 +27,11 @@ class SummaryAccuracySpec extends GeonetworkSpecification { def is =
     val summaryFragments = summaries.map{
       element =>
         val searchTerm = (element \ "@name" text)
-        val searchField = element.label
+        val searchField = (element \ "@indexKey" text)
         val count = (element \ "@count" text)
         
         val desc = 
-          if (searchField == "Summary") "Searching for all metadata should find "+count+" records"
+          if (element.label == "Summary") "Searching for all metadata should find "+count+" records"
           else "Summary for "+searchField+":"+searchTerm+" should find "+count+" records"
         desc ! findsCorrectNumberRecords(lang, searchField, searchTerm, count) 
     }
@@ -39,8 +39,18 @@ class SummaryAccuracySpec extends GeonetworkSpecification { def is =
     summaryFragments.foldLeft(startFragment)(_ ^ _) ^ end
   }
 
+  def isNumeric(searchField:String) = searchField match {
+    case "denominator" | "northBL" | "eastBL" | "southBL" | "westBL" => true
+    case _ => false
+  }
+
   def findsCorrectNumberRecords(lang:String, searchField:String, searchTerm:String, expectedResultCount:String) = {
-    val query = if(searchField == "Summary") Nil else PropertyIsEqualTo(searchField, searchTerm).xml
+    val query = searchField match {
+      case "Summary" => Nil
+      case field if isNumeric(field) => PropertyIsBetween(field, searchTerm.toInt, searchTerm.toInt).xml
+      case _ => PropertyIsEqualTo(searchField, searchTerm).xml
+    }
+    
     val cswResponse = 
       CswGetRecordsRequest(
           query, 

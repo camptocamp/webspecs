@@ -163,6 +163,8 @@ class WP6 extends Specification with SpecificationsFinder { def is =
 				classOf[CswOutputSchemaSpec],
 				classOf[CswTransactionalXmlTestSpec],
 				classOf[CswXmlTestSpec],
+				classOf[SummaryAccuracySpec],
+				classOf[CswDublinCoreUriSpec],
 				classOf[CswTransactionSpec]
 				).flatMap{s => createSpecification(s.getName)}
 		specs.

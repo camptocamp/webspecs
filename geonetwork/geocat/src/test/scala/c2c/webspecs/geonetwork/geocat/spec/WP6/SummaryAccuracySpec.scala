@@ -1,7 +1,7 @@
 package c2c.webspecs
 package geonetwork
 package geocat
-package spec.WP5
+package spec.WP6
 
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
