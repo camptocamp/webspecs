@@ -32,41 +32,40 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
 		"Delete the inserted metadata"							                                                                                   ^ Step(deleteMetadata)  ^
 																                                                                                     end ^ Step(tearDown)														
 	}
-	
-	lazy val importMetadataId = {
-				val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",false, getClass)
-	
-				val md = (importMd then GetRawMetadataXml).execute().value.getXml
-				val response = (md \\ "fileIdentifier").text.trim
-					response
-	}
-	def deleteMetadata = {
-			GetRequest("metadata.delete", ("uuid" -> importMetadataId)).execute()
-	}
-	def CswGet = (description : String) => {
-	  val (languageCode, expectedLang, cswService) = extract3(description)
-	  
-	  val CswRequest =  if (cswService == "GetRecordById")
-							  CswGetRecordById(importMetadataId,
-								  						 outputSchema = OutputSchemas.Record,
-								  						 url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw", 
-								  									resultType = ResultTypes.results)
-					
-						else 
-							  CswGetRecordsRequest(PropertyIsEqualTo("Identifier", importMetadataId).xml,
-									  			   maxRecords = 1,
-									  			   resultType = ResultTypes.results,
-									  			   outputSchema = OutputSchemas.Record,
-									  			   url= "http://" + Properties.testServer + "/geonetwork/srv/"+languageCode+"/csw")
-	  									
-			  									
-	  val title = (CswRequest.execute().value.getXml \\ "title").text.trim.toUpperCase		  									
 
-      if (languageCode != "ita")
-    	  title must_== (expectedLang + " TITLE")
-      else
-        title must_== ("FR TITLE")
-	}
+  lazy val importMetadataId = {
+    val (_, importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml", false, getClass)
+
+    val md = (importMd then GetRawMetadataXml).execute().value.getXml
+    val response = (md \\ "fileIdentifier").text.trim
+    response
+  }
+  def deleteMetadata = {
+    GetRequest("metadata.delete", ("uuid" -> importMetadataId)).execute()
+  }
+  def CswGet = (description: String) => {
+    val (languageCode, expectedLang, cswService) = extract3(description)
+
+    val CswRequest = if (cswService == "GetRecordById")
+      CswGetRecordById(importMetadataId,
+        outputSchema = OutputSchemas.Record,
+        url = "http://" + Properties.testServer + "/geonetwork/srv/" + languageCode + "/csw",
+        resultType = ResultTypes.results)
+
+    else
+      CswGetRecordsRequest(PropertyIsEqualTo("Identifier", importMetadataId).xml,
+        maxRecords = 1,
+        resultType = ResultTypes.results,
+        outputSchema = OutputSchemas.Record,
+        url = "http://" + Properties.testServer + "/geonetwork/srv/" + languageCode + "/csw")
+
+    val title = (CswRequest.execute().value.getXml \\ "title").text.trim.toUpperCase
+
+    if (languageCode != "ita")
+      title must_== (expectedLang + " TITLE")
+    else
+      title must_== ("FR TITLE")
+  }
 	
 	
 }

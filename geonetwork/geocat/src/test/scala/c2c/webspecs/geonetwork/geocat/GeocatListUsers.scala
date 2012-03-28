@@ -21,7 +21,7 @@ object GeocatListUsers
   with BasicValueFactory[List[User with UserRef with Validateable]] {
   def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml(xml => {
-      val users = xml \\ "record" map {record =>
+      val users = xml \\ "response" \\ "record" map {record =>
         val basicUser = User fromRecord record
         new User(basicUser) with UserRef with Validateable {
           def userId: String = basicUser.userId

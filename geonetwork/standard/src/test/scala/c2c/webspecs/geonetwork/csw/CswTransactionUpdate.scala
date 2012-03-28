@@ -8,7 +8,7 @@ object CswTransactionUpdate {
   def apply(fileId:String, updateFields:(String, String)*):CswTransactionUpdate = CswTransactionUpdate(PropertyIsEqualTo("Identifier", fileId).xml, updateFields:_*)
   def apply(filter:OgcFilter, updateFields:(String, String)*):CswTransactionUpdate = CswTransactionUpdate(filter.xml, updateFields:_*)
 }
-case class CswTransactionUpdate(filter:Node, updateFields:(String, String)*) extends AbstractXmlPostRequest("csw", XmlValueFactory) {
+case class CswTransactionUpdate(filter:Node, updateFields:(String, String)*) extends AbstractXmlPostRequest("csw-publication", XmlValueFactory) {
 	val xmlData = 
 <csw:Transaction service="CSW" version="2.0.2" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:ogc="http://www.opengis.net/ogc" 
     xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">

@@ -17,7 +17,7 @@ object ListFormats
 
   override def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml {xml=>
-      (xml \\ "record").toList map {record =>
+      (xml \\ "response" \\ "record").toList map {record =>
         val id = record \ "id" text
         val name = record \ "name" text
         val version = record \ "version" text

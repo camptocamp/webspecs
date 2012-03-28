@@ -8,7 +8,7 @@ object CswTransactionDelete {
   def apply(filter:OgcFilter):CswTransactionDelete = CswTransactionDelete(filter.xml)
   def apply(fileId:String):CswTransactionDelete = CswTransactionDelete(PropertyIsEqualTo("Identifier", fileId).xml)
 }
-case class CswTransactionDelete(filter:Node) extends AbstractXmlPostRequest("csw", XmlValueFactory) {
+case class CswTransactionDelete(filter:Node) extends AbstractXmlPostRequest("csw-publication", XmlValueFactory) {
 	val xmlData = 
 <csw:Transaction service="CSW" version="2.0.2" xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" xmlns:ogc="http://www.opengis.net/ogc" 
     xmlns:apiso="http://www.opengis.net/cat/csw/apiso/1.0">

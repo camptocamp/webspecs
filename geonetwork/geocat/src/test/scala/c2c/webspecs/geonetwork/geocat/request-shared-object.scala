@@ -64,7 +64,7 @@ class SharedObjectListFactory(objType: SharedObjectType) extends BasicValueFacto
     val xmlValue = XmlValueFactory.createValue(rawValue)
     val list = xmlValue.withXml {
       xml =>
-        (xml \\ "record").toList map {
+        (xml \\ "records" \\ "record").toList map {
           record =>
             val id = (record \\ "id" text)
             val url = {

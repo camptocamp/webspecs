@@ -93,7 +93,7 @@ class AccessContactsSpec extends GeocatSpecification { def is =
   def fixtureIsGone =
     ExecutionContext.withDefault{c =>
       val response = (config.login then GetRequest("xml.user.get", "id" -> userFixture.id)).execute()(c,uriResolver).value
-      response.withHtml(_ \\ "record" must beEmpty)
+      response.withHtml(_ \\ "response" \\ "record" must beEmpty)
     }
 
   lazy val userFixture = GeocatFixture.sharedUser(true)

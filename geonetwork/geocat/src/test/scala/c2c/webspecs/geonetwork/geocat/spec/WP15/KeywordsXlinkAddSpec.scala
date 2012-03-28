@@ -36,7 +36,7 @@ class KeywordsXlinkAddSpec extends GeocatSpecification { def is =
           "id" -> startEditing._2, 
           "ref" -> elemRef, 
           "name" -> "gmd:descriptiveKeywords", 
-          "href" -> "local://che.keyword.get?thesaurus=external.gemet.inspire-theme&id=http://rdfdata.eionet.europa.eu/inspirethemes/themes/15&locales=fr,en,de,it")
+          "href" -> "local://che.keyword.get?thesaurus=external.theme.inspire-theme&id=http://rdfdata.eionet.europa.eu/inspirethemes/themes/15&locales=fr,en,de,it")
      (request.execute().value.getXml)
     }.get
   }

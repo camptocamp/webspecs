@@ -9,7 +9,7 @@ case class CreateGroup(group:Group)
   ) with BasicValueFactory[GroupValue] {
   def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml{ data =>
-      val groupRecord = data \\ "record" filter {rec => (rec \\ "name").text.trim == group.name}
+      val groupRecord = data \\ "response" \\ "record" filter {rec => (rec \\ "name").text.trim == group.name}
       val id = (groupRecord \ "id").text
       if(id.isEmpty) Log(Log.Error, "An group id must be found, responseCode was: "+rawValue.responseCode)
       new GroupValue(id,group.name,group.description,group.email)

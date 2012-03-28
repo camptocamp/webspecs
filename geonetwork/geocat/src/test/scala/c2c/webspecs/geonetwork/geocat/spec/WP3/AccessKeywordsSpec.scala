@@ -7,7 +7,10 @@ import org.specs2.specification.Step
 import org.specs2.execute.Result
 import c2c.webspecs.{XmlValue, Response}
 import geonetwork.UserRef
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class AccessKeywordsSpec extends GeocatSpecification { def is =
 
   "This specification tests accessing shared keyword"                           ^ Step(setup) ^

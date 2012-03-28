@@ -21,7 +21,7 @@ class ExtentXlinkAddSpec extends GeocatSpecification { def is =
 
   lazy val startEditing = {
     val id = importMd(1,"/geocat/data/bare.iso19139.che.xml", uuid.toString()).head
-    val editValue = StartEditingHtml(MetadataViews.ISOCore).execute(id).value
+    val editValue = StartEditingHtml(MetadataViews.complete).execute(id).value
     val xlinks = editValue.getXml \\ "a"
     val addXlinkNode = xlinks find (n => (n @@ "id").headOption.exists(_ startsWith "addXlink_child_gmd:extent"))
     (addXlinkNode, id)
@@ -36,12 +36,13 @@ class ExtentXlinkAddSpec extends GeocatSpecification { def is =
           "id" -> startEditing._2, 
           "ref" -> elemRef, 
           "name" -> "gmd:extent", 
-          "href" -> "local://xml.extent.get?id=441&wfs=default&typename=gn:gemeindenBB&format=gmd_complete&&extentTypeCode=true")
+          "href" -> "local://xml.extent.get?id=351&wfs=default&typename=gn:gemeindenBB&format=gmd_complete&&extentTypeCode=true")
      (request.execute().value.getXml)
     }.get
   }
   def extentPresent = {
-    val germanInput = extentHtml \\ "input" find (n => (n @@ "value" headOption) == Some("Bern"))
+    val html = extentHtml
+    val germanInput = html \\ "input" find (n => (n @@ "value" headOption) == Some("Bern"))
     
     germanInput must beSome
   }

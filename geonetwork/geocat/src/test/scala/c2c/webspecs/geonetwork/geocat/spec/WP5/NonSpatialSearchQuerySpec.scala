@@ -33,7 +33,7 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
           "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results" ! currentLanguageFirst ^
           "When searching for a term that is in several metadata; one should be able to sort by ${title}" ! sortBy ^
           "When searching for a term that is in several metadata; one should be able to sort by ${date}" ! sortBy ^
-          "Searching for ${" + time + "NonSpatialSearchQuerySpec} in ${AnyText} with a maxResults limit of 2 should return ${FR and XX} should be the hits" ! basicSearch(2) ^
+          "Searching for ${" + time + "NonSpatialSearchQuerySpec} in ${AnyText} with a maxResults limit of 2 should return only two of the metadata with ${FR} first" ! basicSearch(2) ^
           "Searching for ${XX-" + uuid + "} in ${fileId} should return the ${XX} md" ! basicSearch() ^
           "Searching for ${" + time + "NonSpatialSearchQuerySpec FRA} in ${AnyText} should return the ${FR and XX} should be the hits" ! basicSearch ^
           "Searching for ${FRA " + time + "NonSpatialSearchQuerySpec} as seperate terms in ${AnyText} should return the ${FR and XX} as the hits" ! basicSearch(split = Some(' ')) ^
@@ -86,7 +86,7 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
           "An And Search with a single element that is a full search should return all terms" ! singleAnd ^
           Step(tearDown)
 
-  def basicSearch(implicit maxRecords: Int = 30, similarity: Double = 1, lang: String = "fra", split: Option[Char] = None) = (s: String) => {
+  def basicSearch(implicit maxRecords: Int = -1, similarity: Double = 1, lang: String = "fra", split: Option[Char] = None) = (s: String) => {
     val (searchTerm, field, expectedMetadata) = extract3(s)
     val allSearchTerms = split map { div => searchTerm.split(div) } getOrElse Array(searchTerm) collect {
       case "testGroup" => config.groupId
@@ -99,11 +99,12 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
     val xmlResponse = CswGetRecordsRequest(filter.xml,
       resultType = ResultTypes.resultsWithSummary,
       outputSchema = OutputSchemas.Record,
-      maxRecords = maxRecords,
+      maxRecords = if (maxRecords == -1) 100 else maxRecords,
       sortBy = List(SortBy("date", false)),
       url = lang + "/csw").execute().value.getXml
 
-    find(xmlResponse, expectedMetadata)
+      
+    find(xmlResponse, expectedMetadata, maxRecords)
   }
 
   def sortBy = (s: String) => {

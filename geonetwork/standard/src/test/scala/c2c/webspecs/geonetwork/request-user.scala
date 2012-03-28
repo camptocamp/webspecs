@@ -148,7 +148,7 @@ class GetUserValue(override val userId:String, basicValue:BasicHttpValue) extend
 case object ListUsers extends AbstractGetRequest[Any,List[User with UserRef]]("xml.user.list", SelfValueFactory()) with BasicValueFactory[List[User with UserRef]] {
   def createValue(rawValue: BasicHttpValue) = {
     rawValue.toXmlValue.withXml(xml => {
-      val users = xml \\ "record" map {record =>
+      val users = xml \\ "response" \\ "record" map {record =>
         User.fromRecord(record)
       }
 

@@ -38,8 +38,12 @@ class GM03V2Spec extends GeocatSpecification(UserProfiles.Editor) {
 	}
 	
 	def getAsGm03v2 = {
+	  val results = for (_ <- 1 to 5) yield {
 		val response = GetRequest("gm03.xml", ("uuid" -> importMetadataId)).execute()
-		(response.value.getXml \\  "GM03_2Core.Core.MD_Metadata" \ "fileIdentifier").text.trim must beEqualTo (importMetadataId)
+		(response.value.getXml \\  "GM03_2Core.Core.MD_Metadata" \ "fileIdentifier").text.trim == importMetadataId
+	  }
+	  
+	  results.filter( i => i).size aka "the number of successful GM03 accesses" must_== 5
 	}
 
 	def getAsGm03v2small = {

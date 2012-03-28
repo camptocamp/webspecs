@@ -30,7 +30,7 @@ abstract class AbstractSharedObjectSpec extends GeocatSpecification {
     contactSpec.contactAdd(false)()
     formatSpec.formatAdd(formatSpec.version)()
     extentSpec.extentAdd("${" + ExtentFormat.gmd_bbox + "}" + "${0}")
-    keywordHref = (keywordSpec.keywordAdd("deValue" + uuid)().value \\ "descriptiveKeywords" \@ "xlink:href")(0)
+    keywordHref = (keywordSpec.keywordAdd("deValue" + keywordSpec.uuid)().value \\ "descriptiveKeywords" \@ "xlink:href")(0)
   }
 
   lazy val nonValidatedContacts = ListNonValidatedContacts.execute()

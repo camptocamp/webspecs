@@ -64,7 +64,7 @@ class AccessFormatsSpec extends GeocatSpecification { def is =
   def noFormat =
     ExecutionContext.withDefault{c =>
       val response = GetRequest("xml.format.get!","id" -> formatFixture.id).execute()(c,uriResolver).value
-      response.withXml(_ \\ "record" must beEmpty)
+      response.withXml(_ \\ "response" \\ "record" must beEmpty)
     }
 
   lazy val formatFixture = GeocatFixture.format

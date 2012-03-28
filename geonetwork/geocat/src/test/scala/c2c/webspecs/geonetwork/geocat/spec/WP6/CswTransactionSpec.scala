@@ -46,7 +46,7 @@ class CswTransactionSpec extends GeocatSpecification(UserProfiles.Editor) {
   
   def CswPartialUpdate = {
     val updatedData = "updated data 2"
-    val response = CswTransactionUpdate(uuid.toString, ".//gmd:identificationInfo//gmd:abstract/gco:CharacterString" -> updatedData).execute()
+    val response = CswTransactionUpdate(uuid.toString, ".//gmd:identificationInfo//gmd:abstract//gmd:LocalisedCharacterString[1]" -> updatedData).execute()
     (response must haveA200ResponseCode) and
       newMetadataMustExistWith(updatedData)
   }

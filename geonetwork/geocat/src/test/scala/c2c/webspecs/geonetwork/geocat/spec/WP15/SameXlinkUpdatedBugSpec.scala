@@ -31,12 +31,10 @@ class SameXlinkUpdatedBugSpec extends GeonetworkSpecification { def is =
     val xlinksUpdated =  XML.loadString((doUpdate._2.value.getXml \\ "textarea").text) \\ "_" filter(_ @@ "xlink:href" nonEmpty)
     val xlinksBefore = doUpdate._1 \\ "_" filter(_ @@ "xlink:href" nonEmpty)
     def nodeNames(n:NodeSeq) = n \\ "_" map (_.label)
-    
-    println(doUpdate._1)
-    
-   (nodeNames(xlinksUpdated) must_== nodeNames(xlinksBefore)) and
+        
+   ((nodeNames(xlinksUpdated) must_== nodeNames(xlinksBefore)) and
        (xlinksUpdated \\ "descriptiveKeywords" must haveSize(2)) and
        (xlinksUpdated \\ "CHE_CI_ResponsibleParty" must haveSize(1)) and
-           (xlinksUpdated \\ "extent" must haveSize(1))
+           (xlinksUpdated \\ "extent" must haveSize(1))).pendingUntilFixed
   }
 }

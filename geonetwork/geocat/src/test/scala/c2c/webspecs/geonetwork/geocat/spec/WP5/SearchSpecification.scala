@@ -32,15 +32,19 @@ private[WP5] abstract class SearchSpecification extends GeocatSpecification {
       recordIds flatMap idToLocalMap.get
   }
   
-  def find(xmlResponse: NodeSeq, expectedMetadata: String): Result = {
+  def find(xmlResponse: NodeSeq, expectedMetadata: String, maxRecords: Int = -1): Result = {
     val foundIdsMatchingImportedMd = findCodesFromResults(xmlResponse) 
 
-    expectedMetadata match {
-      case "all" => foundIdsMatchingImportedMd must haveTheSameElementsAs(importedMetadataId.keys)
-      case "no" | "none" => foundIdsMatchingImportedMd must beEmpty
-      case locales =>
+    (expectedMetadata, maxRecords) match {
+      case ("all",-1)  => foundIdsMatchingImportedMd must haveTheSameElementsAs(importedMetadataId.keys)
+      case ("all",maxRecords)  => (importedMetadataId.keys must containAllOf(foundIdsMatchingImportedMd)) and (foundIdsMatchingImportedMd must haveSize(maxRecords))
+      case ("no" | "none", _) => foundIdsMatchingImportedMd must beEmpty
+      case (locales, -1) =>
         val localeSet = locales.split(" and ").toSet.map { (_: String).trim.toUpperCase }
         foundIdsMatchingImportedMd must haveTheSameElementsAs(localeSet)
+      case (locales, maxRecords) =>
+        val localeSet = locales.split(" and ").toSet.map { (_: String).trim.toUpperCase }.toList
+        (foundIdsMatchingImportedMd must containAllOf(localeSet)) and (foundIdsMatchingImportedMd must haveSize(maxRecords))
     }
 
   }
