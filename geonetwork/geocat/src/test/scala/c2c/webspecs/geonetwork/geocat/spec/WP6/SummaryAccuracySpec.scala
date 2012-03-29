@@ -10,5 +10,5 @@ import c2c.webspecs.geonetwork.csw._
 
 @RunWith(classOf[JUnitRunner])
 class SummaryAccuracySpec extends geonetwork.spec.search.SummaryAccuracySpec {
-  override def languagesToTest = Seq("eng", "fra", "deu")
+  override def languagesToTest = Seq("eng", "fra", "deu", "fre", "ger")
 }

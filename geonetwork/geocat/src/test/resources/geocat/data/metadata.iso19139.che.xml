@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:MD_Metadata">
+<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:geonet="http://www.fao.org/geonetwork" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:MD_Metadata">
   <gmd:fileIdentifier>
     <gco:CharacterString>b41bf5ba-1872-439b-887f-0bd43df53a8b</gco:CharacterString>
   </gmd:fileIdentifier>
@@ -97,7 +97,7 @@
     </che:CHE_CI_ResponsibleParty>
   </gmd:contact>
   <gmd:dateStamp xmlns:xalan="http://xml.apache.org/xalan">
-    <gco:DateTime>2012-01-27T15:52:22</gco:DateTime>
+    <gco:DateTime>2012-03-28T21:16:49</gco:DateTime>
   </gmd:dateStamp>
   <gmd:metadataStandardName xmlns:xalan="http://xml.apache.org/xalan">
     <gco:CharacterString>GM03 2+</gco:CharacterString>
@@ -277,6 +277,9 @@
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">{uuid}bathing seawater</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
                 <gmd:LocalisedCharacterString locale="#IT">{uuid}acqua marina idonea a balneazione</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
@@ -284,9 +287,6 @@
               </gmd:textGroup>
               <gmd:textGroup>
                 <gmd:LocalisedCharacterString locale="#FR">{uuid}eau de baignade marine</gmd:LocalisedCharacterString>
-              </gmd:textGroup>
-              <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#EN">{uuid}bathing seawater</gmd:LocalisedCharacterString>
               </gmd:textGroup>
             </gmd:PT_FreeText>
           </gmd:keyword>
@@ -308,10 +308,10 @@
                 <gmd:LocalisedCharacterString locale="#EN">Buildings</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#DE">Gebäude</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#IT">Edifici</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
-                <gmd:LocalisedCharacterString locale="#IT">Edifici</gmd:LocalisedCharacterString>
+                <gmd:LocalisedCharacterString locale="#DE">Gebäude</gmd:LocalisedCharacterString>
               </gmd:textGroup>
               <gmd:textGroup>
                 <gmd:LocalisedCharacterString locale="#FR">Bâtiments</gmd:LocalisedCharacterString>
@@ -333,13 +333,17 @@
       </gmd:descriptiveKeywords>
       <gmd:resourceConstraints>
         <gmd:MD_Constraints>
-          <gmd:useLimitation>
-            <gco:CharacterString>only when I say so</gco:CharacterString>
+          <gmd:useLimitation xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText xmlns:gmx="http://www.isotc211.org/2005/gmx">
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">only when I say so</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
           </gmd:useLimitation>
         </gmd:MD_Constraints>
       </gmd:resourceConstraints>
       <gmd:language>
-        <gco:CharacterString>deu</gco:CharacterString>
+        <gco:CharacterString>eng</gco:CharacterString>
       </gmd:language>
       <gmd:characterSet>
         <gmd:MD_CharacterSetCode codeListValue="utf8" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CharacterSetCode" />
@@ -377,9 +381,9 @@
                 <gco:Boolean>1</gco:Boolean>
               </gmd:extentTypeCode>
               <gmd:polygon>
-                <gml:MultiSurface gml:id="Ndbbe785b6a714be6834eea1300edee35">
+                <gml:MultiSurface gml:id="N282902d9cfb243b4ae72711a6bd06d5e">
                   <gml:surfaceMember>
-                    <gml:Polygon gml:id="N3d890317fa6c44e8a4f954b1855ac76f">
+                    <gml:Polygon gml:id="N891ed5f3c07a4530ad678861af9c7185">
                       <gml:exterior>
                         <gml:LinearRing>
                           <gml:posList>7.206 47.252 7.208 47.258 7.226 47.265 7.235 47.265 7.24 47.259 7.231 47.255 7.228 47.239 7.215 47.24 7.206 47.252</gml:posList>

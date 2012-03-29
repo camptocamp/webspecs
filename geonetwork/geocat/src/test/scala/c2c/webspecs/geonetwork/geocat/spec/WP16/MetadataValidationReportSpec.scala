@@ -9,6 +9,8 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
 import c2c.webspecs.geonetwork._
+import c2c.webspecs.geonetwork.edit.StartEditingHtml
+import c2c.webspecs.geonetwork.edit.UpdateMetadata
 
 
 @RunWith(classOf[JUnitRunner]) 
@@ -16,43 +18,46 @@ class MetadataValidationReportSpec extends GeocatSpecification(UserProfiles.Admi
 	"metadata.validation.report test".title 														 ^ Step(setup)                       ^
 	"Loads a valid sample metadata"      	 	              									     ^ Step(importValidMetadataId)       ^
 	"Loads an invalid sample metadata"      	 	              									 ^ Step(importInvalidMetadataId)     ^
-	"Logs in as administrator (note : should the service be available to editors too ?)"      	 	 ^ Step(config.adminLogin.execute())         ^
 	"Tests the ${valid} inserted metadata against the metadata.validation.report webservice"		 ! callValidationReport              ^
 	"Tests the ${invalid} inserted metadata against the metadata.validation.report webservice"		 ! callValidationReport              ^
-	"Delete the inserted metadatas"																	 ^ Step(deleteMetadatas)             ^
 																								       end ^ Step(tearDown)	
 		
 																								       
   def callValidationReport = (desc:String) => {
-	  	  val valid = if (extract1(desc) == "valid") true else false
-		  def serviceCall = if (valid) GetRequest("metadata.validation.report", ("id" -> importValidMetadataId)).execute() else
-		                       GetRequest("metadata.validation.report", ("id" -> importInvalidMetadataId)).execute()
-		                       
-		  serviceCall must haveA200ResponseCode
-		  
-		  val errorsFound = serviceCall.value.getXml \\ "errorFound"
-		  
-		  println(serviceCall.value.getXml)
-		  if (valid) errorsFound must beEmpty else errorsFound.length must be_>=(1)
-		  
-}														    
+    val valid = if (extract1(desc) == "valid") true else false
+
+    val id = if (valid) importValidMetadataId else importInvalidMetadataId
+
+    // Need to start edit to put metadata in context
+    val editValue = StartEditingHtml().execute(Id(id)).value
+    // since the invalid metadata was not validated on import we need to do something to trigger a validation so that it is 
+    // validated.  As such we update it with no changes
+    UpdateMetadata(finish = false, showValidationErrors = true).execute(editValue)
+    val serviceCall = GetRequest("metadata.validate!", "id" -> id).execute()
+
+    serviceCall must haveA200ResponseCode
+
+    val errorsFound = serviceCall.value.getXml \\ "response" \\ "_" filter {
+      n => n.label == "failed-assert" || n.label == "error"
+    }
+
+    if (valid) errorsFound must beEmpty else errorsFound.length must be_>=(1)
+
+  }														    
   lazy val importValidMetadataId = {
        val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml",true, getClass)._2
-       val md = (importMdRequest then GetRawMetadataXml).execute().value.getXml
-       val response = (md \\ "fileIdentifier").text.trim
-       response
+       val id = importMdRequest.execute().value.id
+       registerNewMd(Id(id))
+       id
   	}
   lazy val importInvalidMetadataId = {
+    
     // TODO : setting true in the following line reveals a bug in the mef.import service
        val importMdRequest = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.invalid.xml",false, getClass)._2
-       val md = (importMdRequest then GetRawMetadataXml).execute().value.getXml
-       val response = (md \\ "fileIdentifier").text.trim
-       response
+       val id = importMdRequest.execute().value.id
+       registerNewMd(Id(id))
+       id
   	}
   
-    def deleteMetadatas = {
-		  GetRequest("metadata.delete", ("uuid" -> importValidMetadataId)).execute()
-		  GetRequest("metadata.delete", ("uuid" -> importInvalidMetadataId)).execute()
-    }
 			
 }

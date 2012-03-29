@@ -23,7 +23,7 @@ class SameXlinkUpdatedBugSpec extends GeonetworkSpecification { def is =
   lazy val doUpdate = {
     val startEditing = StartEditingHtml(MetadataViews.xml).execute(importMetadata)
     val xml = XML.loadString((startEditing.value.getXml \\ "textarea").text)
-    val updateResponse = UpdateMetadataHtml(true, 'data -> xml).execute(startEditing.value)
+    val updateResponse = UpdateMetadataHtml(true, false, 'data -> xml).execute(startEditing.value)
     (xml, updateResponse)
   }
   
