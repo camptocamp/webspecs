@@ -65,7 +65,8 @@ class WP1 extends Specification with SpecificationsFinder { def is =
 
     def examplesLinks(t: String) = {
   val specs = List(
-        classOf[ImportCheMetadataSpec]
+        classOf[ImportCheMetadataSpec],
+        classOf[ImportValidationSpec]
       ).flatMap{s => createSpecification(s.getName)}
       specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
