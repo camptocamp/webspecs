@@ -1,6 +1,5 @@
 package c2c.webspecs
 package geonetwork
-import java.net.URLEncoder
 
 /**
  * Create a new Keyword and add it to the thesaurus indicated

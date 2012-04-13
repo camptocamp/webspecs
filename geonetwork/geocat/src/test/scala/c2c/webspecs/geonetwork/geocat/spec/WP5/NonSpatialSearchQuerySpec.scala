@@ -3,26 +3,11 @@ package geonetwork
 package geocat
 package spec.WP5
 
-import csw._
 import org.specs2.specification.Step
-import c2c.webspecs.geonetwork.ImportStyleSheets.NONE
 import c2c.webspecs.geonetwork._
-import c2c.webspecs.{ XmlValue, Response, IdValue, GetRequest }
-import accumulating._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import csw._
-import scala.xml.transform.BasicTransformer
-import c2c.webspecs.geonetwork.geocat.spec.WP3.ProcessImportedMetadataSpec
-import scala.xml.Node
-import scala.xml.XML
-import scala.xml.Elem
-import org.specs2.execute.Result
-import java.util.Date
-import org.specs2.matcher.ContainMatcher
-import org.specs2.control.LazyParameters
-import org.specs2.control.LazyParameter
-import scala.xml.NodeSeq
 
 @RunWith(classOf[JUnitRunner])
 class NonSpatialSearchQuerySpec extends SearchSpecification {

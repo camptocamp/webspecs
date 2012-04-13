@@ -6,7 +6,6 @@ import scalax.file.Path
 import scalax.io.Resource
 import scalax.io.Codec
 import java.util.UUID
-import java.util.Date
 
 object ResourceLoader {
   def loadData(resource: URL, replacements: Map[String, String], fileName: String = "") = {

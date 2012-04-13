@@ -2,7 +2,6 @@ package c2c.webspecs
 package geonetwork
 package csw
 
-import c2c.webspecs.AbstractGetRequest
 import ResultTypes._
 import ElementSetNames._
 

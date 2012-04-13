@@ -4,10 +4,7 @@ package csw
 
 import ResultTypes._
 import ElementSetNames._
-import xml.{ NodeSeq, Node }
-import xml.Elem
-import DomainProperties.DomainProperty
-import DomainParameters.DomainParameter
+import xml.NodeSeq
 
 object CswXmlUtil {
   def getByIdXml(fileId: String, resultType: ResultType, outputSchema: OutputSchemas.OutputSchema) =

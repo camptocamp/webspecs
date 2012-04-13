@@ -1,6 +1,5 @@
 package c2c.webspecs
 package geonetwork
-import java.net.URLEncoder
 
 /**
  * Represents a Geonetwork keyword

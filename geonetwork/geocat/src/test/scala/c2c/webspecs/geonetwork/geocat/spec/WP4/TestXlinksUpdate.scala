@@ -3,20 +3,14 @@ package geonetwork
 package geocat
 package spec.WP4
 
-import csw._
 import org.specs2.specification.Step
-import c2c.webspecs.geonetwork.ImportStyleSheets.NONE
 import c2c.webspecs.geonetwork._
-import c2c.webspecs.{XmlValue, Response, IdValue, GetRequest}
-import accumulating._
+import c2c.webspecs.Response
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
-import csw._
-import scala.xml.transform.BasicTransformer
 import c2c.webspecs.geonetwork.geocat.spec.WP3.ProcessImportedMetadataSpec
 import scala.xml.Node
 import scala.xml.XML
-import scala.xml.Elem
 import org.specs2.execute.Result
 
 

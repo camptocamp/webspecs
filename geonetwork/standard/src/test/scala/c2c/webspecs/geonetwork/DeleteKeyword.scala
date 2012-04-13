@@ -1,7 +1,6 @@
 package c2c.webspecs
 package geonetwork
 
-import java.net.URLEncoder
 
 object DeleteKeyword {
   def apply(keywordRef:KeywordRef, forceDelete:Boolean):DeleteKeyword = DeleteKeyword(keywordRef.thesaurus, keywordRef.namespace, keywordRef.code, forceDelete)

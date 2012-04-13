@@ -1,6 +1,5 @@
 package c2c.webspecs
 package geonetwork
-import java.net.URLEncoder
 
 /**
  * Requests to get a IsoKeyword object

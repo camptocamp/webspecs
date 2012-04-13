@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:geonet="http://www.fao.org/geonetwork" xsi:schemaLocation="http://www.geocat.ch/2008/che ../../web/geonetwork/xml/schemas/iso19139.che/schema.xsd" gco:isoType="gmd:MD_Metadata">
+<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.geocat.ch/2008/che ../../web/geonetwork/xml/schemas/iso19139.che/schema.xsd" gco:isoType="gmd:MD_Metadata">
   <gmd:fileIdentifier>
     <gco:CharacterString>d5517e5e-1cc0-45d1-8839-54f9da4f5ebe</gco:CharacterString>
   </gmd:fileIdentifier>
@@ -203,7 +204,7 @@
       </gmd:characterEncoding>
     </gmd:PT_Locale>
   </gmd:locale>
-  <gmd:identificationInfo xmlns:date="http://exslt.org/dates-and-times" xmlns:gts="http://www.isotc211.org/2005/gts">
+    <gmd:identificationInfo>
     <che:CHE_SV_ServiceIdentification gco:isoType="srv:SV_ServiceIdentification">
       <gmd:citation>
         <gmd:CI_Citation>

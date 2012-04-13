@@ -2,7 +2,6 @@ package c2c.webspecs
 package geonetwork
 package geocat
 
-import java.net.URL
 import collection.SeqProxy
 import xml.{ NodeSeq, Node }
 import org.apache.http.entity.mime.content.StringBody

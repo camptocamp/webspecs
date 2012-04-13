@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" xmlns:geonet="http://www.fao.org/geonetwork" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:MD_Metadata" xsi:schemaLocation="http://www.geocat.ch/2008/che http://www.isotc211.org/2005/gmd http://www.isotc211.org/2005/gmd/gmd.xsd http://www.isotc211.org/2005/srv http://schemas.opengis.net/iso/19139/20060504/srv/srv.xsd">
-  <gmd:fileIdentifier xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:MD_Metadata" xsi:schemaLocation="http://www.geocat.ch/2008/che http://www.isotc211.org/2005/gmd">
+  <gmd:fileIdentifier>
     <gco:CharacterString>542eb6cb-9bec-447d-8568-78824fa24103</gco:CharacterString>
   </gmd:fileIdentifier>
-  <gmd:language xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:language>
     <gco:CharacterString>deu</gco:CharacterString>
   </gmd:language>
-  <gmd:characterSet xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:characterSet>
     <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CharacterSetCode" codeListValue="utf8"/>
   </gmd:characterSet>
-  <gmd:hierarchyLevel xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:hierarchyLevel>
     <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset"/>
   </gmd:hierarchyLevel>
-  <gmd:contact xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+  <gmd:contact xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
     <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
       <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
         <gmd:PT_FreeText>
@@ -119,16 +120,16 @@
       </che:organisationAcronym>
     </che:CHE_CI_ResponsibleParty>
   </gmd:contact>
-  <gmd:dateStamp xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:dateStamp>
     <gco:DateTime>2010-04-06T14:44:57</gco:DateTime>
   </gmd:dateStamp>
-  <gmd:metadataStandardName xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:metadataStandardName>
     <gco:CharacterString>GM03 2+</gco:CharacterString>
   </gmd:metadataStandardName>
-  <gmd:metadataStandardVersion xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:metadataStandardVersion>
     <gco:CharacterString>1.0</gco:CharacterString>
   </gmd:metadataStandardVersion>
-  <gmd:locale xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:locale>
     <gmd:PT_Locale id="DE">
       <gmd:languageCode>
         <gmd:LanguageCode codeList="#LanguageCode" codeListValue="deu">German</gmd:LanguageCode>
@@ -138,7 +139,7 @@
       </gmd:characterEncoding>
     </gmd:PT_Locale>
   </gmd:locale>
-  <gmd:locale xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:locale>
     <gmd:PT_Locale id="FR">
       <gmd:languageCode>
         <gmd:LanguageCode codeList="#LanguageCode" codeListValue="fra">French</gmd:LanguageCode>
@@ -148,7 +149,7 @@
       </gmd:characterEncoding>
     </gmd:PT_Locale>
   </gmd:locale>
-  <gmd:locale xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:locale>
     <gmd:PT_Locale id="IT">
       <gmd:languageCode>
         <gmd:LanguageCode codeList="#LanguageCode" codeListValue="ita">Italian</gmd:LanguageCode>
@@ -158,7 +159,7 @@
       </gmd:characterEncoding>
     </gmd:PT_Locale>
   </gmd:locale>
-  <gmd:locale xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:locale>
     <gmd:PT_Locale id="EN">
       <gmd:languageCode>
         <gmd:LanguageCode codeList="#LanguageCode" codeListValue="eng">English</gmd:LanguageCode>
@@ -168,7 +169,7 @@
       </gmd:characterEncoding>
     </gmd:PT_Locale>
   </gmd:locale>
-  <gmd:referenceSystemInfo xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:referenceSystemInfo>
     <gmd:MD_ReferenceSystem>
       <gmd:referenceSystemIdentifier>
         <gmd:RS_Identifier>
@@ -179,7 +180,7 @@
       </gmd:referenceSystemIdentifier>
     </gmd:MD_ReferenceSystem>
   </gmd:referenceSystemInfo>
-  <gmd:identificationInfo xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:identificationInfo>
     <che:CHE_MD_DataIdentification gco:isoType="gmd:MD_DataIdentification">
       <gmd:citation>
         <gmd:CI_Citation>
@@ -339,7 +340,7 @@
         </gmd:MD_Format>
       </gmd:resourceFormat>
       <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://localhost:8080/geonetwork/srv/eng/xml.keyword.get?thesaurus=external._none_.gemet&amp;id=http%3A%2F%2Fwww.eionet.europa.eu%2Fgemet%2Fconcept%2F6740&amp;locales=en,it,de,fr" xlink:show="embed">
-        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+        <gmd:MD_Keywords>
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
@@ -399,7 +400,7 @@
       </gmd:topicCategory>
     </che:CHE_MD_DataIdentification>
   </gmd:identificationInfo>
-  <gmd:distributionInfo xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+  <gmd:distributionInfo>
     <gmd:MD_Distribution>
       <gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink">
         <gmd:MD_Format>
@@ -413,7 +414,7 @@
       </gmd:distributionFormat>
     </gmd:MD_Distribution>
   </gmd:distributionInfo>
-  <gmd:metadataMaintenance xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:metadataMaintenance>
     <che:CHE_MD_MaintenanceInformation gco:isoType="gmd:MD_MaintenanceInformation">
       <gmd:maintenanceAndUpdateFrequency>
         <gmd:MD_MaintenanceFrequencyCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_MaintenanceFrequencyCode" codeListValue="asNeeded"/>

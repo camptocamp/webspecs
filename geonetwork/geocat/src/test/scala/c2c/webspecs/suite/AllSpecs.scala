@@ -14,8 +14,6 @@ import c2c.webspecs.geonetwork.geocat.spec.WP10._
 import c2c.webspecs.geonetwork.geocat.spec.WP12._
 import c2c.webspecs.geonetwork.geocat.spec.WP15._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
-import org.junit.runner.RunWith
-import org.specs2.runner.JUnitRunner
 import java.text.SimpleDateFormat
 import java.util.Date
 import org.specs2.specification.Step

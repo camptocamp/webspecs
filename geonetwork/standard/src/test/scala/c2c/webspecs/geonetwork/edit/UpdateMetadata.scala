@@ -2,7 +2,6 @@ package c2c.webspecs
 package geonetwork
 package edit
 
-import c2c.webspecs.Request
 
 object UpdateMetadata {
   def apply(data:(Any,Any)*):UpdateMetadata = new UpdateMetadata(true,true,data:_*)

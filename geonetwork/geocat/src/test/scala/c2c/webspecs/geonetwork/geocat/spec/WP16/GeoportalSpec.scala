@@ -4,17 +4,12 @@ package geocat
 package spec.WP16
 
 import scala.xml.NodeSeq
-import org.apache.http.entity.mime.content.StringBody
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
-import c2c.webspecs.geonetwork.ImportStyleSheets.NONE
-import c2c.webspecs.geonetwork.csw.OutputSchemas._
-import org.specs2.matcher.Matcher
 import csw._
-import scala.xml.Node
 
-@RunWith(classOf[JUnitRunner]) 
+@RunWith(classOf[JUnitRunner])
 class GeoportalSpec extends GeocatSpecification {  def is =
 	"Geoportal API".title 															 							^ Step(setup) ^
 	"For this specification a few metadata must be imported with the 'special' geoportal keyword"   			^ Step(importMd(3,"/geocat/data/comprehensive-iso19139che.xml",datestamp)) ^

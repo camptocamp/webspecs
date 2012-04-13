@@ -8,7 +8,6 @@ import UserProfiles._
 import c2c.webspecs.ExecutionContext
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
-import java.util.UUID
 import scala.collection.mutable.SynchronizedQueue
 import csw._
 

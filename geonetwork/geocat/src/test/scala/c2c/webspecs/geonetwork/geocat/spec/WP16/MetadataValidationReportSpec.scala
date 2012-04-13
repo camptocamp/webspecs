@@ -3,8 +3,6 @@ package geonetwork
 package geocat
 package spec.WP16
 
-import scala.xml.NodeSeq
-import org.apache.http.entity.mime.content.StringBody
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step

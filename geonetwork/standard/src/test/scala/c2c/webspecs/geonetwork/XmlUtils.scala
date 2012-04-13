@@ -6,11 +6,7 @@
  */
 package c2c.webspecs.geonetwork
 
-import xml.NodeSeq
 import c2c.webspecs.geonetwork.edit.EditValue;
-import java.net.URLEncoder
-import java.net.URLDecoder
-import scala.xml.Node
 
 object XmlUtils {
  def extractId(li: String): Option[String] = {

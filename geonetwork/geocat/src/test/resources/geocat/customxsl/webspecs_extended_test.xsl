@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- XSL-Styleshett für geocat.ch ( 7.Juli 2011 )-->
 <!-- Dieses XSL-Styleshett wurde für die Metadatenverwaltung des Kantons Basel-Stadt durch die Fachstelle für Geoinformationen erstellt und gepflegt. -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" xmlns:gts="http://www.isotc211.org/2005/gts" xmlns:che="http://www.geocat.ch/2008/che" xmlns:geonet="http://www.fao.org/geonetwork" xmlns:exslt="http://exslt.org/common" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
+                xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco"
+                xmlns:gml="http://www.opengis.net/gml" xmlns:che="http://www.geocat.ch/2008/che">
 	<!-- Load labels. -->
 	<xsl:variable name="label" select="document('../xml/schemas/iso19139/loc/deu/labels.xml')"/>
 	<xsl:variable name="label.che" select="document('../xml/schemas/iso19139.che/loc/deu/labels.xml')"/>

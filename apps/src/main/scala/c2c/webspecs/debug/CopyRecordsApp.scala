@@ -3,9 +3,8 @@ package debug
 
 import geonetwork._
 import c2c.webspecs.geonetwork.csw._
-import DomainParameters._
 import c2c.webspecs.login.LoginRequest
-import org.apache.http.entity.mime.content.{ AbstractContentBody, ByteArrayBody, FileBody, StringBody }
+import org.apache.http.entity.mime.content.StringBody
 import scala.xml._
 import scala.xml.transform._
 

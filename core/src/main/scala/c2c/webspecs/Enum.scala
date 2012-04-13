@@ -1,9 +1,6 @@
 package c2c.webspecs
 
 import java.util.concurrent.atomic.AtomicReference
-import java.util.ServiceLoader
-import collection.JavaConverters._
-import java.util.concurrent.atomic.AtomicReference._
 
 /**
  * An enumeration super class

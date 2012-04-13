@@ -5,7 +5,6 @@ package spec.WP3
 
 import org.specs2._
 import specification._
-import java.util.UUID
 import scala.xml.NodeSeq
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner

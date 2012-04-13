@@ -4,7 +4,6 @@ package geocat
 package spec.WP5
 import c2c.webspecs.geonetwork.geocat.spec.WP3.ProcessImportedMetadataSpec
 import java.util.Date
-import org.specs2.matcher.Matcher
 import scala.xml.NodeSeq
 import org.specs2.execute.Result
 

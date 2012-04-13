@@ -6,8 +6,6 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
 import c2c.webspecs.geonetwork.csw._
-import scala.concurrent.SyncVar
-import scala.concurrent.SyncVar
 import scala.xml.NodeSeq
 
 @RunWith(classOf[JUnitRunner])

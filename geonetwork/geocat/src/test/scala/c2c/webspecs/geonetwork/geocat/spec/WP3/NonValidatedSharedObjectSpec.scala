@@ -6,8 +6,6 @@ package spec.WP3
 
 
 import c2c.webspecs.geonetwork.geocat.GeocatSpecification
-import c2c.webspecs.geonetwork.csw.CswGetCapabilities
-
 
 
 import org.junit.runner.RunWith

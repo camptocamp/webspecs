@@ -5,8 +5,7 @@ package spec.WP3
 
 import org.specs2.specification.Step
 import org.specs2.execute.Result
-import c2c.webspecs.{XmlValue, Response}
-import geonetwork.UserRef
+import c2c.webspecs.Response
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 

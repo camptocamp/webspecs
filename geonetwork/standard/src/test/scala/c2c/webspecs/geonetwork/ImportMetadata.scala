@@ -1,13 +1,7 @@
 package c2c.webspecs
 package geonetwork
 
-import java.io.{InputStreamReader, BufferedReader, InputStream, File}
-import xml.{Node, Elem, NodeSeq}
-import org.apache.http.entity.mime.content.{AbstractContentBody, ByteArrayBody, FileBody, StringBody}
-import java.net.URL
-import scalax.file.Path
-import scalax.io.{Codec, Resource}
-import MetadataViews.MetadataView
+import org.apache.http.entity.mime.content.{AbstractContentBody, StringBody}
 import java.util.UUID
 
 

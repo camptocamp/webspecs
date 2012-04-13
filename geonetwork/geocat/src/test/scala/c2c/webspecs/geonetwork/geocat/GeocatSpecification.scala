@@ -4,7 +4,6 @@ package geocat
 
 import scala.xml.NodeSeq
 import UserProfiles._
-import c2c.webspecs.geonetwork.csw._
 
 abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends GeonetworkSpecification(userProfile) {
 	override def extraSetup(setupContext:ExecutionContext):Unit = {

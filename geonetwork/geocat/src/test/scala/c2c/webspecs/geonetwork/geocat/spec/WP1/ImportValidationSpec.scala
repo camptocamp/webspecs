@@ -6,8 +6,6 @@ package spec.WP1
 import csw._
 import org.specs2.specification.Step
 import c2c.webspecs.geonetwork._
-import c2c.webspecs.{XmlValue, IdValue}
-import accumulating._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 

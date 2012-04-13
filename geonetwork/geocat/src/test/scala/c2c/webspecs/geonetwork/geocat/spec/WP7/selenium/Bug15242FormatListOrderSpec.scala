@@ -8,7 +8,6 @@ import org.specs2._
 import matcher.ThrownExpectations
 import specification.Step
 import Thread._
-import org.openqa.selenium.WebDriverBackedSelenium
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.openqa.selenium.firefox.FirefoxDriver
@@ -66,7 +65,6 @@ class Bug15242FormatListOrderSpec extends GeocatSeleniumSpecification with Throw
   }
 
   def scala_specs2_5 = {
-    import selenium._
     val selectText = driver match {
       case _:FirefoxDriver => "innerHTML"
       case _ => "innerText"

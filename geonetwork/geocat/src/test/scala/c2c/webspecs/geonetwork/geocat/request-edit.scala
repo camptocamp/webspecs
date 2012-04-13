@@ -3,7 +3,6 @@ package geonetwork
 package geocat
 
 import edit._
-import XmlUtils.{ lookupId, lookupVersion }
 import AddSites._
 import scala.xml.Node
 

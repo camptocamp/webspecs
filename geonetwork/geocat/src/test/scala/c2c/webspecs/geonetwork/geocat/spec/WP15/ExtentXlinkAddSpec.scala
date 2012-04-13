@@ -7,8 +7,6 @@ import org.specs2.specification.Step
 import c2c.webspecs.geonetwork.edit._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
-import scala.xml.NodeSeq
-import scala.xml.Node
 
 @RunWith(classOf[JUnitRunner])
 class ExtentXlinkAddSpec extends GeocatSpecification { def is =

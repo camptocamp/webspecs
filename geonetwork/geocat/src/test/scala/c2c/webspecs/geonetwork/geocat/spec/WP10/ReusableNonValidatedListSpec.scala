@@ -4,11 +4,7 @@ package geocat
 package spec
 package WP10
 
-import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 import org.specs2.specification.Step
-import org.specs2.matcher.Matcher
-import c2c.webspecs.geonetwork.edit._
-import org.specs2.execute.Result
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 

@@ -1,6 +1,5 @@
 package c2c.webspecs
 
-import java.util.logging.{ConsoleHandler, Logger}
 
 trait Log {
 

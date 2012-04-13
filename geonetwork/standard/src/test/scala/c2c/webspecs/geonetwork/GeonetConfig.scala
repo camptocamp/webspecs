@@ -3,7 +3,6 @@ package geonetwork
 
 
 import collection.mutable.HashMap
-import java.net.InetAddress
 import java.util.UUID
 import xml.Node
 import c2c.webspecs.login.LoginRequest

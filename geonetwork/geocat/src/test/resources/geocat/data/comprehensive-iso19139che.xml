@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:xalan="http://xml.apache.org/xalan" xmlns:comp="http://www.geocat.ch/2003/05/gateway/GM03Comprehensive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" gco:isoType="gmd:MD_Metadata">
+<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gmd="http://www.isotc211.org/2005/gmd" gco:isoType="gmd:MD_Metadata">
   <gmd:fileIdentifier>
     <gco:CharacterString>{uuid}</gco:CharacterString>
   </gmd:fileIdentifier>
@@ -1095,7 +1095,7 @@
           </gmd:MD_Keywords>
       </gmd:descriptiveKeywords>
       <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+        <gmd:MD_Keywords>
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
@@ -1112,7 +1112,7 @@
         </gmd:MD_Keywords>
       </gmd:descriptiveKeywords>
       <gmd:descriptiveKeywords>
-        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+        <gmd:MD_Keywords>
           <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
             <gmd:PT_FreeText>
               <gmd:textGroup>
@@ -1522,7 +1522,7 @@
           </gmd:textGroup>
         </gmd:PT_FreeText>
       </gmd:environmentDescription>
-      <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml">
+      <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml">
         <gmd:EX_Extent>
           <gmd:temporalElement>
             <gmd:EX_SpatialTemporalExtent>
@@ -1660,7 +1660,7 @@
           </gmd:temporalElement>
         </gmd:EX_Extent>
       </gmd:extent>
-      <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml">
+      <gmd:extent xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml">
         <gmd:EX_Extent>
           <gmd:verticalElement>
             <gmd:EX_VerticalExtent>
@@ -3327,7 +3327,7 @@
       </gmd:transferOptions>
     </gmd:MD_Distribution>
   </gmd:distributionInfo>
-  <gmd:dataQualityInfo xmlns:gmi="http://www.isotc211.org/2005/gmi">
+    <gmd:dataQualityInfo>
     <gmd:DQ_DataQuality>
       <gmd:scope>
         <gmd:DQ_Scope>

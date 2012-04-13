@@ -24,7 +24,7 @@
     <gmd:metadataStandardVersion>
         <gco:CharacterString>1.0</gco:CharacterString>
     </gmd:metadataStandardVersion>
-    <gmd:locale xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <gmd:locale xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <gmd:PT_Locale id="FR">
             <gmd:languageCode>
                 <gmd:LanguageCode codeListValue="fra" codeList="#LanguageCode">French</gmd:LanguageCode>

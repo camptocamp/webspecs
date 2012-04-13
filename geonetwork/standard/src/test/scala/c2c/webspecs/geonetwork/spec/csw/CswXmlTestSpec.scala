@@ -7,8 +7,6 @@ import scala.xml._
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
 
-import c2c.webspecs.geonetwork.UserProfiles
-
 
 @RunWith(classOf[JUnitRunner])
 class CswXmlTestSpec extends GeonetworkSpecification {

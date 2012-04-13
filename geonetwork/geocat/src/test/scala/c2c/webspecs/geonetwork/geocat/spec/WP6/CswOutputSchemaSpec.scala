@@ -3,12 +3,8 @@ package geonetwork
 package geocat
 package spec.WP6
 
-import csw._
 import org.specs2.specification.Step
-import c2c.webspecs.geonetwork.ImportStyleSheets.NONE
 import c2c.webspecs.geonetwork._
-import c2c.webspecs.{XmlValue, Response, IdValue, GetRequest}
-import accumulating._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import csw._

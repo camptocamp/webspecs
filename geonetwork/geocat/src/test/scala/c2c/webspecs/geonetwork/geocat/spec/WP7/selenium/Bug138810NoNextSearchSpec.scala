@@ -4,12 +4,10 @@ package geocat
 package spec
 package WP7.selenium
 
-import csw._
 import org.specs2._
 import matcher.ThrownExpectations
 import specification.Step
 import Thread._
-import org.openqa.selenium.WebDriverBackedSelenium
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 

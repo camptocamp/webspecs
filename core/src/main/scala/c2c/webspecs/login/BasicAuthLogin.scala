@@ -31,7 +31,6 @@ class BasicAuthLogin(val user:String, pass:String) extends Request[Any,Null] wit
 class BasicAuthLogout extends Request[Any,Null] with LogoutRequest {
   def execute (in: Any)(implicit context:ExecutionContext, uriResolvers:UriResolver) = {
     context.currentUser = None
-    import AuthPolicy._
     context.httpClient match {
       case client:DefaultHttpClient =>
         client.getCredentialsProvider.clear()

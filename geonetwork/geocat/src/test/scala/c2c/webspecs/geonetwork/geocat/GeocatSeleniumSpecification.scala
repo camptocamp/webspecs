@@ -6,7 +6,6 @@ import org.specs2.specification.Step
 import org.openqa.selenium.WebDriverBackedSelenium
 import org.specs2.specification.Fragments
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeDriverService
 
 abstract class GeocatSeleniumSpecification extends GeocatSpecification {
   lazy val driver:WebDriver = new org.openqa.selenium.firefox.FirefoxDriver()

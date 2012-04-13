@@ -4,8 +4,6 @@ package geocat
 package spec.WP2
 
 import csw._
-import OutputSchemas._
-import xml.NodeSeq
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.matcher.MustThrownMatchers

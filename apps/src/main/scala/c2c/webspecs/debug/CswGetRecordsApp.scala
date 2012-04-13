@@ -1,9 +1,7 @@
 package c2c.webspecs
 package debug
 
-import geonetwork._
 import c2c.webspecs.geonetwork.csw._
-import DomainParameters._
 import c2c.webspecs.login.LoginRequest
 object CswGetRecordsApp extends WebspecsApp {
   println(Log.LoggingConfig.enabled)

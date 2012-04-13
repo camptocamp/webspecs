@@ -1,8 +1,6 @@
 package c2c.webspecs
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.entity.StringEntity
-import scala.xml.XML
-import java.io.StringWriter
 
 
 abstract class AbstractStringPostRequest[-In, +Out](uri:String, valueFactory:ValueFactory[In,Out])

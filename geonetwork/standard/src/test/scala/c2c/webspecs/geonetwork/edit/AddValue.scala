@@ -2,7 +2,6 @@ package c2c.webspecs
 package geonetwork
 package edit
 import scala.xml.Node
-import scala.xml.NodeSeq
 
 class AddValue(val editVal:EditValue,
 			   val basicValue:BasicHttpValue,

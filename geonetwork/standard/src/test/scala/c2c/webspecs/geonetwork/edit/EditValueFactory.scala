@@ -2,7 +2,6 @@ package c2c.webspecs
 package geonetwork
 package edit
 
-import c2c.webspecs.BasicValueFactory
 import c2c.webspecs.BasicHttpValue
 
 object EditValueFactory extends ValueFactory[Id, EditValue] {

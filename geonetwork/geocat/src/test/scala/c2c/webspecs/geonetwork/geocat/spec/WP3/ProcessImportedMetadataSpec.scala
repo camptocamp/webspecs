@@ -4,13 +4,7 @@ package geocat
 package spec.WP3
 
 import org.specs2.specification.Step
-import ImportStyleSheets._
 import edit._
-import scala.xml.transform.BasicTransformer
-import scala.xml.Node
-import scala.xml.XML
-import scala.xml.Elem
-import scala.xml.MetaData
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import scala.xml.NodeSeq

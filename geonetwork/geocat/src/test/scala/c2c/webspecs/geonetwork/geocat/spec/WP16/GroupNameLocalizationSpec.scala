@@ -3,23 +3,12 @@ package geonetwork
 package geocat
 package spec.WP16
 
-import scala.xml.NodeSeq
-import org.apache.http.entity.mime.content.StringBody
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
-import c2c.webspecs.geonetwork.ImportStyleSheets.NONE
-import c2c.webspecs.geonetwork.csw.OutputSchemas._
 import c2c.webspecs.geonetwork._
-import c2c.webspecs.GetRequest
-import c2c.webspecs.GetRequest
-import c2c.webspecs.Response
-import c2c.webspecs.XmlValue
-import c2c.webspecs.GetRequest
-import c2c.webspecs.GetRequest
-import org.specs2.matcher.Matcher
 
-@RunWith(classOf[JUnitRunner]) 
+@RunWith(classOf[JUnitRunner])
 class GroupNameLocalizationSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 	"Group Localization".title 															 ^ Step(setup) ^
 	"A new group should have 3 char localizations"										 ! createGroup ^

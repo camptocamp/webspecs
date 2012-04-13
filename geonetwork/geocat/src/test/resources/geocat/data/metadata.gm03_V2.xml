@@ -1,4 +1,4 @@
-<TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<TRANSFER xmlns="http://www.interlis.ch/INTERLIS2.3">
   <HEADERSECTION SENDER="geocat.ch" VERSION="2.3">
     <MODELS />
     <ALIAS>

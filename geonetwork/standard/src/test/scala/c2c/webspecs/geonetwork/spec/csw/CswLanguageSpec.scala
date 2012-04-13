@@ -7,7 +7,6 @@ import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
 
 import c2c.webspecs.geonetwork.csw._
-import c2c.webspecs.GetRequest
 import c2c.webspecs.geonetwork.GetRawMetadataXml
 
 

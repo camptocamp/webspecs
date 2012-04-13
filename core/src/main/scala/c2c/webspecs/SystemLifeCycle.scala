@@ -1,6 +1,5 @@
 package c2c.webspecs
 
-import util.control.Exception
 
 /**
  * Implementation either take a config object as a parameter or no parameters

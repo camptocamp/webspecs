@@ -1,10 +1,6 @@
 package c2c.webspecs
 package geonetwork
 
-import org.apache.http.auth.params.AuthPNames
-import collection.JavaConverters._
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.client.params.{HttpClientParams, AuthPolicy}
 import c2c.webspecs.login.LoginRequest
 
 class LoginService(val user:String, pass:String)

@@ -1,6 +1,5 @@
 package c2c.webspecs
 
-import java.net.{InetAddress}
 import util.control.Exception
 import java.io.File
 

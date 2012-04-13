@@ -3,7 +3,7 @@ package c2c.webspecs
 import org.apache.http.conn.scheme.Scheme
 import java.security.cert.X509Certificate
 import java.lang.String
-import java.security.{SecureRandom, KeyStore}
+import java.security.SecureRandom
 import org.apache.http.conn.ssl.{X509HostnameVerifier, SSLSocketFactory}
 import javax.net.ssl._
 

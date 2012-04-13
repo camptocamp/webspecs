@@ -8,14 +8,10 @@ import org.specs2.runner.JUnitRunner
 import org.specs2.specification.Step
 
 import c2c.webspecs.geonetwork.csw._
-import c2c.webspecs.GetRequest
 import c2c.webspecs.geonetwork.UserProfiles
-import c2c.webspecs.geonetwork.ImportMetadata
-import c2c.webspecs.ResourceLoader
-import c2c.webspecs.geonetwork.GetRawMetadataXml
 
 
-@RunWith(classOf[JUnitRunner]) 
+@RunWith(classOf[JUnitRunner])
 class CswGetCapabilitiesServiceUrlSpec extends GeocatSpecification(UserProfiles.Editor) {
 	def is = {
 	  "CSW GetCapabilities services URL".title 	^ Step(setup) ^
