@@ -1,0 +1,1719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<che:CHE_MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:MD_Metadata">
+	<gmd:fileIdentifier>
+		<gco:CharacterString>d5517e5e-1cc0-45d1-8839-54f9da4f5ebe</gco:CharacterString>
+	</gmd:fileIdentifier>
+	<gmd:language>
+		<gco:CharacterString>deu</gco:CharacterString>
+	</gmd:language>
+	<gmd:characterSet>
+		<gmd:MD_CharacterSetCode codeListValue="utf8" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CharacterSetCode"/>
+	</gmd:characterSet>
+	<gmd:hierarchyLevel>
+		<gmd:MD_ScopeCode codeListValue="service" codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode"/>
+	</gmd:hierarchyLevel>
+	<gmd:hierarchyLevelName>
+		<gco:CharacterString>Service</gco:CharacterString>
+	</gmd:hierarchyLevelName>
+	<gmd:contact>
+		<che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
+			<gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
+				<gmd:PT_FreeText>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#DE">Bundesamt für Landestopografie</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#FR">Office fédéral de topographie</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#IT">Ufficio federale di topografia</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#EN">Federal Office of Topography</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+				</gmd:PT_FreeText>
+			</gmd:organisationName>
+			<gmd:positionName xsi:type="gmd:PT_FreeText_PropertyType">
+				<gmd:PT_FreeText>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#DE">Metadaten</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#FR">Métadonnées</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#IT">Metadati</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#EN">Metadata contact</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+				</gmd:PT_FreeText>
+			</gmd:positionName>
+			<gmd:contactInfo>
+				<gmd:CI_Contact>
+					<gmd:phone>
+						<che:CHE_CI_Telephone gco:isoType="gmd:CI_Telephone">
+							<gmd:voice>
+								<gco:CharacterString>+41 31 963 21 11</gco:CharacterString>
+							</gmd:voice>
+							<gmd:facsimile>
+								<gco:CharacterString>+41 31 963 24 59</gco:CharacterString>
+							</gmd:facsimile>
+							<che:directNumber gco:nilReason="missing">
+								<gco:CharacterString/>
+							</che:directNumber>
+							<che:mobile gco:nilReason="missing">
+								<gco:CharacterString/>
+							</che:mobile>
+						</che:CHE_CI_Telephone>
+					</gmd:phone>
+					<gmd:address>
+						<che:CHE_CI_Address gco:isoType="gmd:CI_Address">
+							<gmd:city>
+								<gco:CharacterString>Wabern</gco:CharacterString>
+							</gmd:city>
+							<gmd:administrativeArea gco:nilReason="missing">
+								<gco:CharacterString/>
+							</gmd:administrativeArea>
+							<gmd:postalCode>
+								<gco:CharacterString>3084</gco:CharacterString>
+							</gmd:postalCode>
+							<gmd:country xsi:type="gmd:PT_FreeText_PropertyType">
+								<gco:CharacterString>CH</gco:CharacterString>
+							</gmd:country>
+							<gmd:electronicMailAddress>
+								<gco:CharacterString>metadata@swisstopo.ch</gco:CharacterString>
+							</gmd:electronicMailAddress>
+							<che:streetName>
+								<gco:CharacterString>Seftigenstrasse</gco:CharacterString>
+							</che:streetName>
+							<che:streetNumber>
+								<gco:CharacterString>264</gco:CharacterString>
+							</che:streetNumber>
+							<che:addressLine gco:nilReason="missing">
+								<gco:CharacterString/>
+							</che:addressLine>
+							<che:postBox gco:nilReason="missing">
+								<gco:CharacterString/>
+							</che:postBox>
+						</che:CHE_CI_Address>
+					</gmd:address>
+					<gmd:onlineResource>
+						<gmd:CI_OnlineResource>
+							<gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
+								<che:PT_FreeURL>
+									<che:URLGroup>
+										<che:LocalisedURL locale="#DE">http://www.swisstopo.admin.ch</che:LocalisedURL>
+									</che:URLGroup>
+								</che:PT_FreeURL>
+							</gmd:linkage>
+							<gmd:protocol>
+								<gco:CharacterString>text/html</gco:CharacterString>
+							</gmd:protocol>
+							<gmd:name xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
+								<gco:CharacterString/>
+							</gmd:name>
+							<gmd:description xsi:type="gmd:PT_FreeText_PropertyType" gco:nilReason="missing">
+								<gco:CharacterString/>
+							</gmd:description>
+						</gmd:CI_OnlineResource>
+					</gmd:onlineResource>
+					<gmd:hoursOfService>
+						<gco:CharacterString>08h30 - 11h00 / 14h00 - 16h00 GMT+1</gco:CharacterString>
+					</gmd:hoursOfService>
+					<gmd:contactInstructions gco:nilReason="missing">
+						<gco:CharacterString/>
+					</gmd:contactInstructions>
+				</gmd:CI_Contact>
+			</gmd:contactInfo>
+			<gmd:role>
+				<gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="pointOfContact"/>
+			</gmd:role>
+			<che:individualFirstName gco:nilReason="missing">
+				<gco:CharacterString/>
+			</che:individualFirstName>
+			<che:individualLastName>
+				<gco:CharacterString>metadata</gco:CharacterString>
+			</che:individualLastName>
+			<che:organisationAcronym xsi:type="gmd:PT_FreeText_PropertyType">
+				<gmd:PT_FreeText>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#DE">swisstopo</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#FR">swisstopo</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#IT">swisstopo</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#EN">swisstopo</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+				</gmd:PT_FreeText>
+			</che:organisationAcronym>
+		</che:CHE_CI_ResponsibleParty>
+	</gmd:contact>
+	<gmd:dateStamp>
+		<gco:DateTime>2012-02-20T14:36:03</gco:DateTime>
+	</gmd:dateStamp>
+	<gmd:metadataStandardName>
+		<gco:CharacterString>GM03 2+</gco:CharacterString>
+	</gmd:metadataStandardName>
+	<gmd:metadataStandardVersion>
+		<gco:CharacterString>1.0</gco:CharacterString>
+	</gmd:metadataStandardVersion>
+	<gmd:locale>
+		<gmd:PT_Locale id="DE">
+			<gmd:languageCode>
+				<gmd:LanguageCode codeList="#LanguageCode" codeListValue="deu">German</gmd:LanguageCode>
+			</gmd:languageCode>
+			<gmd:characterEncoding>
+				<gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+			</gmd:characterEncoding>
+		</gmd:PT_Locale>
+	</gmd:locale>
+	<gmd:locale>
+		<gmd:PT_Locale id="FR">
+			<gmd:languageCode>
+				<gmd:LanguageCode codeList="#LanguageCode" codeListValue="fra">French</gmd:LanguageCode>
+			</gmd:languageCode>
+			<gmd:characterEncoding>
+				<gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+			</gmd:characterEncoding>
+		</gmd:PT_Locale>
+	</gmd:locale>
+	<gmd:locale>
+		<gmd:PT_Locale id="EN">
+			<gmd:languageCode>
+				<gmd:LanguageCode codeList="#LanguageCode" codeListValue="eng">English</gmd:LanguageCode>
+			</gmd:languageCode>
+			<gmd:characterEncoding>
+				<gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+			</gmd:characterEncoding>
+		</gmd:PT_Locale>
+	</gmd:locale>
+	<gmd:locale>
+		<gmd:PT_Locale id="IT">
+			<gmd:languageCode>
+				<gmd:LanguageCode codeList="#LanguageCode" codeListValue="ita">Italian</gmd:LanguageCode>
+			</gmd:languageCode>
+			<gmd:characterEncoding>
+				<gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+			</gmd:characterEncoding>
+		</gmd:PT_Locale>
+	</gmd:locale>
+	<gmd:identificationInfo xmlns:date="http://exslt.org/dates-and-times" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gts="http://www.isotc211.org/2005/gts">
+		<che:CHE_SV_ServiceIdentification gco:isoType="srv:SV_ServiceIdentification">
+			<gmd:citation>
+				<gmd:CI_Citation>
+					<gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
+						<gco:CharacterString>WMS BGDI</gco:CharacterString>
+						<gmd:PT_FreeText>
+							<gmd:textGroup>
+								<gmd:LocalisedCharacterString locale="#FR">WMS IFDG</gmd:LocalisedCharacterString>
+							</gmd:textGroup>
+						</gmd:PT_FreeText>
+					</gmd:title>
+					<gmd:date>
+						<gmd:CI_Date>
+							<gmd:date>
+								<gco:Date>2010-11-30</gco:Date>
+							</gmd:date>
+							<gmd:dateType>
+								<gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="revision"/>
+							</gmd:dateType>
+						</gmd:CI_Date>
+					</gmd:date>
+				</gmd:CI_Citation>
+			</gmd:citation>
+			<gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
+				<gco:CharacterString>Web Map Service (WMS) mit öffentlich zugänglichen Daten der Bundes Geodaten-Infrastruktur.</gco:CharacterString>
+				<gmd:PT_FreeText>
+					<gmd:textGroup>
+						<gmd:LocalisedCharacterString locale="#FR">Données publiques de l&apos;infrastructure fédérale de données géographiques (IFDG)</gmd:LocalisedCharacterString>
+					</gmd:textGroup>
+				</gmd:PT_FreeText>
+			</gmd:abstract>
+			<srv:serviceType>
+				<gco:LocalName>OGC:WMS</gco:LocalName>
+			</srv:serviceType>
+			<srv:serviceTypeVersion>
+				<gco:CharacterString>1.1.1</gco:CharacterString>
+			</srv:serviceTypeVersion>
+			<srv:serviceTypeVersion>
+				<gco:CharacterString>1.3.0</gco:CharacterString>
+			</srv:serviceTypeVersion>
+			<srv:extent >
+				<gmd:EX_Extent>
+					<gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
+						<gmd:PT_FreeText>
+							<gmd:textGroup>
+								<gmd:LocalisedCharacterString locale="#DE">WMS BGDI</gmd:LocalisedCharacterString>
+							</gmd:textGroup>
+							<gmd:textGroup>
+								<gmd:LocalisedCharacterString locale="#FR">WMS IFDG</gmd:LocalisedCharacterString>
+							</gmd:textGroup>
+							<gmd:textGroup>
+								<gmd:LocalisedCharacterString locale="#IT">WMS FSDI</gmd:LocalisedCharacterString>
+							</gmd:textGroup>
+							<gmd:textGroup>
+								<gmd:LocalisedCharacterString locale="#EN">WMS FSDI</gmd:LocalisedCharacterString>
+							</gmd:textGroup>
+						</gmd:PT_FreeText>
+					</gmd:description>
+					<gmd:geographicElement>
+						<gmd:EX_GeographicDescription>
+							<gmd:geographicIdentifier>
+								<gmd:MD_Identifier>
+									<gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
+										<gmd:PT_FreeText>
+											<gmd:textGroup>
+												<gmd:LocalisedCharacterString locale="#DE">WMS BGDI</gmd:LocalisedCharacterString>
+											</gmd:textGroup>
+											<gmd:textGroup>
+												<gmd:LocalisedCharacterString locale="#FR">WMS IFDG</gmd:LocalisedCharacterString>
+											</gmd:textGroup>
+											<gmd:textGroup>
+												<gmd:LocalisedCharacterString locale="#IT">WMS FSDI</gmd:LocalisedCharacterString>
+											</gmd:textGroup>
+											<gmd:textGroup>
+												<gmd:LocalisedCharacterString locale="#EN">WMS FSDI</gmd:LocalisedCharacterString>
+											</gmd:textGroup>
+										</gmd:PT_FreeText>
+									</gmd:code>
+								</gmd:MD_Identifier>
+							</gmd:geographicIdentifier>
+						</gmd:EX_GeographicDescription>
+					</gmd:geographicElement>
+					<gmd:geographicElement>
+						<gmd:EX_GeographicBoundingBox>
+							<gmd:extentTypeCode>
+								<gco:Boolean>true</gco:Boolean>
+							</gmd:extentTypeCode>
+							<gmd:westBoundLongitude>
+								<gco:Decimal>0.227</gco:Decimal>
+							</gmd:westBoundLongitude>
+							<gmd:eastBoundLongitude>
+								<gco:Decimal>11.063</gco:Decimal>
+							</gmd:eastBoundLongitude>
+							<gmd:southBoundLatitude>
+								<gco:Decimal>45.214</gco:Decimal>
+							</gmd:southBoundLatitude>
+							<gmd:northBoundLatitude>
+								<gco:Decimal>48.945</gco:Decimal>
+							</gmd:northBoundLatitude>
+						</gmd:EX_GeographicBoundingBox>
+					</gmd:geographicElement>
+				</gmd:EX_Extent>
+			</srv:extent>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>xx</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.hydrologie-hydromessstationen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>d60ff6a8-4b80-4535-aa89-cfad26916b80</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.ren-extensive_landwirtschaftsgebiete</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>8bc1565a-023e-490c-9526-fa04a14169ab</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.ren-feuchtgebiete</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>32dfd304-28de-4e82-ad8d-8d6cb6b5fe83</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.ren-fliessgewaesser_seen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>b5f7374b-2f4b-4d28-a23c-eb2d2a64b579</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.ren-trockenstandorte</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>a193df6d-071c-4a1d-bb64-0921cc916f2f</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.ren-wald</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>10981</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-amphibien_wanderobjekte</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>10981</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-amphibien_laichplaetze</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>d47dffc7-8072-40c2-bbf7-4fb47367bd29</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-auen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c98723f6-4c76-480b-bada-c8a5ce3d20d8</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-flachmoore</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>2ce98519-dd40-4cc1-bd95-8f4234d78492</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-hochmoore</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>200a2d0e-afe1-45d8-aeaf-ea3621cc6afe</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-jagdbanngebiete</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>7ed73e2f-0a41-4e8b-a7ff-413f2d9b5ece</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-moorlandschaften</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>8fc6f748-80ce-47b2-8d49-b05a0c8ba975</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-vogelreservate</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>69a1bf2e-e07b-46f6-bdb7-a11a1f87c00a</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-kantone_hochwasser</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>5e412b36-88c4-4996-b69d-7064f1df3c18</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-kantone_lawinen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>a4ecf3a4-9943-4826-a997-9d7523e4d8ad</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.wasser-entnahme</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>ae65e4e3-f47b-4544-a3a2-81dbf79d5a73</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.wasser-leitungen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>ed1931ac-81bc-4517-9860-80090e530e33</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.wasser-rueckgabe</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>a327b175-7788-4569-946d-a9d1737e7092</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-kantone_rutschungen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>fea64430-554d-4c54-bd5d-2ee8c745d814</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-kantone_sturzprozesse</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>26456ca7-828c-435a-8411-360433268599</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-gemeinden_hochwasser</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>59d8e986-6d18-4f1e-aab8-07c3964b93ca</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-gemeinden_lawinen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>b43f69ba-4b97-40e0-989f-116e5735145a</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-gemeinden_sturzprozesse</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>7e1a39c8-69ad-4956-9a7b-57e357299fa4</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.showme-gemeinden_rutschungen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>90a4ba84-6ab1-4a92-b25f-d5cfaa7b873c</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfs.arealstatistik-1985</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>90a4ba84-6ab1-4a92-b25f-d5cfaa7b873c</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfs.arealstatistik-1997</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>116447b0-31b0-477c-9203-9f51d43e4ac5</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfs.arealstatistik-waldmischungsgrad</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>f03f085a-6bff-4063-b664-5546e32ba2e2</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfs.arealstatistik-hintergrund</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>56553efe-4a2c-449d-93ba-cf7edd518d56</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfs.gebaeude_wohnungs_register</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>4ea228b8-7910-4339-8a31-d38d8d8592bd</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.pixelkarte-grau-pk1000</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>4ea228b8-7910-4339-8a31-d38d8d8592bd</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.pixelkarte-farbe-pk1000</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>47d18af4-d747-4466-a01b-f1478f88004b</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.uebersicht-schweiz</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>4b7c4c56-7ce8-4123-9f59-adc7d84fd63a</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.uebersicht-gemeinden</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>2c8e0a96-67ea-4a6d-86eb-88f8272e0639</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.images-landsat25</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>bc3f1564-1e56-44e9-98b6-f0d8c5130410</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-bln</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>d2152a5b-3c64-4a4a-abf5-0ae342f2f108</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.fixpunkte-agnes</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>7a49183b-9766-40dd-936c-fb09fdded185</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.fixpunkte-hoehe-hfp1</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>7a49183b-9766-40dd-936c-fb09fdded185</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.fixpunkte-lage-lfp1</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>12ee04c7-b38d-4809-b417-ce304df6c7cc</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.fixpunkte-hoehe-hfp2</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>12ee04c7-b38d-4809-b417-ce304df6c7cc</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.fixpunkte-lage-lfp2</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>ae8fe0bb-b5c6-41a6-9e70-862a455cc29e</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.gg25-gemeinde-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>ae8fe0bb-b5c6-41a6-9e70-862a455cc29e</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.gg25-kanton-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>9c762bb5-4d8c-4174-9b77-95e85b962439</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.fauna-steinbockkolonien</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>f0a92e70-f58f-408f-afa0-c7d9cd461164</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo-vd.geometa</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>e04cfb5c-34af-4af1-8491-3f157c0f1451</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.gg25-bezirk-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>e04cfb5c-34af-4af1-8491-3f157c0f1451</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.gg25-land-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>4cc706a2-0005-4cc6-8326-7b944a1d5b05</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geophysik-aeromagnetische_karte_schweiz</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>618c9697-129f-47c7-830a-7a256b4c2499</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geodaesie-bouguer_anomalien</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>ca917a71-dcc9-44b6-8804-823c694be516</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geologische_karte</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>2d8174b2-8c4a-44ea-b470-cb3f216b90d1</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geophysik-geothermie</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>f198f6f6-8efa-4235-a55f-99767ea0206c</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-hydrogeologische_karte-grundwasservorkommen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>b8efde6b-7323-4496-aa70-b976ec55cec9</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-hydrogeologische_karte-grundwasservulnerabilitaet</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>639c0536-bfea-44d3-b088-ed7b6b43cde9</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geophysik-inklination</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>8f38b25f-f984-450a-ae48-02290e82136c</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geophysik-deklination</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>132d9ff6-92de-4c02-87a7-72df26bcb33e</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geophysik-totalintensitaet</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>7234896a-842c-4524-8710-5d900953cb1d</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-geodaesie-isostatische_anomalien</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>f1455593-7571-48b0-8603-307ec59a6702</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-eiszeit-lgm-raster</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>a4cdef47-505e-41ab-b6a7-ad5b92d80e41</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.geologie-tektonische_karte</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>36288379-0097-4397-955d-764a8f428603</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.ursprungsbezeichnungen-kaese</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>36288379-0097-4397-955d-764a8f428603</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.ursprungsbezeichnungen-fleisch</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>36288379-0097-4397-955d-764a8f428603</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.ursprungsbezeichnungen-pflanzen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>36288379-0097-4397-955d-764a8f428603</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.ursprungsbezeichnungen-spirituosen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>d26b4c7b-3330-4a18-807d-2a107e49a461</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.schutzgebiete-wildruhezonen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>56b6461f-1046-412c-9e70-06fb433f0dbf</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.astra.strassenverkehrszaehlung_messstellen-uebergeordnet</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>46d802a1-ee53-4e3a-8af6-77b322e62bf1</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.astra.strassenverkehrszaehlung_messstellen-regional_lokal</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>6e4544bc-55f4-4aef-b36a-e36fe376eaf8</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.landwirtschaftliche-zonengrenzen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>d1359dad-6edf-4275-ada0-2e33be8945b2</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.schutzgebiete-schweizerischer_nationalpark</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>bc4bd921-cec6-4f29-a784-29049c9f8026</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.schutzgebiete-paerke_nationaler_bedeutung</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>d960a5c8-44e4-4d10-a9f6-95f58568563c</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.schutzgebiete-ramsar</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c1a6591c-31a8-416a-a871-666eeeb7dc91</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.babs.kulturgueter</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c99e4a84-b340-4c83-ad3f-f5bcb15a1bf1</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.astra.ivs-gelaendekarte</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>f59f9e16-1f67-47bf-ade0-fcce715ce6fe</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.astra.ivs-reg_loc</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>70b6e2ac-c7ea-4699-a22e-65792aa3b0b9</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.astra.ivs-nat</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>689dcf53-f025-4ea2-890a-dfcebca5812f</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.hang_steillagen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c3e162d0-512b-4baa-ae0f-0d4bd7418ad7</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.steil_terrassenlagen_rebbau</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c1a563a5-3af3-4fd6-b2fd-1e4b010f0fc4</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.are.agglomerationen_isolierte_staedte-2000</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>8698bf0b-fceb-4f0f-989b-111e7c4af0a4</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.are.alpenkonvention</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>b18c244a-0bf6-40ec-8a93-d4938e842e66</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.are.gemeindetyp-1990-9klassen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>a2fcdfa3-2692-4196-84f6-e324ccb42479</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.wege-wildruhezonen-jagdbanngebiete</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>4a0c8bc7-89d1-484e-a34a-454a31267c41</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.wildruhezonen-jagdbanngebiete</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c71cbdaf-d9db-42b6-a5d3-a24b6aa075a7</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.blw.erosion</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>60e40dd3-a00b-4b34-a9c6-8813f21711b9</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.ensi.zonenplan-notfallschutz-kernanlagen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>954451d0-f68a-4785-92e1-60aff077dd91</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bak.bundesinventar-schuetzenswerte-ortsbilder</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>f27432fa-948b-4608-98d5-22ebe118c98a</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bazl.luftfahrtkarten-icao</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>b77e2add-87d1-45a4-b5fc-73cb403ee268</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfe.energieforschung</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c653e1b5-4e2c-4ecf-ac11-008cf4b5a209</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.fischerei-proliferative_nierenkrankheit</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>8fa24249-1ad0-48d3-a879-6ba6893db1d7</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.bundesinventare-trockenwiesen_trockenweiden</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>d31b13f3-f68f-4432-a1f8-5344046c2dd2</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.schutzgebiete-smaragd</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>980b541f-f651-439b-ad0c-ec0f7f10e514</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.swissprtr</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>4a571da5-c3af-47fe-99a1-f33fc29d1cd9</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.unesco-weltnaturerbe</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>71d087ef-6531-4131-98ea-88ff655d8a63</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.permafrost</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>93814e81-2466-4690-b54d-c1d958f1c3b8</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.laerm-bahnlaerm_nacht</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c335f61e-1e94-4a59-b0e7-94bb158f5a48</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.laerm-bahnlaerm_tag</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>89a0b0bc-10ff-4e3e-a4e4-36d081e2e672</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.laerm-strassenlaerm_nacht</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>87f3f029-4685-4d51-9de2-2a409b32aff5</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.laerm-strassenlaerm_tag</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>14de1375-09ae-42b4-9592-5f0af091d050</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bafu.nabelstationen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>b5225e07-9884-47b9-8bc2-161d07d1e7f2</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfe.stauanlagen-bundesaufsicht</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>6c5acaa7-ac82-414a-a2bc-490f60c82580</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfe.abgeltung-wasserkraftnutzung</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>a7d239f2-4202-4760-9537-41e1a8c3c984</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bfe.statistik-wasserkraftanlagen</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>9961dc6c-20a9-4b16-8a24-b20c3d8ddb83</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.swissboundaries3d-gemeinde-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>e1b8837d-8c19-4b65-a8b5-21aaff44fa91</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.swissboundaries3d-bezirk-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>9eee6d40-f0a6-46c9-94ad-69679b9f3d38</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.swissboundaries3d-kanton-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>c5bd42e6-033f-4d43-a398-320b42538798</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.swisstopo.swissboundaries3d-land-flaeche.fill</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:coupledResource>
+				<srv:SV_CoupledResource>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:identifier>
+						<gco:CharacterString>eba8c71c-0c66-4a4e-b419-5e0260d5b43c</gco:CharacterString>
+					</srv:identifier>
+					<gco:ScopedName>ch.bazl.segelflugkarte</gco:ScopedName>
+				</srv:SV_CoupledResource>
+			</srv:coupledResource>
+			<srv:couplingType>
+				<srv:SV_CouplingType codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#SV_CouplingType" codeListValue="tight"/>
+			</srv:couplingType>
+			<srv:containsOperations>
+				<srv:SV_OperationMetadata>
+					<srv:operationName>
+						<gco:CharacterString>GetCapabilities</gco:CharacterString>
+					</srv:operationName>
+					<srv:DCP>
+						<srv:DCPList codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#DCPList" codeListValue="WebServices"/>
+					</srv:DCP>
+					<srv:connectPoint>
+						<gmd:CI_OnlineResource>
+							<gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
+								<gmd:URL>http://wms.geo.admin.ch/?lang=de&amp;</gmd:URL>
+								<che:PT_FreeURL>
+									<che:URLGroup>
+										<che:LocalisedURL locale="#FR">http://wms.geo.admin.ch/?lang=fr&amp;</che:LocalisedURL>
+									</che:URLGroup>
+								</che:PT_FreeURL>
+							</gmd:linkage>
+							<gmd:protocol>
+								<gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+							</gmd:protocol>
+						</gmd:CI_OnlineResource>
+					</srv:connectPoint>
+				</srv:SV_OperationMetadata>
+			</srv:containsOperations>
+			<srv:containsOperations>
+				<srv:SV_OperationMetadata>
+					<srv:operationName>
+						<gco:CharacterString>GetMap</gco:CharacterString>
+					</srv:operationName>
+					<srv:DCP>
+						<srv:DCPList codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#DCPList" codeListValue="WebServices"/>
+					</srv:DCP>
+					<srv:connectPoint>
+						<gmd:CI_OnlineResource>
+							<gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
+								<gmd:URL>http://wms.geo.admin.ch/?lang=de&amp;</gmd:URL>
+								<che:PT_FreeURL>
+									<che:URLGroup>
+										<che:LocalisedURL locale="#FR">http://wms.geo.admin.ch/?lang=fr&amp;</che:LocalisedURL>
+									</che:URLGroup>
+								</che:PT_FreeURL>
+							</gmd:linkage>
+							<gmd:protocol>
+								<gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+							</gmd:protocol>
+						</gmd:CI_OnlineResource>
+					</srv:connectPoint>
+				</srv:SV_OperationMetadata>
+			</srv:containsOperations>
+			<srv:containsOperations>
+				<srv:SV_OperationMetadata>
+					<srv:operationName>
+						<gco:CharacterString>GetFeatureInfo</gco:CharacterString>
+					</srv:operationName>
+					<srv:DCP>
+						<srv:DCPList codeList="http://www.isotc211.org/2005/iso19119/resources/Codelist/gmxCodelists.xml#DCPList" codeListValue="WebServices"/>
+					</srv:DCP>
+					<srv:connectPoint>
+						<gmd:CI_OnlineResource>
+							<gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
+								<gmd:URL>http://wms.geo.admin.ch/?lang=de&amp;</gmd:URL>
+								<che:PT_FreeURL>
+									<che:URLGroup>
+										<che:LocalisedURL locale="#FR">http://wms.geo.admin.ch/?lang=fr&amp;</che:LocalisedURL>
+									</che:URLGroup>
+								</che:PT_FreeURL>
+							</gmd:linkage>
+							<gmd:protocol>
+								<gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+							</gmd:protocol>
+						</gmd:CI_OnlineResource>
+					</srv:connectPoint>
+				</srv:SV_OperationMetadata>
+			</srv:containsOperations>
+			<srv:operatesOn uuidref="d60ff6a8-4b80-4535-aa89-cfad26916b80"/>
+			<srv:operatesOn uuidref="10981"/>
+			<srv:operatesOn uuidref="d47dffc7-8072-40c2-bbf7-4fb47367bd29"/>
+			<srv:operatesOn uuidref="c98723f6-4c76-480b-bada-c8a5ce3d20d8"/>
+			<srv:operatesOn uuidref="2ce98519-dd40-4cc1-bd95-8f4234d78492"/>
+			<srv:operatesOn uuidref="200a2d0e-afe1-45d8-aeaf-ea3621cc6afe"/>
+			<srv:operatesOn uuidref="7ed73e2f-0a41-4e8b-a7ff-413f2d9b5ece"/>
+			<srv:operatesOn uuidref="8fc6f748-80ce-47b2-8d49-b05a0c8ba975"/>
+			<srv:operatesOn uuidref="8bc1565a-023e-490c-9526-fa04a14169ab"/>
+			<srv:operatesOn uuidref="32dfd304-28de-4e82-ad8d-8d6cb6b5fe83"/>
+			<srv:operatesOn uuidref="b5f7374b-2f4b-4d28-a23c-eb2d2a64b579"/>
+			<srv:operatesOn uuidref="a193df6d-071c-4a1d-bb64-0921cc916f2f"/>
+			<srv:operatesOn uuidref="a4ecf3a4-9943-4826-a997-9d7523e4d8ad"/>
+			<srv:operatesOn uuidref="ae65e4e3-f47b-4544-a3a2-81dbf79d5a73"/>
+			<srv:operatesOn uuidref="ed1931ac-81bc-4517-9860-80090e530e33"/>
+			<srv:operatesOn uuidref="90a4ba84-6ab1-4a92-b25f-d5cfaa7b873c"/>
+			<srv:operatesOn uuidref="116447b0-31b0-477c-9203-9f51d43e4ac5"/>
+			<srv:operatesOn uuidref="f03f085a-6bff-4063-b664-5546e32ba2e2"/>
+			<srv:operatesOn uuidref="56553efe-4a2c-449d-93ba-cf7edd518d56"/>
+			<srv:operatesOn uuidref="4ea228b8-7910-4339-8a31-d38d8d8592bd"/>
+			<srv:operatesOn uuidref="47d18af4-d747-4466-a01b-f1478f88004b"/>
+			<srv:operatesOn uuidref="4b7c4c56-7ce8-4123-9f59-adc7d84fd63a"/>
+			<srv:operatesOn uuidref="2c8e0a96-67ea-4a6d-86eb-88f8272e0639"/>
+			<srv:operatesOn uuidref="bc3f1564-1e56-44e9-98b6-f0d8c5130410"/>
+			<srv:operatesOn uuidref="d2152a5b-3c64-4a4a-abf5-0ae342f2f108"/>
+			<srv:operatesOn uuidref="7a49183b-9766-40dd-936c-fb09fdded185"/>
+			<srv:operatesOn uuidref="12ee04c7-b38d-4809-b417-ce304df6c7cc"/>
+			<srv:operatesOn uuidref="ae8fe0bb-b5c6-41a6-9e70-862a455cc29e"/>
+			<srv:operatesOn uuidref="9c762bb5-4d8c-4174-9b77-95e85b962439"/>
+			<srv:operatesOn uuidref="f0a92e70-f58f-408f-afa0-c7d9cd461164"/>
+			<srv:operatesOn uuidref="e04cfb5c-34af-4af1-8491-3f157c0f1451"/>
+			<srv:operatesOn uuidref="4cc706a2-0005-4cc6-8326-7b944a1d5b05"/>
+			<srv:operatesOn uuidref="618c9697-129f-47c7-830a-7a256b4c2499"/>
+			<srv:operatesOn uuidref="ca917a71-dcc9-44b6-8804-823c694be516"/>
+			<srv:operatesOn uuidref="2d8174b2-8c4a-44ea-b470-cb3f216b90d1"/>
+			<srv:operatesOn uuidref="f198f6f6-8efa-4235-a55f-99767ea0206c"/>
+			<srv:operatesOn uuidref="b8efde6b-7323-4496-aa70-b976ec55cec9"/>
+			<srv:operatesOn uuidref="639c0536-bfea-44d3-b088-ed7b6b43cde9"/>
+			<srv:operatesOn uuidref="8f38b25f-f984-450a-ae48-02290e82136c"/>
+			<srv:operatesOn uuidref="132d9ff6-92de-4c02-87a7-72df26bcb33e"/>
+			<srv:operatesOn uuidref="7234896a-842c-4524-8710-5d900953cb1d"/>
+			<srv:operatesOn uuidref="f1455593-7571-48b0-8603-307ec59a6702"/>
+			<srv:operatesOn uuidref="a4cdef47-505e-41ab-b6a7-ad5b92d80e41"/>
+			<srv:operatesOn uuidref="36288379-0097-4397-955d-764a8f428603"/>
+			<srv:operatesOn uuidref="d26b4c7b-3330-4a18-807d-2a107e49a461"/>
+			<srv:operatesOn uuidref="56b6461f-1046-412c-9e70-06fb433f0dbf"/>
+			<srv:operatesOn uuidref="46d802a1-ee53-4e3a-8af6-77b322e62bf1"/>
+			<srv:operatesOn uuidref="6e4544bc-55f4-4aef-b36a-e36fe376eaf8"/>
+			<srv:operatesOn uuidref="d1359dad-6edf-4275-ada0-2e33be8945b2"/>
+			<srv:operatesOn uuidref="bc4bd921-cec6-4f29-a784-29049c9f8026"/>
+			<srv:operatesOn uuidref="d960a5c8-44e4-4d10-a9f6-95f58568563c"/>
+			<srv:operatesOn uuidref="c1a6591c-31a8-416a-a871-666eeeb7dc91"/>
+			<srv:operatesOn uuidref="c99e4a84-b340-4c83-ad3f-f5bcb15a1bf1"/>
+			<srv:operatesOn uuidref="f59f9e16-1f67-47bf-ade0-fcce715ce6fe"/>
+			<srv:operatesOn uuidref="70b6e2ac-c7ea-4699-a22e-65792aa3b0b9"/>
+			<srv:operatesOn uuidref="689dcf53-f025-4ea2-890a-dfcebca5812f"/>
+			<srv:operatesOn uuidref="c3e162d0-512b-4baa-ae0f-0d4bd7418ad7"/>
+			<srv:operatesOn uuidref="c1a563a5-3af3-4fd6-b2fd-1e4b010f0fc4"/>
+			<srv:operatesOn uuidref="8698bf0b-fceb-4f0f-989b-111e7c4af0a4"/>
+			<srv:operatesOn uuidref="b18c244a-0bf6-40ec-8a93-d4938e842e66"/>
+			<srv:operatesOn uuidref="a2fcdfa3-2692-4196-84f6-e324ccb42479"/>
+			<srv:operatesOn uuidref="4a0c8bc7-89d1-484e-a34a-454a31267c41"/>
+			<srv:operatesOn uuidref="c71cbdaf-d9db-42b6-a5d3-a24b6aa075a7"/>
+			<srv:operatesOn uuidref="60e40dd3-a00b-4b34-a9c6-8813f21711b9"/>
+			<srv:operatesOn uuidref="954451d0-f68a-4785-92e1-60aff077dd91"/>
+			<srv:operatesOn uuidref="f27432fa-948b-4608-98d5-22ebe118c98a"/>
+			<srv:operatesOn uuidref="b77e2add-87d1-45a4-b5fc-73cb403ee268"/>
+			<srv:operatesOn uuidref="c653e1b5-4e2c-4ecf-ac11-008cf4b5a209"/>
+			<srv:operatesOn uuidref="8fa24249-1ad0-48d3-a879-6ba6893db1d7"/>
+			<srv:operatesOn uuidref="d31b13f3-f68f-4432-a1f8-5344046c2dd2"/>
+			<srv:operatesOn uuidref="980b541f-f651-439b-ad0c-ec0f7f10e514"/>
+			<srv:operatesOn uuidref="4a571da5-c3af-47fe-99a1-f33fc29d1cd9"/>
+			<srv:operatesOn uuidref="71d087ef-6531-4131-98ea-88ff655d8a63"/>
+			<srv:operatesOn uuidref="93814e81-2466-4690-b54d-c1d958f1c3b8"/>
+			<srv:operatesOn uuidref="c335f61e-1e94-4a59-b0e7-94bb158f5a48"/>
+			<srv:operatesOn uuidref="89a0b0bc-10ff-4e3e-a4e4-36d081e2e672"/>
+			<srv:operatesOn uuidref="87f3f029-4685-4d51-9de2-2a409b32aff5"/>
+			<srv:operatesOn uuidref="14de1375-09ae-42b4-9592-5f0af091d050"/>
+			<srv:operatesOn uuidref="69a1bf2e-e07b-46f6-bdb7-a11a1f87c00a"/>
+			<srv:operatesOn uuidref="5e412b36-88c4-4996-b69d-7064f1df3c18"/>
+			<srv:operatesOn uuidref="a327b175-7788-4569-946d-a9d1737e7092"/>
+			<srv:operatesOn uuidref="fea64430-554d-4c54-bd5d-2ee8c745d814"/>
+			<srv:operatesOn uuidref="26456ca7-828c-435a-8411-360433268599"/>
+			<srv:operatesOn uuidref="59d8e986-6d18-4f1e-aab8-07c3964b93ca"/>
+			<srv:operatesOn uuidref="7e1a39c8-69ad-4956-9a7b-57e357299fa4"/>
+			<srv:operatesOn uuidref="b43f69ba-4b97-40e0-989f-116e5735145a"/>
+			<srv:operatesOn uuidref="b5225e07-9884-47b9-8bc2-161d07d1e7f2"/>
+			<srv:operatesOn uuidref="6c5acaa7-ac82-414a-a2bc-490f60c82580"/>
+			<srv:operatesOn uuidref="a7d239f2-4202-4760-9537-41e1a8c3c984"/>
+			<srv:operatesOn uuidref="9961dc6c-20a9-4b16-8a24-b20c3d8ddb83"/>
+			<srv:operatesOn uuidref="e1b8837d-8c19-4b65-a8b5-21aaff44fa91"/>
+			<srv:operatesOn uuidref="9eee6d40-f0a6-46c9-94ad-69679b9f3d38"/>
+			<srv:operatesOn uuidref="c5bd42e6-033f-4d43-a398-320b42538798"/>
+			<srv:operatesOn uuidref="eba8c71c-0c66-4a4e-b419-5e0260d5b43c"/>
+		</che:CHE_SV_ServiceIdentification>
+	</gmd:identificationInfo>
+	<gmd:distributionInfo>
+		<gmd:MD_Distribution>
+			<gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink" >
+				<gmd:MD_Format>
+					<gmd:name>
+						<gco:CharacterString>PNG</gco:CharacterString>
+					</gmd:name>
+					<gmd:version>
+						<gco:CharacterString>-</gco:CharacterString>
+					</gmd:version>
+				</gmd:MD_Format>
+			</gmd:distributionFormat>
+			<gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink">
+				<gmd:MD_Format>
+					<gmd:name>
+						<gco:CharacterString>JPG</gco:CharacterString>
+					</gmd:name>
+					<gmd:version>
+						<gco:CharacterString>-</gco:CharacterString>
+					</gmd:version>
+				</gmd:MD_Format>
+			</gmd:distributionFormat>
+			<gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink" >
+				<gmd:MD_Format>
+					<gmd:name>
+						<gco:CharacterString>GIF - Graphics Interchange Format</gco:CharacterString>
+					</gmd:name>
+					<gmd:version>
+						<gco:CharacterString>-</gco:CharacterString>
+					</gmd:version>
+				</gmd:MD_Format>
+			</gmd:distributionFormat>
+			<gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink" >
+				<gmd:MD_Format>
+					<gmd:name>
+						<gco:CharacterString>TIFF</gco:CharacterString>
+					</gmd:name>
+					<gmd:version>
+						<gco:CharacterString>-</gco:CharacterString>
+					</gmd:version>
+				</gmd:MD_Format>
+			</gmd:distributionFormat>
+			<gmd:distributionFormat xmlns:xlink="http://www.w3.org/1999/xlink" >
+				<gmd:MD_Format>
+					<gmd:name>
+						<gco:CharacterString>SVG-XML</gco:CharacterString>
+					</gmd:name>
+					<gmd:version>
+						<gco:CharacterString>-</gco:CharacterString>
+					</gmd:version>
+				</gmd:MD_Format>
+			</gmd:distributionFormat>
+			<gmd:transferOptions>
+				<gmd:MD_DigitalTransferOptions>
+					<gmd:onLine>
+						<gmd:CI_OnlineResource>
+							<gmd:linkage xsi:type="che:PT_FreeURL_PropertyType">
+								<che:LocalisedURL>http://map.geo.admin.ch/</che:LocalisedURL>
+								<che:PT_FreeURL>
+									<che:URLGroup>
+										<che:LocalisedURL locale="#FR">http://map.geo.admin.ch/</che:LocalisedURL>
+									</che:URLGroup>
+								</che:PT_FreeURL>
+							</gmd:linkage>
+							<gmd:protocol>
+								<gco:CharacterString>WWW:LINK-1.0-http--link</gco:CharacterString>
+							</gmd:protocol>
+							<gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
+								<gco:CharacterString>Geoportal des Bundes</gco:CharacterString>
+								<gmd:PT_FreeText>
+									<gmd:textGroup>
+										<gmd:LocalisedCharacterString locale="#FR">Géportail fédéral</gmd:LocalisedCharacterString>
+									</gmd:textGroup>
+								</gmd:PT_FreeText>
+							</gmd:description>
+						</gmd:CI_OnlineResource>
+					</gmd:onLine>
+				</gmd:MD_DigitalTransferOptions>
+			</gmd:transferOptions>
+		</gmd:MD_Distribution>
+	</gmd:distributionInfo>
+</che:CHE_MD_Metadata>
