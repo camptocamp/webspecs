@@ -34,8 +34,8 @@
               <gmd:voice gco:nilReason="missing">
                 <gco:CharacterString/>
               </gmd:voice>
-              <gmd:facsimile gco:nilReason="missing">
-                <gco:CharacterString/>
+			  <gmd:facsimile>
+                <gco:CharacterString>+4131961234</gco:CharacterString>
               </gmd:facsimile>
               <che:directNumber>
                 <gco:CharacterString>+41319632423</gco:CharacterString>

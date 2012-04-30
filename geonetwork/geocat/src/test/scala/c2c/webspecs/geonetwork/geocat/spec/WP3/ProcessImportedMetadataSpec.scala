@@ -24,6 +24,7 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
       "The import must complete successfully"                                                   ! importHas200Response(importRequest) ^
       "All ${extent} must have ${several} xlink:href attributes"                                ! xlinked(importRequest) ^
       "All ${contact} must have ${several}  xlink:href attributes"                              ! xlinked(importRequest) ^
+      "All ${contact} must have facsimile element"                                              ! facsimile(importRequest) ^
       "All ${descriptiveKeywords} must have ${several} xlink:href attributes"                   ! xlinked(importRequest) ^
       "All ${citedResponsibleParty} must have ${several} xlink:href attributes"                 ! xlinked(importRequest) ^
       "All ${parentResponsibleParty} must have ${several} xlink:href attributes"                ! xlinked(importRequest) ^
@@ -78,6 +79,11 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
       countMatcher 
    }
 
+  def facsimile(testData: => Response[TestData]) = (s:String) => {
+    val contact = testData.value.mdWithoutXLinks \ "contact" \\ "facsimile" \ "CharacterString"
+    
+    contact.text must not (beEmpty)
+  }
   def updateContact(importRequest: => Response[TestData]) = () => {
     val mdWithXLinks = importRequest.value.mdWithXLinks
     val id = importRequest.value.id

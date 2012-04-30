@@ -59,4 +59,7 @@ case class BasicHttpValue(data:Either[Throwable,Array[Byte]],
   def toXmlValue = new XmlValue {
     def basicValue = self
   }
+  def toZipValue = new ZipValue {
+    def basicValue = self
+  }
 }

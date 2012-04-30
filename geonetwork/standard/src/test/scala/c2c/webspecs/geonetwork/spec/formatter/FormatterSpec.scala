@@ -1,5 +1,4 @@
-package c2c.webspecs.geonetwork
-package spec.formatter
+package c2c.webspecs.geonetwork.spec.sampledata
 
 import c2c.webspecs._
 import geonetwork._
