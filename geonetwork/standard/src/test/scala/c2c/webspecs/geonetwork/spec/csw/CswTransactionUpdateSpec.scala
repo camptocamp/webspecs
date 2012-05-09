@@ -41,6 +41,7 @@ class CswTransactionUpdateSpec extends GeonetworkSpecification {
   }
 
   def insertMetadata = Step {
+    config.adminLogin.execute()
     val response = CswTransactionInsert(sampleData).execute()
     response must haveA200ResponseCode
   }

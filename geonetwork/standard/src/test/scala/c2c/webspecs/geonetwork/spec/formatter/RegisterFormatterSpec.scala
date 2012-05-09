@@ -52,7 +52,7 @@ class RegisterFormatterSpec extends GeonetworkSpecification() {  def is =
         "delete ${webspecs_localized_folder} correctly removes formatter"                               ! deleteXslStyleSheet ^ end ^
 																									   Step(tearDown)
 
-  def xmlFile = "geonetwork/valid-metadata.iso19139.xml"
+  def xmlFile = "/geonetwork/data/valid-metadata.iso19139.xml"
 
   lazy val importMetadataId = {
     val importId = importMd(1, xmlFile, uuid.toString).head
