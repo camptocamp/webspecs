@@ -24,7 +24,7 @@ class SummaryAccuracySpec extends GeonetworkSpecification with MustThrownExpecta
     fragments.reduce(_ ^ _)
   }
 
-  def addData = {
+  def addData:Result = {
     config.adminLogin.execute();
     val result = AddAllSampleData.execute() 
     result must haveA200ResponseCode

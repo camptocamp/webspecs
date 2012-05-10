@@ -10,7 +10,8 @@ import org.specs2.runner.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
   def is =
-    "Search using XML fast search".title ^ Step(setup) ^
+    "Search using XML fast search".title ^ Step(setup) ^ Step(config.adminLogin.execute() must haveA200ResponseCode) ^
+      "Full Search returns all results" ! fullSearch ^
       "Equals search on denominator ${5000000}" ! equalsDenominator ^
       "Range search ${5000001} - ${5000002} on denominator will ${fail}" ! rangeDenominator ^
       "Range search ${4999999} - ${5000002} on denominator will ${pass}" ! rangeDenominator ^
@@ -19,6 +20,12 @@ class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
       "BBox ${equal} search" ! bboxSearch ^
                                                             Step (tearDown)
 
+  def fullSearch = {
+    val response = XmlSearch(100).execute()
+    
+    (response must haveA200ResponseCode) and
+    	((response.value.xml \ "summary" \ "@count" text).toInt must be_> (0))
+  }
   val equalsDenominator = (s:String) => {
     val response = XmlSearch(100, 'denominator -> extract1(s)).execute()
 

@@ -15,7 +15,7 @@ trait SampleDataGeonetworkSpecification extends GeonetworkSpecification {
     super.extraSetup(setupContext)
     config.adminLogin.execute()(setupContext,uriResolver)
     deleteAllMetadata(false)(setupContext)
-    AddAllSampleData.execute()(setupContext,uriResolver)
+    AddAllSampleData.assertPassed()(setupContext,uriResolver)
     UserLogin.execute()(setupContext,uriResolver)
   }
 

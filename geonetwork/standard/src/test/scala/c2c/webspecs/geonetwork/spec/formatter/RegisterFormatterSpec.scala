@@ -111,8 +111,14 @@ class RegisterFormatterSpec extends GeonetworkSpecification() {  def is =
   } 
 
   val img = (s:String) => {
-    def format = extract1(s)
-    GetRequest(xml("eng", format) \\ "img" text).execute() must haveA200ResponseCode
+    val format = extract1(s)
+    val formatXml = xml("eng", format)
+    val imgURL = (formatXml \\ "img" \ "@src").text
+
+    (formatXml must \\("img")) and
+    	(imgURL.trim must not(beEmpty)) and
+    	(imgURL.trim must startWith("http")) and
+    	(GetRequest(imgURL.split("/").last).execute() must haveA200ResponseCode)
   } 
 
 
