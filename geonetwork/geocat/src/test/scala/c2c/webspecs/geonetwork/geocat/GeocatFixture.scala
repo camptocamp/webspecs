@@ -29,6 +29,7 @@ object GeocatFixture {
         surname=lastname,
         password = username,
         position = position,
+        contactInstructions = Some(LocalisedString(en = "contactInstructionEN", fr="contactInstructionFR")),
         profile = SharedUserProfile) 
 
     def delete(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) =

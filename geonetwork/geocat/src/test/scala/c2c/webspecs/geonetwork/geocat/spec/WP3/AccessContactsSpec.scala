@@ -25,6 +25,7 @@ class AccessContactsSpec extends GeocatSpecification { def is =
       "Should be a successful http request (200 response code)"               ^ i200Response      ^
       "Should show name"                                 ^ isoName.toThen      ^
       "Should have surname"                              ^ isoLastName.toThen   ^
+      "contactInstruction has xsi:type attribute"        ^ contactInstructionHasXsiType.toThen   ^
       "Should have position in all localisedStrings"     ^ localisedPosition.toThen   ^
                                                            end ^
     "Searching for ${"+userFixture.name+"}"              ^ searchContacts.toGiven  ^
@@ -76,6 +77,13 @@ class AccessContactsSpec extends GeocatSpecification { def is =
         (nameElems.head.text.trim must_== userFixture.lastname)
       )
     }
+  val contactInstructionHasXsiType = (r:Response[XmlValue], _:String) =>
+    r.value.withXml { xml =>
+      val ci = xml \\ "contactInstructions"
+      val typeAtt = ci \@ "xsi:type"
+      typeAtt must_== List("gmd:PT_FreeText_PropertyType")
+    }
+    
   val localisedPosition = (r:Response[XmlValue]) => {
       val positionElems = r.value.getXml \\ "positionName"
       val localisedStrings = positionElems \\ "LocalisedCharacterString"

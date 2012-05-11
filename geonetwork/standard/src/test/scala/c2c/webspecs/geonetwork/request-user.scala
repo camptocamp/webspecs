@@ -60,6 +60,7 @@ case class User(val idOption:Option[String]=None,
                 email:String=TEST_TAG+"@camptocamp.com",
                 position:LocalisedString=LocalisedString(TEST_TAG),
                 profile:UserProfiles.UserProfile=UserProfiles.Guest,
+                contactInstructions:Option[LocalisedString] = None,
                 groups:Traversable[String]=Nil) {
   require(profile == UserProfiles.Guest && groups.nonEmpty || profile != UserProfiles,
      "Shared users are not part of groups: profile="+profile+", groups="+(groups mkString ","))
@@ -73,6 +74,7 @@ case class User(val idOption:Option[String]=None,
     email = user.email,
     position = user.position,
     profile = user.profile,
+    contactInstructions = user.contactInstructions,
     groups = user.groups)
   def loadId(implicit executionContext:ExecutionContext, uriResolver:UriResolver):Option[String] = idOption orElse {
     ListUsers.execute().value find {_.username == username} map {_.userId}
@@ -80,17 +82,18 @@ case class User(val idOption:Option[String]=None,
 
   def formParams():List[Param[Any,String]] = {
     val idParam = idOption.map(id => SP("id" -> id)).toList
+    val ciParam = contactInstructions.toList.flatMap{_.formParams("contactinstructions")}
     val params = (P("username", username) ::
 	    SP("password", password) ::
 	    SP("password2", password) ::
 	    SP("name", name) ::
 	    SP("surname", surname) ::
 	    SP("email", email) ::
-	    SP("profile", profile.toString) :: 
+        SP("profile", profile.toString) :: 
 	    position.formParams("positionname")) 
     
     val groupParam = (if (groups.isEmpty) Nil else List(SP("groups" -> (groups mkString ","))))
-    idParam ::: params ::: groupParam
+    idParam ::: params ::: ciParam ::: groupParam
   }
 }
 
