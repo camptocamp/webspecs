@@ -23,8 +23,8 @@ object WebSpecsBuild extends Build
     runTaskHtml,
     runTaskXml,
     parallelExecution in Test := false,
-    logBuffered in Test := false,
-    testOptions in Test += Tests.Argument("html", "console", "junitxml"),
+    logBuffered in Test := true,
+    testOptions in Test += Tests.Argument("html", "console", "junitxml", "sequential"),
     testOptions in Test += Tests.Setup {() =>
       val key = "specs2.junit.outDir"
       val default = "target/surefire-reports"

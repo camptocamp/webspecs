@@ -31,7 +31,7 @@ class CswTransactionUpdateSpec extends GeonetworkSpecification {
     "Reset metadata" ^ resetMetadata ^
       "Verify that metadata has been reset" ^ metadataIsOriginalMetadata ^endp^
     "UpdateMetadata twice quickly in parallel"      ^ updateMetadataParallel ^
-      "Verify that both updates have been accomplished" ! metadataHasBeenUpdated.pendingUntilFixed("Need to synchronize on metadata id for this to be able to pass") ^endp^
+      "Verify that both updates have been accomplished" ! metadataHasBeenUpdated ^endp^
     "Delete metadata using CSW Delete" ^ deleteMetadata ^
       "Verify that metadata has been deleted" ! metadataHasBeenDeleted ^ Step (tearDown)
 
