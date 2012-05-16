@@ -117,7 +117,6 @@ class RegisterFormatterSpec extends GeonetworkSpecification() {  def is =
 
     (formatXml must \\("img")) and
     	(imgURL.trim must not(beEmpty)) and
-    	(imgURL.trim must startWith("http")) and
     	(GetRequest(imgURL.split("/").last).execute() must haveA200ResponseCode)
   } 
 
