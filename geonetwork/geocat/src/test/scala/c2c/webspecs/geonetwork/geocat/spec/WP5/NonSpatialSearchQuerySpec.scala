@@ -18,7 +18,6 @@ class NonSpatialSearchQuerySpec extends SearchSpecification {
           "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results" ! currentLanguageFirst ^
           "When searching for a term that is in several metadata; one should be able to sort by ${title}" ! sortBy ^
           "When searching for a term that is in several metadata; one should be able to sort by ${date}" ! sortBy ^
-          "Searching for ${" + time + "NonSpatialSearchQuerySpec} in ${AnyText} with a maxResults limit of 2 should return only two of the metadata with ${FR} first" ! basicSearch(2) ^
           "Searching for ${XX-" + uuid + "} in ${fileId} should return the ${XX} md" ! basicSearch() ^
           "Searching for ${" + time + "NonSpatialSearchQuerySpec FRA} in ${AnyText} should return the ${FR and XX} should be the hits" ! basicSearch ^
           "Searching for ${FRA " + time + "NonSpatialSearchQuerySpec} as seperate terms in ${AnyText} should return the ${FR and XX} as the hits" ! basicSearch(split = Some(' ')) ^

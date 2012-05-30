@@ -16,7 +16,8 @@ import c2c.webspecs.geonetwork.GetRawMetadataXml
 
 @RunWith(classOf[JUnitRunner]) 
 class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
-	def is = {
+
+  def is = {
 	  "CSW service by language".title 	                                                                                                           ^ Step(setup) ^
 	  	"Imports a metadata, and test it against different locales, the non-multilingual responses (dublin-core) should be in the french language" ^ Step(importMetadataId) ^
 	  	   "Testing the ${fra} CSW service, getting previously inserted MD in its french version (${FR}, ${GetRecordById})"                        ! CswGet ^
@@ -29,7 +30,7 @@ class CswLanguageSpec extends GeocatSpecification(UserProfiles.Editor) {
    	  	   "Testing the metadata using CSW service on ${ita} locale -> fallback on default MD locale (${ITA}, ${GetRecords})"                      ! CswGet ^
 		"Delete the inserted metadata"							                                                                                   ^ Step(deleteMetadata)  ^
 																                                                                                     end ^ Step(tearDown)														
-	}
+  }
 
   lazy val importMetadataId = {
     val (_, importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml", false, getClass)

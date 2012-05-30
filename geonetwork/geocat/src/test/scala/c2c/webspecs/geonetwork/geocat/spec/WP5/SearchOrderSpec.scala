@@ -70,7 +70,7 @@ class SearchOrderSpec extends GeocatSpecification { def is =
       sortBy = List(SortBy("_defaultTitle", true))).execute()
     val records = cswResponse.value.getXml \\ "SummaryRecord" \\ "title" map (_.text)
 
-    records must contain("A FRA EN and FR is FR", "b fra is fr", "A ENG EN and FR is FR", "b eng en and fr is fr", "G eng is fr", "xx", "yy", "zz").only.inOrder
+    records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "G eng is fr", "xx", "yy", "zz").only.inOrder
   }
   def enTitleSearch = {
     val cswResponse = CswGetRecordsRequest(
@@ -82,6 +82,6 @@ class SearchOrderSpec extends GeocatSpecification { def is =
       sortBy = List(SortBy("_defaultTitle", true))).execute()
     val records = cswResponse.value.getXml \\ "SummaryRecord" \\ "title" map (_.text)
 
-    records must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "zz", "A FRA EN and FR is EN", "b fra is fr", "xx", "yy").only.inOrder
+    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "G eng is fr", "xx", "yy", "zz").only.inOrder
   }
 }

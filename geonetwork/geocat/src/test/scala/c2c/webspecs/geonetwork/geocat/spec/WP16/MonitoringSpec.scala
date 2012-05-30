@@ -10,6 +10,9 @@ import org.specs2.specification.Step
 import c2c.webspecs.geonetwork.UserProfiles
 
 
+/**
+ * We have migrated to metrics so we need to update this to check metrics instead
+ */
 @RunWith(classOf[JUnitRunner]) 
 class MonitoringSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
 	"Xsl custom metadata XML output".title 														^ Step(setup)                     ^
