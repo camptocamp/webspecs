@@ -34,7 +34,7 @@ class AccessSharedObjectHtmlListSpecExtentsSpec extends GeocatSpecification { de
           'format -> 'gmd_bbox,
           'pattern -> 'bern).execute()
           
-     val hrefs = response.value.getXml \\ "li" \@ "xlink:href"
+     val hrefs = response.value.getXml \\ "li" \ "href" map (_.text)
 
      (hrefs must not beEmpty) and 
          (hrefs must =~("""id=\d+""").forall) and
@@ -49,13 +49,13 @@ class AccessSharedObjectHtmlListSpecExtentsSpec extends GeocatSpecification { de
           'sortByValidated -> true,
           'name -> validatedUserFixture.name).execute()
           
-     val hrefs = response.value.getXml \\ "li" \@ "xlink:href"
-     val imgSrc = response.value.getXml \\ "li" \ "img" \@ "src"
+     val hrefs = response.value.getXml \\ "li" \ "href" map (_.text)
+     val valid = response.value.getXml \\ "li" \ "valid"  map (_.text.toBoolean)
      
      (hrefs must not beEmpty) and 
          (hrefs must beMatching("""^local://xml.user.get\?id=\d+""").forall) and
-         (imgSrc must =~("red-ball.gif").atLeastOnce) and
-         (imgSrc must =~("green-ball.gif").atLeastOnce)
+         (valid must beTrue.atLeastOnce) and
+         (valid must beFalse.atLeastOnce)
   }
   def expectedFormatsURIs = {
     
@@ -64,12 +64,12 @@ class AccessSharedObjectHtmlListSpecExtentsSpec extends GeocatSpecification { de
           'order -> 'validated,
           'name-> formatFixture.name).execute()
           
-     val hrefs = response.value.getXml \\ "li" \@ "xlink:href"
-     val imgSrc = response.value.getXml \\ "li" \ "img" \@ "src"
+     val hrefs = response.value.getXml \\ "li" \ "href" map (_.text)
+     val valid = response.value.getXml \\ "li" \ "valid"  map (_.text.toBoolean)
      
      (hrefs must not beEmpty) and 
          (hrefs must beMatching("""^local://xml.format.get\?id=\d+""").forall) and
-         (imgSrc must not beEmpty)
+         (valid must not beEmpty)
   }
 
 }
