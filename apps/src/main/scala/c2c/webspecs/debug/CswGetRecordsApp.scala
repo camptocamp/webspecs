@@ -3,6 +3,8 @@ package debug
 
 import c2c.webspecs.geonetwork.csw._
 import c2c.webspecs.login.LoginRequest
+import java.util.zip.ZipFile
+import c2c.webspecs.geonetwork.geocat.spec.WP7.ZipFileValueFactory
 
 object CswGetRecordsApp extends WebspecsApp {
 
@@ -14,8 +16,16 @@ object CswGetRecordsApp extends WebspecsApp {
     override def baseServer = "ec2-46-51-142-140.eu-west-1.compute.amazonaws.com"
   }
   
+  val shadowResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
+      override def baseServer = "ec2-176-34-163-138.eu-west-1.compute.amazonaws.com"
+  }
+  
   val integrationResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
       override def baseServer = "tc-geocat1i.bgdi.admin.ch"
+  }
+  
+  val oldGeocatResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
+      override def baseServer = "tc-geocat0i.bgdi.admin.ch:9999"
   }
   
     val sources = List(
@@ -32,11 +42,41 @@ object CswGetRecordsApp extends WebspecsApp {
   
   
 //  println(total(PropertyIsEqualTo("_source", "d54fc6dd-1ff0-49da-81b6-2ba6c74b366f"), uriResolver))
-  println(total(PropertyIsEqualTo("_id", "330585"), uriResolver))
-  //findMissingElements(PropertyIsEqualTo("_source", "7ea582d4-9ddf-422e-b28f-29760a4c0147"))
+ // println(total(PropertyIsEqualTo("_id", "330585"), uriResolver))
+  
+  val groups = GetRequest("http://www.geocat.ch/geonetwork/srv/eng/geocat!").execute().value.getXml \ "gui" \ "groups" \ "record" map (g => (g \ "id").text -> (g \ "name"))
+  val diffs = groups.map {
+      case (id, name) =>
+        println("comparing: "+name+" -> "+id)
+        name ->  findMissingElements(PropertyIsEqualTo("_groupOwner", id))
+    }
+    
+  diffs.foreach {
+    case (name, values) =>
+      println("------------------------------------------------------------")
+      println(name+": "+values.size)
+      println(values mkString "\n")
+      println("------------------------------------------------------------")
+  }
 
-  def findMissingElements(filter: OgcFilter) = {
-    def allIds(resolver:UriResolver):Set[Int] = {
+//  val uuids:List[OgcFilter] = diffs.toList.flatMap{e => e._2.map(uuid => PropertyIsEqualTo("_uuid",uuid)) }
+//  
+//  val filter = uuids.reduce(_ or _)
+//  LoginRequest("admin","Hup9ieBe").execute()(executionContext, oldGeocatResolver)
+//  
+//  println(CswGetRecordsRequest(
+//    filter.xml,
+//    outputSchema = OutputSchemas.Record,
+//    resultType = ResultTypes.results).execute()(executionContext, oldGeocatResolver).value.getXml)
+//  
+//  println(GetRequest("metadata.select", 'id -> 0, 'selected -> "add-all").execute()(executionContext, oldGeocatResolver).value.getXml)
+//  
+//  val request = new AbstractGetRequest[Any,ZipFile]("mef.export", ZipFileValueFactory, SP("format" -> "full"), SP("version" -> "2")) {}
+//  val zipFile = request.execute()(executionContext, oldGeocatResolver).value
+//  println(zipFile)
+//    
+  def findMissingElements(filter: OgcFilter): Set[String] = {
+    def allIds(resolver:UriResolver):Set[String] = {
         val numRecords = total(filter, resolver)
         val step = 100
         val results = for (i <- 1 to numRecords by step) yield {
@@ -48,14 +88,23 @@ object CswGetRecordsApp extends WebspecsApp {
             maxRecords = step,
             resultType = ResultTypes.results)
     
-          (req.execute()(executionContext, resolver).value.getXml \ "SearchResults" \ "Record" \ "info" \ "id" map (_.text.toInt))
+         val xml = req.execute()(executionContext, resolver).value.getXml
+         xml.size
+         (xml \ "SearchResults" \ "Record" \ "identifier" map (_.text))
         }
         results.flatten.toSet
     }
 
-
-    println(allIds(jenkinsResolver) -- allIds(gcResolver))
-
+    if(total(filter, gcResolver) == total(filter, oldGeocatResolver)) {
+      Set.empty
+    } else {
+        val gc = allIds(gcResolver)
+        val old = allIds(oldGeocatResolver)
+        
+        println(gc.size)
+        println(old.size)
+        old -- gc
+    }
   }
   def simpleCompare {
     val filter = PropertyIsEqualTo("_isHarvested", "n")
@@ -67,8 +116,8 @@ object CswGetRecordsApp extends WebspecsApp {
       resultType = ResultTypes.hits)
 
     val gcResults = (req.execute()(executionContext, gcResolver).value.getXml \\ "@numberOfRecordsMatched").text.toInt
-    val jenkinsResults = (req.execute()(executionContext, jenkinsResolver).value.getXml \\ "@numberOfRecordsMatched").text.toInt
-    val diff = (gcResults - jenkinsResults)
+    val jenkinsResults = (req.execute()(executionContext, shadowResolver).value.getXml \\ "@numberOfRecordsMatched").text.toInt
+    val diff = (jenkinsResults - gcResults)
 
     println(diff)
   }
@@ -86,7 +135,7 @@ object CswGetRecordsApp extends WebspecsApp {
         resultType = ResultTypes.hits)
 
       val gcResults = (req.execute()(executionContext, gcResolver).value.getXml \\ "@numberOfRecordsMatched").text.toInt
-      val jenkinsResults = (req.execute()(executionContext, jenkinsResolver).value.getXml \\ "@numberOfRecordsMatched").text.toInt
+      val jenkinsResults = (req.execute()(executionContext, shadowResolver).value.getXml \\ "@numberOfRecordsMatched").text.toInt
       val diff = (gcResults - jenkinsResults)
       (group, diff)
       //println(req.execute()(executionContext,uriResolver).value.getXml)
@@ -107,7 +156,7 @@ object CswGetRecordsApp extends WebspecsApp {
         resultType = ResultTypes.hits)
 
       val gcResults = total(filter, gcResolver)
-      val jenkinsResults = total(filter, jenkinsResolver)
+      val jenkinsResults = total(filter, shadowResolver)
       val diff = (gcResults - jenkinsResults)
       (source, diff)
       //println(req.execute()(executionContext,uriResolver).value.getXml)

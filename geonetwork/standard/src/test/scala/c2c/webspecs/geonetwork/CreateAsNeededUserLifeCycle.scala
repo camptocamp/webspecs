@@ -17,7 +17,7 @@ class CreateAsNeededUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle 
         groupId
       }
       println("Creating user")
-      val testUser = User(idOption = Some(user), username = user, password = pass, profile = userProfile, groups = Seq(gid))
+      val testUser = User(idOption = Some(user), username = user, password = pass, profile = UserProfiles.Editor, groups = Seq(gid))
       CreateUser(testUser).assertPassed(None)
       println("Done creating user")
     }

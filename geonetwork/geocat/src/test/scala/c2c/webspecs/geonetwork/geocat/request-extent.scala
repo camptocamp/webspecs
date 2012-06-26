@@ -12,9 +12,9 @@ object Extents {
   }
   case object NonValidated extends TypeName("gn:non_validated")
   case object Countries extends TypeName("gn:countries")
-  case object Validated extends TypeName("gn:gemeindenBB")
-  case object Gemeinden extends TypeName("gn:kantoneBB")
-  case object Kantone extends TypeName("gn:xlinks")
+  case object Gemeinden extends TypeName("gn:gemeindenBB")
+  case object Kantone extends TypeName("gn:kantoneBB")
+  case object Validated extends TypeName("gn:xlinks")
 
   val AllTypeNames = Seq(NonValidated, Countries, Validated,Gemeinden, Kantone)
 

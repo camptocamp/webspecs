@@ -15,34 +15,31 @@ import c2c.webspecs.geonetwork.UserProfiles
  */
 @RunWith(classOf[JUnitRunner]) 
 class MonitoringSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
-	"Xsl custom metadata XML output".title 														^ Step(setup)                     ^
-			"Login as admin"																	^ Step(config.adminLogin.execute()) 	  ^
-			"Check if the monitor webservice which outputs its report as HTML is available"		^ Step(testMonitoringReport)    ^
-			"Get the results of the monitoring webservice"										^ Step(getMonitoringXmlReport)    ^
-			"Checking ${db} status"																! checkServicesStatus		      ^
-			"Checking ${cswService_getrecords} status"											! checkServicesStatus		      ^
-			"Checking ${freediskService} status"												! checkServicesStatus		      ^
-			"Checking ${cswService_capabilities} status"										! checkServicesStatus		      ^
-//			"Check ${print_service} status"														! checkServicesStatus		      ^
+	"Xsl custom metadata XML output".title 														^ Step(setup)           ^
+	        "Add some metadata so that healthchecks will work"                                  ^ Step(importMd)        ^
+			"Get the results of the ${metrics} webservice"										! checkMonitorReport    ^
+			"Get the results of the ${healthcheck} webservice"									! checkMonitorReport    ^
+			"Get the results of the ${threads} webservice" 									! checkMonitorReport    ^
+			"Get the results of the ${ping} webservice"  										! checkMonitorReport    ^
+			"Checking ${criticalhealthcheck} status"										    ! checkServicesStatus   ^
+			"Checking ${warninghealthcheck} status"											    ! checkServicesStatus   ^
+			"Checking ${expensivehealthcheck} status"										    ! checkServicesStatus		      ^
 																		 						end ^ Step(tearDown)
 			
-			
-			
-  lazy val getMonitoringXmlReport = {
-  	val xmlMonitoringResult = GetRequest("monitoring").execute()
-	xmlMonitoringResult must haveA200ResponseCode
-  	val response = xmlMonitoringResult.value.getXml
-    response
+  def importMd = super.importMd(3,"/geocat/data/comprehensive-iso19139che.xml",datestamp)
+  def check(desc: String, urlRoot: String) = {
+    val check = extract1(desc)
+    val request = GetRequest("http://"+Properties.testServer+"/"+urlRoot+check, 'ignorewhitelist -> true)
+    config.adminLogin.execute()
+    val adminLoggedInResult = request.execute()
+    UserLogin.execute()
+    val editorLoggedInResult = request.execute()
+    (adminLoggedInResult must haveA200ResponseCode) and
+        (editorLoggedInResult must haveAResponseCode(401))
   }
 
-  def testMonitoringReport =  {
-    val ret = GetRequest("monitoring.report").execute()
-    ret must haveA200ResponseCode
-  }
+  val checkMonitorReport = (desc: String) => check(desc, "geonetwork/monitor/")
 
-  def checkServicesStatus = (desc:String) => {
-    val strStatus = (getMonitoringXmlReport \\ extract1(desc) \ "status").text
-    strStatus must_== "ok"
-  }
+  def checkServicesStatus = (desc:String) => check(desc, "geonetwork/")
 
 }

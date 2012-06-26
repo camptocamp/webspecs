@@ -5,9 +5,9 @@ import c2c.webspecs.ExecutionContext
 
 class CreateUserDeleteMetadataLifeCycle(config: GeonetConfig) extends CreateAsNeededUserLifeCycle(config) {
   override def setup(implicit context: ExecutionContext, uriResolver: UriResolver) = {
-    super.setup(context, uriResolver)
     config.adminLogin.execute()(context, uriResolver)
     deleteAllMetadata(context, uriResolver)
+    super.setup(context, uriResolver)
   }
   
   override def tearDown(implicit context: ExecutionContext, uriResolver:UriResolver) = {
@@ -15,7 +15,7 @@ class CreateUserDeleteMetadataLifeCycle(config: GeonetConfig) extends CreateAsNe
     deleteAllMetadata(context, uriResolver)
   }
   
-    def deleteAllMetadata(implicit executionContext:ExecutionContext, uriResolver:UriResolver) = {
+  def deleteAllMetadata(implicit executionContext:ExecutionContext, uriResolver:UriResolver) = {
     var loops = 5
     def search() = XmlSearch(Int.MaxValue).execute()
     while (search().value.records.nonEmpty && loops > 0) {

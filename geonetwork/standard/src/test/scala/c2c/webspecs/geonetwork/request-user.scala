@@ -192,6 +192,7 @@ case class CreateUser(user:User)
 }
 object DeleteUser {
 	def apply() = (user:UserRef) => new DeleteUser(user.userId)
+	def apply(user:UserRef) = new DeleteUser(user.userId)
 }
 case class DeleteUser(userId:String) extends AbstractGetRequest[Any,IdValue]("user.remove", ExplicitIdValueFactory(userId), SP("id" -> userId))
 
