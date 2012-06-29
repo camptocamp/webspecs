@@ -45,7 +45,7 @@ class ReusableNonValidatedListSpec extends AbstractSharedObjectSpec  { def is =
       case "contacts" => "shared.user.edit"
       case "extents" => "extent.edit"
       case "formats" => "format.admin"
-      case "keywords" => "thesaurus.editelement"
+      case "keywords" => "thesaurus.admin"
     }
     listing.value.map(_.url.get) must =~(url).forall
   }

@@ -253,8 +253,6 @@ def examplesLinks(t: String) = {
             classOf[GeoportalSpec],
             classOf[MonitoringSpec],
             classOf[PreStyleSheetSpec],
-            classOf[XmlInfoServiceLocalisationSpec],
-            classOf[GroupNameLocalizationSpec],
             classOf[RegisterXslSpec],
             classOf[TestMetadataExpiredServicesSpec]
             ).flatMap{s => createSpecification(s.getName)}

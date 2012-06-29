@@ -166,8 +166,7 @@ class WP16 extends Specification with SpecificationsFinder {
     val specs = List(
       classOf[MetadataValidationReportSpec],
       classOf[PreStyleSheetSpec],
-      classOf[XmlInfoServiceLocalisationSpec],
-      classOf[GroupNameLocalizationSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[XmlInfoServiceLocalisationSpec]).flatMap { s => createSpecification(s.getName) }
     specs.foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
 }
