@@ -30,7 +30,7 @@ class MetadataShowSpec extends GeocatSpecification {
     val response = importMd.execute()
 
     val enResponse = ShowMetadata(view = MetadataViews.complete).execute(Id(response.value.id))(context, ShowMetadataResolver("eng"))
-    val frResponse = ShowMetadata(view = MetadataViews.complete).execute(Id(response.value.id))(context, ShowMetadataResolver("fra"))
+    val frResponse = ShowMetadata(view = MetadataViews.complete).execute(Id(response.value.id))(context, ShowMetadataResolver("fre"))
     new {
       val en = enResponse.value.getHtml;
       val fr = frResponse.value.getHtml
@@ -42,39 +42,33 @@ class MetadataShowSpec extends GeocatSpecification {
     xlinkParents must beEmpty
   }
 
-  def findText(metadata: NodeSeq, titleTranslation: String, partOfExpectedValue: String) = {
-      val allRows = metadata \\ "tr"
-
-      val rows = allRows filter (_.descendant \\ "tr" isEmpty)
-      val correctRow = rows filter (n => n \\ "th" flatMap {_.descendant} exists {
-        case Text(text) if text.trim.toLowerCase contains titleTranslation.toLowerCase() => true
-        case _ => false
-      })
-      correctRow flatMap (_.descendant) collect {
-        case Text(text) if text.trim.toLowerCase contains partOfExpectedValue.toLowerCase() => text.trim.toLowerCase().replaceAll("""\s+"""," ")
-      }
-  }
-  
   def translatedKeywords = {
-    val enKeyword = findText(importSampleFile.en, "descriptive", "cartography")
-    val frKeyword = findText(importSampleFile.fr, "descriptifs", "cartographie")
+    val enText = importSampleFile.en.toString
+    val frText = importSampleFile.fr.toString
 
-    (enKeyword must haveTheSameElementsAs(Seq("cartography."))) and
-      (frKeyword must haveTheSameElementsAs(Seq("cartographie.")))
+     (enText.contains("ENKEYWORD11223344") must beTrue) and
+         (frText.contains("ENKEYWORD11223344") must beFalse) and
+         (frText.contains("FRKEYWORD22334411") must beTrue) and
+         (enText.contains("FRKEYWORD22334411") must beFalse)
   }
   def translatedTitle = {
-    val en = findText(importSampleFile.en, "Title", "National Map")
-    val fr = findText(importSampleFile.fr, "Titre", "Carte nationale")
+    val enText = importSampleFile.en.toString
+    val frText = importSampleFile.fr.toString
 
-    (en must haveTheSameElementsAs(Seq("national map 1:500'000"))) and
-      (fr must haveTheSameElementsAs(Seq("carte nationale 1:500'000")))
+     (enText.contains("ENTitle11223344") must beTrue) and
+         (frText.contains("ENTitle11223344") must beFalse) and
+         (frText.contains("FRTitle22334411") must beTrue) and
+         (enText.contains("FRTitle22334411") must beFalse)
   }
   def translatedAbstract = {
-    val en = findText(importSampleFile.en, "abstract", "National Map")
-    val fr = findText(importSampleFile.fr, "Résumé", "carte nationale")
+    val enText = importSampleFile.en.toString
+//            println(enText)
+    val frText = importSampleFile.fr.toString
+     (enText.contains("ENAbstract11223344") aka """en contains "ENAbstract11223344" """ must beTrue) and
+         (frText.contains("ENAbstract11223344") aka """fr not contains "ENAbstract11223344" """must beFalse) and
+         (frText.contains("FRAbstract22334411") aka """fr contains "FRAbstract22334411" """ must beTrue) and
+         (enText.contains("FRAbstract22334411") aka """en not contains "FRAbstract22334411" """ must beFalse)
 
-    (en.head must contain("The National Map 1:500'000 is a topographic map giving an overview of Switzerland".toLowerCase)) and
-      (fr.head must contain("La carte nationale au 1:500'000".toLowerCase))
   }
 
   case class ShowMetadataResolver(lang: String) extends UriResolver {

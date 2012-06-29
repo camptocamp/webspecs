@@ -809,19 +809,19 @@
             <textGroup>
               <GM03_2Core.Core.PT_Group>
                 <language>de</language>
-                <plainText>Produktinformation Landeskarte 1:500 000</plainText>
+                <plainText>DE Description 44112233</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>fr</language>
-                <plainText>Information du produit Carte nationale 1:500 000</plainText>
+                <plainText>FR Description 22334411</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>en</language>
-                <plainText>Product information National Map 1:500 000</plainText>
+                <plainText>EN Description 11223344</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>it</language>
-                <plainText>Informazioni sul prodotto Carta nazionale 1:500 000</plainText>
+                <plainText>IT Description 33441122</plainText>
               </GM03_2Core.Core.PT_Group>
             </textGroup>
           </GM03_2Core.Core.PT_FreeText>
@@ -1142,15 +1142,19 @@
             <textGroup>
               <GM03_2Core.Core.PT_Group>
                 <language>de</language>
-                <plainText>Die Landeskarte 1:500'000 ist eine topografische Übersichtskarte der Schweiz. Die Nachführung erfolgt periodisch. Die Nachführung erfolgt mit einem Nachführungszyklus von ca. 6 Jahren. Die Landeskarte 1:500'000 ist in analoger (Papierkarte) und in digitaler (Pixelkarte) Form verfügbar. Die gedruckte Papierausgabe ist gefalzt und ungefalzt erhältlich. Die Pixelkarte PK500 ist die digitale Landeskarte 1:500'000 und wird als georeferenzierte TIF-Datei (Rasterformat) geliefert. Die Karteninformation ist nach Farbebenen getrennt, jedoch nicht nach thematischen Kartenelementen gegliedert. Die Pixelkarte steht als Farbkombination (254 dpi und 508dpi) oder als farbgetrennte Layer (Binärdaten 508 dpi) zur Verfügung.</plainText>
-              </GM03_2Core.Core.PT_Group>
-              <GM03_2Core.Core.PT_Group>
-                <language>en</language>
-                <plainText>The National Map 1:500'000 is a topographic map giving an overview of Switzerland. The map content is updated periodically. The map content is updated in a regular cycle of 6 years according a revision plan dividing Switzerland in 6 sectors. The National Map 1:500'000 is published in analog format as a printed map and in digital format as a pixel map. The printed map is available folded and unfolded. The pixel map PK500 is the digital National Map 1:500'000 and is delivered as a georeferenced TIF-file (raster format). The map content is seperated in individual colour layers with no direct bearing on the individual map elements. The pixel map is available as a colour combination corresponding to fixed swisstopo standards (254 dpi and 508 dpi) or seperated as colour layers (binary file 508 dpi).</plainText>
+                <plainText>DEAbstract44112233</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>fr</language>
-                <plainText>La carte nationale au 1:500'000 est une carte topographique synoptique de la Suisse. La mise à jour s'effectue suivant un cycle de 6 ans. La carte nationale au 1:500'000 est disponible sous forme analogique (carte papier) et digitale (carte-pixel). L'édition imprimée est disponible soit pliée, soit à plat. La carte-pixel (PK500) est la carte nationale digitalisée, livrable sous forme de données raster géoréférencées (format TIF). Les informations de la carte sont réparties par couches de couleurs et non par éléments thématiques. Les cartes-pixel sont à dispositions en couleurs combinées (254 dpi et 508 dpi) ainsi que par couches de couleurs séparées (données binaires 508 dpi).</plainText>
+                <plainText>FRAbstract22334411</plainText>
+              </GM03_2Core.Core.PT_Group>
+              <GM03_2Core.Core.PT_Group>
+                <language>en</language>
+                <plainText>ENAbstract11223344</plainText>
+              </GM03_2Core.Core.PT_Group>
+              <GM03_2Core.Core.PT_Group>
+                <language>it</language>
+                <plainText>ITAbstract33441122</plainText>
               </GM03_2Core.Core.PT_Group>
             </textGroup>
           </GM03_2Core.Core.PT_FreeText>
@@ -1233,19 +1237,19 @@
             <textGroup>
               <GM03_2Core.Core.PT_Group>
                 <language>de</language>
-                <plainText>Landeskarte 1:500'000</plainText>
+                <plainText>DETitle44112233</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>fr</language>
-                <plainText>Carte nationale 1:500'000</plainText>
+                <plainText>FRTitle22334411</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>en</language>
-                <plainText>National Map 1:500'000</plainText>
+                <plainText>ENTitle11223344</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>it</language>
-                <plainText>Carta nazionale 1:500'000</plainText>
+                <plainText>ITTitle33441122</plainText>
               </GM03_2Core.Core.PT_Group>
             </textGroup>
           </GM03_2Core.Core.PT_FreeText>
@@ -1328,19 +1332,19 @@
             <textGroup>
               <GM03_2Core.Core.PT_Group>
                 <language>it</language>
-                <plainText>cartografia</plainText>
+                <plainText>ITKEYWORD33441122</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>de</language>
-                <plainText>Kartographie</plainText>
+                <plainText>DEKEYWORD44112233</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>fr</language>
-                <plainText>cartographie</plainText>
+                <plainText>FRKEYWORD22334411</plainText>
               </GM03_2Core.Core.PT_Group>
               <GM03_2Core.Core.PT_Group>
                 <language>en</language>
-                <plainText>cartography</plainText>
+                <plainText>ENKEYWORD11223344</plainText>
               </GM03_2Core.Core.PT_Group>
             </textGroup>
           </GM03_2Core.Core.PT_FreeText>
