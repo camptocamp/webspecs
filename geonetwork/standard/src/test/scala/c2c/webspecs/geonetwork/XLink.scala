@@ -17,7 +17,8 @@ object XLink {
   def id(node:Node) = hrefFrom(node).flatMap(XmlUtils.extractId)
   def hrefFrom(node:Node) = node.attributes.asAttrMap.get("xlink:href")
   def findAll(xml:NodeSeq,site:AddSites.AddSite) = {
-    val nodes = xml \\ site.name filter {n => hrefFrom(n).isDefined}
+    val name = site.name
+    val nodes = xml \\ name filter {n => hrefFrom(n).isDefined}
     nodes map apply
   }
 

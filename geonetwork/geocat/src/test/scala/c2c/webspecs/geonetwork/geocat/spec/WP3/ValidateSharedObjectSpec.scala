@@ -60,7 +60,7 @@ class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatche
   }
 
   def isValidatedContact = {
-    val (contact1, contact2) = loadMetadata
+      val (contact1, contact2) = loadMetadata
 
     (contact1 @@ "xlink:role" filter {_.nonEmpty} must_== List()) and
       (contact2.head @@ "xlink:role" filter {_.nonEmpty} must_== List())
