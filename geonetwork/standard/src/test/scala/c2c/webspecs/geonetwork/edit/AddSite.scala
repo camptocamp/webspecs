@@ -5,7 +5,7 @@ package edit
 object AddSites {
   val gmd = "gmd"
   abstract class AddSite(prefix:String) {
-    def name = """\$?(.+)\$""".r.findFirstMatchIn(getClass.getSimpleName).map(_.group(1)) getOrElse getClass.getSimpleName
+    def name = getClass.getSimpleName.split("\\$").last
 
     override def toString = prefix+":"+name
   }

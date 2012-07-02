@@ -40,7 +40,6 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
       	("The update to the parent contact (which is a sub element of other updated " +
       	"shared contact must also be updated correctly") 										^ updatedParentPosition.toThen ^ 
       																							  end ^ Step(deleteMd(importRequest))
-      
 	}
                        
    case class TestData(id:IdValue, mdWithoutXLinks:NodeSeq, mdWithXLinks:NodeSeq)
