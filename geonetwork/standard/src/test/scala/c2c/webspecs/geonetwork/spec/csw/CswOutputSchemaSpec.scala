@@ -9,6 +9,10 @@ import org.specs2.runner.JUnitRunner
 import csw._
 import OutputSchemas._
 import c2c.webspecs.geonetwork.csw.CswGetCapabilities
+import org.specs2.matcher.MatchResult
+import org.specs2.execute.Result
+import org.specs2.specification.Fragment
+import org.specs2.specification.Fragments
 
 
 @RunWith(classOf[JUnitRunner])
@@ -17,11 +21,12 @@ class CswOutputSchemaSpec extends GeonetworkSpecification {
     "CSW output schemas".title ^ Step(setup) ^
       "This specification tests the usage of different output schemas through CSW" ^
       "must have ${http://www.opengis.net/cat/csw/2.0.2} as an outputSchema" ! outputSchema ^
-      "must have ${http://www.isotc211.org/2005/gmd} as an outputSchema" ! outputSchema ^
+      "must have ${http://www.isotc211.org/2005/gmd} as an outputSchema" ! outputSchema ^ 
+      testCapabilitliesHasCustomOutputSchema ^ p ^
       "Import a metadata" ^ Step(importMetadataId) ^
       "Getting the metadata previously inserted in dublin-core output" ! testDublinCore ^
       "Getting the metadata previously inserted in iso19139 output" ! testiso19139 ^
-      //		"Getting the metadata previously inserted in its own format"     ! testDublinCore ^
+      testCustomOutputSchemas ^
       end ^ Step(tearDown)
 
 
@@ -41,6 +46,8 @@ class CswOutputSchemaSpec extends GeonetworkSpecification {
     } must contain(schema)
   }
 
+  def testCapabilitliesHasCustomOutputSchema:Fragments = success
+  
   def testDublinCore = {
     // how to get the fileId of the inserted MD ?
     val getRecordResult = CswGetRecordById(importMetadataId, new OutputSchema("http://www.opengis.net/cat/csw/2.0.2") {}).execute()
@@ -53,6 +60,8 @@ class CswOutputSchemaSpec extends GeonetworkSpecification {
 
   }
 
+  def testCustomOutputSchemas:Fragments = success
+  
   lazy val importMetadataId = {
     val mdId = importMd(1, "/geonetwork/data/valid-metadata.iso19139.xml", uuid.toString).head
 

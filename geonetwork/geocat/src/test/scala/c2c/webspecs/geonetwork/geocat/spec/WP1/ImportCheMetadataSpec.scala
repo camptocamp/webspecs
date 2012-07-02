@@ -50,7 +50,7 @@ println(metadataXml)
 
   def cswGetInsertedMd = {
     val fileId = (metadataXml \\ "fileIdentifier" text).trim()
-    val response = CswGetRecordById(fileId, OutputSchemas.CheIsoRecord).execute()
+    val response = CswGetRecordById(fileId, geocat.OutputSchemas.CheIsoRecord).execute()
     (response must haveA200ResponseCode) and
       (response.value.getXml \\ "CHE_MD_Metadata" must not beEmpty)
   }
@@ -58,7 +58,7 @@ println(metadataXml)
   def cswGetInsertedMdByCswGetRecords = {
     val fileId = (metadataXml \\ "fileIdentifier" text).trim()
     val filter = PropertyIsEqualTo("Identifier", fileId).xml
-    val response = CswGetRecordsRequest(filter, outputSchema = OutputSchemas.CheIsoRecord, resultType = ResultTypes.results).execute()
+    val response = CswGetRecordsRequest(filter, outputSchema = geocat.OutputSchemas.CheIsoRecord, resultType = ResultTypes.results).execute()
     val xml = response.value.getXml
     (response must haveA200ResponseCode) and
       ((xml \\ "SearchResults" \@ "numberOfRecordsReturned").head.trim.toInt must be_>=(1)) and
