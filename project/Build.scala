@@ -40,7 +40,7 @@ object WebSpecsBuild extends Build
   
   // ------------------------------ Root Project ------------------------------ //
 	lazy val root:Project = Project("root",file(".")).
-  aggregate(core,geonetwork,geocat, selenium, apps,geoserver, georchestra).
+  aggregate(core, selenium, ign).
     aggregate(core, selenium).
     settings(publishArtifact := false)
 
@@ -64,28 +64,9 @@ object WebSpecsBuild extends Build
 	  dependsOn(selenium).
 	  settings( sharedSettings ++ coreSettings :_*)
   
-  // ------------------------------ Geonetwork Project ------------------------------ //
-	 
-	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")).
-	  dependsOn(core).settings(sharedSettings:_*)
-	  
-  // ------------------------------ Geocat Project ------------------------------ //
-
-	lazy val geocat = Project("geocat", file("geonetwork/geocat")).
-	  dependsOn (core, geonetwork % "test->test", selenium) settings (sharedSettings:_*)
-
-  // ------------------------------ Geocat Project ------------------------------ //
-
-	lazy val geoserver = Project("geoserver", file("geoserver")).
+	lazy val ign = Project("ign", file("ign")).
 	  dependsOn (core, selenium) settings (sharedSettings:_*)
 
-  // ------------------------------ Geocat Project ------------------------------ //
-
-	lazy val georchestra = Project("georchestra", file("georchestra")).
-	  dependsOn (geoserver % "test->test", selenium) settings (sharedSettings:_*)
-
-  // ------------------------------ Selenium Project ------------------------------ //
-	
   val seleniumVersion = "0.9.7376"
   val seleniumDependencies = Seq(
     "org.seleniumhq.selenium" % "selenium-java" % "2.15.0"
@@ -99,26 +80,5 @@ object WebSpecsBuild extends Build
   
   lazy val selenium = Project("selenium",file("selenium")).
     settings (sharedSettings ++ seleniumSettings :_*)
-
-  // ------------------------------ Suites Project ------------------------------ //
-  lazy val apps = Project("apps",file("apps")).
-    dependsOn (geocat % "compile->test",geonetwork % "compile->test").
-    settings (sharedSettings:_*)
-
-  // ------------------------------ Docs Project ------------------------------ //
-  lazy val Docs = config("docs") extend (Test)
-  val docsSettings = Seq[Setting[_]](
-      sources in Docs <<=
-        (sources in (core,Compile),
-        sources in (geonetwork,Test),
-        sources in (geocat,Test),
-        sources in (apps,Compile),
-        sources in (geoserver,Test),
-        sources in (georchestra,Test)
-	   ) map { _ ++ _ ++ _ ++ _ ++ _ ++ _ }
-    )
-  lazy val docsProj:Project = Project("documentation", file("docsProj")).
-    dependsOn(core % "compile -> test").
-    settings(sharedSettings ++ docsSettings :_*)
 
 }
