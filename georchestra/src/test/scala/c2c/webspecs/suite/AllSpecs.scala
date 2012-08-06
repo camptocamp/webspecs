@@ -10,7 +10,7 @@ import org.specs2.runner.JUnitRunner
 import java.text.SimpleDateFormat
 import java.util.Date
 import org.specs2.specification.Step
-
+import org.specs2.main.Arguments
 
 @RunWith(classOf[JUnitRunner])
 class AllSpecs extends Specification with SpecificationsFinder { def is =
@@ -22,7 +22,7 @@ class AllSpecs extends Specification with SpecificationsFinder { def is =
       classOf[ExtractorappSpec],
       classOf[SecuritySpec],
       classOf[WFSSpec]
-	).flatMap{s => createSpecification(s.getName)}
+	).flatMap{s => createSpecification(s.getName)(Arguments())}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
 

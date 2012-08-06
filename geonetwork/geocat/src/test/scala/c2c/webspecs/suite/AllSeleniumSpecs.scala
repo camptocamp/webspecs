@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import org.specs2.specification.Step
 import c2c.webspecs.Properties
-
+import org.specs2.main.Arguments
 
 @RunWith(classOf[JUnitRunner])
 class AllSeleniumSpecs extends Specification with SpecificationsFinder {
@@ -27,7 +27,7 @@ class AllSeleniumSpecs extends Specification with SpecificationsFinder {
       classOf[WP10Selenium],      
       classOf[WP15Selenium],      
 	  classOf[WP16Selenium]	  
-	).flatMap{s => createSpecification(s.getName)}
+	).flatMap{s => createSpecification(s.getName)(Arguments())}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
 
@@ -47,7 +47,7 @@ class WP10Selenium extends Specification with SpecificationsFinder {
   def examplesLinks(t: String) = {
     val specs = List(
       classOf[CreateEditDeleteUserSeleniumSpec],
-      classOf[ViewNonValidatedObjectsSeleniumSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[ViewNonValidatedObjectsSeleniumSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -62,7 +62,7 @@ class WP7Selenium extends Specification with SpecificationsFinder {
       classOf[Bug138810NoNextSearchSpec],
       classOf[SearchesReturnResultsSeleniumSpec],
       classOf[MassiveOpSeleniumSpec],
-      classOf[Bug15242FormatListOrderSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[Bug15242FormatListOrderSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -73,7 +73,7 @@ class WP15Selenium extends Specification with SpecificationsFinder {
             
             def examplesLinks(t: String) = {
         val specs = List(
-                classOf[EditContactSpec]).flatMap { s => createSpecification(s.getName) }
+                classOf[EditContactSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
         specs.
         foldLeft(t.title) { (res, cur) => res ^ link(cur) }
     }
@@ -85,7 +85,7 @@ class WP16Selenium extends Specification with SpecificationsFinder {
   def examplesLinks(t: String) = {
     val specs = List(
       classOf[SaveConfigurationSpec],
-      classOf[AdminChangePasswordSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[AdminChangePasswordSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }

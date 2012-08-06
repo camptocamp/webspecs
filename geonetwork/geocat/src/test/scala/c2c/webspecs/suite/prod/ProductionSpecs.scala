@@ -20,6 +20,7 @@ import org.specs2.runner.SpecificationsFinder
 import org.specs2.specification.Step
 import org.specs2.Specification
 import scala.Option.option2Iterable
+import org.specs2.main.Arguments
 
 @RunWith(classOf[JUnitRunner])
 class AllSpecs extends Specification with SpecificationsFinder {
@@ -36,7 +37,7 @@ class AllSpecs extends Specification with SpecificationsFinder {
 	  classOf[WP6],
 	  classOf[WP7],
       classOf[WP15], 
-      classOf[WP16] ).flatMap { s => createSpecification(s.getName) }
+      classOf[WP16] ).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
   }
 
@@ -58,7 +59,7 @@ class WP1 extends Specification with SpecificationsFinder {
   def examplesLinks(t: String) = {
     val specs = List(
       classOf[ImportCheMetadataSpec],
-      classOf[ImportValidationSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[ImportValidationSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -84,7 +85,7 @@ class WP3 extends Specification with SpecificationsFinder {
       classOf[AccessSharedObjectHtmlListSpecExtentsSpec],
       classOf[UpdateXlinksCachingSpec],
       classOf[ImportSpecialExtentsSpec],
-      classOf[EscapeSpecialCharsInUserSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[EscapeSpecialCharsInUserSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -102,7 +103,7 @@ class WP5 extends Specification with SpecificationsFinder {
       classOf[DifferentLanguageSearchSpec],
       classOf[CswResetIndexReaderAfterImportSpec],
       classOf[SpatialSearchSpec],
-      classOf[SearchOrderSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[SearchOrderSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -122,7 +123,7 @@ class WP6 extends Specification with SpecificationsFinder {
       classOf[CswTransactionalXmlTestSpec],
       classOf[CswXmlTestSpec],
       classOf[CswDublinCoreUriSpec]
-      ).flatMap { s => createSpecification(s.getName) }
+      ).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -136,7 +137,7 @@ class WP7 extends Specification with SpecificationsFinder {
   def examplesLinks(t: String) = {
     val specs = List(
       classOf[MefExportSpec]
-      ).flatMap { s => createSpecification(s.getName) }
+      ).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -151,7 +152,7 @@ class WP15 extends Specification with SpecificationsFinder {
       classOf[UpdateContactViaMetadataUpdate],
       classOf[KeywordsXlinkAddSpec],
       classOf[ExtentXlinkAddSpec],
-      classOf[UpdateNonXlinkViaMetadataUpdate]).flatMap { s => createSpecification(s.getName) }
+      classOf[UpdateNonXlinkViaMetadataUpdate]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
@@ -166,7 +167,7 @@ class WP16 extends Specification with SpecificationsFinder {
     val specs = List(
       classOf[MetadataValidationReportSpec],
       classOf[PreStyleSheetSpec],
-      classOf[XmlInfoServiceLocalisationSpec]).flatMap { s => createSpecification(s.getName) }
+      classOf[XmlInfoServiceLocalisationSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.foldLeft(t.title) { (res, cur) => res ^ link(cur) }
   }
 }
