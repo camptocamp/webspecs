@@ -45,7 +45,7 @@ class AllSpecs extends Specification with SpecificationsFinder {
       classOf[WP15], 
       classOf[WP16]  
 	).flatMap{s => createSpecification(s.getName)(Arguments())}
-      specs.foldLeft(initVal(t)) { (res, cur) => res ^ see(cur) }
+      specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
 
     def initVal(t:String) = t.title ^ sequential ^ Step(() => Thread.sleep(2000))
