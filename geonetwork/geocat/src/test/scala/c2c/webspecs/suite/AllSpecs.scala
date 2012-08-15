@@ -28,7 +28,7 @@ class AllSpecs extends Specification with SpecificationsFinder {
   Properties.classLoader=classOf[AllSpecs].getClassLoader()
   
   def is =
-    examplesLinks("All Work Packages - "+dateTime)
+    examplesLinks("All Work Packages")
 
     def examplesLinks(t: String) = {
   val specs = List(
@@ -48,10 +48,10 @@ class AllSpecs extends Specification with SpecificationsFinder {
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
 
-    def initVal(t:String) = t.title ^ sequential ^ Step(() => Thread.sleep(2000))
+    def initVal(t:String) = t.title ^ sequential ^ Step(() => Thread.sleep(2000)) ^ ("For date: "+dateTime)
 
     def dateTime = {
-        val dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        val dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
         val date = new Date();
         dateFormat.format(date);
     }
