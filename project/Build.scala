@@ -51,6 +51,7 @@ object WebSpecsBuild extends Build
     "org.ccil.cowan.tagsoup" % "tagsoup" % "1.2",
     "org.apache.httpcomponents" % "httpclient" % "4.1.2",
     "org.apache.httpcomponents" % "httpmime" % "4.1.2",
+    "postgresql" % "postgresql" % "9.1-901.jdbc4",
     "com.github.scala-incubator.io" %% "scala-io-file" % "0.3.0",
     "org.pegdown" % "pegdown" % "1.0.2",
     "junit" % "junit" % "4.9",
