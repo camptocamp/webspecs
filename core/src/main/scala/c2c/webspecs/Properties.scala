@@ -5,9 +5,10 @@ import java.util.{Properties => JProperties}
 import scalax.file.Path
 import collection.JavaConverters._
 import java.io.InputStream
-import scalax.io.{InputStreamResource, Resource}
+import scalax.io.{Resource}
 import java.lang.IllegalArgumentException
 import java.net.URL
+import scalax.io.managed.InputStreamResource
 
 /**
  * Loads the configuration from properties files.  The configuration files
@@ -170,12 +171,12 @@ object Properties {
       val cl = Properties.classLoader
       val loadedFromClasspath = (Option(cl.getResource(baseDir + "/" + file)) orElse
         Option(cl.getResource(file)) orElse Option(cl.getResource("/" + baseDir + "/" + file))).map(Resource.fromURL(_).inputStream)
-      val defaults = (defaultOnClassPath(file,rawPath.name).map(paths => (Path.fromString(paths._1) / paths._2).inputStream()))
+      val defaults = (defaultOnClassPath(file,rawPath.name).map(paths => (Path.fromString(paths._1) / paths._2).inputStream))
       val resources = loadedFromClasspath orElse defaults
       if (relativePath.exists) {
-        relativePath.inputStream()
+        relativePath.inputStream
       } else if (rawPath.exists) {
-        rawPath.inputStream()
+        rawPath.inputStream
       } else if (resources.isDefined) {
         resources.get
       } else {

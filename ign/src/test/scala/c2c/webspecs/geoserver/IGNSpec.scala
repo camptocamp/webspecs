@@ -12,15 +12,15 @@ class IGNSpec extends GeoserverSpecification {
   def isImpl = 
     "ignGetFeatureTests".title ^
     	"This Spec test WFS for IGN get Feature API" ^
-    	"Wfs getCapabilities 1.0.0 must be valid" ! minimumXPath
+    	"Wfs Fid Filter must retrieve exactly one feature" ! fidFilter
     	
     	
-   def minimumXPath = {
-    val response = new GetFeatureRequest("au:AdministrativeUnit", <fes:ResourceId rid="FR2100000000">
-    </fes:ResourceId>).execute()
-    println(response.value.getXml)
+   def fidFilter = {
+    val filter = <fes:ResourceId rid="FR2100000000"/>
+    val response = new GetFeatureRequest("au:AdministrativeUnit", filter, "au:nationalCode").execute()
+    println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
-      (response.value.getXml must \\("Capability"))
+      (response.value.getXml \\ "member" must haveSize(1))
       
   }
     
