@@ -1,6 +1,5 @@
 package c2c.webspecs
 package geoserver
-import c2c.webspecs.WebSpecsSpecification
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import org.specs2.matcher.Matcher
@@ -17,7 +16,7 @@ class IGNSpec extends GeoserverSpecification {
     	
    def fidFilter = {
     val filter = <fes:ResourceId rid="FR2100000000"/>
-    val response = new GetFeatureRequest("au:AdministrativeUnit", filter, "au:nationalCode").execute()
+    val response = new GetFeatureRequest("au:AdministrativeUnit", filter).execute()
     println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
       (response.value.getXml \\ "member" must haveSize(1))
