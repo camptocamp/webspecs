@@ -9,7 +9,7 @@ import org.specs2.execute.Result
 import java.sql.DriverManager
 
 @RunWith(classOf[JUnitRunner])
-class SchemaSpec extends Specification { 
+class SchemaSpecIgnore extends Specification { 
 
     def is =
 

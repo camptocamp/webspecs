@@ -24,6 +24,7 @@ object WebSpecsBuild extends Build
     runTaskXml,
     parallelExecution in Test := false,
     logBuffered in Test := true,
+    testOptions := Seq(Tests.Filter(s => !s.endsWith("SpecIgnore"))),
     testOptions in Test += Tests.Argument("html", "console", "junitxml", "sequential"),
     testOptions in Test += Tests.Setup {() =>
       val key = "specs2.junit.outDir"
