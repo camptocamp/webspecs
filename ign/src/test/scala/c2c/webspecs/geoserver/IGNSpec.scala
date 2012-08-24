@@ -11,12 +11,12 @@ class IGNSpec extends GeoserverSpecification {
   def isImpl = 
     "ignGetFeatureTests".title ^
     	"This Spec test WFS for IGN get Feature API" ^
-    	"Wfs Max Features should limit the number of features loaded" ! maxFeatures ^
+    	"Wfs Count should limit the number of features loaded" ! count ^
     	"Wfs Fid Filter must retrieve exactly one feature" ! fidFilter
     	
     	
-   def maxFeatures = {
-    val response = GetWfsRequest("2.0.0", "GetFeature", "typeName" -> "au:AdministrativeUnit", "maxFeatures" -> 1).execute()
+   def count = {
+    val response = GetWfsRequest("2.0.0", "GetFeature", "typeName" -> "au:AdministrativeUnit", "count" -> 1).execute()
     val xmlData = response.value.getXml
     
     (response must haveA200ResponseCode) and
