@@ -17,6 +17,7 @@ class IGNSpec extends GeoserverSpecification {
     	"Wfs equalTo Filter must retrieve exactly 9 feature" ! equalToFilter^
     	"Wfs equalTo Filter with XPath must retrieve exactly 9 feature" ! xPathAttributeFilter^
     	"GetPropertyValue should return only the value condominium" ! getPropertyValue^
+    	"FilterCapabilties must have ${ImplementsMinTemporalFilter} as true" ! hasFilterCapability^
     	"administrativeBoundary should respect schema" ! abNoResolve
     	
     	
@@ -45,7 +46,7 @@ class IGNSpec extends GeoserverSpecification {
     val response = new GetFeatureRequest("au:AdministrativeBoundary", filter).execute()
     println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
-      (response.value.getXml \\ "member" must haveSize(9))
+      (response.value.getXml \\ "member" must haveSize(10))
   }
    
    def xPathAttributeFilter = {
@@ -56,8 +57,7 @@ class IGNSpec extends GeoserverSpecification {
     val response = new GetFeatureRequest("au:AdministrativeBoundary", filter).execute()
     println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
-      (response.value.getXml \\ "member" must haveSize(9))
-      
+      (response.value.getXml \\ "member" must haveSize(10))
   }
     def getPropertyValue = {
     val response = GetWfsRequest("2.0.0", "GetPropertyValue", "typeName" -> "au:AdministrativeUnit", "count" -> 1, "valueReference" -> "au:condominium").execute()
@@ -86,8 +86,17 @@ class IGNSpec extends GeoserverSpecification {
       (xmlData \\ "beginLifespanVersion" must haveSize(1)) and
       (xmlData \\ "endLifespanVersion" must haveSize(1)) and
       (xmlData \\ "admUnit" must haveSize(1)) and
-      ((xmlData \\ "admUnit" \ "@href").text must contain("AdministrativeUnit")) 
-          
+      ((xmlData \\ "admUnit" \ "@href").text must contain("AdministrativeUnit"))
   } 
-  
+ 
+  lazy val capabilities = {
+    val response = GetWfsRequest("2.0.0", "GetCapabilities").execute()
+    response.value.getXml
+  }
+  def hasFilterCapability = (spec:String) => {
+    val constraintName = extract1(spec)
+    val minTempFilter = (capabilities \\ "Filter_Capabilities" \ "Conformance" \ "Constraint") filter (e => (e @@ "name").head == constraintName)
+    (minTempFilter.headOption must beSome) and
+      ((minTempFilter \ "DefaultValue").text.toUpperCase() must_== "TRUE")
+  }
 }
