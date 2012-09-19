@@ -15,7 +15,7 @@ class AllSpecs extends Specification with SpecificationsFinder {
   Properties.classLoader=classOf[AllSpecs].getClassLoader()
   
   def is =
-    examplesLinks("All Work Packages")
+    examplesLinks("index")
 
     def examplesLinks(t: String) = {
   val specs = List(
