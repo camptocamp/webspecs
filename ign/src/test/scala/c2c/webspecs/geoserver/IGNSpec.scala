@@ -10,7 +10,7 @@ import _root_.scala.xml.Text
 class IGNSpec extends GeoserverSpecification {
 
   def isImpl = 
-    "ignGetFeatureTests".title ^
+    "IGN GetFeature Tests".title ^
     	"This Spec test WFS for IGN get Feature API" ^
     	"Wfs Count should limit the number of features loaded" ! count ^
     	"Wfs Fid Filter must retrieve exactly one feature" ! fidFilter ^
