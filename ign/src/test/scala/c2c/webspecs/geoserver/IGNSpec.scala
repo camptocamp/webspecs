@@ -10,7 +10,7 @@ import _root_.scala.xml.Text
 class IGNSpec extends GeoserverSpecification {
 
   def isImpl = 
-    "ignGetFeatureTests".title ^
+    "IGN GetFeature Tests".title ^
     	"This Spec test WFS for IGN get Feature API" ^
     	"Wfs Count should limit the number of features loaded" ! count ^
     	"Wfs Fid Filter must retrieve exactly one feature" ! fidFilter ^
@@ -34,7 +34,6 @@ class IGNSpec extends GeoserverSpecification {
    def fidFilter = {
     val filter = <fes:ResourceId rid="FR2100000000"/>
     val response = new GetFeatureRequest("au:AdministrativeUnit", filter).execute()
-    println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
       (response.value.getXml \\ "member" must haveSize(1))
       
@@ -46,7 +45,6 @@ class IGNSpec extends GeoserverSpecification {
                <fes:Literal>FR</fes:Literal>
             </fes:PropertyIsEqualTo>
     val response = new GetFeatureRequest("au:AdministrativeBoundary", filter).execute()
-    println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
       (response.value.getXml \\ "member" must haveSize(9))
   }
@@ -57,7 +55,6 @@ class IGNSpec extends GeoserverSpecification {
                <fes:Literal>FR</fes:Literal>
             </fes:PropertyIsEqualTo>
     val response = new GetFeatureRequest("au:AdministrativeBoundary", filter).execute()
-    println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
       (response.value.getXml \\ "member" must haveSize(9))
   }

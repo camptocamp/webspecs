@@ -13,6 +13,7 @@ class TimeFilterSpec extends GeoserverSpecification {
   def isImpl = 
     "Time Filter".title ^
     	"This Spec verifies that the application schema created for IGN works with time filters" ^
+    	"The following test was created based on the Filter Encoding Specification sections C.7 and A.10" ^ 
     	"${During} Filter can select a ${2} of the total records" ! periodTest ^
     	"${After} Filter can select a ${5} of the total records" ! periodTest ^
 //    	"${AnyInteracts} Filter can select a ${5} of the total records" ! periodTest ^
