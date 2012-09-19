@@ -32,7 +32,6 @@ class IGNSpec extends GeoserverSpecification {
    def fidFilter = {
     val filter = <fes:ResourceId rid="au.FR2100000000"/>
     val response = new GetFeatureRequest("au:AdministrativeUnit", filter).execute()
-    println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
       (response.value.getXml \\ "member" must haveSize(1))
       
@@ -44,9 +43,8 @@ class IGNSpec extends GeoserverSpecification {
                <fes:Literal>FR</fes:Literal>
             </fes:PropertyIsEqualTo>
     val response = new GetFeatureRequest("au:AdministrativeBoundary", filter).execute()
-    println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
-      (response.value.getXml \\ "member" must haveSize(10))
+      (response.value.getXml \\ "member" must haveSize(9))
   }
    
    def xPathAttributeFilter = {
@@ -55,9 +53,8 @@ class IGNSpec extends GeoserverSpecification {
                <fes:Literal>FR</fes:Literal>
             </fes:PropertyIsEqualTo>
     val response = new GetFeatureRequest("au:AdministrativeBoundary", filter).execute()
-    println(response.value.getText.take(1000))
     (response must haveA200ResponseCode) and
-      (response.value.getXml \\ "member" must haveSize(10))
+      (response.value.getXml \\ "member" must haveSize(9))
   }
     def getPropertyValue = {
     val response = GetWfsRequest("2.0.0", "GetPropertyValue", "typeName" -> "au:AdministrativeUnit", "count" -> 1, "valueReference" -> "au:condominium").execute()
@@ -75,7 +72,7 @@ class IGNSpec extends GeoserverSpecification {
     val response = GetWfsRequest("2.0.0", "GetFeature", "typeName" -> "au:AdministrativeBoundary").execute()
     //val xmlData = (response.value.getXml \\ "member") filter (x => (x \\ "admUnit" \ "@href" contains Text("FR2100000000")))
     val xmlData = (response.value.getXml \\ "member")(0)
-    		
+
     (response must haveA200ResponseCode) and
       (xmlData \ "AdministrativeBoundary" must haveSize(1)) and
       (xmlData \\ "geometry" must haveSize(1)) and
@@ -86,7 +83,7 @@ class IGNSpec extends GeoserverSpecification {
       (xmlData \\ "beginLifespanVersion" must haveSize(1)) and
       (xmlData \\ "endLifespanVersion" must haveSize(1)) and
       (xmlData \\ "admUnit" must haveSize(1)) and
-      ((xmlData \\ "admUnit" \ "@href").text must contain("AdministrativeUnit"))
+      ((xmlData \\ "admUnit" \@ "xlink:href").head must contain("AdministrativeUnit"))
   } 
  
   lazy val capabilities = {
