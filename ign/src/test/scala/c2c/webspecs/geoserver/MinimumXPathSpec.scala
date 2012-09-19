@@ -20,8 +20,10 @@ class MinimumXPathSpec extends GeoserverSpecification {
     	"Minimum XPath filter test suite supporting Inspire required tests" ^
     	"a. The abbreviated form of the child and attribute axis specifier shall be supported" ! basicXPathGrammar ^
     	"b. The context node shall be the resource element" ! contextNode ^
-    	"c. Each step in the path may include an XPath predicate" ! basicXPathGrammar ^
-    	"d. At least child grammar predicate expression items shall be supported" ! childIndexFilter
+    	"c. Each step in the path may include an XPath predicate" ! basicXPathGrammar 
+    	
+    	/* XPath test on GU are not available with joining=true (only postgres data) */
+    	//"d. At least child grammar predicate expression items shall be supported" ! childIndexFilter
     	
     /**
      * a)

@@ -21,7 +21,8 @@ class AllSpecs extends Specification with SpecificationsFinder {
   val specs = List(
 	  classOf[WFSSpec],
       classOf[IGNSpec],
-	  classOf[TimeFilterSpec]
+	  classOf[TimeFilterSpec],
+	  classOf[MinimumXPathSpec]
 	).flatMap{s => createSpecification(s.getName)(Arguments())}
       specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
     }
@@ -34,4 +35,3 @@ class AllSpecs extends Specification with SpecificationsFinder {
         dateFormat.format(date);
     }
 }
-
