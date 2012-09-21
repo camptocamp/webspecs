@@ -19,7 +19,7 @@ object ExecutionContext {
   def apply[R](context:ExecutionContext)(f : ExecutionContext => R):R = {
     try {f(context)}
     finally {
-      context.httpClient.getConnectionManager.shutdown
+      context.close
     }
   }
   def withDefault[R] (f : ExecutionContext => R):R =
@@ -36,7 +36,8 @@ trait ExecutionContext {
   def createHttpContext:() => HttpContext
   val conn: ClientConnectionManager = httpClient.getConnectionManager
   var modifications:List[RequestModification] = Nil
-  def close() = httpClient.getConnectionManager.shutdown
+  def close() = 
+    httpClient.getConnectionManager.shutdown
   def execute(request:HttpRequestBase) = request match {
     case r:LoginRequest if currentUser.exists {_._1.user == r.user} =>
       Log.apply(Log.Connection, "Skipping login request since user is already logged in")

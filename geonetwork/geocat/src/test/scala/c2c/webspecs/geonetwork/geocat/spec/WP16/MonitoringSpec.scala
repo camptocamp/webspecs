@@ -15,7 +15,7 @@ import c2c.webspecs.geonetwork.UserProfiles
  */
 @RunWith(classOf[JUnitRunner]) 
 class MonitoringSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
-	"Xsl custom metadata XML output".title 														^ Step(setup)           ^
+	"Monioring Specification".title 														^ Step(setup)           ^
 	        "Add some metadata so that healthchecks will work"                                  ^ Step(importMd)        ^
 			"Get the results of the ${metrics} webservice"										! checkMonitorReport    ^
 			"Get the results of the ${healthcheck} webservice"									! checkMonitorReport    ^

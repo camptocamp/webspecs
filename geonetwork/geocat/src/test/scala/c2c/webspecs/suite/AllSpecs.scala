@@ -70,7 +70,7 @@ class WP1 extends Specification with SpecificationsFinder { def is =
         classOf[ImportValidationSpec]
       ).flatMap{s => createSpecification(s.getName)(Arguments())}
       specs.
-        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+        foldLeft(t.title ^ sequential) { (res, cur) => res ^ link(cur) }
     }
 
 }
@@ -84,7 +84,7 @@ class WP2 extends Specification with SpecificationsFinder { def is =
         classOf[CompareGeocat1Metadata]
       ).flatMap{s => createSpecification(s.getName)(Arguments())}
       specs.
-        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
+        foldLeft(t.title ^ sequential) { (res, cur) => res ^ link(cur) }
     }
 
 }
@@ -217,7 +217,7 @@ class WP10 extends Specification with SpecificationsFinder { def is =
 @RunWith(classOf[JUnitRunner]) 
 class WP11_12 extends Specification with SpecificationsFinder { def is =
 
-examplesLinks("WP 11/12: GM03 Import and Export")
+examplesLinks("WP 11,12: GM03 Import and Export")
 
 def examplesLinks(t: String) = {
     val specs = List(

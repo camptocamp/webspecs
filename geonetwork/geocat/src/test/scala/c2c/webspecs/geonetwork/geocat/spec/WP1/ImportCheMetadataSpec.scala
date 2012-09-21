@@ -10,8 +10,8 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
-
+class ImportCheMetadataSpec  extends GeocatSpecification {  def is = 
+	
   "This specification tests using the iso19139.CHE schema"                  ^ Step(setup)               ^
     "Inserting a CHE metadata"                                              ^ Step(importAndGetMetadata) ^
     "Should suceed with a 200 response"                                     ! {importAndGetMetadata must haveA200ResponseCode}   ^

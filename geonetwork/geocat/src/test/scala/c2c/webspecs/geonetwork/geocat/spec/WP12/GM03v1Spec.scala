@@ -16,7 +16,7 @@ import c2c.webspecs.geonetwork.GetRawMetadataXml
 @RunWith(classOf[JUnitRunner]) 
 class GM03V1Spec extends GeocatSpecification(UserProfiles.Editor) {
 	def is = {
-	  "GM03v1 Import / Export test".title 	                                                          ^ Step(setup) ^
+	  "GM03v1 Import - Export test".title 	                                                          ^ Step(setup) ^
 	  	"Imports a GM03 v1 metadata and converts it into iso19139.che for storage into the catalogue" ^ Step(importMetadataId) ^
 	  	"Gets the previously inserted MD as GM03v2"                                                   ! getAsGm03v2 ^
 	  	"Gets the previously inserted MD as GM03v2small"                                              ! getAsGm03v2small ^
