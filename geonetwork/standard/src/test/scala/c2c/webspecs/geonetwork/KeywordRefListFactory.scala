@@ -6,17 +6,27 @@ package geonetwork
  */
 object KeywordRefListFactory extends BasicValueFactory[List[KeywordRef]]{
   def createValue(rawValue: BasicHttpValue): List[KeywordRef] = {
-    rawValue.toXmlValue.withXml{xml =>
-      (xml \\ "keyword").toList map {
+    (rawValue.toXmlValue.getXml \\ "keyword").toList flatMap {
         wordElem =>
-          val id = wordElem \\ "id" text
-          val value = wordElem \\ "value" text
-          val definition = wordElem \\ "definition" text
-          val uri = wordElem \\ "uri" text
-          val thesaurus= wordElem \\ "thesaurus" text
+          val multilingualKeyword = if(wordElem \ "definitions" nonEmpty) true else false
+          val id = wordElem \ "id" text
+          val defLang = wordElem \ "defaultLang" text 
+          val values = if(wordElem \ "values" nonEmpty) {
+            (wordElem \ "values" \ "value" filter {_.text.nonEmpty} map {v => ((v @@ "language").head, v.text)})
+          } else {
+            Seq(defLang -> (wordElem \ "value" text))
+          }
+          val definitions = if(wordElem \ "definitions" nonEmpty) {
+            (wordElem \ "definitions" \ "definition" filter {_.text.nonEmpty} map {v => ((v @@ "language").head, v.text)}).toMap
+          } else {
+            Map(defLang -> (wordElem \ "definition" text))
+          }
+          val uri = wordElem \ "uri" text
+          val thesaurus= wordElem \ "thesaurus" text
 
-          KeywordRef(id,value,definition,uri,thesaurus)
-      }
+          values.map {case (lang, value) => 
+            KeywordRef(id,lang, value,definitions.get(lang) getOrElse "",uri,thesaurus)
+          }
     }
   }
 }

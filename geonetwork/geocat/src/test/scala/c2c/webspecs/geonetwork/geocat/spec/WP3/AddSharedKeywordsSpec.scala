@@ -49,7 +49,8 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
       xml \\ nodeName find {_ @@ "locale" == List(locale)} map (_.text) aka repr must beSome(expected)}
 
   def Search = SearchKeywords(List(NON_VALIDATED_THESAURUS))
-  def onlyKeywordInstance = Search.execute(frValue).value.filter(_.value == frValue) must haveSize(1)
+  def onlyKeywordInstance = 
+    Search.execute(frValue).value.filter(_.value == frValue) must haveSize(1)
 
   val updateKeyword = () => {
     val uri = Search.execute(frValue).value.head.uri.encode
@@ -65,7 +66,7 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
  
     val updateResponse = (config.adminLogin then UpdateSharedObject(xml)).execute()
     val searchResponse = Search.execute(frValue)
-    assert(searchResponse.value.size == 1, "Expected a single keyword with "+frValue)
+    assert(searchResponse.value.size == 3, "Expected a single keyword with "+frValue+" but got "+searchResponse.value)
     val keyword = searchResponse.value.head
     val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr")).execute(keyword.uri)
     updateResponse.map(_ => isoKeyword.value)
