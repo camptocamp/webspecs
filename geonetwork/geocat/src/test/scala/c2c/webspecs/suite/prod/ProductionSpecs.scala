@@ -136,7 +136,8 @@ class WP7 extends Specification with SpecificationsFinder {
 
   def examplesLinks(t: String) = {
     val specs = List(
-      classOf[MefExportSpec]
+      classOf[MefExportSpec],
+      classOf[GeocatPagesLoadSpec]
       ).flatMap { s => createSpecification(s.getName)(Arguments()) }
     specs.
       foldLeft(t.title) { (res, cur) => res ^ link(cur) }

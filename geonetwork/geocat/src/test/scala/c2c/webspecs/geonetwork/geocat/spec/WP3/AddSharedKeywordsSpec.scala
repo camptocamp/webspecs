@@ -66,14 +66,14 @@ class AddSharedKeywordsSpec extends GeocatSpecification { def is =
  
     val updateResponse = (config.adminLogin then UpdateSharedObject(xml)).execute()
     val searchResponse = Search.execute(frValue)
-    assert(searchResponse.value.size == 3, "Expected a single keyword with "+frValue+" but got "+searchResponse.value)
+    assert(searchResponse.value.size == 3, "Expected keyword to have 3 translations with "+frValue+" but got "+searchResponse.value)
     val keyword = searchResponse.value.head
     val isoKeyword = GetIsoKeyword(NON_VALIDATED_THESAURUS,List("de","en","fr")).execute(keyword.uri)
     updateResponse.map(_ => isoKeyword.value)
   }
   
   val hasNewTranslation = (resp:Response[IsoKeyword]) => 
-    	(resp.value.label("DE") aka "german translation" must_== newDeValue) and 
+    	(resp.value.label("DE") aka ("german translation: "+resp.value.label("DE")) must_== newDeValue) and 
     		(resp.value.label("FR") aka "french translation" must_== frValue) and
     		(resp.value.label("EN") aka "english translation" must_== enValue)
   

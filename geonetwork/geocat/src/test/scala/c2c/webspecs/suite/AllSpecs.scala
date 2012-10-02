@@ -179,7 +179,8 @@ examplesLinks("WP 7: Search user interface")
 def examplesLinks(t: String) = {
 	val specs = List(
 			classOf[MefExportSpec],
-			classOf[MefImportSpec]
+			classOf[MefImportSpec],
+      classOf[GeocatPagesLoadSpec]
 			).flatMap{s => createSpecification(s.getName)(Arguments())}
 	specs.
 	foldLeft(t.title) { (res, cur) => res ^ link(cur) }

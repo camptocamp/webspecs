@@ -17,16 +17,16 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   sequential 																						^
   "This specification adds XLinks to existing metadata "      										^ Step(setup) ^ 
   																									Step(ImportMdId) ^
-  																									testType("contact") ^ 
-  																									testType("format") ^ 
-  																									testType("extent") ^ 
+//  																									testType("contact") ^ 
+//  																									testType("format") ^ 
+//  																									testType("extent") ^ 
   																									testType("keyword") ^ 
                                                            											  Step(tearDown)
 
   def testType(name:String):Fragments = {
     val newContext = context.createNew
 	"The following declarations specifies how to add and update xlinks of "+name+" shared objects"   					        ^
-      "Adding an ${"+name+"} XLink to metadata should result in the next access of the metadata containing the new contact"  	! so (addXLink(newContext)) ^ 
+      "Adding an ${"+name+"} XLink to metadata should result in the next access of the metadata containing the new "+name  	! so (addXLink(newContext)) ^ 
       "Updating shared ${"+name+"} should result in the metadata being updated in metadata as well" 							! so (updateXLink(newContext)) ^ 
                                                                                                                                   end ^ 
                                                                                                                                   Step(() => newContext.close())  
