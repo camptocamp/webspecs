@@ -23,7 +23,6 @@ class PreStyleSheetSpec extends GeocatSpecification(UserProfiles.Admin) {  def i
 		  serviceCall must haveA200ResponseCode
 		  
 		  val result = serviceCall.value.getXml
-		  println(result)
 		  result.head.label must_== "html" and ((result \\ "table").length must be_>=(0))
   }
 

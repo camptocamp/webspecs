@@ -29,7 +29,6 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
   def correctMetadataWasRetrieved = {
     val charString = (metadataXml \\ "citation" \ "CI_Citation" \ "title" \ "CharacterString")
     val frLocalizedString = (metadataXml \\ "citation" \ "CI_Citation" \ "title" \\ "LocalisedCharacterString" find (n => (n \\ "@locale").text == "#FR")).map(_.text)
-println(metadataXml)
     val abstractText = (metadataXml \\ "abstract" \\ "CharacterString")
     val abstractLocalisedFRtext = (metadataXml \\ "abstract" \\ "LocalisedCharacterString" find (n => (n \\ "@locale").text == "#FR")).map(_.text)
     val abstractLocalisedENtext = (metadataXml \\ "abstract" \\ "LocalisedCharacterString" find (n => (n \\ "@locale").text == "#EN")).map(_.text)

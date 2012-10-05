@@ -62,7 +62,6 @@ class MetadataShowSpec extends GeocatSpecification {
   }
   def translatedAbstract = {
     val enText = importSampleFile.en.toString
-//            println(enText)
     val frText = importSampleFile.fr.toString
      (enText.contains("ENAbstract11223344") aka """en contains "ENAbstract11223344" """ must beTrue) and
          (frText.contains("ENAbstract11223344") aka """fr not contains "ENAbstract11223344" """must beFalse) and

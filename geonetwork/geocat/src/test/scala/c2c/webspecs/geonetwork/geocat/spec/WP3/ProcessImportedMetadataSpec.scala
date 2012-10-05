@@ -134,7 +134,6 @@ class ProcessImportedMetadataSpec extends GeocatSpecification { def is =
   val updatedParentPosition = (md:NodeSeq) => {
     val locales = md \\ "CHE_MD_Metadata" \ "contact" \ "CHE_CI_ResponsibleParty" \\ "parentResponsibleParty" \ "CHE_CI_ResponsibleParty" \\ "positionName" \\ "LocalisedCharacterString"
 
-    println(locales.text)
     locales.map(_.text.trim) must contain(newParentPositionName)
   }
   

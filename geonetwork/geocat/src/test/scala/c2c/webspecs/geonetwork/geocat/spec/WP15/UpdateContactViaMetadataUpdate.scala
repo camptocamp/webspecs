@@ -45,7 +45,6 @@ class UpdateContactViaMetadataUpdate extends GeocatSpecification { def is =
     updatedContact must beSome("newName"+uuid)
   }
   def allContactsPresent = {
-    println(updatedMetadata \\ "individualFirstName")
     updatedMetadata \\ "individualFirstName" must haveSize (3)
   }
   
