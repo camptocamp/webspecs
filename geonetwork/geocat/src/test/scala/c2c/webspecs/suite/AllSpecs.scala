@@ -22,17 +22,8 @@ import org.specs2.runner.JUnitRunner
 import c2c.webspecs.Properties
 import org.specs2.main.Arguments
 
-
 @RunWith(classOf[JUnitRunner])
-class AllSpecs extends Specification with SpecificationsFinder { 
-  Properties.classLoader=classOf[AllSpecs].getClassLoader()
-  
-  def is =
-    examplesLinks("All Work Packages")
-
-    def examplesLinks(t: String) = {
-  val specs = List(
-      classOf[WP1],
+class AllSpecs extends AbstractAllSpecs("All Work Packages", classOf[WP1],
 //      classOf[WP2],     
       classOf[WP3],
 	  classOf[WP4],
@@ -43,58 +34,20 @@ class AllSpecs extends Specification with SpecificationsFinder {
       classOf[WP10],
       classOf[WP11_12],
       classOf[WP15], 
-      classOf[WP16]  
-	).flatMap{s => createSpecification(s.getName)(Arguments())}
-      specs.foldLeft(initVal(t)) { (res, cur) => res ^ link(cur) }
-    }
-
-    def initVal(t:String) = t.title ^ sequential ^ Step(() => Thread.sleep(2000)) ^ ("For date: "+dateTime)
-
-    def dateTime = {
-        val dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm");
-        val date = new Date();
-        dateFormat.format(date);
-    }
-}
-
+      classOf[WP16])
 
 
 @RunWith(classOf[JUnitRunner])
-class WP1 extends Specification with SpecificationsFinder { def is =
-
-    examplesLinks("WP 1: Add CHE Schema")
-
-    def examplesLinks(t: String) = {
-  val specs = List(
+class WP1 extends AbstractAllSpecs("WP 1: Add CHE Schema",
         classOf[ImportCheMetadataSpec],
-        classOf[ImportValidationSpec]
-      ).flatMap{s => createSpecification(s.getName)(Arguments())}
-      specs.
-        foldLeft(t.title ^ sequential) { (res, cur) => res ^ link(cur) }
-    }
+        classOf[ImportValidationSpec])
 
-}
 @RunWith(classOf[JUnitRunner])
-class WP2 extends Specification with SpecificationsFinder { def is =
+class WP2 extends AbstractAllSpecs("WP 2: Compares every metadatas from old version against the new one",
+        classOf[CompareGeocat1Metadata])
 
-    examplesLinks("WP 2: Compares every metadatas from old version against the new one")
-
-    def examplesLinks(t: String) = {
-  val specs = List(
-        classOf[CompareGeocat1Metadata]
-      ).flatMap{s => createSpecification(s.getName)(Arguments())}
-      specs.
-        foldLeft(t.title ^ sequential) { (res, cur) => res ^ link(cur) }
-    }
-
-}
 @RunWith(classOf[JUnitRunner])
-class WP3 extends Specification with SpecificationsFinder { def is =
-
-    examplesLinks("WP 3: Shared Object (No UI)")
-
-    def examplesLinks(t: String) = {
-  val specs = List(
+class WP3 extends AbstractAllSpecs("WP 3: Shared Object (No UI)",
         classOf[AccessContactsSpec],
         classOf[AccessExtentsSpec],
         classOf[AccessFormatsSpec],
@@ -110,54 +63,23 @@ class WP3 extends Specification with SpecificationsFinder { def is =
         classOf[ImportSpecialExtentsSpec],
         classOf[ProcessImportedMetadataSpec],
         classOf[EscapeSpecialCharsInUserSpec],
-        classOf[ValidateSharedObjectSpec]
-      ).flatMap{s => createSpecification(s.getName)(Arguments())}
-      specs.
-        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-    }
-
-}
+        classOf[ValidateSharedObjectSpec])
 
 @RunWith(classOf[JUnitRunner])
-class WP4 extends Specification with SpecificationsFinder { def is =
-
-	examplesLinks("WP 4: Resolve XLinks")
-
-	def examplesLinks(t: String) = {
-		val specs = List(
-				classOf[TestXlinksUpdate]
-				).flatMap{s => createSpecification(s.getName)(Arguments())}
-		specs.
-		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-	}
-}
+class WP4 extends AbstractAllSpecs("WP 4: Resolve XLinks",
+				classOf[TestXlinksUpdate])
 
 @RunWith(classOf[JUnitRunner])
-class WP5 extends Specification with SpecificationsFinder { def is =
-
-examplesLinks("WP 5: Indexing and searching")
-
-def examplesLinks(t: String) = {
-	val specs = List(
+class WP5 extends AbstractAllSpecs("WP 5: Indexing and searching",
 			classOf[NonSpatialSearchQuerySpec],
 			classOf[PagingSearchSpec],
 			classOf[DifferentLanguageSearchSpec],
 			classOf[CswResetIndexReaderAfterImportSpec],
 			classOf[SpatialSearchSpec],
-			classOf[SearchOrderSpec]
-			).flatMap{s => createSpecification(s.getName)(Arguments())}
-	specs.
-	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-}
-}
+			classOf[SearchOrderSpec])
 
 @RunWith(classOf[JUnitRunner])
-class WP6 extends Specification with SpecificationsFinder { def is =
-
-	examplesLinks("WP 6: Check CSW service")
-
-	def examplesLinks(t: String) = {
-		val specs = List(
+class WP6 extends AbstractAllSpecs("WP 6: Check CSW service",
 				classOf[CswGetCapabilitiesServiceUrlSpec],
 				classOf[CswLanguageSpec],
 				classOf[CswOutputSchemaSpec],
@@ -165,100 +87,43 @@ class WP6 extends Specification with SpecificationsFinder { def is =
 				classOf[CswXmlTestSpec],
 				// TODO enable when summary is more reliable classOf[SummaryAccuracySpec],
 				classOf[CswDublinCoreUriSpec],
-				classOf[CswTransactionSpec]
-				).flatMap{s => createSpecification(s.getName)(Arguments())}
-		specs.
-		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-	}
-}
+				classOf[CswTransactionSpec])
+
 @RunWith(classOf[JUnitRunner])
-class WP7 extends Specification with SpecificationsFinder { def is =
-
-examplesLinks("WP 7: Search user interface")
-
-def examplesLinks(t: String) = {
-	val specs = List(
+class WP7 extends AbstractAllSpecs("WP 7: Search user interface",
 			classOf[MefExportSpec],
 			classOf[MefImportSpec],
-      classOf[GeocatPagesLoadSpec]
-			).flatMap{s => createSpecification(s.getName)(Arguments())}
-	specs.
-	foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-}
-}
+      classOf[GeocatPagesLoadSpec])
+
 @RunWith(classOf[JUnitRunner])
-class WP9 extends Specification with SpecificationsFinder {
-  def is =
-
-    examplesLinks("WP 9: Metadata Viewer")
-
-  def examplesLinks(t: String) = {
-    val specs = List(
-      classOf[MetadataShowSpec]).flatMap { s => createSpecification(s.getName)(Arguments()) }
-    specs.
-      foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-  }
-}
+class WP9 extends AbstractAllSpecs("WP 9: Metadata Viewer",
+      classOf[MetadataShowSpec])
 
 @RunWith(classOf[JUnitRunner]) 
-class WP10 extends Specification with SpecificationsFinder { def is =
-
-	examplesLinks("WP 10: Reusable Object UI")
-
-	def examplesLinks(t: String) = {
-		val specs = List(
+class WP10 extends AbstractAllSpecs("WP 10: Reusable Object UI",
 		    	classOf[ReusableNonValidatedListSpec],
 		    	classOf[RejectSharedObjectSpec],
-		    	classOf[DeletedNonValidatedSharedObjectSpec]
-				).flatMap{s => createSpecification(s.getName)(Arguments())}
-		specs.
-		foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-	}
-}
+		    	classOf[DeletedNonValidatedSharedObjectSpec])
+
 @RunWith(classOf[JUnitRunner]) 
-class WP11_12 extends Specification with SpecificationsFinder { def is =
-
-examplesLinks("WP 11,12: GM03 Import and Export")
-
-def examplesLinks(t: String) = {
-    val specs = List(
+class WP11_12 extends AbstractAllSpecs("WP 11,12: GM03 Import and Export",
       classOf[GM03V1Spec],
-      classOf[GM03V2Spec]).flatMap { s => createSpecification(s.getName)(Arguments())}
-    specs.
-      foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-  }
-}
+      classOf[GM03V2Spec])
+
 @RunWith(classOf[JUnitRunner])
-class WP15 extends Specification with SpecificationsFinder {
-    def is =
-            examplesLinks("WP 15: Metadata Edit")
-            
-            def examplesLinks(t: String) = {
-        val specs = List(
+class WP15 extends AbstractAllSpecs("WP 15: Metadata Edit",
                 classOf[UpdateContactViaMetadataUpdate],
                 classOf[KeywordsXlinkAddSpec],
                 classOf[ExtentXlinkAddSpec],
                 classOf[LocaleFixedInfoSpec],
                 classOf[SameXlinkUpdatedBugSpec],
-                classOf[UpdateNonXlinkViaMetadataUpdate]).flatMap { s => createSpecification(s.getName)(Arguments()) }
-        specs.
-        foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-    }
-}
+                classOf[UpdateNonXlinkViaMetadataUpdate])
+
 @RunWith(classOf[JUnitRunner])
-class WP16 extends Specification with SpecificationsFinder { def is =
-
-examplesLinks("WP 16: Misc. tests")
-
-def examplesLinks(t: String) = {
-    val specs = List(
+class WP16 extends AbstractAllSpecs("WP 16: Misc. tests",
             classOf[MetadataValidationReportSpec],
             classOf[GeoportalSpec],
             classOf[MonitoringSpec],
             classOf[PreStyleSheetSpec],
             classOf[RegisterXslSpec],
-            classOf[TestMetadataExpiredServicesSpec]
-            ).flatMap{s => createSpecification(s.getName)(Arguments())}
-    specs.foldLeft(t.title) { (res, cur) => res ^ link(cur) }
-    }
-}
+            classOf[TestMetadataExpiredServicesSpec])

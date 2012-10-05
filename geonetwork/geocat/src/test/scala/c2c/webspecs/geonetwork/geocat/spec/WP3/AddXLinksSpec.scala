@@ -17,9 +17,9 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   sequential 																						^
   "This specification adds XLinks to existing metadata "      										^ Step(setup) ^ 
   																									Step(ImportMdId) ^
-//  																									testType("contact") ^ 
-//  																									testType("format") ^ 
-//  																									testType("extent") ^ 
+  																									testType("contact") ^ 
+  																									testType("format") ^ 
+  																									testType("extent") ^ 
   																									testType("keyword") ^ 
                                                            											  Step(tearDown)
 
