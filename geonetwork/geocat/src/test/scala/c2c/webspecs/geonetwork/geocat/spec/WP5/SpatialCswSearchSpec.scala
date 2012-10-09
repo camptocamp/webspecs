@@ -11,7 +11,7 @@ import csw._
 
 
 @RunWith(classOf[JUnitRunner])
-class SpatialSearchSpec extends SearchSpecification {  def is =
+class SpatialCswSearchSpec extends SearchSpecification {  def is =
   "Spatial search queries".title ^
   "This specification tests how spatial search queries"             					          										  ^ Step(setup)               ^
       "First import several metadata that are to be searched for" 								  										  ^ Step(importedMetadataId)  ^

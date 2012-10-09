@@ -10,6 +10,6 @@ import org.specs2.runner.JUnitRunner
 import csw._
 
 @RunWith(classOf[JUnitRunner])
-class PagingSearchSpec 
-	extends c2c.webspecs.geonetwork.spec.csw.search.PagingSearchSpec 
+class PagingCswSearchSpec 
+	extends c2c.webspecs.geonetwork.spec.csw.search.PagingCswSearchSpec 
 	with SearchSpecification

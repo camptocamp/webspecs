@@ -8,7 +8,7 @@ import org.specs2.runner.JUnitRunner
 import csw._
 
 @RunWith(classOf[JUnitRunner])
-class DifferentLanguageSearchSpec extends GeonetworkSpecification with SearchSpecification { def is =
+class DifferentLanguageCswSearchSpec extends GeonetworkSpecification with SearchSpecification { def is =
     "Different language searches" ^ Step(setup) ^
     "Import a metadata" ^ Step(importExtraMd(2, identifier=datestamp)) ^
     "Assert that the metadata is found when searching in ${eng}" ! search ^

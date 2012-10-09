@@ -60,10 +60,12 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
     }
   }
 
-  def correctResults(numberOfRecords:Int, identifier:String) = (s:String) => {
-    val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+identifier).xml).execute().value.getXml
+  
 
-    (xml \\ "@numberOfRecordsMatched").text.toInt must_== numberOfRecords
+  def correctResults(numberOfRecords:Int, identifier:String) = (s:String) => {
+    val results = XmlSearch(10, 'any -> ("Title"+identifier)).execute().value
+
+    results.size must_== numberOfRecords
   }
 
   /**

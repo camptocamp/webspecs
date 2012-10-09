@@ -23,8 +23,10 @@ class CswGetRecordsSpec extends GeonetworkSpecification {
 
 
 
+  def rootElem = "MD_Metadata"
+  def metadataToImport = "/geonetwork/data/valid-metadata.iso19139.xml"
   def doImport = Step {
-    importMd(5, "/geonetwork/data/valid-metadata.iso19139.xml", uuid.toString)
+    importMd(5, metadataToImport, uuid.toString)
   }
 
   val singleGetRecords = (s:String) => {
@@ -37,12 +39,12 @@ class CswGetRecordsSpec extends GeonetworkSpecification {
 
     val expectedNumberOfMetadataElements = resultType match {
       case ResultTypes.hits =>
-        (result.value.getXml \\ "SearchResults" \\ "MD_Metadata") must have size (0)
+        (result.value.getXml \\ "SearchResults" \\ rootElem) must have size (0)
       case ResultTypes.results =>
-        (result.value.getXml \\ "SearchResults" \\ "MD_Metadata") must have size (maxRecords.toInt)
+        (result.value.getXml \\ "SearchResults" \\ rootElem) must have size (maxRecords.toInt)
       case ResultTypes.resultsWithSummary =>
-        ((result.value.getXml \\ "SearchResults" \\ "MD_Metadata") must have size (maxRecords.toInt)) and
-          ((result.value.getXml \\ "SearchResults" \\ "MD_Metadata") must \("info"))
+        ((result.value.getXml \\ "SearchResults" \\ rootElem) must have size (maxRecords.toInt)) and
+          ((result.value.getXml \\ "SearchResults" \\ rootElem) must \("info"))
     }
     (result must haveA200ResponseCode) and
       ((result.value.getXml \\ "SearchResults" \\ "@numberOfRecordsReturned").text must_== expectedRecords)

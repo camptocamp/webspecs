@@ -1,6 +1,6 @@
 package c2c.webspecs
 package geonetwork
-package spec.csw.search
+package spec.search
 
 import org.specs2.specification.Step
 import c2c.webspecs.geonetwork._
@@ -9,7 +9,7 @@ import org.specs2.runner.JUnitRunner
 import csw._
 
 @RunWith(classOf[JUnitRunner])
-class NonSpatialSearchQuerySpec extends GeonetworkSpecification with SearchSpecification {
+class NonSpatialBasicSearchQuerySpec extends GeonetworkSpecification with SearchSpecification {
   def is =
     "Non-spatial search queries".title ^
       "This specification tests how non-spatial search queries" ^ Step(setup) ^
@@ -75,64 +75,52 @@ class NonSpatialSearchQuerySpec extends GeonetworkSpecification with SearchSpeci
       case "testGroup" => config.groupId
       case any if any.trim.length > 0 => any.trim
     }
-    val similarityProperty = PropertyIsEqualTo("similarity", similarity.toString)
+    val similarityProperty = "similarity" -> similarity.toString
 
-    val filter = (allSearchTerms foldLeft (similarityProperty: OgcFilter)) { (acc, next) => acc and PropertyIsEqualTo(field, next) }
+    val filter = similarityProperty :: (allSearchTerms.toList map (n => field -> n))
 
-    val xmlResponse = CswGetRecordsRequest(filter.xml,
-      resultType = ResultTypes.resultsWithSummary,
-      outputSchema = OutputSchemas.Record,
-      maxRecords = if (maxRecords == -1) 100 else maxRecords,
-      sortBy = List(SortBy("date", false)),
-      url = lang + "/csw").execute().value.getXml
+    val sortAndFilter = ('sortBy -> 'date) :: ('sortOrder -> 'reverse) :: filter
+
+    implicit val resolver = new GeonetworkURIResolver(){
+      override def locale = lang
+    }
+
+    val results = XmlSearch(if (maxRecords == -1) 100 else maxRecords, sortAndFilter : _*).execute().value
 
       
-    find(xmlResponse, expectedMetadata, maxRecords)
+    find(results, expectedMetadata, maxRecords)
   }
 
   def sortBy = (s: String) => {
     val field = extract1(s)
     val filter = PropertyIsEqualTo("abstract", time+"NonSpatialSearchQuerySpec")
-    val sortedAscRequest = CswGetRecordsRequest(filter.xml,
-      resultType = ResultTypes.resultsWithSummary,
-      outputSchema = OutputSchemas.Record,
-      sortBy = List(SortBy(field, false)))
-    val sortedDescRequest = sortedAscRequest.copy(sortBy = List(SortBy(field, true)))
+    val sortedDescRequest = XmlSearch(100, "abstract" -> (time+"NonSpatialSearchQuerySpec")).sortBy(field, false)
+    val sortedAscRequest = sortedDescRequest.sortBy(field, true)
 
-    val sortedAscResults = findCodesFromResults(sortedAscRequest.execute().value.getXml)
-    val sortedDescResults = findCodesFromResults(sortedDescRequest.execute().value.getXml)
+    val sortedAscResults = findCodesFromResults(sortedAscRequest.execute().value)
+    val sortedDescResults = findCodesFromResults(sortedDescRequest.execute().value)
 
     (sortedDescResults must contain("DE", "EN", "FR", "XX")) and
       (sortedDescResults must contain("XX", "FR", "EN", "DE"))
   }
   def currentLanguageFirst = {
-    val frRequest = CswGetRecordsRequest(PropertyIsEqualTo("abstract", "FRxDEx" + time).xml,
-      resultType = ResultTypes.resultsWithSummary,
-      outputSchema = OutputSchemas.Record,
-      url = "fra/csw")
-    val deRequest = frRequest.copy(url = "deu/csw")
+    
+    implicit val resolver = new GeonetworkURIResolver(){
+      var lang = "fra"
+      override def locale = lang
+    }
 
-    val frResults = findCodesFromResults(frRequest.execute().value.getXml)
-    val deResults = findCodesFromResults(deRequest.execute().value.getXml)
+    val request = XmlSearch(100, "abstract" -> ("FRxDEx" + time))
+    val frResults = findCodesFromResults(request.execute().value)
+    resolver.lang = "deu"
+    val deResults = findCodesFromResults(request.execute().value)
 
     (frResults must contain("FR", "XX").only.inOrder) and
       (deResults must contain("XX", "FR").only.inOrder)
   }
   def singleAnd = {
-    val filter =
-        <ogc:And>
-          <ogc:PropertyIsLike wildCard="*" singleChar="." escape="!">
-            <ogc:PropertyName>anyText</ogc:PropertyName>
-            <ogc:Literal>*</ogc:Literal>
-          </ogc:PropertyIsLike>
-        </ogc:And>
+    val response = XmlSearch(30).sortBy("date", false).execute().value
 
-    val xmlResponse = CswGetRecordsRequest(filter,
-      resultType = ResultTypes.resultsWithSummary,
-      maxRecords = 30,
-      sortBy = List(SortBy("date", false)),
-      outputSchema = OutputSchemas.Record).execute().value.getXml
-
-    find(xmlResponse, "all")
+    find(response, "all")
   }
 }

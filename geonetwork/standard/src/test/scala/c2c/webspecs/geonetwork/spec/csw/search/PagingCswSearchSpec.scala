@@ -9,7 +9,7 @@ import org.specs2.runner.JUnitRunner
 import csw._
 
 @RunWith(classOf[JUnitRunner])
-class PagingSearchSpec extends GeonetworkSpecification with SearchSpecification {
+class PagingCswSearchSpec extends GeonetworkSpecification with SearchSpecification {
   def is =
     "Non-spatial search queries".title ^
       "This specification tests how non-spatial search queries" ^ Step(setup) ^
@@ -23,11 +23,8 @@ class PagingSearchSpec extends GeonetworkSpecification with SearchSpecification 
   Step(tearDown)
 
   def page(i:Int) = {
-    val similarityProperty = PropertyIsEqualTo("similarity", "1")
 
-    val filter = similarityProperty and PropertyIsEqualTo("abstract", time + "NonSpatialSearchQuerySpec")
-
-    val xmlResponse = CswGetRecordsRequest(filter.xml,
+    val xmlResponse = CswGetRecordsRequest(Nil,
       resultType = ResultTypes.resultsWithSummary,
       outputSchema = OutputSchemas.Record,
       maxRecords = 2,

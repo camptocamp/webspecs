@@ -12,9 +12,9 @@ import c2c.webspecs.geonetwork.csw._
 class CswGetCapabilitiesServiceUrlSpec extends GeonetworkSpecification {
   def is = {
     "CSW GetCapabilities services URL".title ^ Step(setup) ^
-      "Checking GetCapabilities services URL in ${fr}" ! CswTestGetCapabilities ^
-      "Checking GetCapabilities services URL in ${de}" ! CswTestGetCapabilities ^
-      "Checking GetCapabilities services URL in ${fr}" ! CswTestGetCapabilities ^
+      "Checking GetCapabilities services URL in ${fre}" ! CswTestGetCapabilities ^
+      "Checking GetCapabilities services URL in ${ger}" ! CswTestGetCapabilities ^
+      "Checking GetCapabilities services URL in ${eng}" ! CswTestGetCapabilities ^
       end ^ Step(tearDown)
   }
 

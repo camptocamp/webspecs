@@ -1,6 +1,6 @@
 package c2c.webspecs
 package geonetwork
-package spec.csw.search
+package spec.search
 
 import java.util.Date
 import scala.xml.NodeSeq
@@ -26,15 +26,13 @@ trait SearchSpecification {
 
   lazy val idToLocalMap = importedMetadataId.map{case (key,value) => value -> key}
   
-  def findCodesFromResults(xml:NodeSeq) = {
-      val records = xml \\ "Record"
-
-      val recordIds = records \ "info" \ "id" map (_.text.trim)
+  def findCodesFromResults(records:XmlSearchValues) = {
+      val recordIds = records.records map (_.infoValue("id"))
       recordIds flatMap idToLocalMap.get
   }
-  
-  def find(xmlResponse: NodeSeq, expectedMetadata: String, maxRecords: Int = -1): Result = {
-    val foundIdsMatchingImportedMd = findCodesFromResults(xmlResponse) 
+
+  def find(records: XmlSearchValues, expectedMetadata: String, maxRecords: Int = -1): Result = {
+    val foundIdsMatchingImportedMd = findCodesFromResults(records) 
 
     (expectedMetadata, maxRecords) match {
       case ("all",-1)  => foundIdsMatchingImportedMd must haveTheSameElementsAs(importedMetadataId.keys)
@@ -47,12 +45,9 @@ trait SearchSpecification {
         val localeSet = locales.split(" and ").toSet.map { (_: String).trim.toUpperCase }.toList
         (foundIdsMatchingImportedMd must containAllOf(localeSet)) and (foundIdsMatchingImportedMd must haveSize(maxRecords))
     }
+  }
 
-  }
-  
-  def importExtraMd(numberOfRecords:Int, md:String = "/geonetwork/data/valid-metadata.iso19139.xml", identifier:String, styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE) = {
-    println(md)
+  def importExtraMd(numberOfRecords:Int, md:String = "/geonetwork/data/valid-metadata.iso19139.xml", identifier:String, styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE) =
     importMd(numberOfRecords,md,identifier,styleSheet)
-  }
 
 }

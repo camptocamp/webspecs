@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class SearchOrderSpec extends GeonetworkSpecification { def is =
+class CswSearchOrderSpec extends GeonetworkSpecification { def is =
   "Title search order".title ^
   "Test the search order by title" ^ Step(setup) ^
       "Import several metadata with interesting titles and languages" ^ Step(importMd) ^
@@ -23,7 +23,7 @@ class SearchOrderSpec extends GeonetworkSpecification { def is =
   def importMd = {
     def doImport(lang:String,title:Node) = {
         val replacements = Map("{lang}" -> lang, "{title}" -> title.toString, "{uuid}" -> timeStamp.toString)
-        val impRequest = ImportMetadata.defaultsWithReplacements(replacements, pathToSearchMetadata+"templated-name-lang.iso19139.xml", false, classOf[SearchOrderSpec], ImportStyleSheets.NONE)._2
+        val impRequest = ImportMetadata.defaultsWithReplacements(replacements, pathToSearchMetadata+"templated-name-lang.iso19139.xml", false, getClass, ImportStyleSheets.NONE)._2
         registerNewMd(impRequest.execute().value)
     }
 

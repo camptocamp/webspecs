@@ -4,6 +4,8 @@ package spec.csw
 
 import org.specs2.mutable._
 import csw.CswGetRecordById
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
 /**
  * Specification for GetRecordsById, also an example of how to write a mutable specification
@@ -12,6 +14,7 @@ import csw.CswGetRecordById
  * Date: 1/19/12
  * Time: 8:11 AM
  */
+@RunWith(classOf[JUnitRunner])
 class CswGetRecordsByIdSpec extends GeonetworkSpecification with Specification {
   step(setup)
 

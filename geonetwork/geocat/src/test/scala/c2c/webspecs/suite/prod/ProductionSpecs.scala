@@ -56,10 +56,10 @@ class WP3 extends AbstractAllSpecs("WP 3: Shared Object (No UI)",
 
 @RunWith(classOf[JUnitRunner])
 class WP5 extends AbstractAllSpecs("WP 5: Indexing and searching",
-      classOf[DifferentLanguageSearchSpec],
+      classOf[DifferentLanguageCswSearchSpec],
       classOf[CswResetIndexReaderAfterImportSpec],
-      classOf[SpatialSearchSpec],
-      classOf[SearchOrderSpec])
+      classOf[SpatialCswSearchSpec],
+      classOf[CswSearchOrderSpec])
 
 @RunWith(classOf[JUnitRunner])
 class WP6 extends AbstractAllSpecs("WP 6: Check CSW service",

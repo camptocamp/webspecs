@@ -59,7 +59,7 @@
             <gmd:citation>
                 <gmd:CI_Citation>
                     <gmd:title>
-                        <gco:CharacterString>Title</gco:CharacterString>
+                        <gco:CharacterString>Title{uuid}</gco:CharacterString>
                     </gmd:title>
                     <gmd:date>
                         <gmd:CI_Date>

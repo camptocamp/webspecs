@@ -10,6 +10,6 @@ import org.specs2.runner.JUnitRunner
 import csw._
 
 @RunWith(classOf[JUnitRunner])
-class NonSpatialSearchQuerySpec 
-	extends c2c.webspecs.geonetwork.spec.csw.search.NonSpatialSearchQuerySpec 
+class DifferentLanguageCswSearchSpec 
+	extends c2c.webspecs.geonetwork.spec.csw.search.DifferentLanguageCswSearchSpec 
 	with SearchSpecification

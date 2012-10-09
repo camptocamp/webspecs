@@ -11,8 +11,8 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class SearchOrderSpec 
-	extends c2c.webspecs.geonetwork.spec.csw.search.SearchOrderSpec 
+class CswSearchOrderSpec 
+	extends c2c.webspecs.geonetwork.spec.csw.search.CswSearchOrderSpec 
 	with GeocatSpecification {
   override def pathToSearchMetadata = "/geocat/data/csw/search/"
 }

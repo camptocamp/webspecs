@@ -71,12 +71,12 @@ class WP4 extends AbstractAllSpecs("WP 4: Resolve XLinks",
 
 @RunWith(classOf[JUnitRunner])
 class WP5 extends AbstractAllSpecs("WP 5: Indexing and searching",
-			classOf[NonSpatialSearchQuerySpec],
-			classOf[PagingSearchSpec],
-			classOf[DifferentLanguageSearchSpec],
+			classOf[NonSpatialCswSearchQuerySpec],
+			classOf[PagingCswSearchSpec],
+			classOf[DifferentLanguageCswSearchSpec],
 			classOf[CswResetIndexReaderAfterImportSpec],
-			classOf[SpatialSearchSpec],
-			classOf[SearchOrderSpec])
+			classOf[SpatialCswSearchSpec],
+			classOf[CswSearchOrderSpec])
 
 @RunWith(classOf[JUnitRunner])
 class WP6 extends AbstractAllSpecs("WP 6: Check CSW service",
