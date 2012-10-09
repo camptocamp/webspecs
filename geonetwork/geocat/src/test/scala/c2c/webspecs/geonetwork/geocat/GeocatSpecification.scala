@@ -5,7 +5,7 @@ package geocat
 import scala.xml.NodeSeq
 import UserProfiles._
 
-abstract class GeocatSpecification(userProfile: UserProfile = Editor) extends GeonetworkSpecification(userProfile) {
+trait GeocatSpecification extends GeonetworkSpecification {
 	override def extraSetup(setupContext:ExecutionContext):Unit = {
 		SharedUserProfile.allNames // ensure SharedUserProfile is loaded
 		assert(UserProfiles.all contains SharedUserProfile, "SharedUserProfile has not been loaded");

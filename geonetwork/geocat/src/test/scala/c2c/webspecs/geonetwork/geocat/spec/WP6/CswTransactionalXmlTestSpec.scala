@@ -12,7 +12,7 @@ import c2c.webspecs.geonetwork.UserProfiles
 
 
 @RunWith(classOf[JUnitRunner]) 
-class CswTransactionalXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
+class CswTransactionalXmlTestSpec extends GeocatSpecification {  def is =
 	"GeoNetwork-trunk XML testsuite for CSW server (transactional)".title 					^ Step(setup)                     ^
 	  "Loads a sample metadata"      	 	                			  	                ^ Step(importMetadataId)          ^
 	  "Login as admin"																		^ Step(config.adminLogin.execute())       ^

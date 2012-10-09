@@ -12,7 +12,7 @@ import c2c.webspecs.geonetwork.UserProfiles
 
 
 @RunWith(classOf[JUnitRunner]) 
-class CswXmlTestSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
+class CswXmlTestSpec extends GeocatSpecification {  def is =
 	"GeoNetwork-trunk XML testsuite for CSW server".title 							        ^ Step(setup)                     ^
 	  "Loads a sample metadata"      	 	                			  	                ^ Step(importMetadataId)          ^
     	"Process test using XML file : ${csw-DescribeRecordWithMD_Metadata}"                ! ProceedXmlTest		          ^

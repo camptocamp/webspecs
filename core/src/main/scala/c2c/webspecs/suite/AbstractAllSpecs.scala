@@ -11,7 +11,7 @@ import c2c.webspecs.Properties
 import scala.Option.option2Iterable
 
 abstract class AbstractAllSpecs(title:String, specs: Class[_]*) extends Specification with SpecificationsFinder {
-  Properties.classLoader=getClass().getClassLoader()
+  Properties.specClass=specs(0)
   
   def is = {
     specs.

@@ -6,6 +6,7 @@ import scalax.file.Path
 import scalax.io.Resource
 import scalax.io.Codec
 import java.util.UUID
+import org.apache.http.entity.mime.content.InputStreamBody
 
 object ResourceLoader {
   def loadData(resource: URL, replacements: Map[String, String], fileName: String = "") = {
@@ -28,6 +29,12 @@ object ResourceLoader {
   def loadDataFromClassPath(file: String, cl: Class[_], uuid: UUID) = {
     require(cl.getResource(file) != null, file + " cannot be loaded from the classpath of " + cl.getName + ". Perhaps a / is required at the start of the path?")
     loadData(cl.getResource(file), Map("{uuid}" -> uuid.toString))
+  }
+  
+  def loadImageFromClassPath(file:String, cl: Class[_]) = {
+    val path = Path.fromString(file)
+    val extension = path.extension getOrElse "png"
+    new InputStreamBody(cl.getResourceAsStream(file), "image/"+extension, path.name)
   }
 
 }

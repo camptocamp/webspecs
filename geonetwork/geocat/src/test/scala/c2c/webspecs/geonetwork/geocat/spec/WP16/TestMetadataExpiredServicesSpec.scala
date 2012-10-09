@@ -11,7 +11,7 @@ import c2c.webspecs.GetRequest
 
 
 @RunWith(classOf[JUnitRunner]) 
-class TestMetadataExpiredServicesSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
+class TestMetadataExpiredServicesSpec extends GeocatSpecification {  def is =
 	"Testing metadata.expired.* services".title 															 ^ Step(setup)                           ^
 			"Login as admin"																		 ^ Step(config.adminLogin.execute())             ^
 			"Service metadata.expired.form should be accessible as administrator"   				 ! testMetadataExpiredFormService        ^

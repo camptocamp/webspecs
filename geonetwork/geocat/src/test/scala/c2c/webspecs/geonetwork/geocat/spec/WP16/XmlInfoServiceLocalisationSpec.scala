@@ -13,7 +13,7 @@ import org.specs2.matcher.Matcher
  * Only useful for for production testing
  */
 @RunWith(classOf[JUnitRunner])
-class XmlInfoServiceLocalisationSpec extends GeocatSpecification(UserProfiles.Admin) {
+class XmlInfoServiceLocalisationSpec extends GeocatSpecification {
   def is =
     "Xml.info localization".title ^ Step(setup) ^
       "All categories should have 3 char locale codes" ! categoryLocalization ^

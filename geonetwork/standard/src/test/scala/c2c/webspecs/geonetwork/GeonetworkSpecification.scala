@@ -12,8 +12,8 @@ import scala.collection.mutable.SynchronizedQueue
 import csw._
 
 @RunWith(classOf[JUnitRunner]) 
-abstract class GeonetworkSpecification(userProfile: UserProfile = Editor) extends WebSpecsSpecification[GeonetConfig] {
-  implicit val config = GeonetConfig(userProfile, getClass().getSimpleName)
+trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
+  implicit val config = GeonetConfig(Editor, getClass().getSimpleName)
   lazy val UserLogin = config.login
 
   object template extends Given[String] {

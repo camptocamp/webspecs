@@ -12,7 +12,7 @@ import c2c.webspecs.geonetwork.edit.UpdateMetadata
 
 
 @RunWith(classOf[JUnitRunner]) 
-class MetadataValidationReportSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
+class MetadataValidationReportSpec extends GeocatSpecification {  def is =
 	"metadata.validation.report test".title 														 ^ Step(setup)                       ^
 	"Loads a valid sample metadata"      	 	              									     ^ Step(importValidMetadataId)       ^
 	"Loads an invalid sample metadata"      	 	              									 ^ Step(importInvalidMetadataId)     ^

@@ -14,7 +14,7 @@ import org.specs2.specification.Step
 
 
 @RunWith(classOf[JUnitRunner])
-class NonValidatedSharedObjectSpec extends GeocatSpecification(UserProfiles.Editor) {
+class NonValidatedSharedObjectSpec extends GeocatSpecification {
 	def is = {
 	  "Non-validated reusable objects test".title 	                 ^ Step(setup)               ^
 	  	   "Login as admin"								             ^ Step(config.adminLogin.execute()) ^

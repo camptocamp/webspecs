@@ -12,7 +12,7 @@ import c2c.webspecs.geonetwork.UserProfiles
 
 
 @RunWith(classOf[JUnitRunner])
-class CswGetCapabilitiesServiceUrlSpec extends GeocatSpecification(UserProfiles.Editor) {
+class CswGetCapabilitiesServiceUrlSpec extends GeocatSpecification {
 	def is = {
 	  "CSW GetCapabilities services URL".title 	^ Step(setup) ^
            "Checking GetCapabilities services URL in ${fre}" ! CswTestGetCapabilities ^

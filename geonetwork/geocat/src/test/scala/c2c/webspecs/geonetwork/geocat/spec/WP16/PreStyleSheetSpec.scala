@@ -9,7 +9,7 @@ import org.specs2.specification.Step
 import c2c.webspecs.geonetwork._
 
 @RunWith(classOf[JUnitRunner]) 
-class PreStyleSheetSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
+class PreStyleSheetSpec extends GeocatSpecification {  def is =
 	"Test of the pre-rendering with multiple XSL stylesheet feature".title 							 ^ Step(setup)                       ^
 	"Loads a sample metadata"      	 	              									  		     ^ Step(importMetadataId)            ^
 	"Tests the inserted metadata against the metadata.show.embedded webservice"		                 ! callMetadataShowEmbeddedService   ^

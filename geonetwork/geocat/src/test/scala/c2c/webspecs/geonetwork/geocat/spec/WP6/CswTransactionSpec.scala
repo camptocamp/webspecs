@@ -10,7 +10,7 @@ import org.specs2.specification.Step
 import csw._
 
 @RunWith(classOf[JUnitRunner])
-class CswTransactionSpec extends GeocatSpecification(UserProfiles.Editor) {
+class CswTransactionSpec extends GeocatSpecification {
   def is = {
     "CSW GetCapabilities services URL".title ^ Step(setup) ^
       "CswInsert should insert a new record" ! CswInsert ^

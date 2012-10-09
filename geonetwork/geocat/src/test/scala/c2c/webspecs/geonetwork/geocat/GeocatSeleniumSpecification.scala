@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriverBackedSelenium
 import org.specs2.specification.Fragments
 import org.openqa.selenium.WebDriver
 
-abstract class GeocatSeleniumSpecification extends GeocatSpecification {
+trait GeocatSeleniumSpecification extends GeocatSpecification {
   lazy val driver:WebDriver = new org.openqa.selenium.firefox.FirefoxDriver()
 //  System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY , "/Users/jeichar/Downloads/chromedriver");
   //lazy val driver:WebDriver = new org.openqa.selenium.chrome.ChromeDriver()

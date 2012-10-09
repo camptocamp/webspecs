@@ -13,7 +13,7 @@ import c2c.webspecs.GetRequest
 
 
 @RunWith(classOf[JUnitRunner]) 
-class GM03V2Spec extends GeocatSpecification(UserProfiles.Editor) {
+class GM03V2Spec extends GeocatSpecification {
 	def is = {
 	  "GM03v2 Import - Export test".title 	                                                          ^ Step(setup)            ^
 	  	"Imports a GM03 v2 metadata and converts it into iso19139.che for storage into the catalogue" ^ Step(importMetadataId) ^

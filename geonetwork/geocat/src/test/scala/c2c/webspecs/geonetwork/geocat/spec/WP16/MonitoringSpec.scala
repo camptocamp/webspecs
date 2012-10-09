@@ -14,7 +14,7 @@ import c2c.webspecs.geonetwork.UserProfiles
  * We have migrated to metrics so we need to update this to check metrics instead
  */
 @RunWith(classOf[JUnitRunner]) 
-class MonitoringSpec extends GeocatSpecification(UserProfiles.Admin) {  def is =
+class MonitoringSpec extends GeocatSpecification {  def is =
 	"Monioring Specification".title 														^ Step(setup)           ^
 	        "Add some metadata so that healthchecks will work"                                  ^ Step(importMd)        ^
 			"Get the results of the ${metrics} webservice"										! checkMonitorReport    ^

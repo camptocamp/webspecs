@@ -41,7 +41,8 @@ import java.net.URL
  */
 object Properties {
 
-  var classLoader:ClassLoader = getClass.getClassLoader
+  var specClass:Class[_] = _
+  def classLoader:ClassLoader = specClass.getClassLoader
   def TEST_TAG = "{automated_test_metadata}"
   lazy val testServer = apply("test.server") getOrElse "localhost:8080"
   lazy val all:Map[String,String] = {
@@ -145,20 +146,20 @@ object Properties {
     }
 
     private def defaultOnClassPath(filenameOptions:String*): Option[(String, String)] = {
-      def discovered(classLoader:Option[ClassLoader]) = for {
-        trace <- new Exception().getStackTrace
-        cl <- classLoader
-        canLoadClass <- try { cl.loadClass(trace.getClassName); Some(true) } catch { case _ => None}
-        classAtTrace = cl.loadClass(trace.getClassName)
-        if classOf[WebSpecsSpecification[_]] isAssignableFrom classAtTrace
-        resource <- filenameOptions.foldLeft(None:Option[URL]) {(result, next) => result orElse Option(classAtTrace.getResource(next))}
+      def interfaces(cl:Class[_]):List[Class[_]] = {
+        val int = cl.getInterfaces().toList
+        (int ::: int.flatMap(interfaces)).filter(classOf[WebSpecsSpecification[_]].isAssignableFrom)
+      }
+      val discovered = for {
+        webspecInterface <- interfaces(specClass)
+        resource <- filenameOptions.foldLeft(None:Option[URL]) {(result, nextFileName) =>
+          result orElse Option(webspecInterface.getResource(nextFileName))
+        }
       } yield {
         val path = Path(resource.toURI).get
         (path.parent.get.path, path.name)
       }
-      discovered(Some(Properties.classLoader)).reverse.headOption orElse 
-          discovered(Option(Thread.currentThread().getContextClassLoader())).reverse.headOption  orElse 
-          discovered(Option(Properties.getClass().getClassLoader())).reverse.headOption 
+      discovered.headOption
     }
 
     def load(file: String): InputStreamResource[InputStream] = {
@@ -173,10 +174,13 @@ object Properties {
       val defaults = (defaultOnClassPath(file,rawPath.name).map(paths => (Path.fromString(paths._1) / paths._2).inputStream()))
       val resources = loadedFromClasspath orElse defaults
       if (relativePath.exists) {
+        println("Loading configuration file: "+relativePath)
         relativePath.inputStream()
       } else if (rawPath.exists) {
+        println("Loading configuration file: "+rawPath)
         rawPath.inputStream()
       } else if (resources.isDefined) {
+        println("Loading configuration file: "+resources)
         resources.get
       } else {
         throw new IllegalArgumentException("The configuration file " + file + " was not found either as a raw file string or as relative to " + baseDir)

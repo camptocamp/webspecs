@@ -14,7 +14,7 @@ import java.util.UUID
 @RunWith(classOf[JUnitRunner])
 trait WebSpecsSpecification[C <: Config] extends SpecificationStructure with SpecificationFeatures {
 
-  Properties.classLoader = getClass.getClassLoader
+  Properties.specClass = getClass.asInstanceOf[Class[WebSpecsSpecification[_]]]
   implicit val config: C
   implicit val context = new DefaultExecutionContext()
   implicit val uriResolver = Config.defaultUriResolver
