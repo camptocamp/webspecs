@@ -53,7 +53,10 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
 
     val imgSrcs = editValue.getXml \\ "img" \@ "src" filter (src => src.contains("resources.get") && src.contains("SwitzerlandSketch"))
 
-    val imagesCanBeLoaded = imgSrcs.map {src => GetRequest(src).execute()}.foldLeft (success: Result) {(acc, next) => acc and (next must haveA200ResponseCode)}
+    val imagesCanBeLoaded = imgSrcs.map {src =>
+      val url = if (src.startsWith("http")) src else "http://"+Properties.testServer+"/"+src
+      GetRequest(url).execute()
+    }.foldLeft (success: Result) {(acc, next) => acc and (next must haveA200ResponseCode)}
 
     (response must haveA200ResponseCode) and (imgSrcs must not (beEmpty)) and (imagesCanBeLoaded)
   }
@@ -76,7 +79,10 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
 
     val imgSrcs = editValue.getXml \\ "img" \@ "src" filter (src => src.contains("resources.get") && src.contains("SwitzerlandSketch"))
 
-    val imagesCanBeLoaded = imgSrcs.map {src => GetRequest(src).execute()}.foldLeft (success: Result) {(acc, next) => acc and (next must haveA200ResponseCode)}
+    val imagesCanBeLoaded = imgSrcs.map {src =>
+      val url = if (src.startsWith("http")) src else "http://"+Properties.testServer+"/"+src
+      GetRequest(url).execute()
+    }.foldLeft (success: Result) {(acc, next) => acc and (next must haveA200ResponseCode)}
 
     (response must haveA200ResponseCode) and (imgSrcs must not (beEmpty)) and (imagesCanBeLoaded)  
     

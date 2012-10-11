@@ -48,8 +48,9 @@ case class XmlSearchValues(rawValue:BasicHttpValue) {
 }
 class XmlSearchValue(xml:NodeSeq) {
   override def toString = title
-  val title = recordValue("defaultTitle")
+  val defaultTitle = recordValue("defaultTitle")
+  val title = if(recordValue("title").trim.isEmpty) recordValue("defaultTitle") else recordValue("title")
 
-  def recordValue(name: String) = (xml \ name).text
-  def infoValue(name: String) = (xml \ "info" \ name).text
+  def recordValue(name: String) = (xml \ name).headOption.map(_.text) getOrElse ""
+  def infoValue(name: String) = (xml \ "info" \ name).headOption.map(_.text) getOrElse ""
 }

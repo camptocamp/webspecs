@@ -7,15 +7,17 @@ import scala.xml.Node
 import csw._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import c2c.webspecs.geonetwork.spec.search.SearchSettingsSpecification
 
 @RunWith(classOf[JUnitRunner])
-class CswSearchOrderSpec extends GeonetworkSpecification { def is =
+class CswSearchOrderSpec extends GeonetworkSpecification with SearchSettingsSpecification { def is =
   "Title search order".title ^
-  "Test the search order by title" ^ Step(setup) ^
+  "Test the search order by title" ^ Step(setup) ^ Step(getSearchSetting) ^
+      "Set Search setting so that the request langauge is not sorted and all languages are allowed but the context language is considered" ^ Step(setSearchSetting(only=false, sorted = false, ignored = false)) ^
       "Import several metadata with interesting titles and languages" ^ Step(importMd) ^
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearch ^
       "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearch ^
-                                                                        Step(tearDown)
+                                                                      Step(resetSearchSetting) ^ Step(tearDown)
                                                                         
   def pathToSearchMetadata = "/geonetwork/data/csw/search/"
 
@@ -47,10 +49,10 @@ class CswSearchOrderSpec extends GeonetworkSpecification { def is =
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">b eng en and fr is fr</gmd:LocalisedCharacterString></gmd:textGroup>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">b eng en and fr is en</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
-    doImport("fra", <gmd:PT_FreeText>
+    doImport("fre", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">b fra is fr</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
-    doImport("fra", <gmd:PT_FreeText>
+    doImport("fre", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">A FRA EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">A FRA EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
@@ -66,7 +68,7 @@ class CswSearchOrderSpec extends GeonetworkSpecification { def is =
       ResultTypes.results,
       outputSchema = OutputSchemas.Record,
       elementSetName = ElementSetNames.summary,
-      url = "fra/csw",
+      url = "fre/csw",
       sortBy = List(SortBy("_defaultTitle", true))).execute()
     val records = cswResponse.value.getXml \\ "SummaryRecord" \\ "title" map (_.text)
 

@@ -41,7 +41,8 @@ class GeonetConfig(val userProfile:UserProfiles.UserProfile, specName:String)
     val l = (adminLogin then ListUsers).execute().value
     l
   }
-  lazy val groupsList:List[GroupValue] = ExecutionContext.withDefault{implicit c => (adminLogin then ListGroups).execute().value}
+  lazy val groupsList:List[GroupValue] = ExecutionContext.withDefault{implicit c => 
+    (adminLogin then ListGroups).execute().value}
 
 def mdSearchXml(props:Traversable[PropertyIsLike]) =
     <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType="results" startPosition="1" maxRecords="100">

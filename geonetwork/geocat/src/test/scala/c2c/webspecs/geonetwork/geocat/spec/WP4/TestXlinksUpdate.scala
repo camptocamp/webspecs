@@ -23,14 +23,14 @@ class TestXlinksUpdate extends GeocatSpecification {  def is =
   "This specification tests how xlinks are correctly processed"             					  ^ Step(setup)               ^
       "When a ${data} metadata is imported"                                                       ^ importMetadata.toGiven ^
       "The import must complete successfully"                                                     ^ a200ResponseThen.narrow[Response[(Node,Node)]]  ^
-      "All ${contact} xlinks must have been resolved and there fore have children"			  	  ^ xlinked.toThen ^
-      "All ${descriptiveKeywords} must have been resolved and there fore have children"			  ^ xlinked.toThen ^
-      "All ${citedResponsibleParty} must have been resolved and there fore have children"	 	  ^ xlinked.toThen ^
-      "All ${pointOfContact} must have been resolved and there fore have children"			  	  ^ xlinked.toThen ^
-      "All ${resourceFormat} must have been resolved and there fore have children"			  	  ^ xlinked.toThen ^
-      "All ${userContactInfo} must have been resolved and there fore have children"			      ^ xlinked.toThen ^
-      "All ${distributionFormat} must have been resolved and there fore have children"			  ^ xlinked.toThen ^
-      "All ${distributorContact} must have been resolved and there fore have children"			  ^ xlinked.toThen ^
+      "All ${contact} xlinks must have been resolved and therefore have children"			  	  ^ xlinked.toThen ^
+      "All ${descriptiveKeywords} must have been resolved and therefore have children"			  ^ xlinked.toThen ^
+      "All ${citedResponsibleParty} must have been resolved and therefore have children"	 	  ^ xlinked.toThen ^
+      "All ${pointOfContact} must have been resolved and therefore have children"			  	  ^ xlinked.toThen ^
+      "All ${resourceFormat} must have been resolved and therefore have children"			  	  ^ xlinked.toThen ^
+      "All ${userContactInfo} must have been resolved and therefore have children"			      ^ xlinked.toThen ^
+      "All ${distributionFormat} must have been resolved and therefore have children"			  ^ xlinked.toThen ^
+      "All ${distributorContact} must have been resolved and therefore have children"			  ^ xlinked.toThen ^
                                                                                                   Step(tearDown)
 
 

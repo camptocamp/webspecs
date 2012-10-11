@@ -7,7 +7,10 @@ import edit._
 import formatter._
 import importmetadata._
 import c2c.webspecs.geonetwork.spec.search._
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class AllGeonetworkSpecs
   extends AbstractAllSpecs("AllGeonetworkSpecs",
     classOf[CswSpecs],
@@ -34,7 +37,7 @@ class EditingSpecs
 
 class FormatterSpecs
   extends AbstractAllSpecs("FormatterSpecs",
-    classOf[AddRemoveOverviewSpec])
+    classOf[RegisterFormatterSpec])
 
 class ImportSpecs
   extends AbstractAllSpecs("ImportSpecs",
