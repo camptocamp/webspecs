@@ -33,8 +33,7 @@ class CswSpecs
     classOf[PagingCswSearchSpec])
 
 class EditingSpecs
-  extends AbstractAllSpecs("EditingSpecs",
-    classOf[AddRemoveOverviewSpec])
+  extends AbstractAllSpecs("EditingSpecs")
 
 class FormatterSpecs
   extends AbstractAllSpecs("FormatterSpecs",

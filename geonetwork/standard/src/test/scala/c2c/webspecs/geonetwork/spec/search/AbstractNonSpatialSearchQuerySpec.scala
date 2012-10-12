@@ -93,8 +93,8 @@ trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
 
   private def sortBy = (s: String) => {
     val field = extract1(s)
-    val sortedDescRequest = searchRequest(100, Some(field -> false), (100, "abstract",(time+"NonSpatialSearchQuerySpec")))
-    val sortedAscRequest = searchRequest(100, Some(field -> true), (100, "abstract",(time+"NonSpatialSearchQuerySpec")))
+    val sortedDescRequest = searchRequest(100, Some(field -> false), (1, "abstract",(time+"NonSpatialSearchQuerySpec")))
+    val sortedAscRequest = searchRequest(100, Some(field -> true), (1, "abstract",(time+"NonSpatialSearchQuerySpec")))
 
     val sortedAscResults = findCodesFromResults(sortedAscRequest.execute().value)
     val sortedDescResults = findCodesFromResults(sortedDescRequest.execute().value)
@@ -109,7 +109,7 @@ trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
       override def locale = lang
     }
 
-    val request = searchRequest(100, None, (100, "abstract", ("FRxDEx" + time)))
+    val request = searchRequest(100, None, (1, "abstract", ("FRxDEx" + time)))
     val frResults = findCodesFromResults(request.execute()(context, resolver).value)
     resolver.lang = "ger"
     val deResults = findCodesFromResults(request.execute()(context, resolver).value)
