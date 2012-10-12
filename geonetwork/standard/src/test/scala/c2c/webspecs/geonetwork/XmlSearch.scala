@@ -9,28 +9,18 @@ import xml.NodeSeq
  * Time: 4:23 PM
  */
 
-case class XmlSearch(maxRecords:Int, params:(Any, Any)*)
+case class XmlSearch(from:Int, to:Int, params:(Any, Any)*)
   extends AbstractGetRequest("q", XmlSearchResultFactory,
-    (params ++ Seq('to -> maxRecords, 'fast -> 'index, 'hitsperpage -> maxRecords)).map(Param.stringMapping):_*) {
+    (params ++ Seq('from -> from, 'to -> to, 'fast -> 'index, 'hitsperpage -> (to-from))).map(Param.stringMapping):_*) {
   
   def sortBy(field:Any, ascending:Boolean) = {
     val newParams = {
       val basicSort = Map(params:_*).updated('sortBy, field)
-      if(ascending) basicSort.updated('sortOrder, 'reverse)
+      if(!ascending) basicSort.updated('sortOrder, 'reverse)
       else basicSort
     }
     
-    XmlSearch(maxRecords, newParams.toSeq:_*)
-  }
-  
-  def from(idx: Int) = {
-    val newParams = Map(params: _*).updated('from, idx)
-    XmlSearch(maxRecords, newParams.toSeq: _*)
-  }
-
-  def to(idx: Int) = {
-    val newParams = Map(params: _*).updated('to, idx)
-    XmlSearch(maxRecords, newParams.toSeq: _*)
+    XmlSearch(from, to, newParams.toSeq:_*)
   }
 }
 

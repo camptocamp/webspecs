@@ -16,7 +16,8 @@ class AllGeonetworkSpecs
     classOf[CswSpecs],
     classOf[EditingSpecs],
     classOf[FormatterSpecs],
-    classOf[ImportSpecs])
+    classOf[ImportSpecs],
+    classOf[SearchSpecs])
 
 class CswSpecs
   extends AbstractAllSpecs("EditingSpecs",
@@ -46,7 +47,8 @@ class ImportSpecs
     )
 
 class SearchSpecs
-extends AbstractAllSpecs("AddSampleDataSpec",
-		classOf[AddSampleDataSpec],
-		classOf[ImportMetadataSpec]
+extends AbstractAllSpecs("SearchSpecs",
+		classOf[BasicSearchResetIndexReaderAfterImportSpec],
+		classOf[BasicXmlSearchSpec],
+		classOf[DifferentLanguageBasicSearchSpec]
 		)

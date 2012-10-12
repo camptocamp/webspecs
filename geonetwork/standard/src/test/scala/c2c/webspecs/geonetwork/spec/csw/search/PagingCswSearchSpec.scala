@@ -7,21 +7,10 @@ import c2c.webspecs.geonetwork._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import csw._
+import c2c.webspecs.geonetwork.spec.search.AbstractPagingSearchSpec
 
 @RunWith(classOf[JUnitRunner])
-class PagingCswSearchSpec extends GeonetworkSpecification with SearchSpecification {
-  def is =
-    "Non-spatial search queries".title ^
-      "This specification tests how non-spatial search queries" ^ Step(setup) ^
-      "First import several metadata that are to be searched for" ^ Step(importedMetadataId) ^
-            ("Searching for '" + time + "NonSpatialSearchQuerySpec with a maxSize of 1 should return 1 " +
-          		"record with a hits result of 4") ! checkFirstPage ^ 
-            ("Searching for '" + time + "NonSpatialSearchQuerySpec' with a maxSize of 1 and a startPosition" +
-          		" of 2 should return 1 record with a hits result of 4 and should not be the same page as in page 1") ! checkSecondPage ^ 
-            ("Searching for '" + time + "NonSpatialSearchQuerySpec' with a maxSize of 1 and a startPosition" +
-                    " of 5 should return 0 records with a hits result of 4") ! checkThirdPage ^ 
-  Step(tearDown)
-
+class PagingCswSearchSpec extends GeonetworkSpecification with SearchSpecification with AbstractPagingSearchSpec[XmlValue] {
   def page(i:Int) = {
 
     val xmlResponse = CswGetRecordsRequest(Nil,
@@ -29,39 +18,16 @@ class PagingCswSearchSpec extends GeonetworkSpecification with SearchSpecificati
       outputSchema = OutputSchemas.Record,
       maxRecords = 2,
       startPosition = i,
-      sortBy = List(SortBy("date", false))).execute().value.getXml
+      sortBy = List(SortBy("date", false))).execute().value
 
-    new { 
+    val xml = xmlResponse
+
+    new {
       val codes = findCodesFromResults(xmlResponse)
-      val xml = xmlResponse
-      val totalHits =  (xmlResponse \\ "@numberOfRecordsMatched").text.toInt
-      val recordsReturned = (xmlResponse \\ "@numberOfRecordsReturned").text.toInt
-      val nextRecord = (xmlResponse \\ "@nextRecord").text.toInt
+      val totalHits = (xmlResponse.getXml \\ "@numberOfRecordsMatched").text.toInt
+      val recordsReturned = (xmlResponse.getXml \\ "@numberOfRecordsReturned").text.toInt
+      val nextRecord = (xmlResponse.getXml \\ "@nextRecord").text.toInt
     }
-  }
-  lazy val firstPage = page(1)
-  lazy val secondPage = page(3)
-  
-  def checkFirstPage = {
-    (firstPage.codes must haveSize (2)) and
-        (firstPage.nextRecord must_== 3) and
-        (firstPage.recordsReturned must_== 2) and
-        (firstPage.totalHits must_== 4)
-  }
-
-  def checkSecondPage = {
-    (secondPage.codes must haveSize (2)) and
-      (secondPage.nextRecord must_== 5) and
-      (secondPage.recordsReturned must_== 2) and
-      (secondPage.totalHits must_== 4) and 
-      (secondPage.codes must not contain(firstPage.codes(0), firstPage.codes(1)))
-  }
-  
-  def checkThirdPage = {
-    val thirdPage = page(5)
-  (thirdPage.codes must haveSize (0)) and
-      (thirdPage.recordsReturned must_== 0) and
-      (thirdPage.totalHits must_== 4)
   }
   
 }

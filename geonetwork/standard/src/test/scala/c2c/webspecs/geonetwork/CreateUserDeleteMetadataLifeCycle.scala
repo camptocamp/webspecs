@@ -17,7 +17,7 @@ class CreateUserDeleteMetadataLifeCycle(config: GeonetConfig) extends CreateAsNe
   
   def deleteAllMetadata(implicit executionContext:ExecutionContext, uriResolver:UriResolver) = {
     var loops = 5
-    def search() = XmlSearch(Int.MaxValue).execute()
+    def search() = XmlSearch(1, Int.MaxValue).execute()
     while (search().value.records.nonEmpty && loops > 0) {
       (SelectAll then MetadataBatchDelete).execute()
       loops -= 1
