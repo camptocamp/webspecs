@@ -20,7 +20,7 @@ class AllGeonetworkSpecs
     classOf[SearchSpecs])
 
 class CswSpecs
-  extends AbstractAllSpecs("EditingSpecs",
+  extends AbstractAllSpecs("CswSpecs",
     classOf[CswGetCapabilitiesServiceUrlSpec],
     classOf[CswGetRecordsSpec],
     classOf[CswGetRecordsByIdSpec],
@@ -29,7 +29,9 @@ class CswSpecs
     classOf[CswXmlTestSpec],
     classOf[CswOutputSchemaSpec],
     classOf[CswResetIndexReaderAfterImportSpec],
+    classOf[CswSearchOrderSpec],
     classOf[DifferentLanguageCswSearchSpec],
+    classOf[NonSpatialCswSearchQuerySpec],
     classOf[PagingCswSearchSpec])
 
 class EditingSpecs
@@ -49,5 +51,7 @@ class SearchSpecs
 extends AbstractAllSpecs("SearchSpecs",
 		classOf[BasicSearchResetIndexReaderAfterImportSpec],
 		classOf[BasicXmlSearchSpec],
+		classOf[BasicSearchOrderSpec],
+		classOf[NonSpatialBasicSearchQuerySpec],
 		classOf[DifferentLanguageBasicSearchSpec]
 		)

@@ -11,7 +11,8 @@ import c2c.webspecs.geonetwork.spec.search.AbstractNonSpatialSearchQuerySpec
 
 @RunWith(classOf[JUnitRunner])
 class NonSpatialCswSearchQuerySpec extends GeonetworkSpecification with SearchSpecification with AbstractNonSpatialSearchQuerySpec[XmlValue]{
-  
+  override def anyFieldName = "AnyText"
+
   override def searchRequest(maxRecords: Int, sortByField: Option[(String, Boolean)], properties: (Double, String, String)*) = {
     val propertiesIsEqualToList:Seq[OgcFilter] = properties.flatMap(p => List(PropertyIsEqualTo("similarity", p._1.toString), PropertyIsEqualTo(p._2, p._3)))
     val filter = if (properties.isEmpty) {

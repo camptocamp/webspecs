@@ -4,19 +4,19 @@ package spec.search
 import org.specs2.specification.Step
 import org.specs2.specification.Fragments
 
-trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
+trait AbstractNonSpatialSearchQuerySpec[SearchResult] extends SearchSettingsSpecification {
   self: GeonetworkSpecification with AbstractSearchSpecification[SearchResult] =>
   def is =
     "Non-spatial search queries".title ^
-      "This specification tests how non-spatial search queries" ^ Step(setup) ^
+      "This specification tests how non-spatial search queries" ^ Step(setup) ^ Step(setSearchSetting(only="prefer_docLocale", sorted = false, ignored = false)) ^
       "First import several metadata that are to be searched for" ^ Step(importedMetadataId) ^
           "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results" ! currentLanguageFirst ^
           "When searching for a term that is in several metadata; one should be able to sort by ${title}" ! sortBy ^
           "When searching for a term that is in several metadata; one should be able to sort by ${date}" ! sortBy ^
           "Searching for ${XX-" + uuid + "} in ${fileId} should return the ${XX} md" ! basicSearch() ^
-          "Searching for ${" + time + "NonSpatialSearchQuerySpec FRA} in ${AnyText} should return the ${FR and XX} should be the hits" ! basicSearch ^
-          "Searching for ${FRA " + time + "NonSpatialSearchQuerySpec} as seperate terms in ${AnyText} should return the ${FR and XX} as the hits" ! basicSearch(split = Some(' ')) ^
-          "Searching for ${" + time + "NonSpatialSearchQuerySpec} in ${AnyText} should return ${all} imported md" ! basicSearch ^
+          "Searching for ${" + time + "NonSpatialSearchQuerySpec FRA} in ${"+anyFieldName+"} should return the ${FR and XX} should be the hits" ! basicSearch ^
+          "Searching for ${FRA " + time + "NonSpatialSearchQuerySpec} as seperate terms in ${"+anyFieldName+"} should return the ${FR and XX} as the hits" ! basicSearch(split = Some(' ')) ^
+          "Searching for ${" + time + "NonSpatialSearchQuerySpec} in ${"+anyFieldName+"} should return ${all} imported md" ! basicSearch ^
           "Searching for ${" + time + "NonSpatialSearchQuerySpec} in ${title} should return ${all} imported md" ! basicSearch ^
           "Searching for ${" + time + "NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md" ! basicSearch ^
           "Searching for ${" + time + "NonXpatialSearchQuerySpec} in ${abstract} should return ${all} imported md when similarity is set to .8" ! basicSearch(similarity = 0.8) ^
@@ -30,25 +30,16 @@ trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
           "Searching for ${le " + time + "NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in french" ! basicSearch(lang = "fre") ^
           "Searching for ${the " + time + "NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in english" ! basicSearch(lang = "eng") ^
           "Searching for ${einem " + time + "NonSpatialSearchQuerySpec} in ${abstract} should return ${all} imported md because le is a stop word in german" ! basicSearch(lang = "ger") ^
-          "Searching for ${" + time + "-hyphen} in ${abstract} should return ${FR} imported md because the '-' is ignored during indexing" ! basicSearch(split = Some('-')) ^
-          "Searching for ${" + time + "-hyphen} in ${AnyText} should return ${FR} imported md because the '-' is ignored during indexing" ! basicSearch(split = Some('-')) ^
-          "Searching for ${" + time + " hyphen} in ${abstract} should return ${FR} imported md because the '-' is ignored during indexing" ! basicSearch(split = Some('-')) ^
           "Searching for ${" + time + " space} in ${abstract} should return ${FR} imported md because the ' ' is ignored during indexing" ! basicSearch(split = Some(' ')) ^
-          "Searching for ${" + time + "_underscore} in ${abstract} should return ${FR} imported md because the '_' is ignored during indexing" ! basicSearch(split = Some('_')) ^
-          "Searching for ${" + time + "_underscore} in ${AnyText} should return ${FR} imported md because the '_' is ignored during indexing" ! basicSearch(split = Some('_')) ^
-          "Searching for ${" + time + " underscore} in ${abstract} should return ${FR} imported md because the '_' is ignored during indexing" ! basicSearch(split = Some('_')) ^
-          "Searching for ${" + time + "/forwardSlash} in ${abstract} should return ${FR} imported md because the '/' is ignored during indexing" ! basicSearch(split = Some('/')) ^
-          "Searching for ${" + time + "/forwardSlash} in ${AnyText} should return ${FR} imported md because the '/' is ignored during indexing" ! basicSearch(split = Some('/')) ^
-          "Searching for ${" + time + " forwardSlash} in ${abstract} should return ${FR} imported md because the '/' is ignored during indexing" ! basicSearch(split = Some('/')) ^
-          "Searching for ${" + time + "\\backSlash} in ${AnyText} should return ${FR} imported md because the '\' is ignored during indexing" ! basicSearch(split = Some('\\')) ^
+          "Searching for ${" + time + "\\backSlash} in ${"+anyFieldName+"} should return ${FR} imported md because the '\' is ignored during indexing" ! basicSearch(split = Some('\\')) ^
           "Searching for ${" + time + "\\backSlash} in ${abstract} should return ${FR} imported md because the '\' is ignored during indexing" ! basicSearch(split = Some('\\')) ^
           "Searching for ${" + time + " backSlash} in ${abstract} should return ${FR} imported md because the '\' is ignored during indexing" ! basicSearch(split = Some('\\')) ^
-          "Searching for ${" + time + ",comma} in ${AnyText} should return ${FR} imported md because the ',' is ignored during indexing" ! basicSearch(split = Some(',')) ^
+          "Searching for ${" + time + ",comma} in ${"+anyFieldName+"} should return ${FR} imported md because the ',' is ignored during indexing" ! basicSearch(split = Some(',')) ^
           "Searching for ${" + time + ",comma} in ${abstract} should return ${FR} imported md because the ',' is ignored during indexing" ! basicSearch(split = Some(',')) ^
-          "Searching for ${" + time + " comma} in ${AnyText} should return ${FR} imported md because the ',' is ignored during indexing" ! basicSearch(split = Some(',')) ^
+          "Searching for ${" + time + " comma} in ${"+anyFieldName+"} should return ${FR} imported md because the ',' is ignored during indexing" ! basicSearch(split = Some(',')) ^
           "Searching for ${" + time + " comma} in ${abstract} should return ${FR} imported md because the ',' is ignored during indexing" ! basicSearch(split = Some(',')) ^
           "Searching for ${" + time + ".point} in ${abstract} should return ${FR} imported md because the '.' is ignored during indexing" ! basicSearch(split = Some('.')) ^
-          "Searching for ${" + time + ".point} in ${AnyText} should return ${FR} imported md because the '.' is ignored during indexing" ! basicSearch(split = Some('.')) ^
+          "Searching for ${" + time + ".point} in ${"+anyFieldName+"} should return ${FR} imported md because the '.' is ignored during indexing" ! basicSearch(split = Some('.')) ^
           "Searching for ${" + time + " point} in ${abstract} should return ${FR} imported md because the '.' is ignored during indexing" ! basicSearch(split = Some('.')) ^
           "Searching for ${" + time + "nonspatialsearchqueryspec} in ${abstract} should return ${all} imported md because the case is ignored" ! basicSearch ^
           "Searching for ${" + time + "NONSPATIALSEARCHQUERYSPEC} in ${abstract} should return ${all} imported md because the case is ignored" ! basicSearch ^
@@ -63,7 +54,9 @@ trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
           "Searching for ${service-OGC:WMS} in ${type} should return ${FR} imported md " ! basicSearch ^
           "Searching for ${testGroup} in ${_groupOwner} should return ${all} imported md " ! basicSearch ^
           extraTests ^
-          Step(tearDown)
+          Step(resetSearchSetting) ^ Step(tearDown)
+
+  def anyFieldName = "any"
 
   /**
    * @param maxRecords max results to return
@@ -74,7 +67,7 @@ trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
   
   def extraTests:Fragments = "no extra tests" ^ endp
 
-  private def basicSearch(implicit maxRecords: Int = -1, similarity: Double = 1, lang: String = "fre", split: Option[Char] = None) = (s: String) => {
+  protected def basicSearch(implicit maxRecords: Int = -1, similarity: Double = 1, lang: String = "fre", split: Option[Char] = None) = (s: String) => {
     val (searchTerm, field, expectedMetadata) = extract3(s)
     val allSearchTerms = split map { div => searchTerm.split(div) } getOrElse Array(searchTerm) collect {
       case "testGroup" => config.groupId
@@ -91,7 +84,7 @@ trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
     find(results, expectedMetadata, maxRecords)
   }
 
-  private def sortBy = (s: String) => {
+  protected def sortBy = (s: String) => {
     val field = extract1(s)
     val sortedDescRequest = searchRequest(100, Some(field -> false), (1, "abstract",(time+"NonSpatialSearchQuerySpec")))
     val sortedAscRequest = searchRequest(100, Some(field -> true), (1, "abstract",(time+"NonSpatialSearchQuerySpec")))
@@ -102,7 +95,7 @@ trait AbstractNonSpatialSearchQuerySpec[SearchResult] {
     (sortedDescResults must contain("DE", "EN", "FR", "XX")) and
       (sortedDescResults must contain("XX", "FR", "EN", "DE"))
   }
-  private def currentLanguageFirst = {
+  protected def currentLanguageFirst = {
     
     implicit val resolver = new GeonetworkURIResolver(){
       var lang = "fre"
