@@ -13,7 +13,7 @@ object XmlSearchApp extends WebspecsApp {
     override def baseServer = "ec2-46-51-142-140.eu-west-1.compute.amazonaws.com"
   }
   
-  val request = XmlSearch(10, '_isHarvested -> "n" )
+  val request = XmlSearch(1, 10, '_isHarvested -> "n" )
   
   println(request.execute()(executionContext, gcResolver).value.summary)
   println(request.execute()(executionContext, jenkinsResolver).value.summary)

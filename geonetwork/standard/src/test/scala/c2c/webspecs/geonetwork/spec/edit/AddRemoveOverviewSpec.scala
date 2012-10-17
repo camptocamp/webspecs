@@ -19,13 +19,13 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
     Step(setup) ^ sequential ^
       "Add data to test against"     ^ Step(importTestData) ^
       "StartEditing"				 ! startEditing ^
-      "Add small ${scaled} thumbnail"     ! addSmallThumbnail ^
-      "Replace thumbnail with small ${non-scaled} thumbnail" ! addSmallThumbnail ^
-      "Replace thumbnail with large thumbnail ${scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
-      "Replace thumbnail with large thumbnail ${non-scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
-      "Replace thumbnail with large thumbnail ${scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
-      "Replace thumbnail with large thumbnail ${non-scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
-      Step (tearDown)
+      "Add small ${scaled} thumbnail"     ! addSmallThumbnail
+//      "Replace thumbnail with small ${non-scaled} thumbnail" ! addSmallThumbnail ^
+//      "Replace thumbnail with large thumbnail ${scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
+//      "Replace thumbnail with large thumbnail ${non-scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
+//      "Replace thumbnail with large thumbnail ${scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
+//      "Replace thumbnail with large thumbnail ${non-scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
+//      Step (tearDown)
 
   // allow overriding imported metadata for specific apps like Geocat.ch
   def metadataToImport = "/geonetwork/data/valid-metadata.iso19139.xml"
@@ -51,6 +51,8 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
     val response = SetSmallThumbnail(editValue,img, scaling = scaling).execute()
     editValue = response.value
 
+    println(editValue.getXml)
+    
     val imgSrcs = editValue.getXml \\ "img" \@ "src" filter (src => src.contains("resources.get") && src.contains("SwitzerlandSketch"))
 
     val imagesCanBeLoaded = imgSrcs.map {src =>

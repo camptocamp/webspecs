@@ -16,7 +16,12 @@ trait SearchSettingsSpecification {
     XmlPostRequest("xml.config.set", <config>{getSearchSetting \ "site"}{settings}</config>).execute() must haveA200ResponseCode
   }
   def resetSearchSetting = doSetSearchSettings(getSearchSetting \ "requestedLanguage")
-  def setSearchSetting(only:Boolean, sorted:Boolean, ignored:Boolean) = {
+  /**
+   * Valid values of only are 
+   * "off", "prefer_locale", "prefer_docLocale"
+   * "only_locale", "only_docLocale"
+   */
+  def setSearchSetting(only:String, sorted:Boolean, ignored:Boolean) = {
     doSetSearchSettings(<requestedLanguage>
     <only>{only}</only>
     <sorted>{sorted}</sorted>

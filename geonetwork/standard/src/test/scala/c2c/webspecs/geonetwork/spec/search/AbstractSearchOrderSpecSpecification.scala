@@ -17,19 +17,19 @@ trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
   "Title search order".title ^
   "Test the search order by title" ^ Step(setup) ^ Step(getSearchSetting) ^
       "Import several metadata with interesting titles and languages" ^ Step(importMd) ^ endp ^
-      "Set Search setting so that the request langauge is not sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only=false, sorted = false, ignored = false)) ^
+      "Set Search setting so that the request language is not sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = false)) ^
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearch ^
       "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearch ^ endp ^
-      "Set Search setting so that the request langauge is not sorted and only the context language is allowed" ^ Step(setSearchSetting(only=true, sorted = false, ignored = false)) ^
-      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchOnly ^
-      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchOnly ^ endp ^
-      "Set Search setting so that the request langauge is sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only=false, sorted = true, ignored = false)) ^
+      "Set Search setting so that the request language is not sorted and only documents of the the context language is allowed" ^ Step(setSearchSetting(only="only_docLocale", sorted = false, ignored = false)) ^
+      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleDocLocaleSearchOnly ^
+      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleDocLocaleSearchOnly ^ endp ^
+      "Set Search setting so that the request language is not sorted and only documents with abstract in the context language is allowed" ^ Step(setSearchSetting(only="only_locale", sorted = false, ignored = false)) ^
+      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleLocaleSearchOnly ^
+      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleLocaleSearchOnly ^ endp ^
+      "Set Search setting so that the request language is sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only="prefer_locale", sorted = true, ignored = false)) ^
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchSorted ^
       "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchSorted ^ endp ^
-      "Set Search setting so that the request langauge is sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only=false, sorted = true, ignored = false)) ^
-      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchSorted ^
-      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchSorted ^ endp ^
-      "Set Search setting so that the request langauge is not sorted and the context language is ignored" ^ Step(setSearchSetting(only=false, sorted = false, ignored = true)) ^
+      "Set Search setting so that the request language is not sorted and the context language is ignored" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = true)) ^
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchIgnored ^
       "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchIgnored ^ endp ^
                                                                 Step(resetSearchSetting)   ^ Step(tearDown)
@@ -59,8 +59,8 @@ trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">A ENG EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("eng", <gmd:PT_FreeText>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">B ENG EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">Z ENG EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">B2 ENG EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">Z2 ENG EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("eng", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">G eng is fr</gmd:LocalisedCharacterString></gmd:textGroup>
@@ -77,46 +77,57 @@ trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">A FRA EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("fre", <gmd:PT_FreeText>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">Z FRA EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">B FRA EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">Z3 FRA EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">B3 FRA EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
   }
 
   def frTitleSearch = {
     val titles = doSearch("fre")
-    titles must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "B ENG EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "G eng is fr", "xx", "yy", "Z FRA EN and FR is FR", "zz").only.inOrder
+    titles must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "B2 ENG EN and FR is FR", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only.inOrder
   }
   def enTitleSearch = {
     val titles = doSearch("eng")
-    titles must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "B FRA EN and FR is FR", "b fra is fr", "G eng is fr", "xx", "yy", "Z ENG EN and FR is EN", "zz").only.inOrder
+    titles must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
   }
-  def frTitleSearchOnly = {
+  def frTitleDocLocaleSearchOnly = {
     val records = doSearch("fre")
-    records must contain("A FRA EN and FR is FR", "b fra is fr").only.inOrder
+    records must contain("A FRA EN and FR is FR", "b fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
   }
-  def enTitleSearchOnly = {
+  def enTitleDocLocaleSearchOnly = {
     val records = doSearch("eng")
-    records must contain("A ENG EN and FR is EN", "b eng en and fr is en", "b fra is fr", "A ENG EN and FR is FR", "G eng is fr", "zz").only.inOrder
+    records must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "Z2 ENG EN and FR is EN", "zz").only.inOrder
+  }
+  def frTitleLocaleSearchOnly = {
+    val records = doSearch("fre")
+    records must contain("A FRA EN and FR is FR", "b fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
+  }
+  def enTitleLocaleSearchOnly = {
+    val records = doSearch("eng")
+    // Note: all docs have abstract in english so searching by locale finds all documents
+    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
   }
   def frTitleSearchSorted = {
     val records = doSearch("fre")
-    (records.take(2) must contain("A FRA EN and FR is FR", "b fra is fr", "Z FRA EN and FR is FR").only.inOrder) and
-    (records must contain("A ENG EN and FR is FR", "b eng en and fr is fr", "G eng is fr", "zz" ).inOrder) and 
-    (records must contain("xx", "yy").inOrder)
+    (records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "B2 ENG EN and FR is FR", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only) and
+    (records.take(3) must contain("A FRA EN and FR is FR", "b fra is fr", "Z3 FRA EN and FR is FR").only.inOrder) and
+    (records.drop(3) must contain("A ENG EN and FR is FR", "b eng en and fr is fr", "G eng is fr", "zz" ).inOrder) and 
+    (records.drop(3) must contain("xx", "yy").inOrder)
   }
   def enTitleSearchSorted = {
     val records = doSearch("eng")
-    (records.take(4) must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "zz").only.inOrder) and 
-    (records must contain("xx", "yy").inOrder) and
-    (records must contain("A FRA EN and FR is EN", "b fra is fr").inOrder)
+    (records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only) and
+    (records.take(5) must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "Z2 ENG EN and FR is EN", "zz").only.inOrder) and 
+    (records.drop(5) must contain("xx", "yy").inOrder) and
+    (records.drop(5) must contain("A FRA EN and FR is EN", "b fra is fr", "B3 FRA EN and FR is EN").inOrder)
   }
   def frTitleSearchIgnored = {
     val records = doSearch("fre")
-    records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr",  "b fra is fr", "G eng is fr", "xx", "yy", "zz").only.inOrder
+    records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "B2 ENG EN and FR is FR", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only.inOrder
   }
   def enTitleSearchIgnored = {
     val records = doSearch("eng")
-    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "G eng is fr", "xx", "yy", "zz").only.inOrder
+    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
   }
 
 }

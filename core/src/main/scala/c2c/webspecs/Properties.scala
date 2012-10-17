@@ -147,8 +147,8 @@ object Properties {
 
     private def defaultOnClassPath(filenameOptions:String*): Option[(String, String)] = {
       def interfaces(cl:Class[_]):List[Class[_]] = {
-        val int = cl.getInterfaces().toList
-        (int ::: int.flatMap(interfaces)).filter(classOf[WebSpecsSpecification[_]].isAssignableFrom)
+        val int = Option(cl).flatMap(i => Option(i.getInterfaces())).toList.flatten
+        (int ::: int.flatMap(interfaces) ::: List(classOf[WebSpecsSpecification[_]])).filter(classOf[WebSpecsSpecification[_]].isAssignableFrom)
       }
       val discovered = for {
         webspecInterface <- interfaces(specClass)
