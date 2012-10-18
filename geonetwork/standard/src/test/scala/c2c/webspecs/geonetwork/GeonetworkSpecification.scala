@@ -63,7 +63,7 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
   
 
   def correctResults(numberOfRecords:Int, identifier:String) = (s:String) => {
-    val results = XmlSearch(1, 10, 'any -> ("Title"+identifier)).execute().value
+    val results = XmlSearch().to(10).search('any -> ("Title"+identifier)).execute().value
 
     results.size must_== numberOfRecords
   }
@@ -78,7 +78,7 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
     if(adminLogin) config.adminLogin.execute()
 
     var loops = 5
-    def search() = XmlSearch(1, Int.MaxValue).execute()
+    def search() = XmlSearch().execute()
     while (search().value.records.nonEmpty && loops > 0) {
       (SelectAll then MetadataBatchDelete).execute()
       loops -= 1

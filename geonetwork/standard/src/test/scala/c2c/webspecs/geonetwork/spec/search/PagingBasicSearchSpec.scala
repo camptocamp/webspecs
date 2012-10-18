@@ -11,15 +11,15 @@ import csw._
 @RunWith(classOf[JUnitRunner])
 class PagingBasicSearchSpec extends GeonetworkSpecification with SearchSpecification with AbstractPagingSearchSpec[XmlSearchValues] {
 
-  def page(i: Int) = {
-    val xmlResponse = XmlSearch(i,i+2, 'abstract -> (time + "NonSpatialSearchQuerySpec")).sortBy("date", false).execute().value
+  def page(startRecord: Int) = {
+    val records = XmlSearch().range(startRecord, startRecord+1).search('abstract -> (time + "NonSpatialSearchQuerySpec")).sortBy("date", false).execute().value
 
-    val records = xmlResponse
     new {
-      val codes = findCodesFromResults(xmlResponse)
-      val nextRecord = records.to
-      val recordsReturned = records.to - records.from
-      val totalHits = records.size
+      val codes = findCodesFromResults(records)
+      val nextRecord = records.to + 1
+      val recordsReturned = records.size
+      val totalHits = records.count
     }
   }
+  override def minimumRecordReturned = 1
 }

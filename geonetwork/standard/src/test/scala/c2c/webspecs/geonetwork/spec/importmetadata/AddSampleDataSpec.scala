@@ -29,6 +29,6 @@ class AddSampleDataSpec extends GeonetworkSpecification {
       ((addSampleData.value.getXml \\ "@status").text.trim must_== "true")
 
   }
-  def dataHasBeenAdded = XmlSearch(1, 5).execute().value.records.size must be_> (0)
+  def dataHasBeenAdded = XmlSearch().range(1,5).execute().value.records.size must be_> (0)
     
 }

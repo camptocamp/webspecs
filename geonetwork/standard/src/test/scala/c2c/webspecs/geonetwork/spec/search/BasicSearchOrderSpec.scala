@@ -11,10 +11,8 @@ class BasicSearchOrderSpec extends GeonetworkSpecification with AbstractSearchOr
     implicit val fraresolver = new GeonetworkURIResolver() {
       override def locale = lang
     }
-    val response = XmlSearch(1, 10,
-      "abstract" -> timeStamp,
-      "sortBy" -> "_title",
-      'sortOrder -> 'reverse).execute()(context, fraresolver)
+    val response = XmlSearch().to(10).search(
+      'abstract -> timeStamp).sortBy("_title", true).execute()(context, fraresolver)
     val records = response.value.records
 
     records map (_.title)

@@ -33,7 +33,7 @@ trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchIgnored ^
       "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchIgnored ^ endp ^
                                                                 Step(resetSearchSetting)   ^ Step(tearDown)
-                                                                        
+
   def pathToSearchMetadata = "/geonetwork/data/csw/search/"
   def doSearch(lang:String): Seq[String]
 

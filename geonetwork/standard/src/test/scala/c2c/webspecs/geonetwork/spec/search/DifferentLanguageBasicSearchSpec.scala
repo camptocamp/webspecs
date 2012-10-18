@@ -12,7 +12,7 @@ class DifferentLanguageBasicSearchSpec extends GeonetworkSpecification with Sear
   
   def search = (string:String) => {
     val lang = extract1(string)
-    val results = XmlSearch(1, 10, 'any -> ("Title"+datestamp)).execute().value
+    val results = XmlSearch().to(10).search('any -> ("Title"+datestamp)).execute().value
 
     results.size must_== 2
   }

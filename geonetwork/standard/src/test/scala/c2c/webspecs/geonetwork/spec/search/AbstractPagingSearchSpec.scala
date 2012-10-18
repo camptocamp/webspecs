@@ -18,7 +18,11 @@ trait AbstractPagingSearchSpec[SearchResult] {
                     " of 5 should return 0 records with a hits result of 4") ! checkThirdPage ^ 
   Step(tearDown)
 
-  def page(i: Int): {
+  def minimumRecordReturned = 0
+  /**
+   * make a search request with the first record being "startRecord".  The search should be limitted to 2 records
+   */
+  def page(startRecord: Int): {
     def codes: Seq[String]
     def nextRecord: Int
     def recordsReturned: Int
@@ -45,8 +49,8 @@ trait AbstractPagingSearchSpec[SearchResult] {
 
   def checkThirdPage = {
     val thirdPage = page(5)
-    (thirdPage.codes must haveSize(0)) and
-      (thirdPage.recordsReturned must_== 0) and
+    (thirdPage.codes must haveSize(minimumRecordReturned)) and
+      (thirdPage.recordsReturned must_== minimumRecordReturned) and
       (thirdPage.totalHits must_== 4)
   }
   

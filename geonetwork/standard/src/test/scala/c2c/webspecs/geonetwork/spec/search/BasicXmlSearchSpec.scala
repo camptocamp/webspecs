@@ -21,13 +21,13 @@ class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
                                                             Step (tearDown)
 
   def fullSearch = {
-    val response = XmlSearch(1, 100).execute()
+    val response = XmlSearch().to(100).execute()
     
     (response must haveA200ResponseCode) and
     	((response.value.xml \ "summary" \ "@count" text).toInt must be_> (0))
   }
   val equalsDenominator = (s:String) => {
-    val response = XmlSearch(1, 100, 'denominator -> extract1(s)).execute()
+    val response = XmlSearch().to(100).search('denominator -> extract1(s)).execute()
 
     (response must haveA200ResponseCode) and
       (response.value.xml.text must contain("da165110-88fd-11da-a88f-000d939bc5d8"))
@@ -35,7 +35,7 @@ class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
 
   val rangeDenominator = (s:String) => {
     val (from,to,pass) = extract3(s)
-    val response = XmlSearch(1, 100, 'denominatorFrom -> from, 'denominatorTo -> to).execute()
+    val response = XmlSearch().to(100).search('denominatorFrom -> from, 'denominatorTo -> to).execute()
 
     (response must haveA200ResponseCode) and
       (if(pass == "pass") response.value.xml.text must contain("da165110-88fd-11da-a88f-000d939bc5d8")
@@ -49,7 +49,7 @@ class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
     }
 
     val params = List('westBL -> -17.3, 'eastBL -> 51.1, 'southBL -> -34.6, 'northBL -> 38.2) ++ relationParam
-    val result = XmlSearch(1, 50, params.toList:_*).execute()
+    val result = XmlSearch().to(50).search(params.toList:_*).execute()
 
     (result must haveA200ResponseCode) and
       (result.value.xml.text must contain("da165110-88fd-11da-a88f-000d939bc5d8"))

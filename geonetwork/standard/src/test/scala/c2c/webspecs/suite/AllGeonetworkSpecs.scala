@@ -47,11 +47,14 @@ class ImportSpecs
     classOf[ImportMetadataSpec]
     )
 
+@RunWith(classOf[JUnitRunner])
 class SearchSpecs
 extends AbstractAllSpecs("SearchSpecs",
 		classOf[BasicSearchResetIndexReaderAfterImportSpec],
 		classOf[BasicXmlSearchSpec],
 		classOf[BasicSearchOrderSpec],
 		classOf[NonSpatialBasicSearchQuerySpec],
-		classOf[DifferentLanguageBasicSearchSpec]
+		classOf[PagingBasicSearchSpec],
+		classOf[DifferentLanguageBasicSearchSpec],
+		classOf[SelectAllBugSpec]
 		)

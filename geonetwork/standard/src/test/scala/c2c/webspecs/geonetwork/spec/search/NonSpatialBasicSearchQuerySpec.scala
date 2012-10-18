@@ -19,6 +19,6 @@ class NonSpatialBasicSearchQuerySpec extends GeonetworkSpecification with Search
     }}.getOrElse (Nil)
     
     val sortAndFilter = sortBy ::: filter
-    XmlSearch(1, maxRecords, sortAndFilter: _*)
+    XmlSearch().to(maxRecords).search(sortAndFilter: _*)
   }
 }
