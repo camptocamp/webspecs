@@ -10,4 +10,4 @@ package geonetwork
  * Date: 1/19/12
  * Time: 9:07 PM
  */
-case class SetSequentialExecution(value:Boolean) extends AbstractGetRequest("system.properties.set", XmlValueFactory, SP('name -> "geonetwork.sequential.execution"), SP('value -> value))
+case class SetUseNRTManagerReopenThread(value:Boolean) extends AbstractGetRequest("system.properties.set", XmlValueFactory, SP('name -> "useNRTManagerReopenThread"), SP('value -> value))

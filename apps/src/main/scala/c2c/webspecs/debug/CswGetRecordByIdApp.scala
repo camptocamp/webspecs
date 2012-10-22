@@ -2,7 +2,9 @@ package c2c.webspecs
 package debug
 
 import c2c.webspecs.geonetwork.csw._
+import c2c.webspecs.geonetwork.GeonetworkSpecification
 object CswGetRecordByIdApp extends WebspecsApp {
+  def referenceSpecClass = classOf[GeonetworkSpecification]
   	//LoginRequest("admin","admin")()
 //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
     

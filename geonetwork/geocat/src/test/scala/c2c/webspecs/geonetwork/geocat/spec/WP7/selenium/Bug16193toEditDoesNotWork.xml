@@ -36,7 +36,7 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=ext-gen53</td>
+	<td>//div[./input/@id='toPublish']</td>
 	<td></td>
 </tr>
 <!--- uncheck toEdit and check toPublish.  The MD should be there-->
@@ -52,10 +52,9 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>id=ext-gen53</td>
+	<td>//table[@id='searchBt']//button</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

@@ -1,6 +1,6 @@
 package c2c.webspecs
 package geonetwork
-package spec.csw
+package spec.csw.search
 
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner

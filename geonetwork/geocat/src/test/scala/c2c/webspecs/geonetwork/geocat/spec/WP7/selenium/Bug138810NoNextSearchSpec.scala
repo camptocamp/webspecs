@@ -34,7 +34,7 @@ class Bug138810NoNextSearchSpec extends GeocatSeleniumSpecification with ThrownE
     "assert there are 11 results and results 1 - 10 are showing"                ! scala_specs2_14^
     "assert there is a next button"                                             ! scala_specs2_15^
     "check that the results are displayed"                                      ! scala_specs2_16^
-    "Log back out"                                                              ! scala_specs2_17
+    "Log back out"                                                   ! scala_specs2_17
 
   def scala_specs2_1 = {
     import selenium._

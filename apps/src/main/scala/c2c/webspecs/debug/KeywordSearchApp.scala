@@ -4,10 +4,12 @@ import c2c.webspecs.geonetwork.csw.CswGetRecordsRequest
 import c2c.webspecs.geonetwork.csw.PropertyIsEqualTo
 import c2c.webspecs.geonetwork.csw.ResultTypes
 import c2c.webspecs.geonetwork.csw.OutputSchemas
+import c2c.webspecs.geonetwork.GeonetworkSpecification
 
 
 
 object KeywordSearchApp extends WebspecsApp {
+  def referenceSpecClass = classOf[GeonetworkSpecification]
   	val filter = PropertyIsEqualTo("keyword", "e-geo.ch Geoportal") 
     val result = CswGetRecordsRequest(filter.xml, 
         resultType=ResultTypes.results, 

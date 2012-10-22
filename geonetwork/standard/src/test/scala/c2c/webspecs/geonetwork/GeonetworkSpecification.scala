@@ -34,6 +34,7 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
     // don't chain requests because SetSequential is available on all GN instances
     config.adminLogin.assertPassed()
     SetSequentialExecution(true).assertPassed() 
+    SetUseNRTManagerReopenThread(true).assertPassed() 
     UserLogin.assertPassed()
   }
   
@@ -41,12 +42,13 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
     super.extraTeardown(tearDownContext)
     config.adminLogin.execute()
 
-    SetSequentialExecution(false).execute()
-
     mdToDelete foreach {id => 
       try {DeleteMetadata.execute(id) }
       catch { case _ => println("Error deleting: "+ id) }
     }
+
+    SetSequentialExecution(false).execute()
+    SetUseNRTManagerReopenThread(false).execute()
   }
 
   def importMd(numberOfRecords:Int, md:String, identifier:String, styleSheet:ImportStyleSheets.ImportStyleSheet = ImportStyleSheets.NONE) = {

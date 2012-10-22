@@ -4,7 +4,8 @@ import scala.compat.Platform.currentTime
 import scala.collection.mutable.ListBuffer
 
 trait WebspecsApp extends DelayedInit {
-  Properties.specClass = getClass()
+  def referenceSpecClass: Class[_]
+  Properties.specClass = referenceSpecClass
   /** The time when the execution of this program started, in milliseconds since 1
     * January 1970 UTC. */
   val executionStart: Long = currentTime

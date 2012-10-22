@@ -18,6 +18,7 @@ class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
       "BBox ${default} search" ! bboxSearch ^
       "BBox ${overlaps} search" ! bboxSearch ^
       "BBox ${equal} search" ! bboxSearch ^
+      "UUID search of any should find a metadata by its fileIdentifier" ! uuidAnySearch ^
                                                             Step (tearDown)
 
   def fullSearch = {
@@ -53,5 +54,13 @@ class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
 
     (result must haveA200ResponseCode) and
       (result.value.xml.text must contain("da165110-88fd-11da-a88f-000d939bc5d8"))
+  }
+  
+  def uuidAnySearch = {
+    val response = XmlSearch().search("any" -> "da165110-88fd-11da-a88f-000d939bc5d8").execute()
+    
+    
+    (response must haveA200ResponseCode) and
+        (response.value.count must_== 1)
   }
 }

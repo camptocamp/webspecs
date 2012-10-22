@@ -22,12 +22,13 @@ class AllGeonetworkSpecs
 class CswSpecs
   extends AbstractAllSpecs("CswSpecs",
     classOf[CswGetCapabilitiesServiceUrlSpec],
-    classOf[CswGetRecordsSpec],
     classOf[CswGetRecordsByIdSpec],
     classOf[CswLanguageSpec],
     classOf[CswTransactionUpdateSpec],
     classOf[CswXmlTestSpec],
     classOf[CswOutputSchemaSpec],
+    // searching
+    classOf[CswGetRecordsSpec],
     classOf[CswResetIndexReaderAfterImportSpec],
     classOf[CswSearchOrderSpec],
     classOf[DifferentLanguageCswSearchSpec],
@@ -55,6 +56,6 @@ extends AbstractAllSpecs("SearchSpecs",
 		classOf[BasicSearchOrderSpec],
 		classOf[NonSpatialBasicSearchQuerySpec],
 		classOf[PagingBasicSearchSpec],
-		classOf[DifferentLanguageBasicSearchSpec],
-		classOf[SelectAllBugSpec]
+		classOf[DifferentLanguageBasicSearchSpec]
+//		classOf[SelectAllBugSpec]
 		)

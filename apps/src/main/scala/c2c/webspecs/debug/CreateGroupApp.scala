@@ -5,6 +5,7 @@ import c2c.webspecs.geonetwork._
 import c2c.webspecs.login.LoginRequest
 
 object CreateGroupApp extends WebspecsApp {
+  def referenceSpecClass = classOf[GeonetworkSpecification]
     val groupName = "new_group"
     val createGroup = CreateGroup(new Group(groupName))
 

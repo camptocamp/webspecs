@@ -9,11 +9,12 @@ import c2c.webspecs.ResourceLoader
 import c2c.webspecs.WebspecsApp
 import c2c.webspecs.geonetwork.geocat.spec.bugs.AddRemoveOverviewSpec
 import c2c.webspecs.geonetwork.geocat.GeocatSpecification
+import c2c.webspecs.geonetwork.GeonetworkSpecification
 
 object UploadThumbnailApp extends WebspecsApp {
   
-  Properties.specClass = classOf[GeocatSpecification]
-    LoginRequest("admin","Hup9ieBe").execute()
+    def referenceSpecClass = classOf[GeonetworkSpecification]
+LoginRequest("admin","Hup9ieBe").execute()
     
     val editValue = StartEditing().execute(Id("577189")).value
     val scaling = Some(ThumbnailScaling(180, true))

@@ -9,6 +9,7 @@ import scala.xml._
 import scala.xml.transform._
 
 object CopyRecordsApp extends WebspecsApp {
+  def referenceSpecClass = classOf[GeonetworkSpecification]
     LoginRequest("admin", "admin").execute()
     //  	val filter = PropertyIsEqualTo("hasLinkageURL", "y")
     val filter = PropertyIsEqualTo("keyword", "e-geo.ch geoportal")
