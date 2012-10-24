@@ -148,10 +148,12 @@ object Properties {
     private def defaultOnClassPath(filenameOptions:String*): Option[(String, String)] = {
       def interfaces(cl:Class[_]):List[Class[_]] = {
         val int = Option(cl).flatMap(i => Option(i.getInterfaces())).toList.flatten
-        (int ::: int.flatMap(interfaces) ::: List(classOf[WebSpecsSpecification[_]])).filter(classOf[WebSpecsSpecification[_]].isAssignableFrom)
+        (cl :: int ::: int.flatMap(interfaces)).filter(cl => classOf[WebSpecsSpecification[_]].isAssignableFrom(cl) || classOf[WebspecsApp].isAssignableFrom(cl))
       }
+      val allInterfaces = interfaces(specClass)
+      
       val discovered = for {
-        webspecInterface <- interfaces(specClass)
+        webspecInterface <- allInterfaces
         resource <- filenameOptions.foldLeft(None:Option[URL]) {(result, nextFileName) =>
           result orElse Option(webspecInterface.getResource(nextFileName))
         }

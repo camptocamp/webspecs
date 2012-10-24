@@ -4,7 +4,6 @@ package debug
 import geonetwork._;
 
 object XmlSearchApp extends WebspecsApp {
-def referenceSpecClass = classOf[GeonetworkSpecification]
   val gcResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
     override def baseServer = "www.geocat.ch"
   }

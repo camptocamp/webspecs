@@ -36,7 +36,8 @@ case class ImportMetadata(
     validate:Boolean, 
     groupId:String, 
     uuidAction: UuidAction.Value = UuidAction.generateUUID,
-    fileType: ImportMdFileType.Value = ImportMdFileType.single)
+    fileType: ImportMdFileType.Value = ImportMdFileType.single,
+    template: Boolean = false)
   extends AbstractMultiPartFormRequest[Any,IdValue](
     "mef.import",
     IdValuesFactory.FromImportOrCreateResult,
@@ -44,7 +45,7 @@ case class ImportMetadata(
     P("file_type",  new StringBody(fileType.toString())),
     P("mefFile",  data),
     P("uuidAction",  new StringBody(uuidAction.toString())),
-    P("template",  new StringBody("n")),
+    P("template",  if (template) new StringBody("y") else new StringBody("n")),
     P("styleSheet",  new StringBody(styleSheet.toString)),
     P("group",  new StringBody(groupId)),
     P("category",  new StringBody("_none_")),

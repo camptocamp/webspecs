@@ -34,6 +34,7 @@ object ResourceLoader {
   def loadImageFromClassPath(file:String, cl: Class[_]) = {
     val path = Path.fromString(file)
     val extension = path.extension getOrElse "png"
+//    new ByteArrayBody(Resource.fromURL(cl.getResource(file)).byteArray, "image/"+extension, path.name)
     new InputStreamBody(cl.getResourceAsStream(file), "image/"+extension, path.name)
   }
 

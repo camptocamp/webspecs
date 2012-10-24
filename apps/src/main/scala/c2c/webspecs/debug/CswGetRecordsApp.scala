@@ -9,7 +9,6 @@ import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 import c2c.webspecs.geonetwork.GeonetworkSpecification
 
 object CswGetRecordsApp extends WebspecsApp {
-    def referenceSpecClass = classOf[GeonetworkSpecification]
 
   val gcResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
     override def baseServer = "www.geocat.ch"

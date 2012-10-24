@@ -44,6 +44,8 @@ class AllSpecs extends AbstractAllSpecs("All Work Packages", classOf[WP1],
 @RunWith(classOf[JUnitRunner])
 class WP1 extends AbstractAllSpecs("WP 1: Add CHE Schema",
         classOf[ImportCheMetadataSpec],
+        classOf[ImportPTFreeTextSpec],
+        classOf[CanEditTemplate],
         classOf[ImportValidationSpec])
 
 @RunWith(classOf[JUnitRunner])

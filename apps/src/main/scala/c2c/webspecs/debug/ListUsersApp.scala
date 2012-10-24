@@ -6,7 +6,6 @@ import c2c.webspecs.login.LoginRequest
 import c2c.webspecs.geonetwork.GeonetworkSpecification
 
 object ListUsersApp extends WebspecsApp {
-  def referenceSpecClass = classOf[GeonetworkSpecification]
     val res = (LoginRequest("testjesse","testjesse") then ListUsers).execute()
     assert(res.value.nonEmpty)
     res.value foreach println

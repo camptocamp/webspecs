@@ -5,7 +5,6 @@ import c2c.webspecs.login.CasLogin
 import c2c.webspecs.geonetwork.GeonetworkSpecification
 
 object CasLoginApp extends WebspecsApp {
-  def referenceSpecClass = classOf[GeonetworkSpecification]
     new CasLogin("jeichar","jeichar").execute().value.withXml{xml =>
       println(xml)
     }
