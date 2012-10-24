@@ -11,10 +11,11 @@ import org.specs2.runner.JUnitRunner
 import scala.xml.NodeSeq
 
 trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
-  self: GeonetworkSpecification => 
-    
+  self: GeonetworkSpecification =>
+
+ def titleExtension:String 
  def is =
-  "Title search order".title ^
+  ("TitleSearchOrder"+titleExtension).title ^
   "Test the search order by title" ^ Step(setup) ^ Step(getSearchSetting) ^
       "Import several metadata with interesting titles and languages" ^ Step(importMd) ^ endp ^
       "Set Search setting so that the request language is not sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = false)) ^

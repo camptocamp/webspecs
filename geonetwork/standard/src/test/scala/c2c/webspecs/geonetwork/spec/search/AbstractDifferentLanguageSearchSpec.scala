@@ -6,8 +6,9 @@ import org.specs2.execute.Result
 
 trait AbstractDifferentLanguageSearchSpec[SearchResult] {
   self: GeonetworkSpecification with AbstractSearchSpecification[SearchResult] =>
+ def titleExtension:String
  def is =
-    "Different language searches" ^ Step(setup) ^
+    ("DifferentLanguageSearches"+titleExtension).title ^ Step(setup) ^
     "Import a metadata" ^ Step(importExtraMd(2, identifier=datestamp)) ^
     "Assert that the metadata is found when searching in ${eng}" ! search ^
     "Assert that the metadata is found when searching in ${fra}" ! search ^

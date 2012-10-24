@@ -9,6 +9,7 @@ import c2c.webspecs.geonetwork.spec.search.AbstractSearchSpecification
 
 trait SearchSpecification extends AbstractSearchSpecification[XmlValue] {
   self:GeonetworkSpecification =>
+  def titleExtension = "Csw"
 
   def findCodesFromResults(xml:XmlValue) = {
       val records = xml.getXml \\ "Record"

@@ -36,8 +36,8 @@ class AllSpecs extends AbstractAllSpecs("All Work Packages", classOf[WP1],
       classOf[WP10],
       classOf[WP11_12],
       classOf[WP15], 
-      classOf[WP16],
-      classOf[BugFixes]
+      classOf[WP16]
+//      classOf[BugFixes]
       )
 
 

@@ -5,9 +5,9 @@ import org.specs2.specification.Step
 
 trait AbstractPagingSearchSpec[SearchResult] {
   self: GeonetworkSpecification with AbstractSearchSpecification[SearchResult] =>
-
+  def titleExtension:String
   def is =
-    "Non-spatial search queries".title ^
+    ("PagingSearch"+titleExtension).title ^
       "This specification tests how non-spatial search queries" ^ Step(setup) ^
       "First import several metadata that are to be searched for" ^ Step(importedMetadataId) ^
             ("Searching for '" + time + "NonSpatialSearchQuerySpec with a maxSize of 1 should return 1 " +

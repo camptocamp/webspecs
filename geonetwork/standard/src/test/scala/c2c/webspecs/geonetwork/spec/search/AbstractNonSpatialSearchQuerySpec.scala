@@ -6,8 +6,10 @@ import org.specs2.specification.Fragments
 
 trait AbstractNonSpatialSearchQuerySpec[SearchResult] extends SearchSettingsSpecification {
   self: GeonetworkSpecification with AbstractSearchSpecification[SearchResult] =>
+    
+  def titleExtension:String
   def is =
-    "Non-spatial search queries".title ^
+    ("NonSpatialSearchQuery"+titleExtension).title ^
       "This specification tests how non-spatial search queries" ^ Step(setup) ^ Step(setSearchSetting(only="prefer_docLocale", sorted = false, ignored = false)) ^
       "First import several metadata that are to be searched for" ^ Step(importedMetadataId) ^
           "When searching for a term that is in several metadata; the results having the term in the search language should appear first in the results" ! currentLanguageFirst ^
