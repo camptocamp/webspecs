@@ -10,7 +10,7 @@ import org.specs2.runner.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class BasicXmlSearchSpec extends SampleDataGeonetworkSpecification {
   def is =
-    "Search using XML fast search".title ^ Step(setup) ^ Step(config.adminLogin.execute() must haveA200ResponseCode) ^
+    "Search using XML fast search".title ^ Step(setup) ^ Step(config.adminLogin.assertPassed()) ^
       "Full Search returns all results" ! fullSearch ^
       "Equals search on denominator ${5000000}" ! equalsDenominator ^
       "Range search ${5000001} - ${5000002} on denominator will ${fail}" ! rangeDenominator ^

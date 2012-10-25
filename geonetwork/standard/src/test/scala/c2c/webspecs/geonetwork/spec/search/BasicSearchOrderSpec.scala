@@ -6,7 +6,7 @@ import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class BasicSearchOrderSpec extends GeonetworkSpecification with AbstractSearchOrderSpecSpecification {
-  
+  def titleExtension = "Basic"
   def doSearch(lang:String): Seq[String] = {
     implicit val fraresolver = new GeonetworkURIResolver() {
       override def locale = lang

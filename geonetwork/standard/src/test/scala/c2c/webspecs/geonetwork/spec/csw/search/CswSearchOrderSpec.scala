@@ -12,6 +12,7 @@ import c2c.webspecs.geonetwork.spec.search.AbstractSearchOrderSpecSpecification
 
 @RunWith(classOf[JUnitRunner])
 class CswSearchOrderSpec extends GeonetworkSpecification  with AbstractSearchOrderSpecSpecification {
+  def titleExtension = "Csw"
   def doSearch(lang:String) = {
     val cswResponse = CswGetRecordsRequest(
       PropertyIsEqualTo("abstract", timeStamp.toString).xml,

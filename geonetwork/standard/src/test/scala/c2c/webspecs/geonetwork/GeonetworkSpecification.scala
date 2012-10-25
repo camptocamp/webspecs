@@ -31,6 +31,7 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
 
+    implicit val implicitContext = setupContext
     // don't chain requests because SetSequential is available on all GN instances
     config.adminLogin.assertPassed()
     SetSequentialExecution(true).assertPassed() 
@@ -40,6 +41,8 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
   
   override def extraTeardown(tearDownContext:ExecutionContext) = {
     super.extraTeardown(tearDownContext)
+    
+    implicit val implicitContext = tearDownContext
     config.adminLogin.execute()
 
     mdToDelete foreach {id => 

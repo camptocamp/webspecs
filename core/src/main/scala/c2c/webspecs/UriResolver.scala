@@ -6,7 +6,9 @@
  */
 package c2c.webspecs;
 trait UriResolver {
-  def paramsToString(params: Seq[(String, String)], prefix:String) = {
+  def paramsToString(params: Seq[(String, String)], prefix:String) = if(params.isEmpty){
+    ""
+  } else {
     params.map { e => e._1 + "=" + e._2 }.mkString(prefix,"&","")
   }
   def apply(service: String, params: Seq[(String,String)]):String

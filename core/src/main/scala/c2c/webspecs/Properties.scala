@@ -45,6 +45,7 @@ object Properties {
   def classLoader:ClassLoader = specClass.getClassLoader
   def TEST_TAG = "{automated_test_metadata}"
   lazy val testServer = apply("test.server") getOrElse "localhost:8080"
+  lazy val httpsServer = apply("https.server") getOrElse "localhost:8443"
   lazy val all:Map[String,String] = {
     val sysProps = getProperties.asScala /// NEED to load system and env properties and add them all to the map
     val envProps = getenv.asScala /// NEED to load system and env properties and add them all to the map

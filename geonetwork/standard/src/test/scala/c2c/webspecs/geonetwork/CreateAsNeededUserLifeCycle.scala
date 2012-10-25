@@ -6,7 +6,7 @@ class CreateAsNeededUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle 
   import config._
   def setup(implicit context: ExecutionContext, uriResolvers:UriResolver) = {
     val loginAsUserCode = LoginRequest(user, pass).execute(None).basicValue.responseCode
-    if(loginAsUserCode > 200) {
+    if(loginAsUserCode >= 400) {
       adminLogin.assertPassed(None)
       val groupName = Properties("group") getOrElse {throw new IllegalArgumentException("A group configuration parameter is required")}
       val gid = if(! ListGroups.execute(None).value.exists(_.name == groupName)) {

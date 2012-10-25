@@ -9,7 +9,7 @@ import org.specs2.runner.JUnitRunner
 import c2c.webspecs.geonetwork.csw._
 
 @RunWith(classOf[JUnitRunner])
-class CswResetIndexReaderAfterImportSpec extends GeonetworkSpecification with SearchSpecification { 
+class CswResetIndexReaderAfterImportSpec extends GeonetworkSpecification with SearchSpecification {
   override def correctResults(numberOfRecords:Int, identifier:String) = (s:String) => {
     val xml = CswGetRecordsRequest(PropertyIsEqualTo("AnyText","Title"+identifier).xml).execute().value.getXml
 
