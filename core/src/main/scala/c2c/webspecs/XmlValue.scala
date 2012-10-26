@@ -22,7 +22,15 @@ trait XmlValue extends TextValue {
     case Left(error) => Left(error)
   }
   lazy val html = parse(TagSoupFactoryAdapter.loadString)
-  lazy val xml  = parse(XML.loadString)
+  lazy val xml  = parse( xmlString => {
+    val modifiedString = if(xmlString.trim().startsWith("<!DOCTYPE")) {
+      xmlString.trim.dropWhile(_ != '>').drop(1)
+    } else {
+      xmlString
+    }
+    println(modifiedString)
+	  XML.loadString(modifiedString)
+  })
   
   private def throwAndPrint(t:Throwable) = {
     text.fold(_ => println("Failed to load text"),println) 

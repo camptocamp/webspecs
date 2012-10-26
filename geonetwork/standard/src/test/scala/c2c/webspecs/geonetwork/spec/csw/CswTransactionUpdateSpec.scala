@@ -11,7 +11,7 @@ import org.specs2.runner.JUnitRunner
 @RunWith (classOf[JUnitRunner])
 class CswTransactionUpdateSpec extends GeonetworkSpecification {
   def is =
-    "CswTransactionUpdateSpec".title ^ Step(setup) ^
+    Step(setup) ^ sequential ^
     "Insert a metadata using CSW Insert" ^ insertMetadata ^
       "Verify metadata has been inserted" ! metadataIsOriginalMetadata ^endp^
     "UpdateMetadata title"                       ^ updateMetadataTitle ^
