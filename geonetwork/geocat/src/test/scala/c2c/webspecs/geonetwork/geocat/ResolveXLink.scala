@@ -10,7 +10,7 @@ import c2c.webspecs.Request
 object ResolveXLink extends Request[String, XmlValue] {
   def execute(in: String)(implicit context: ExecutionContext, uriResolver:UriResolver) = {
     val login = context.currentUser.map(_._1) getOrElse NoRequest
-    val result = (GetRequest("user.logout") then GetRequest(in)).execute()
+    val result = (GeonetworkLogout then GetRequest(in)).execute()
     login.execute()
     result
   }

@@ -28,8 +28,7 @@ trait XmlValue extends TextValue {
     } else {
       xmlString
     }
-    println(modifiedString)
-	  XML.loadString(modifiedString)
+	XML.loadString(modifiedString)
   })
   
   private def throwAndPrint(t:Throwable) = {
