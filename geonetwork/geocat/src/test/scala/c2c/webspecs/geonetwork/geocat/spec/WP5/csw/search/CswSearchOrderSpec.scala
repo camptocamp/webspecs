@@ -1,7 +1,7 @@
 package c2c.webspecs
 package geonetwork
 package geocat
-package spec.WP5
+package spec.WP5.csw.search
 
 import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 import org.specs2.specification.Step

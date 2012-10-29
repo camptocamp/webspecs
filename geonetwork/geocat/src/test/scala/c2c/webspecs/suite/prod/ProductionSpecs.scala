@@ -8,7 +8,8 @@ import c2c.webspecs.geonetwork.geocat.spec.WP16._
 import c2c.webspecs.geonetwork.geocat.spec.WP1._
 import c2c.webspecs.geonetwork.geocat.spec.WP3._
 import c2c.webspecs.geonetwork.geocat.spec.WP4._
-import c2c.webspecs.geonetwork.geocat.spec.WP5._
+import c2c.webspecs.geonetwork.geocat.spec.WP5.csw.search._
+import c2c.webspecs.geonetwork.geocat.spec.WP5.basic.search._
 import c2c.webspecs.geonetwork.geocat.spec.WP6._
 import c2c.webspecs.geonetwork.geocat.spec.WP7._
 import c2c.webspecs.geonetwork.geocat.spec.WP9._
@@ -27,7 +28,7 @@ import org.specs2.main.Arguments
 class AllSpecs extends AbstractAllSpecs("Production Specifications: All Work Packages",
       classOf[WP1],
       classOf[WP3],
-      classOf[WP5] ,
+      classOf[WP5CswSearch] ,
 	  classOf[WP6],
 	  classOf[WP7],
       classOf[WP15], 
@@ -55,11 +56,17 @@ class WP3 extends AbstractAllSpecs("WP 3: Shared Object (No UI)",
       classOf[EscapeSpecialCharsInUserSpec])
 
 @RunWith(classOf[JUnitRunner])
-class WP5 extends AbstractAllSpecs("WP 5: Indexing and searching",
+class WP5CswSearch extends AbstractAllSpecs("WP 5: Csw Indexing and searching",
       classOf[DifferentLanguageCswSearchSpec],
       classOf[CswResetIndexReaderAfterImportSpec],
       classOf[SpatialCswSearchSpec],
       classOf[CswSearchOrderSpec])
+
+@RunWith(classOf[JUnitRunner])
+class WP5BasicSearch extends AbstractAllSpecs("WP 5: Basic Indexing and searching",
+		classOf[DifferentLanguageBasicSearchSpec],
+		classOf[BasicResetIndexReaderAfterImportSpec],
+		classOf[BasicSearchOrderSpec])
 
 @RunWith(classOf[JUnitRunner])
 class WP6 extends AbstractAllSpecs("WP 6: Check CSW service",
