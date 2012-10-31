@@ -13,36 +13,53 @@ import csw._
 class GeoportalSpec extends GeocatSpecification {  def is =
 	"Geoportal API".title 															 							^ Step(setup) ^
 	"For this specification a few metadata must be imported with the 'special' geoportal keyword"   			^ Step(importMd(3,"/geocat/data/comprehensive-iso19139che.xml",datestamp)) ^
-	"Csw CQL and XML searches for ${e-geo.ch Geoportal} in ${german} must return the geoportal metadata"		! searchKeyword ^
-	"Csw CQL and XML searches for ${e-geo.ch geoportal} in ${english} must return the geoportal metadata"		! searchKeyword ^
-	"Csw CQL and XML searches for ${géoportail e-geo.ch} in ${french} must return the geoportal metadata"		! searchKeyword ^
-	"Csw CQL and XML searches for ${géoportail e-geo.ch} in ${german} must return the geoportal metadata"		! searchKeyword ^
-	"Csw CQL and XML searches for ${geoportale e-geo.ch} in ${italian} must return the geoportal metadata"	    ! searchKeyword ^
+	allSearches("e-geo.ch geoportal") ^ 
+	allSearches("géoportail e-geo.ch") ^ 
+	allSearches("geoportale e-geo.ch") ^  
 	"Csw CQL and XML searches for metadata with valid hrefs in the linkage element must return the geoportal metadata"  ! searchHref ^
 	"Given one of the metadata records as a CSW GetRecord Response in iso"  							   ^ getCswRecord.toGiven ^
 	"The root tag should be gmd:MD_Metadata"									  						   ^ haveCorrectRoot.toThen ^
 	"Should have nonEmpty linkage tags"										  							   ^ haveNonEmptyLinkage.toThen ^
 																												Step(tearDown)
 
+  def allSearches(term: String) = {
+	def withLang(search: String, lang: String) = {
+	  "in "+lang+" must return the geoportal metadata"		! searchKeyword(term, search, lang)
+	}
+	def withSearchType(search: String) = {
+	  "using "+search+" searches" ^
+	  withLang(search, "french")
+//	  withLang(search, "german") ^
+//	  withLang(search, "english") ^
+//	  withLang(search, "italian")  
+	}
+	"Searching for "+term ^ 
+//	 	withSearchType("Csw CQL") ^
+	 withSearchType("Csw XML") ^
+	 withSearchType("XmlSearch") ^ endp
+  }
   val guardCondition = PropertyIsEqualTo("_defaultTitle", "Comprehenisve Test "+datestamp)
-  val searchKeyword = (input: String) => {
-    val (keyword, language) = extract2(input)
+  def searchKeyword(keyword: String, searchType: String, language: String) = {
     val query = PropertyIsEqualTo("keyword", keyword) and guardCondition 
 
     implicit val uriResolver = new GeonetworkURIResolver {
       override def locale = language match {
-        case "german" => "deu"
+        case "german" => "ger"
         case "english" => "eng"
-        case "french" => "fra"
+        case "french" => "fre"
         case "italian" => "ita"
       } 
     }
+    val recordsFound = searchType match {
+      case "Csw CQL" =>
+        hits(CswCQLGetRecordsRequest(query.cql).execute().value.getXml)
+      case "Csw XML" =>
+        hits(CswGetRecordsRequest(query.xml).execute().value.getXml)
+      case "XmlSearch" =>
+        XmlSearch().search('keyword -> keyword, guardCondition.name -> guardCondition.literal).execute().value.count
+    }
 
-    val cqlHits = hits(CswCQLGetRecordsRequest(query.cql).execute().value.getXml)
-    val xmlHits = hits(CswGetRecordsRequest(query.xml).execute().value.getXml)
-
-    (cqlHits aka "cql" must_== 3) and
-      (xmlHits aka "xml" must_== 3)
+    recordsFound aka searchType must_== 3
   }
 
   def searchHref = {

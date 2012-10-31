@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmd:MD_Metadata xmlns:che="http://www.geocat.ch/2008/che" xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:geonet="http://www.fao.org/geonetwork" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" gco:isoType="gmd:MD_Metadata">
+  <gmd:fileIdentifier xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gco:CharacterString>2eb16332-26e2-4af8-b180-f0e2c2cdf3df</gco:CharacterString>
+  </gmd:fileIdentifier>
+  <gmd:language xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gco:CharacterString>ger</gco:CharacterString>
+  </gmd:language>
+  <gmd:characterSet xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CharacterSetCode" codeListValue="utf8" />
+  </gmd:characterSet>
+  <gmd:hierarchyLevel xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:MD_ScopeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ScopeCode" codeListValue="dataset" />
+  </gmd:hierarchyLevel>
+  <gmd:dateStamp xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gco:DateTime>2010-11-23T15:51:07</gco:DateTime>
+  </gmd:dateStamp>
+  <gmd:metadataStandardName xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gco:CharacterString>GM03 2+</gco:CharacterString>
+  </gmd:metadataStandardName>
+  <gmd:locale xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:PT_Locale id="DE">
+      <gmd:languageCode>
+        <gmd:LanguageCode codeList="#LanguageCode" codeListValue="ger" />
+      </gmd:languageCode>
+      <gmd:characterEncoding>
+        <gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+      </gmd:characterEncoding>
+    </gmd:PT_Locale>
+  </gmd:locale>
+  <gmd:locale xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:PT_Locale id="FR">
+      <gmd:languageCode>
+        <gmd:LanguageCode codeList="#LanguageCode" codeListValue="fre" />
+      </gmd:languageCode>
+      <gmd:characterEncoding>
+        <gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+      </gmd:characterEncoding>
+    </gmd:PT_Locale>
+  </gmd:locale>
+  <gmd:locale xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:PT_Locale id="IT">
+      <gmd:languageCode>
+        <gmd:LanguageCode codeList="#LanguageCode" codeListValue="ita" />
+      </gmd:languageCode>
+      <gmd:characterEncoding>
+        <gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+      </gmd:characterEncoding>
+    </gmd:PT_Locale>
+  </gmd:locale>
+  <gmd:locale xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:PT_Locale id="EN">
+      <gmd:languageCode>
+        <gmd:LanguageCode codeList="#LanguageCode" codeListValue="eng" />
+      </gmd:languageCode>
+      <gmd:characterEncoding>
+        <gmd:MD_CharacterSetCode codeList="#MD_CharacterSetCode" codeListValue="utf8">UTF8</gmd:MD_CharacterSetCode>
+      </gmd:characterEncoding>
+    </gmd:PT_Locale>
+  </gmd:locale>
+  <gmd:referenceSystemInfo xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:MD_ReferenceSystem>
+      <gmd:referenceSystemIdentifier>
+        <gmd:RS_Identifier>
+          <gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">CH1903</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:code>
+        </gmd:RS_Identifier>
+      </gmd:referenceSystemIdentifier>
+    </gmd:MD_ReferenceSystem>
+  </gmd:referenceSystemInfo>
+  <gmd:identificationInfo xmlns:comp="http://toignore" xmlns:xalan="http://xml.apache.org/xalan">
+    <gmd:MD_DataIdentification gco:isoType="gmd:MD_DataIdentification">
+      <gmd:citation>
+        <gmd:CI_Citation>
+          <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">DETitle44112233</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">FRTitle22334411</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">ENTitle11223344</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">ITTitle33441122</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:title>
+          <gmd:alternateTitle xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Pixelkarte 1:500'000 (PK500)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">Carta pixel 1:500'000 (CP500)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Carte-pixel 1:500'000 (CP500)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">Pixel map 1:500'000 (PM500)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:alternateTitle>
+          <gmd:alternateTitle xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">LK500</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:alternateTitle>
+          <gmd:date>
+            <gmd:CI_Date>
+              <gmd:date>
+                <gco:Date>1965-06-30</gco:Date>
+              </gmd:date>
+              <gmd:dateType>
+                <gmd:CI_DateTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_DateTypeCode" codeListValue="creation" />
+              </gmd:dateType>
+            </gmd:CI_Date>
+          </gmd:date>
+          <gmd:presentationForm>
+            <gmd:CI_PresentationFormCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_PresentationFormCode" codeListValue="mapHardcopy" />
+          </gmd:presentationForm>
+          <gmd:presentationForm>
+            <gmd:CI_PresentationFormCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_PresentationFormCode" codeListValue="mapDigital" />
+          </gmd:presentationForm>
+          <gmd:collectiveTitle xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Landeskartenwerk 1:25'000 bis 1:1 Mio.</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Cartes nationales du 1:25'000 au 1:1'000'000</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">Carte nazionali 1:25'000 – 1:1 mio.</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:collectiveTitle>
+        </gmd:CI_Citation>
+      </gmd:citation>
+      <gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
+        <gmd:PT_FreeText>
+          <gmd:textGroup>
+            <gmd:LocalisedCharacterString locale="#DE">DEAbstract44112233</gmd:LocalisedCharacterString>
+          </gmd:textGroup>
+          <gmd:textGroup>
+            <gmd:LocalisedCharacterString locale="#FR">FRAbstract22334411</gmd:LocalisedCharacterString>
+          </gmd:textGroup>
+          <gmd:textGroup>
+            <gmd:LocalisedCharacterString locale="#EN">ENAbstract11223344</gmd:LocalisedCharacterString>
+          </gmd:textGroup>
+          <gmd:textGroup>
+            <gmd:LocalisedCharacterString locale="#IT">ITAbstract33441122</gmd:LocalisedCharacterString>
+          </gmd:textGroup>
+        </gmd:PT_FreeText>
+      </gmd:abstract>
+      <gmd:purpose xsi:type="gmd:PT_FreeText_PropertyType">
+        <gmd:PT_FreeText>
+          <gmd:textGroup>
+            <gmd:LocalisedCharacterString locale="#DE">Georeferenzdaten des Bundesrechts</gmd:LocalisedCharacterString>
+          </gmd:textGroup>
+          <gmd:textGroup>
+            <gmd:LocalisedCharacterString locale="#IT">Geodati di riferimento del diritto federale</gmd:LocalisedCharacterString>
+          </gmd:textGroup>
+          <gmd:textGroup>
+            <gmd:LocalisedCharacterString locale="#FR">Géodonnées de référence relevant du droit fédéral</gmd:LocalisedCharacterString>
+          </gmd:textGroup>
+        </gmd:PT_FreeText>
+      </gmd:purpose>
+      <gmd:status>
+        <gmd:MD_ProgressCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_ProgressCode" codeListValue="onGoing" />
+      </gmd:status>
+      <gmd:graphicOverview>
+        <gmd:MD_BrowseGraphic>
+          <gmd:fileName>
+            <gco:CharacterString>http://www.swisstopo.admin.ch/internet/swisstopo/de/home/products/maps/national/500.parsys.79795.Image.jpeg</gco:CharacterString>
+          </gmd:fileName>
+        </gmd:MD_BrowseGraphic>
+      </gmd:graphicOverview>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">ENKEYWORD11223344</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">ITKEYWORD33441122</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">DEKEYWORD44112233</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">FRKEYWORD22334411</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">National Map</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">carta nazionale</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Landeskarte</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Carte nationale</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">Terrain representation</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">rappresentazione dell terreno</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Geländedarstellung</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Représentation du terrain</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">water (geographic)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">acque (geografia)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Gewässer</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">eaux (géographie)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">border</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">frontiera</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Grenze</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">bordure</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">relief (land)</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">rilievo</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Relief</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">relief</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">Topographic map</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">carta topografica</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Topografische Karte</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Carte topographique</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">General map</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">Carta sinottica</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Übersichtskarte</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Carte synoptique</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:descriptiveKeywords xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:MD_Keywords xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <gmd:keyword xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">Traffic network</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">rete di trasporto</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Verkehrsnetz</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Réseau de transport</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:keyword>
+          <gmd:thesaurusName>
+            <gmd:CI_Citation>
+              <gmd:title>
+                <gco:CharacterString>local._none_.non_validated</gco:CharacterString>
+              </gmd:title>
+              <gmd:date gco:nilReason="missing" />
+            </gmd:CI_Citation>
+          </gmd:thesaurusName>
+        </gmd:MD_Keywords>
+      </gmd:descriptiveKeywords>
+      <gmd:spatialRepresentationType>
+        <gmd:MD_SpatialRepresentationTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_SpatialRepresentationTypeCode" codeListValue="paperMap" />
+      </gmd:spatialRepresentationType>
+      <gmd:spatialRepresentationType>
+        <gmd:MD_SpatialRepresentationTypeCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_SpatialRepresentationTypeCode" codeListValue="grid" />
+      </gmd:spatialRepresentationType>
+      <gmd:spatialResolution>
+        <gmd:MD_Resolution>
+          <gmd:equivalentScale>
+            <gmd:MD_RepresentativeFraction>
+              <gmd:denominator>
+                <gco:Integer>500000</gco:Integer>
+              </gmd:denominator>
+            </gmd:MD_RepresentativeFraction>
+          </gmd:equivalentScale>
+        </gmd:MD_Resolution>
+      </gmd:spatialResolution>
+      <gmd:language>
+        <gco:CharacterString>ger</gco:CharacterString>
+      </gmd:language>
+      <gmd:language>
+        <gco:CharacterString>fre</gco:CharacterString>
+      </gmd:language>
+      <gmd:language>
+        <gco:CharacterString>ita</gco:CharacterString>
+      </gmd:language>
+      <gmd:language>
+        <gco:CharacterString>ERROR_ERROR_ROH</gco:CharacterString>
+      </gmd:language>
+      <gmd:characterSet>
+        <gmd:MD_CharacterSetCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#MD_CharacterSetCode" codeListValue="utf8" />
+      </gmd:characterSet>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>inlandWaters</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>boundaries</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>elevation</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>imageryBaseMapsEarthCover</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>location</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:topicCategory>
+        <gmd:MD_TopicCategoryCode>transportation</gmd:MD_TopicCategoryCode>
+      </gmd:topicCategory>
+      <gmd:extent xmlns:xlink="http://www.w3.org/1999/xlink" xlink:show="embed">
+        <gmd:EX_Extent>
+          <gmd:description xsi:type="gmd:PT_FreeText_PropertyType">
+            <gmd:PT_FreeText>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#DE">Landeskarte 1:500'000</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#FR">Carte nationale 1:500'000</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#IT">Carta nazionale 1:500'000</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#EN">National Map 1:500'000</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+              <gmd:textGroup>
+                <gmd:LocalisedCharacterString locale="#RM">Landeskarte 1:500'000</gmd:LocalisedCharacterString>
+              </gmd:textGroup>
+            </gmd:PT_FreeText>
+          </gmd:description>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicDescription>
+              <gmd:geographicIdentifier>
+                <gmd:MD_Identifier>
+                  <gmd:code xsi:type="gmd:PT_FreeText_PropertyType">
+                    <gmd:PT_FreeText>
+                      <gmd:textGroup>
+                        <gmd:LocalisedCharacterString locale="#DE">LK500</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                        <gmd:LocalisedCharacterString locale="#FR">CN500</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                        <gmd:LocalisedCharacterString locale="#IT">CN500</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                        <gmd:LocalisedCharacterString locale="#EN">NM500</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                      <gmd:textGroup>
+                        <gmd:LocalisedCharacterString locale="#RM">LK500</gmd:LocalisedCharacterString>
+                      </gmd:textGroup>
+                    </gmd:PT_FreeText>
+                  </gmd:code>
+                </gmd:MD_Identifier>
+              </gmd:geographicIdentifier>
+            </gmd:EX_GeographicDescription>
+          </gmd:geographicElement>
+          <gmd:geographicElement>
+            <gmd:EX_BoundingPolygon>
+              <gmd:extentTypeCode>
+                <gco:Boolean>1</gco:Boolean>
+              </gmd:extentTypeCode>
+              <gmd:polygon>
+                <gml:MultiSurface gml:id="Nc72f6c64bb0c4bf389d25cbb2d62fe01">
+                  <gml:surfaceMember>
+                    <gml:Polygon gml:id="Nc72f6c64bb0c4bf389d25cbb2d62fe01.1">
+                      <gml:exterior>
+                        <gml:LinearRing>
+                          <gml:posList>5.835 47.857 10.978 47.815 10.839 45.658 5.898 45.699 5.835 47.857</gml:posList>
+                        </gml:LinearRing>
+                      </gml:exterior>
+                    </gml:Polygon>
+                  </gml:surfaceMember>
+                </gml:MultiSurface>
+              </gmd:polygon>
+            </gmd:EX_BoundingPolygon>
+          </gmd:geographicElement>
+          <gmd:geographicElement>
+            <gmd:EX_GeographicBoundingBox>
+              <gmd:extentTypeCode>
+                <gco:Boolean>1</gco:Boolean>
+              </gmd:extentTypeCode>
+              <!--native coords: 479988.0,61990.0,865013.0,302032.0-->
+              <gmd:westBoundLongitude>
+                <gco:Decimal>5.835</gco:Decimal>
+              </gmd:westBoundLongitude>
+              <gmd:eastBoundLongitude>
+                <gco:Decimal>10.978</gco:Decimal>
+              </gmd:eastBoundLongitude>
+              <gmd:southBoundLatitude>
+                <gco:Decimal>45.658</gco:Decimal>
+              </gmd:southBoundLatitude>
+              <gmd:northBoundLatitude>
+                <gco:Decimal>47.857</gco:Decimal>
+              </gmd:northBoundLatitude>
+            </gmd:EX_GeographicBoundingBox>
+          </gmd:geographicElement>
+        </gmd:EX_Extent>
+      </gmd:extent>
+      <che:basicGeodataID>
+        <gco:CharacterString>42.5</gco:CharacterString>
+      </che:basicGeodataID>
+      <che:basicGeodataIDType>
+        <che:basicGeodataIDTypeCode codeListValue="federal" codeList="#basicGeodataIDTypeCode" />
+      </che:basicGeodataIDType>
+    </gmd:MD_DataIdentification>
+  </gmd:identificationInfo>
+</gmd:MD_Metadata>
+

@@ -6,6 +6,7 @@ import csw.search._
 import edit._
 import formatter._
 import importmetadata._
+import get._
 import c2c.webspecs.geonetwork.spec.search._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
@@ -15,6 +16,7 @@ class AllGeonetworkSpecs
   extends AbstractAllSpecs("AllGeonetworkSpecs",
     classOf[CswSpecs],
     classOf[EditingSpecs],
+    classOf[AccessSpecs],
     classOf[FormatterSpecs],
     classOf[ImportSpecs],
     classOf[SearchSpecs])
@@ -33,10 +35,15 @@ class CswSpecs
     classOf[CswSearchOrderSpec],
     classOf[DifferentLanguageCswSearchSpec],
     classOf[NonSpatialCswSearchQuerySpec],
+    classOf[CswTokenizedVsNonTokenizedSpec],
     classOf[PagingCswSearchSpec])
 
 class EditingSpecs
   extends AbstractAllSpecs("EditingSpecs")
+
+class AccessSpecs
+extends AbstractAllSpecs("GetAccessSpecs",
+    classOf[MetadataShowSpec])
 
 class FormatterSpecs
   extends AbstractAllSpecs("FormatterSpecs",
@@ -56,6 +63,7 @@ extends AbstractAllSpecs("SearchSpecs",
 		classOf[BasicSearchOrderSpec],
 		classOf[NonSpatialBasicSearchQuerySpec],
 		classOf[PagingBasicSearchSpec],
+		classOf[BasicTokenizedVsNonTokenizedSpec],
 		classOf[DifferentLanguageBasicSearchSpec]
 //		classOf[SelectAllBugSpec]
 		)

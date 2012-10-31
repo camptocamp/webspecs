@@ -14,7 +14,7 @@ import c2c.webspecs.login.LogoutRequest
  */
 @RunWith(classOf[JUnitRunner]) 
 class MonitoringSpec extends GeonetworkSpecification {  def is =
-	"Monioring Specification".title 														^ Step(setup)           ^
+	"Monioring Specification".title 														^ Step(setup) ^  
 	        "Add some metadata so that healthchecks will work"                                  ^ Step(importMd)        ^
 			"Get the results of the ${metrics} webservice"										! checkMonitorReport    ^
 			"Get the results of the ${healthcheck} webservice"									! checkMonitorReport    ^
@@ -34,8 +34,12 @@ class MonitoringSpec extends GeonetworkSpecification {  def is =
     LogoutRequest().execute()
     UserLogin.execute()
     val editorLoggedInResult = request.execute()
+    LogoutRequest().execute()
+    val loggedOutResult = request.execute()
     (adminLoggedInResult must haveA200ResponseCode) and
-        (editorLoggedInResult must haveAResponseCode(302))
+    	(adminLoggedInResult.basicValue.finalURL.get.getPath() must endWith (check)) and
+    	(loggedOutResult.basicValue.finalURL.get.getPath must contain ("login.jsp")) and
+        (editorLoggedInResult must haveAResponseCode(403))
   }
 
   val checkMonitorReport = (desc: String) => check(desc, "geonetwork/monitor/")

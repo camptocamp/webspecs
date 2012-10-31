@@ -3,11 +3,12 @@ package login
 
 
 object LogoutRequest {
-  def apply():Request[Any,Any] = Config.loadStrategy[Request[Any,Any]]("logout") fold (
+  private lazy val request = Config.loadStrategy[Request[Any,Any]]("logout") fold (
     throw _,
     strategy =>
       strategy.newInstance()
   )
+  def apply():Request[Any,Any] = request
 }
 
 trait LogoutRequest extends Request[Any,Any] 

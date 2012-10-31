@@ -59,7 +59,7 @@
             <gmd:citation>
                 <gmd:CI_Citation>
                     <gmd:title>
-                        <gco:CharacterString>Title{uuid}</gco:CharacterString>
+                        <gco:CharacterString>Title{uuid} Entire World</gco:CharacterString>
                     </gmd:title>
                     <gmd:date>
                         <gmd:CI_Date>
@@ -129,7 +129,7 @@
             <gmd:descriptiveKeywords>
                 <gmd:MD_Keywords>
                     <gmd:keyword>
-                        <gco:CharacterString>World</gco:CharacterString>
+                        <gco:CharacterString>Entire World</gco:CharacterString>
                     </gmd:keyword>
                     <gmd:type>
                         <gmd:MD_KeywordTypeCode codeListValue="place" codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_KeywordTypeCode"/>

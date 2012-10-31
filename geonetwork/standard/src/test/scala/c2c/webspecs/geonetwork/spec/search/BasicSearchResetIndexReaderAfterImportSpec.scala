@@ -6,6 +6,7 @@ import org.specs2.specification.Step
 import c2c.webspecs.geonetwork._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import c2c.webspecs.login.LogoutRequest
 
 @RunWith(classOf[JUnitRunner])
 class BasicSearchResetIndexReaderAfterImportSpec extends GeonetworkSpecification with SearchSpecification { def is =
@@ -19,6 +20,6 @@ class BasicSearchResetIndexReaderAfterImportSpec extends GeonetworkSpecification
     "perform search and expect to find record again (there used to be caching issues"                ! correctResults(1, identifier=datestamp) ^
                                                                                                        Step(tearDown)
                                                                    
-  def logout = GeonetworkLogout.execute()
+  def logout = LogoutRequest().execute()
   def login = UserLogin.execute()
 }

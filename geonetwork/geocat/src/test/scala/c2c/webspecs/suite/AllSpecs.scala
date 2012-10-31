@@ -83,6 +83,7 @@ class WP5CswSearch extends AbstractAllSpecs("WP 5: Csw Indexing and searching",
 			classOf[DifferentLanguageCswSearchSpec],
 			classOf[CswResetIndexReaderAfterImportSpec],
 			classOf[SpatialCswSearchSpec],
+			classOf[CswTokenizedVsNonTokenizedSpec],
 			classOf[CswSearchOrderSpec])
 
 @RunWith(classOf[JUnitRunner])
@@ -91,6 +92,7 @@ class WP5BasicSearch extends AbstractAllSpecs("WP 5: Basic Indexing and searchin
 			classOf[PagingBasicSearchSpec],
 			classOf[DifferentLanguageBasicSearchSpec],
 			classOf[BasicResetIndexReaderAfterImportSpec],
+			classOf[BasicTokenizedVsNonTokenizedSpec],
 			classOf[BasicSearchOrderSpec])
 
 @RunWith(classOf[JUnitRunner])

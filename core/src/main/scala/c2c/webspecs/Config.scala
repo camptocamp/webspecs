@@ -12,11 +12,14 @@ class ExceptionChain(first:Throwable, exception:Throwable*) extends Exception(fi
 }
 
 object Config {
+  private def loadClass[T](name:String) = {
+    (Exception.allCatch.opt(Class.forName(name).asInstanceOf[Class[T]]) orElse
+    	Exception.allCatch.opt(Properties.classLoader.loadClass(name).asInstanceOf[Class[T]]))
+  }
   def loadStrategy[T](property:String):Either[IllegalArgumentException,Class[T]] = Properties(property) match {
     case Some(strategyName) =>
-      val fullClassName = Exception.allCatch.opt(Class.forName(strategyName).asInstanceOf[Class[T]])
-      Class.forName("c2c.webspecs."+ strategyName)
-      val appendedPackage = Exception.allCatch.opt(Class.forName("c2c.webspecs."+ strategyName).asInstanceOf[Class[T]])
+      val fullClassName = loadClass[T](strategyName)
+      val appendedPackage = loadClass[T]("c2c.webspecs."+ strategyName)
       fullClassName orElse appendedPackage match {
         case Some(instance) => Right(instance)
         case None => Left(new IllegalArgumentException("Tried "+strategyName+" and c2c.webspecs."+strategyName+" but was unable to create a SystemLifeCycle implementation"))

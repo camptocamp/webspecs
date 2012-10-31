@@ -7,7 +7,7 @@ class GeocatCreateUserDeleteMetadataLifeCycle(config: GeonetConfig) extends Crea
    super.deleteAllMetadata;
    SharedUserProfile.name // seed system with new profile
    val extents = SearchExtent(typeName = Extents.NonValidated :: Extents.Validated :: Nil).execute("*").value
-   val keywords = SearchKeywords(GeocatConstants.NON_VALIDATED_THESAURUS :: GeocatConstants.GEOCAT_THESAURUS :: Nil).execute("*").value
+   val keywords = SearchKeywords(GeocatConstants.NON_VALIDATED_THESAURUS :: GeocatConstants.GEOCAT_THESAURUS :: Nil).execute("*").value.toSet
    val formats = ListFormats.execute("").value
    val users = GeocatListUsers.execute("").value
    
