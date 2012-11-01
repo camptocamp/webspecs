@@ -17,8 +17,6 @@ class CswGetCapabilitiesServiceUrlSpec extends GeocatSpecification {
 	  "CSW GetCapabilities services URL".title 	^ Step(setup) ^
            "Checking GetCapabilities services URL in ${fre}" ! CswTestGetCapabilities ^
            "Checking GetCapabilities services URL in ${ger}" ! CswTestGetCapabilities ^
-           "Checking GetCapabilities services URL in ${fra}" ! CswTestGetCapabilitiesMustNotFail ^
-           "Checking GetCapabilities services URL in ${deu}" ! CswTestGetCapabilitiesMustNotFail ^
 	  	   "Checking GetCapabilities services URL in ${eng}" ! CswTestGetCapabilities ^
 	  	   end ^ Step(tearDown)								
 	}

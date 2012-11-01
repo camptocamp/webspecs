@@ -22,9 +22,7 @@ class GeocatPagesLoadSpec extends GeocatSpecification {
       "Import a metadata" ^ Step(importAndGetIds) ^
       "${eng/geocat} Loads" ! loadPage ^
       "${fre/geocat} Loads" ! loadPage ^
-      "${fra/geocat} Loads" ! loadPage ^
       "${ger/geocat} Loads" ! loadPage ^
-      "${deu/geocat} Loads" ! loadPage ^
       "${eng/admin} Loads" ! loadPage ^
       "Loads metadata.show for one of the metadata" ! loadMetadataShow ^
   Step(tearDown)
