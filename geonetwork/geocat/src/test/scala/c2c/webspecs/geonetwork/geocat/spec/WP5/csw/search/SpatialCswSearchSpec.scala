@@ -32,7 +32,7 @@ class SpatialCswSearchSpec extends SearchSpecification {  def is =
                                                                                                   											       Step(tearDown)
 
 
-  def basicSearch(implicit maxRecords:Int = 10000, similarity:Double = 1,lang:String = "fra") = (s: String) => {
+  def basicSearch(implicit maxRecords:Int = 10000, similarity:Double = 1,lang:String = "fre") = (s: String) => {
     val (op, areas, expectedMetadata) = extract3(s)
     
     val filterFac = op.trim.toLowerCase() match {
@@ -63,7 +63,7 @@ class SpatialCswSearchSpec extends SearchSpecification {  def is =
     }
     
     val xmlResponse = CswGetRecordsRequest(areaFilter.xml,
-                                           resultType = ResultTypes.resultsWithSummary, 
+                                           resultType = ResultTypes.resultsWithSummary,
     									   outputSchema = OutputSchemas.Record, 
     									   maxRecords = maxRecords,
     									   url = lang+"/csw").execute().value

@@ -12,7 +12,7 @@ import csw._
 @RunWith(classOf[JUnitRunner])
 class CswTransactionSpec extends GeocatSpecification {
   def is = {
-    "CSW GetCapabilities services URL".title ^ Step(setup) ^
+    "CSW GetCapabilities services URL".title ^ sequential ^ Step(setup) ^ 
       "CswInsert should insert a new record" ! CswInsert ^
       "CswUpdate should update the inserted record with a new metadata" ! CswFullUpdate ^
       "CswUpdate should update the parts of the record with partial updates" ! CswPartialUpdate ^

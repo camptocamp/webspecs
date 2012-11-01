@@ -7,26 +7,18 @@ import java.util.zip.ZipFile
 import c2c.webspecs.geonetwork.geocat.spec.WP7.ZipFileValueFactory
 import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 import c2c.webspecs.geonetwork.GeonetworkSpecification
+import c2c.webspecs.geonetwork.geocat.GeocatConstants
 
 object CswGetRecordsApp extends WebspecsApp {
 
-  val gcResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
-    override def baseServer = "www.geocat.ch"
-  }
-
-  val shadowResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
-      override def baseServer = "ec2-176-34-163-138.eu-west-1.compute.amazonaws.com"
-  }
-  
-  val integrationResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
-      override def baseServer = "tc-geocat0i.bgdi.admin.ch"
-  }
-  
-  val oldGeocatResolver = new BasicServerResolver("http", "geonetwork/srv/eng") {
-      override def baseServer = "tc-geocat0i.bgdi.admin.ch:9999"
-  }
-  
-  val response = (LoginRequest("admin", "admin") then CswGetRecordsRequest(Nil)).execute()
+    override def referenceSpecClass = classOf[GeocatSpecification]
+    
+  val req = CswGetRecordsRequest(PropertyIsEqualTo("Identifier", "bb3fdeee-ae25-45ec-830f-aec31c58ce70").xml,
+        maxRecords = 1,
+        resultType = ResultTypes.results,
+        outputSchema = OutputSchemas.Record,
+        url = "ger/csw")
+  val response = (LoginRequest("admin", "admin") then req).execute()
 
   println(response.value.getXml)
   

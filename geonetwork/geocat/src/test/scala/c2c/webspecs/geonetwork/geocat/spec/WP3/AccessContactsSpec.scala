@@ -13,14 +13,14 @@ import org.specs2.runner.JUnitRunner
 class AccessContactsSpec extends GeocatSpecification { def is =
 
   "This specification tests accessing shared users"      ^ Step(setup) ^
-    "Listing all users ${*}"                             ^ searchContacts.toGiven ^
-      "Should be a successful http request (200 response code)"               ^ l200Response ^
-      "Should show user name"                            ^ listUserNames.toThen    ^
-      "Should list emails"                               ^ listEmails.toThen   ^
-      "Should list names"                                ^ listNames.toThen   ^
-      "Should list profile"                              ^ listProfiles.toThen   ^
-      "Should list validation"                           ^ listValidation.toThen   ^
-                                                           end ^
+    "Listing all users"                             	 ^ Step(allSharedUsers) ^
+      "Should be a successful http request (200 response code)"               ! {allSharedUsers must haveA200ResponseCode} ^
+      "Should show user name"                            ! checkUserNames    ^
+      "Should list emails"                               ! checkEmails   ^
+      "Should list names"                                ! checkNames   ^
+      "Should list profile"                              ! checkProfiles   ^
+      "Should list validation"                           ! checkValidation   ^
+                                                           endp ^
     "Gettings a user in iso xml"                         ^ contactInIso.toGiven  ^
       "Should be a successful http request (200 response code)"               ^ i200Response      ^
       "Should show name"                                 ^ isoName.toThen      ^
@@ -28,9 +28,9 @@ class AccessContactsSpec extends GeocatSpecification { def is =
       "contactInstruction has xsi:type attribute"        ^ contactInstructionHasXsiType.toThen   ^
       "Should have position in all localisedStrings"     ^ localisedPosition.toThen   ^
                                                            end ^
-    "Searching for ${"+userFixture.name+"}"              ^ searchContacts.toGiven  ^
-      "Should be a successful http request (200 response code)"               ^ l200Response      ^
-      "Should list all users with that name"             ^ hasNameInData.toThen   ^
+    "Searching for "+userFixture.name+""                 ^ Step(sharedUsersSearchedByName)  ^
+      "Should be a successful http request (200 response code)"               ! {allSharedUsers must haveA200ResponseCode}      ^
+      "Should list all users with that name"             ! hasNameInData   ^
                                                            end ^
                                                            Step(tearDown)    ^
     "UserFixture should be deleted"                      ! fixtureIsGone
@@ -39,24 +39,27 @@ class AccessContactsSpec extends GeocatSpecification { def is =
   type ListUserResponse = Response[List[User with UserRef with Validateable]]
 
   def find[U](list:ListUserResponse)(map: User with UserRef with Validateable => U) = { list.value.find(_.userId == userFixture.id).map(map)}
-  val searchContacts = (s:String) => 
-    GeocatListUsers.execute(extract1(s).replace('*',' ').trim()):ListUserResponse
+  def searchContacts(s:String) = 
+    GeocatListUsers.execute(s.trim()):ListUserResponse
+
+  lazy val allSharedUsers = searchContacts(" ")
+  lazy val sharedUsersSearchedByName = searchContacts(userFixture.name)
   val l200Response = a200ResponseThen.narrow[ListUserResponse]
 
-  val listUserNames = (response:ListUserResponse) => 
-    response.value.map{_.username} must contain (userFixture.username)
+  def checkUserNames =
+    allSharedUsers.value.map{_.username} must contain (userFixture.username)
 
-  val listNames = (response:ListUserResponse) => find(response)(_.name) must beSome(userFixture.name)
+  def checkNames = find(allSharedUsers)(_.name) must beSome(userFixture.name)
 
-  val listProfiles = (response:ListUserResponse) => find(response)(_.profile) must beSome(SharedUserProfile)
+  def checkProfiles = find(allSharedUsers)(_.profile) must beSome(SharedUserProfile)
 
-  val listEmails = (response:ListUserResponse) => find(response)(_.email) must beSome(userFixture.email)
+  def checkEmails = find(allSharedUsers)(_.email) must beSome(userFixture.email)
 
-  val listValidation= (response:ListUserResponse) => find(response)(_.validated) must beSome(true)
+  def checkValidation= find(allSharedUsers)(_.validated) must beSome(true)
 
-  val hasNameInData = (response:ListUserResponse) => {
+  def hasNameInData = {
     import userFixture.{name => fixName}
-    val usersMissingExpectedData = response.value.filterNot(c => (c.name contains fixName) || (c.surname contains fixName) || (c.email contains fixName) || (c.username contains fixName))
+    val usersMissingExpectedData = sharedUsersSearchedByName.value.filterNot(c => (c.name contains fixName) || (c.surname contains fixName) || (c.email contains fixName) || (c.username contains fixName))
     usersMissingExpectedData must beEmpty
   }
 

@@ -54,10 +54,14 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
 
   }
 
-  def newContact = 
-    GeocatListUsers.execute(contactFirstName).value.filter(_.name == contactFirstName) must haveSize(1)
-  def newParent = 
-    GeocatListUsers.execute(parentFirstName).value.find(_.name == parentId+"FirstName*automated*") must beSome
+  def newContact = {
+    val contacts = GeocatListUsers.execute(contactFirstName).value
+    contacts.filter(_.name == contactFirstName) must haveSize(1)
+  }
+  def newParent = {
+    val contacts = GeocatListUsers.execute(parentFirstName).value
+    contacts.find(_.name == parentId+"FirstName*automated*") must beSome
+  }
 
   val updateContact = () => {
     val id = GeocatListUsers.execute(contactFirstName).value.find(_.name == contactFirstName).get.userId
@@ -182,7 +186,7 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
         <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="originator" />
       </gmd:role>
       <che:individualFirstName>
-        <gco:CharacterString>{contactId}FirstName*automated*</gco:CharacterString>
+        <gco:CharacterString>{contactFirstName}</gco:CharacterString>
       </che:individualFirstName>
       <che:individualLastName>
         <gco:CharacterString>{contactId}LastName*automated*</gco:CharacterString>
@@ -297,7 +301,7 @@ class AddSharedContactsSpec extends GeocatSpecification() { def is =
               <gmd:CI_RoleCode codeList="http://www.isotc211.org/2005/resources/codeList.xml#CI_RoleCode" codeListValue="distributor" />
             </gmd:role>
             <che:individualFirstName>
-              <gco:CharacterString>{parentId}FirstName*automated*</gco:CharacterString>
+              <gco:CharacterString>{parentFirstName}</gco:CharacterString>
             </che:individualFirstName>
             <che:individualLastName>
               <gco:CharacterString>{parentId}LastName*automated*</gco:CharacterString>
