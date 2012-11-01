@@ -11,13 +11,13 @@ import c2c.webspecs.geonetwork.spec.search.AbstractPagingSearchSpec
 
 @RunWith(classOf[JUnitRunner])
 class PagingCswSearchSpec extends GeonetworkSpecification with SearchSpecification with AbstractPagingSearchSpec[XmlValue] {
-  def page(i:Int) = {
+   def page(startRecord: Int, endRecord: Option[Int]) = {
 
     val xmlResponse = CswGetRecordsRequest(Nil,
       resultType = ResultTypes.resultsWithSummary,
       outputSchema = OutputSchemas.Record,
-      maxRecords = 2,
-      startPosition = i,
+      maxRecords = endRecord.getOrElse(1000) - startRecord + 1,
+      startPosition = startRecord,
       sortBy = List(SortBy("date", false))).execute().value
 
     val xml = xmlResponse

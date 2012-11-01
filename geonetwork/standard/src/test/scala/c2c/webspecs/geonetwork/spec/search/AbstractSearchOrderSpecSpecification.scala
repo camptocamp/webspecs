@@ -15,29 +15,29 @@ trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
 
  def titleExtension:String 
  def is =
-  ("TitleSearchOrder"+titleExtension).title ^
+  ("TitleSearchOrder"+titleExtension).title ^ sequential ^
   "Test the search order by title" ^ Step(setup) ^ Step(getSearchSetting) ^
       "Import several metadata with interesting titles and languages" ^ Step(importMd) ^ endp ^
       "Set Search setting so that the request language is not sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = false)) ^
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearch ^
-//      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearch ^ endp ^
-//      "Set Search setting so that the request language is not sorted and only documents of the the context language is allowed" ^ Step(setSearchSetting(only="only_docLocale", sorted = false, ignored = false)) ^
-//      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleDocLocaleSearchOnly ^
-//      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleDocLocaleSearchOnly ^ endp ^
-//      "Set Search setting so that the request language is not sorted and only documents with abstract in the context language is allowed" ^ Step(setSearchSetting(only="only_locale", sorted = false, ignored = false)) ^
-//      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleLocaleSearchOnly ^
-//      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleLocaleSearchOnly ^ endp ^
-//      "Set Search setting so that the request language is sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only="prefer_locale", sorted = true, ignored = false)) ^
-//      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchSorted ^
-//      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchSorted ^ endp ^
-//      "Set Search setting so that the request language is not sorted and the context language is ignored" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = true)) ^
-//      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchIgnored ^
-//      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchIgnored ^ endp ^
+      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearch ^ endp ^
+      "Set Search setting so that the request language is not sorted and only documents of the the context language is allowed" ^ Step(setSearchSetting(only="only_docLocale", sorted = false, ignored = false)) ^
+      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleDocLocaleSearchOnly ^
+      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleDocLocaleSearchOnly ^ endp ^
+      "Set Search setting so that the request language is not sorted and only documents with abstract in the context language is allowed" ^ Step(setSearchSetting(only="only_locale", sorted = false, ignored = false)) ^
+      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleLocaleSearchOnly ^
+      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleLocaleSearchOnly ^ endp ^
+      "Set Search setting so that the request language is sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only="prefer_locale", sorted = true, ignored = false)) ^
+      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchSorted ^
+      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchSorted ^ endp ^
+      "Set Search setting so that the request language is not sorted and the context language is ignored" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = true)) ^
+      "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchIgnored ^
+      "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchIgnored ^ endp ^
                                                                 Step(resetSearchSetting)   ^ Step(tearDown)
 
   def pathToSearchMetadata = "/geonetwork/data/csw/search/"
   def doSearch(lang:String): Seq[String]
-
+  
   val timeStamp = System.currentTimeMillis()
   def importMd = {
     def doImport(lang:String,title:Node) = {

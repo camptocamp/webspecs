@@ -15,22 +15,24 @@ trait AbstractPagingSearchSpec[SearchResult] {
             ("Searching for '" + time + "NonSpatialSearchQuerySpec' with a maxSize of 1 and a startPosition" +
           		" of 2 should return 1 record with a hits result of 4 and should not be the same page as in page 1") ! checkSecondPage ^ 
             ("Searching for '" + time + "NonSpatialSearchQuerySpec' with a maxSize of 1 and a startPosition" +
-                    " of 5 should return 0 records with a hits result of 4") ! checkThirdPage ^ 
+                    " of 5 should return 0 records with a hits result of 4") ! checkThirdPage ^
+            ("Searching for '" + time + "NonSpatialSearchQuerySpec' with a maxSize of 1 and a startPosition" +
+                    " of 1 (no to value) should return 3 records with a hits result of 4") ! checkAll ^
   Step(tearDown)
 
   def minimumRecordReturned = 0
   /**
-   * make a search request with the first record being "startRecord".  The search should be limitted to 2 records
+   * make a search request with the first record being "startRecord".  The search should be limited to 2 records
    */
-  def page(startRecord: Int): {
+  def page(startRecord: Int, endRecord: Option[Int]): {
     def codes: Seq[String]
     def nextRecord: Int
     def recordsReturned: Int
     def totalHits: Int
   }
 
-  lazy val firstPage = page(1)
-  lazy val secondPage = page(3)
+  lazy val firstPage = page(1,Some(2))
+  lazy val secondPage = page(3,Some(4))
 
   def checkFirstPage = {
     (firstPage.codes must haveSize(2)) and
@@ -48,10 +50,18 @@ trait AbstractPagingSearchSpec[SearchResult] {
   }
 
   def checkThirdPage = {
-    val thirdPage = page(5)
+    val thirdPage = page(5, Some(6))
     (thirdPage.codes must haveSize(minimumRecordReturned)) and
       (thirdPage.recordsReturned must_== minimumRecordReturned) and
       (thirdPage.totalHits must_== 4)
+  }
+  
+  
+  def checkAll = {
+      val all = page(1, None)
+      (all.codes must haveSize(4)) and
+      (all.recordsReturned must_== 4) and
+      (all.totalHits must_== 4)
   }
   
 
