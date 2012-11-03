@@ -64,6 +64,7 @@ case class XmlSearchValues(rawValue:BasicHttpValue) {
 }
 class XmlSearchValue(xml:NodeSeq) {
   override def toString = title
+  val uuid = infoValue("uuid")
   val defaultTitle = recordValue("defaultTitle")
   val title = if(recordValue("title").trim.isEmpty) recordValue("defaultTitle") else recordValue("title")
 
