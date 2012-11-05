@@ -4,7 +4,10 @@ package spec.regions
 
 import regions._
 import org.specs2.specification.Step
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
 class ListRegionsSpec extends GeonetworkSpecification with AbstractRegionsSpec { def is =
   "This spec tests the regions list functionality" ^ Step(setup) ^
       "The regions.list.xml service should return an xml list of the regions" ! listXml ^

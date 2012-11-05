@@ -7,9 +7,9 @@ object XmlRegionFactory extends BasicValueFactory[List[Region]] {
     val xml = rawValue.toXmlValue.getXml
     val regions = for {
       region <- xml \ "region"
-      id = (region \ "id").text
-      categoryId = (region \ "categoryId").text
-      hasGeom = (region \ "hasGeom").text.toBoolean
+      id = (region \ "@id").text
+      categoryId = (region \ "@categoryId").text
+      hasGeom = (region \ "@hasGeom").text.toBoolean
       north = (region \ "north").text.toDouble
       south = (region \ "south").text.toDouble
       east = (region \ "east").text.toDouble

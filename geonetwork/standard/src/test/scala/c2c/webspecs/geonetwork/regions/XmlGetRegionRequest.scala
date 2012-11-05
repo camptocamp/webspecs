@@ -3,5 +3,5 @@ package geonetwork.regions
 
 
 case class XmlGetRegionRequest(id: String, categoryId: String)
-    extends AbstractGetRequest("region.get.xml", XmlRegionFactory, SP("id" -> id), SP("categoryId" -> id))
+    extends AbstractGetRequest("xml.region.get", XmlRegionFactory, SP("id" -> id), SP("categoryId" -> id))
 
