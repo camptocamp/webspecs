@@ -16,7 +16,7 @@ object XmlRegionFactory extends BasicValueFactory[List[Region]] {
       west = (region \ "west").text.toDouble
     } yield {
       val label: LocalisedString = new LocalisedString((region \ "label" \ "_" map (e => e.label -> e.text)).toMap)
-      val category: LocalisedString = new LocalisedString((region \ "category" \ "_" map (e => e.label -> e.text)).toMap)
+      val category: LocalisedString = new LocalisedString((region \ "categoryLabel" \ "_" map (e => e.label -> e.text)).toMap)
       Region(id, label, categoryId, category, Bbox(west,south, east, north),hasGeom)
     }
     

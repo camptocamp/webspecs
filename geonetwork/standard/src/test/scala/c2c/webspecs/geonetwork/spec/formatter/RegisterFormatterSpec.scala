@@ -14,7 +14,7 @@ import org.apache.http.entity.mime.content.InputStreamBody
 
 @RunWith(classOf[JUnitRunner]) 
 class RegisterFormatterSpec extends GeonetworkSpecification() {  def is =
-	"Xsl custom metadata XML output".title 															 ^ Step(setup) ^ Step(importMetadataId) ^
+	"Xsl custom metadata XML output".title 															 ^ Step(setup) ^ Step(importMetadataId) ^ sequential ^
     	"Login as admin"																		 ^ Step(config.adminLogin.execute()) ^ endp ^
     	"must load the XSL stylesheet via the the REST API (${webspecs_single_file.xsl})"        ! customXslLoad ^ p ^
             "must successfully transform the inserted sample MD using ${webspecs_single_file}"   ! testXslCustomTransform ^
@@ -142,7 +142,7 @@ class RegisterFormatterSpec extends GeonetworkSpecification() {  def is =
   
   def xml(requestLang:String, format:String) = {
     val response = GetRequest(requestLang+"/metadata.formatter.xml", "uuid" -> importMetadataId, "xsl" -> xslId(format)).execute()
-    assert(response.basicValue.responseCode == 200, "Expected 200 response code")
+    assert(response.basicValue.responseCode == 200, "Expected 200 response code not "+response.basicValue.responseCode)
     response.value.getXml
   }
 }

@@ -11,6 +11,10 @@ import scala.xml._
 import org.apache.http.entity.mime.content.ByteArrayBody
 import c2c.webspecs.geonetwork.spec.csw.search.CswGetRecordsSpec
 
+import org.junit.runner.RunWith
+import org.specs2.runner.JUnitRunner
+
+@RunWith(classOf[JUnitRunner])
 class SearchRegionSpec extends GeonetworkSpecification with AbstractRegionsSpec { def is =
   "This spec test XmlSearch and Csw search with a region declared" ^ Step(setup) ^ step(importMd) ^
       "Csw search with a within filter that has a region id should only find metadata within that region" ! cswSearch ^

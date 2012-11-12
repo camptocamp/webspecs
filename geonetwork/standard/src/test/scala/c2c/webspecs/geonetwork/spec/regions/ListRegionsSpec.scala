@@ -22,14 +22,18 @@ class ListRegionsSpec extends GeonetworkSpecification with AbstractRegionsSpec {
       regions.map(_.id) must containAllOf( regions1Ids ++ regions2Ids)
    }
    def searchCategory = {
-     val regions = XmlListRegionsRequest(categoryId = Some("country")).execute().value
+     val regions = XmlListRegionsRequest(categoryId = Some(regions1.head.categoryId)).execute().value
      (regions.map(_.id) must containAllOf(regions1Ids)) and 
          (regions.map(_.id) must not (containAnyOf(regions2Ids)))
    }
    def searchName = {
      val region = regions1(0)
      val regions = XmlListRegionsRequest(label = Some(region.label.translations.head._2)).execute().value
-     regions.map(_.id) must contain(region.id)
+     (regions.map(_.id) must contain(region.id)) and
+         (regions.map(_.categoryId) must contain(region.categoryId)) and
+         (regions.find(_.id == region.id).get.label.translations must contain(region.label.translations.head)) and
+         (regions.find(_.id == region.id).get.categoryLabel.translations must contain(region.categoryLabel.translations.head))
+         
    }
    def maxRecords = {
      val regions = XmlListRegionsRequest(maxRecords = Some(1)).execute().value
