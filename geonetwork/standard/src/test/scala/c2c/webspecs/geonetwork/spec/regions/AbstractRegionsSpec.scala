@@ -14,19 +14,19 @@ trait AbstractRegionsSpec {
       bbox = Bbox(5.96701, 45.82944, 10.48821, 47.80666),
       hasGeom = false),
     Region(
-      id = "http://geonetwork-opensource.org/regions#210",
+      id = "http://geonetwork-opensource.org/regions#68",
       categoryId = "http://geonetwork-opensource.org/regions#country",
-      label = LocalisedString(Map("eng" -> "Sweden")),
+      label = LocalisedString(Map("eng" -> "France")),
       categoryLabel = LocalisedString(Map("eng" -> "Country")),
-      bbox = Bbox(11.11333, 55.33917, 24.16701, 69.0603),
+      bbox = Bbox(-5.79028, 41.36493, 9.56222, 51.09111),
       hasGeom = false))
    protected lazy val regions1Ids = regions1.map(_.id)
    protected val regions2 = Seq(
     Region(
       id = "http://geonetwork-opensource.org/regions#1220",
       categoryId = "http://geonetwork-opensource.org/regions#oceans",
-      label = LocalisedString(Map("eng" -> "Sweden")),
-      categoryLabel = LocalisedString(Map("eng" -> "Country")),
+      label = LocalisedString(Map("eng" -> "All fishing areas")),
+      categoryLabel = LocalisedString(Map("eng" -> "ocean")),
       bbox = Bbox(11.11333, 55.33917, 24.16701, 69.0603),
       hasGeom = false))
    protected lazy val regions2Ids = regions2.map(_.id)
