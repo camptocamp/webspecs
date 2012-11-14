@@ -22,7 +22,7 @@ object KeywordRefListFactory extends BasicValueFactory[List[KeywordRef]]{
             Map(defLang -> (wordElem \ "definition" text))
           }
           val uri = wordElem \ "uri" text
-          val thesaurus= wordElem \ "thesaurus" text
+          val thesaurus= wordElem \ "thesaurus" \ "key" text
 
           values.map {case (lang, value) => 
             KeywordRef(id,lang, value,definitions.get(lang) getOrElse "",uri,thesaurus)
