@@ -9,6 +9,5 @@ import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 @RunWith(classOf[JUnitRunner])
 class CswGetRecordsSpec extends c2c.webspecs.geonetwork.spec.csw.search.CswGetRecordsSpec with GeocatSpecification {
   
-  override def rootElem = "CHE_MD_Metadata"
   override def metadataToImport = "/geocat/data/metadata.iso19139.che.xml"
 }

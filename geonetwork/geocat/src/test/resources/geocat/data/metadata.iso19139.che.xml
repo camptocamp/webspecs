@@ -179,13 +179,13 @@
       <gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
         <gmd:PT_FreeText>
           <gmd:textGroup>
-            <gmd:LocalisedCharacterString locale="#FR">FR abstract</gmd:LocalisedCharacterString>
+            <gmd:LocalisedCharacterString locale="#FR">FR abstract {uuid}</gmd:LocalisedCharacterString>
           </gmd:textGroup>
           <gmd:textGroup>
-            <gmd:LocalisedCharacterString locale="#EN">EN  abstract</gmd:LocalisedCharacterString>
+            <gmd:LocalisedCharacterString locale="#EN">EN  abstract {uuid}</gmd:LocalisedCharacterString>
           </gmd:textGroup>
           <gmd:textGroup>
-            <gmd:LocalisedCharacterString locale="#DE">DE  abstract</gmd:LocalisedCharacterString>
+            <gmd:LocalisedCharacterString locale="#DE">DE  abstract {uuid}</gmd:LocalisedCharacterString>
           </gmd:textGroup>
         </gmd:PT_FreeText>
       </gmd:abstract>
