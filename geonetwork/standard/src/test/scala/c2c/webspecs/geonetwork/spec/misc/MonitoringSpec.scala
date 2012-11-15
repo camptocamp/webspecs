@@ -14,7 +14,7 @@ import c2c.webspecs.login.LogoutRequest
  */
 @RunWith(classOf[JUnitRunner]) 
 class MonitoringSpec extends GeonetworkSpecification {  def is =
-	"Monioring Specification".title 														^ Step(setup) ^  
+	"Monioring Specification".title 														^ Step(setup) ^ sequential ^
 	        "Add some metadata so that healthchecks will work"                                  ^ Step(importMd)        ^
 			"Get the results of the ${metrics} webservice"										! checkMonitorReport    ^
 			"Get the results of the ${healthcheck} webservice"									! checkMonitorReport    ^

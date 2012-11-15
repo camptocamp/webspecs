@@ -42,9 +42,9 @@ class ImportCheMetadataSpec  extends GeocatSpecification {  def is =
       (frLocalizedString must beSome("FR Title")) and
       (cheLocalisedUrl must_== "http://www.awnl.llv.li") and
       (abstractText must beEmpty) and
-      (abstractLocalisedFRtext must beSome("FR abstract")) and
-      (abstractLocalisedENtext must beSome("EN  abstract")) and
-      (abstractLocalisedDEtext must beSome("DE  abstract"))
+      (abstractLocalisedFRtext must beSome("FR abstract "+uuid)) and
+      (abstractLocalisedENtext must beSome("EN  abstract "+uuid)) and
+      (abstractLocalisedDEtext must beSome("DE  abstract "+uuid))
   }
 
   def cswGetInsertedMd = {
