@@ -10,28 +10,58 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class ImportCheMetadataSpec  extends GeocatSpecification {  def is = 
+class ExportSpec  extends GeocatSpecification {  def is = 
 	
-  "This specification tests using the iso19139.CHE schema"                  ^ Step(setup)               ^
-    "Inserting a CHE metadata with extended categories"                        ^ Step(importAndGetMetadata) ^
-    "Should suceed with a 200 response"                                     ! {importAndGetMetadata must haveA200ResponseCode}   ^
-    "GetRecordById iso19139 shouldn't have extended category"        ! correctGetRecordById   ^
-    "export in iso19139 shouldn't have not extended category"        ! correctGetRecordById   ^
-    "export in GM03 shouldn't not have extended category"        ! correctGetRecordById   
+  "This specification tests the export of Extended Categories"                  ^ Step(setup)               ^
+    "Inserting a CHE metadata with extended categories"                        ^ Step(importAndGetMetadataId) ^
+    "${getRecordById} shouldn't have specialized code"        ! correctIso19139Export   ^
+    "${iso19139 export} should have specialized code"        ! correctIso19139Export   ^
+    "GM03 export both codes"        ! correctGM03Export   
 
   /**
    * Load a MD with one category 'elevation' and one extended category "geoscientificInformation_Geology"
+   * The MD also contain main category "geoscientificInformation"
+   * 
+   * iso19139  export should just contain main category 'elevation' and "geoscientificInformation"
+   * GM03 export should contains both codes "geoscientificInformation" & "geoscientificInformation_Geology"
    */
-  lazy val importAndGetMetadata = {
-      val id = importMd(1,"/geocat/data/metadata.iso19139.che.xml",uuid.toString).head
-      val fileId = (GetRawMetadataXml.execute(id).value.getXml \\ "fileIdentifier").text.trim
-      CswGetRecordById(fileId,  outputSchema = OutputSchemas.IsoRecord).execute()
+    
+  lazy val importAndGetMetadataId = {
+      val id = importMd(1,"/geocat/data/metadata.iso19139.che-ext-cat.xml",uuid.toString).head
+      (GetRawMetadataXml.execute(id).value.getXml \\ "fileIdentifier").text.trim
   }
-  lazy val metadataXml = importAndGetMetadata.value.getXml
-
-  def correctGetRecordById = {
-    (metadataXml \\ "topicCategory" must haveSize(2)) and
-    	(metadataXml \\ "topicCategory"  \ "MD_TopicCategoryCode" must contain("geoscientificInformation")) and
-    		(metadataXml \\ "topicCategory"  \ "MD_TopicCategoryCode" must contain("geoscientificInformation_Geology")) 
+  
+  def correctIso19139Export = (s:String) => {
+    
+		  def getRecordById = extract1(s) match {
+	      case "getRecordById" =>
+	         CswGetRecordById(importAndGetMetadataId,  outputSchema = OutputSchemas.IsoRecord).execute()
+	      case "iso19139 export" =>
+	         GetRequest("xml_iso19139", ("uuid" -> importAndGetMetadataId)).execute()
+	      case "GM03 export" =>
+	         GetRequest("gm03.xml", ("uuid" -> importAndGetMetadataId)).execute()
+	
+	    }		                  
+		getRecordById must haveA200ResponseCode
+		  
+		  val response = getRecordById.value.getXml
+		  
+		  (response \\ "topicCategory" must haveSize(2)) and
+    	   ((response \\ "topicCategory"  \ "MD_TopicCategoryCode").text.trim must contain("geoscientificInformation")) and
+    		((response \\ "topicCategory"  \ "MD_TopicCategoryCode").text.trim must not contain("geoscientificInformation_Geology")) 
   }
+  
+  def correctGM03Export = {
+    
+	     val exportGM03 = GetRequest("gm03.xml", ("uuid" -> importAndGetMetadataId)).execute()
+	
+		exportGM03 must haveA200ResponseCode
+		  
+		 val response = exportGM03.value.getXml
+		  
+		  (response \\ "topicCategory" \ "GM03_2Core.Core.MD_TopicCategoryCode_" must haveSize(3)) and
+    	   ((response \\ "GM03_2Core.Core.MD_TopicCategoryCode_"  \ "value").text.trim must contain("geoscientificInformation")) and
+    		((response \\ "GM03_2Core.Core.MD_TopicCategoryCode_"  \ "value").text.trim must contain("geoscientificInformation_Geology")) 
+  }
+  
 }
