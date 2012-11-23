@@ -38,8 +38,8 @@ class AllSpecs extends AbstractAllSpecs("All Work Packages", classOf[WP1],
       classOf[WP10],
       classOf[WP11_12],
       classOf[WP15], 
-      classOf[WP16]
-//      classOf[BugFixes]
+      classOf[WP16],
+      classOf[BugFixes]
       )
 
 
@@ -149,4 +149,6 @@ class WP16 extends AbstractAllSpecs("WP 16: Misc. tests",
 
 @RunWith(classOf[JUnitRunner])
 class BugFixes extends AbstractAllSpecs("Bug Fixes",
-            classOf[AddRemoveOverviewSpec])
+//            classOf[AddRemoveOverviewSpec],
+            classOf[ClickableAttributeLinkSpec]
+            )
