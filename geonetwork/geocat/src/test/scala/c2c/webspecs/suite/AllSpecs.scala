@@ -15,6 +15,7 @@ import c2c.webspecs.geonetwork.geocat.spec.WP10._
 import c2c.webspecs.geonetwork.geocat.spec.WP12._
 import c2c.webspecs.geonetwork.geocat.spec.WP15._
 import c2c.webspecs.geonetwork.geocat.spec.WP16._
+import c2c.webspecs.geonetwork.geocat.spec.RE2012_ExtendedCategories._
 import c2c.webspecs.geonetwork.geocat.spec.bugs._
 
 import java.text.SimpleDateFormat
@@ -38,7 +39,8 @@ class AllSpecs extends AbstractAllSpecs("All Work Packages", classOf[WP1],
       classOf[WP10],
       classOf[WP11_12],
       classOf[WP15], 
-      classOf[WP16]
+      classOf[WP16],
+      classOf[RE2012_ExtendedCategories]
 //      classOf[BugFixes]
       )
 
@@ -146,6 +148,11 @@ class WP16 extends AbstractAllSpecs("WP 16: Misc. tests",
             classOf[PreStyleSheetSpec],
             classOf[RegisterXslSpec],
             classOf[TestMetadataExpiredServicesSpec])
+
+@RunWith(classOf[JUnitRunner])
+class RE2012_ExtendedCategories extends AbstractAllSpecs("RE2012_ExtendedCategories",
+            classOf[ExportSpec],
+            classOf[UpdateInfoSpec])
 
 @RunWith(classOf[JUnitRunner])
 class BugFixes extends AbstractAllSpecs("Bug Fixes",
