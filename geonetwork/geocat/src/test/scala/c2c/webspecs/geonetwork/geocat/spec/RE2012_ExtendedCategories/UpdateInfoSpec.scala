@@ -35,7 +35,7 @@ class UpdateInfoSpec extends GeocatSpecification {  def is =
   lazy val metadataXml = importAndGetMetadata.value.getXml
   
   def correctMetadataWasRetrieved = {
-    
+    println(metadataXml)
     	(metadataXml \\ "topicCategory" must haveSize(3)) and
     	((metadataXml \\ "topicCategory"  \ "MD_TopicCategoryCode").text.trim must contain("elevation")) and
     	 ((metadataXml \\ "topicCategory"  \ "MD_TopicCategoryCode").text.trim must contain("geoscientificInformation")) and

@@ -34,8 +34,12 @@ trait ZipValue  {
     var data:Array[Byte] = null 
     while(next != null && data == null) {
       if(next.getName.equals(zipEntry.getName)) {
-        data = new Array[Byte](zipEntry.getSize.toInt)
-        in.read(data)
+        val size = zipEntry.getSize.toInt
+        data = new Array[Byte](size)
+        var read = in.read(data)
+        while(read < size-1) {
+          read += in.read(data, read, size-read)
+        }
       }
       next = in.getNextEntry() 
     }

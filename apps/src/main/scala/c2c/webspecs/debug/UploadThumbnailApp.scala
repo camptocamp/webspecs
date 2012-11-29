@@ -17,7 +17,7 @@ object UploadThumbnailApp extends WebspecsApp {
     
     LoginRequest("admin","Hup9ieBe").execute()
     
-    val editValue = StartEditing().execute(Id("577189")).value
+    val editValue = StartEditing().execute(Id("365730")).value
     val scaling = Some(ThumbnailScaling(180, true))
     val img = ResourceLoader.loadImageFromClassPath("/geonetwork/SwitzerlandSketch-4.png", classOf[AddRemoveOverviewSpec])
     val response = SetSmallThumbnail(editValue,img, scaling = scaling).execute()

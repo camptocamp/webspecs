@@ -34,8 +34,8 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
     implicit val implicitContext = setupContext
     // don't chain requests because SetSequential is available on all GN instances
     config.adminLogin.assertPassed()
-    SetSequentialExecution(true).assertPassed() 
-    SetUseNRTManagerReopenThread(true).assertPassed() 
+    SetSequentialExecution(true).execute() 
+    SetUseNRTManagerReopenThread(true).execute() 
     UserLogin.assertPassed()
   }
   

@@ -31,6 +31,7 @@ class ImportPTFreeTextSpec  extends GeocatSpecification {  def is =
     config.adminLogin.execute()
     val response = GetRequest("eng/metadata.admin.form", 'id -> id).execute()
     val xml = response.value.getXml
+    println(xml)
     val checkbox = xml \\ "input" filter {b => (b @@ "name") == List("_-1_0") }
     
     (checkbox aka "checkboxs" must not beEmpty) and ((checkbox \@ "disabled") aka "disabled attribute" must beEmpty)
