@@ -24,6 +24,8 @@ case class XmlSearch(params: Seq[(String, String)] = Seq.empty)
   def hitsPerPage(i: Int) = update(this, true, 'hitsperpage -> i)
   def fast(i: FastTypeEnum.Value) = update(this, true, 'fast -> i.toString)
   def search(newParams: (Any,Any)*) = update(this, false, newParams: _*)
+  def withSummary = update(this, true, 'buildSummary -> true)
+  def summaryOnly = update(this, true, 'buildSummary -> true, 'summaryOnly -> 1)
 }
 
 object FastTypeEnum extends Enumeration {

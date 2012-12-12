@@ -32,7 +32,10 @@ class SelectAllBugSpec extends GeonetworkSpecification {
       end ^ Step (tearDown)
 
   def importData = importMd(5,"/geonetwork/data/valid-metadata.iso19139.xml", datestamp)
-  def select = (SelectAll.execute().value.getXml \\ "Selected").text.trim must_== "5"
+  def select = {
+    val result = SelectAll.execute().value.getXml
+    (result \\ "Selected").text.trim must_== "5"
+  }
   def delete = MetadataBatchDelete.execute() must haveA200ResponseCode
   val search = (s:String) => (searchRequest.execute().value.getXml \\ "summary" \ "@count").text must_== extract1(s)
 

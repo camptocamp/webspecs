@@ -10,13 +10,13 @@ import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import scala.xml.NodeSeq
 
-trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
+trait AbstractSearchOrderSpecSpecification {
   self: GeonetworkSpecification =>
 
  def titleExtension:String 
  def is =
   ("TitleSearchOrder"+titleExtension).title ^ sequential ^
-  "Test the search order by title" ^ Step(setup) ^ Step(getSearchSetting) ^
+  "Test the search order by title" ^ Step(setup) ^ 
       "Import several metadata with interesting titles and languages" ^ Step(importMd) ^ endp ^
       "Set Search setting so that the request language is not sorted, all languages are allowed and the metadata in the context language is considered more important" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = false)) ^
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearch ^
@@ -33,7 +33,7 @@ trait AbstractSearchOrderSpecSpecification extends SearchSettingsSpecification {
       "Set Search setting so that the request language is not sorted and the context language is ignored" ^ Step(setSearchSetting(only="prefer_locale", sorted = false, ignored = true)) ^
       "Sort by title in french and verify all MD are correctly sorted"      ! frTitleSearchIgnored ^
       "Sort by title in english and verify all MD are correctly sorted"     ! enTitleSearchIgnored ^ endp ^
-                                                                Step(resetSearchSetting)   ^ Step(tearDown)
+                                                                Step(tearDown)
 
   def pathToSearchMetadata = "/geonetwork/data/csw/search/"
   def doSearch(lang:String): Seq[String]

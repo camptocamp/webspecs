@@ -1,4 +1,4 @@
-package c2c.webspecs.geonetwork.spec.search
+package c2c.webspecs.geonetwork
 import scala.xml.NodeSeq
 import c2c.webspecs.ExecutionContext
 import c2c.webspecs.GetRequest

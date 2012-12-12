@@ -12,7 +12,10 @@ class DifferentLanguageBasicSearchSpec extends GeonetworkSpecification with Sear
   
   def search = (string:String) => {
     val lang = extract1(string)
-    val results = XmlSearch().to(10).search('any -> ("Title"+datestamp)).execute().value
+    implicit val resolver = new GeonetworkURIResolver() {
+      override def locale = lang
+    }
+    val results = XmlSearch().to(10).search('any -> ("Title"+datestamp)).execute()(context, resolver).value
 
     results.size must_== 2
   }

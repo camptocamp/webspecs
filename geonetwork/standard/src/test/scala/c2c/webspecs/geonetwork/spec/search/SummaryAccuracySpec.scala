@@ -20,13 +20,13 @@ class SummaryAccuracySpec extends GeonetworkSpecification with MustThrownExpecta
   
   def languagesToTest = Seq("eng", "fre", "ger")
   private def testLanguages(languages:Seq[String]) = {
-    val fragments = languages.map{ lang => "Test "+lang+" translations" ^ testSummary(lang) }
+    val fragments = languages.map{ lang => "Test "+lang+" translations" ^ testSummary(lang) ^ endp }
     fragments.reduce(_ ^ _)
   }
 
   def addData:Result = {
     config.adminLogin.execute();
-    val result = AddAllSampleData.execute() 
+    val result = AddSampleData("iso19139").execute() 
     result must haveA200ResponseCode
   }
   
@@ -36,11 +36,11 @@ class SummaryAccuracySpec extends GeonetworkSpecification with MustThrownExpecta
   }
 
   private def verifyEachSummaryResult(lang: String) = {
-    val summaries = (summary(lang) \\ "_" filter (n => (n \ "@count").nonEmpty))
+    val summaries = (summary(lang) \\ "_" filter (n => (n \ "@count").nonEmpty && (n \ "@name").nonEmpty))
     val summaryFragments = summaries.map{
       element =>
         val searchTerm = (element \ "@name" text)
-        val searchField = (element \ "@indexKey" text)
+        val searchField = (element.label)
         val count = (element \ "@count" text)
         
         findsCorrectNumberRecords(lang, searchField, searchTerm, count) 
@@ -54,23 +54,33 @@ class SummaryAccuracySpec extends GeonetworkSpecification with MustThrownExpecta
   }
 
   private def findsCorrectNumberRecords(lang:String, searchField:String, searchTerm:String, expectedResultCount:String) = {
-    val query = searchField match {
-      case "Summary" => Nil
-      case field if isNumeric(field) => PropertyIsBetween(field, searchTerm.toInt, searchTerm.toInt).xml
-      case _ => PropertyIsEqualTo(searchField, searchTerm).xml
-    }
-    
-    val cswResponse = 
-      CswGetRecordsRequest(
-          query, 
-        resultType = ResultTypes.hits,
-        maxRecords=1,
-        url = lang+"/csw").execute()
-        
-    val foundResults = (cswResponse.value.getXml \\ "SearchResults" \ "@numberOfRecordsMatched" text)
+//    val query = searchField match {
+//      case "Summary" => Nil
+//      case field if isNumeric(field) => PropertyIsBetween(field, searchTerm.toInt, searchTerm.toInt).xml
+//      case _ => PropertyIsEqualTo(searchField, searchTerm).xml
+//    }
+//    
+//    val cswResponse = 
+//      CswGetRecordsRequest(
+//          query, 
+//        resultType = ResultTypes.hits,
+//        maxRecords=1,
+//        url = lang+"/csw").execute()
 
-    (cswResponse aka ("Csw with filter "+query) must haveA200ResponseCode) and
-        (foundResults aka "found results for "+query must_== expectedResultCount).pendingUntilFixed("Summary is not currently very accurate")
+    val query = searchField match {
+      case "summary" => XmlSearch()
+      case field if isNumeric(field) => XmlSearch().search(field -> searchTerm)
+      case field => XmlSearch().search(field -> searchTerm)
+    }
+
+    implicit val resolver = new GeonetworkURIResolver() {
+      override def locale = lang
+    }
+    val response = query.execute()(context, resolver)
+    val foundResults = response.value.count
+
+    (response must haveA200ResponseCode) and
+        (foundResults aka "found results for "+query must_== expectedResultCount.toInt)//.pendingUntilFixed("Summary is not currently very accurate")
   }
   
   private def loadSummary = (s:String) => {
@@ -83,15 +93,17 @@ class SummaryAccuracySpec extends GeonetworkSpecification with MustThrownExpecta
   private def summary(lang:String) = {
     synchronized {
       summaries.getOrElse(lang,{
-        val request = CswGetRecordsRequest(Nil, 
-            resultType = ResultTypes.resultsWithSummary,
-            maxRecords=1,
-            url = lang+"/csw")
-        val response = request.execute()
         
-        response must haveA200ResponseCode
-        
-        val summary = response.value.getXml \\ "Summary"
+        val summary = XmlSearch().from(1).to(0).summaryOnly.execute().value.summary.get
+//        val request = CswGetRecordsRequest(Nil, 
+//            resultType = ResultTypes.resultsWithSummary,
+//            maxRecords=1,
+//            url = lang+"/csw")
+//        val response = request.execute()
+//        
+//        response must haveA200ResponseCode
+//        
+//        val summary = response.value.getXml \\ "Summary"
         summaries += lang -> summary
         summary
       })

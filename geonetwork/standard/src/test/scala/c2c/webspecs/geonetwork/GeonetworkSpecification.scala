@@ -12,7 +12,7 @@ import scala.collection.mutable.SynchronizedQueue
 import csw._
 
 @RunWith(classOf[JUnitRunner]) 
-trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
+trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] with SearchSettingsSpecification {
   implicit val config = GeonetConfig(Editor, getClass().getSimpleName)
   lazy val UserLogin = config.login
 
@@ -30,8 +30,9 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
 
   override def extraSetup(setupContext:ExecutionContext) = {
     super.extraSetup(setupContext)
-
     implicit val implicitContext = setupContext
+    getSearchSetting
+    setSearchSetting(only="prefer_locale", sorted = false, ignored = false)
     // don't chain requests because SetSequential is available on all GN instances
     config.adminLogin.assertPassed()
     SetSequentialExecution(true).execute() 
@@ -44,7 +45,7 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] {
     
     implicit val implicitContext = tearDownContext
     config.adminLogin.execute()
-
+    resetSearchSetting
     mdToDelete foreach {id => 
       try {DeleteMetadata.execute(id) }
       catch { case _ => println("Error deleting: "+ id) }

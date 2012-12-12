@@ -7,7 +7,6 @@ import scala.xml.Node
 import csw._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
-import c2c.webspecs.geonetwork.spec.search.SearchSettingsSpecification
 import c2c.webspecs.geonetwork.spec.search.AbstractSearchOrderSpecSpecification
 
 @RunWith(classOf[JUnitRunner])
