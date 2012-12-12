@@ -68,7 +68,8 @@ extends AbstractAllSpecs("SearchSpecs",
 		classOf[BasicTokenizedVsNonTokenizedSpec],
 		classOf[DifferentLanguageBasicSearchSpec],
 		classOf[SelectAllBugSpec],
-		classOf[SummaryAccuracySpec]
+		classOf[SummaryAccuracySpec],
+		classOf[IndexMdWithNoLangSpec]
 		)
 @RunWith(classOf[JUnitRunner])
 class OldSearchSpecs
