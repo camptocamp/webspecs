@@ -4,7 +4,7 @@ package geonetwork
 import c2c.webspecs.login.LoginRequest
 
 class LoginService(val user:String, pass:String)
-  extends AbstractFormPostRequest[Any,XmlValue]("/j_spring_security_check",
+  extends AbstractFormPostRequest[Any,XmlValue]("/srv/eng/xml.user.login",
       XmlValueFactory, 
       P("username" -> user), 
       P("password" -> pass)) 
