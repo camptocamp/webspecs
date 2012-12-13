@@ -69,10 +69,11 @@ class CswTransactionUpdateSpec extends GeonetworkSpecification {
   def abstractHasBeenUpdated = abstractVal(CswGetRecordById(uuid.toString).execute()) must_== updatedAbstract
 
   def updateMetadataSerial = Step{
-    val results = List(CswTransactionUpdate(uuid.toString, "Title" -> (updatedTitle)),
-         CswTransactionUpdate(uuid.toString, "Abstract" -> (updatedAbstract))).map(_.execute())
+    val results = List(
+            CswTransactionUpdate(uuid.toString, "Title" -> (updatedTitle)),
+            CswTransactionUpdate(uuid.toString, "Abstract" -> (updatedAbstract))).map(_.execute())
 
-    results must haveA200ResponseCode.forall
+    results.seq must haveA200ResponseCode.forall
   }
   def resetMetadata = Step{ CswTransactionFullUpdate(sampleData).execute() must haveA200ResponseCode  }
   def updateMetadataParallel = Step{
