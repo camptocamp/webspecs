@@ -7,9 +7,11 @@ import ElementSetNames._
 import xml.NodeSeq
 
 object CswXmlUtil {
-  def getByIdXml(fileId: String, resultType: ResultType, outputSchema: OutputSchemas.OutputSchema) =
+  def getByIdXml(fileIds: Seq[String], resultType: ResultType, outputSchema: OutputSchemas.OutputSchema) =
     <csw:GetRecordById xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType={ resultType.toString } outputSchema={ outputSchema.toString }>
-      <csw:Id>{ fileId }</csw:Id>
+      {
+        fileIds.map(id => <csw:Id>{ id }</csw:Id>)
+      }
     </csw:GetRecordById>
 
   def getRecordsXml(filter: NodeSeq = Nil,

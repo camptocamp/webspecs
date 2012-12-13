@@ -31,6 +31,7 @@ class CswSpecs
     classOf[CswTransactionUpdateSpec],
     classOf[CswXmlTestSpec],
     classOf[CswOutputSchemaSpec],
+    classOf[CswVirtualEndPointSpec],
     // searching
     classOf[CswGetRecordsSpec],
     classOf[CswResetIndexReaderAfterImportSpec],
