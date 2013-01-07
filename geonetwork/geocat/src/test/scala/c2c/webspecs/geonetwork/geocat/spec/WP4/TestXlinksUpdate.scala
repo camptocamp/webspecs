@@ -60,6 +60,6 @@ class TestXlinksUpdate extends GeocatSpecification {  def is =
        result and (next.child must not beEmpty)
      }
 
-     (hrefs must not beEmpty) and haveChildren 
+     haveChildren and (hrefs must not beEmpty) 
    }
 }

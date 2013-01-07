@@ -43,13 +43,13 @@ class SpatialCswSearchSpec extends SearchSpecification {  def is =
     assert(!((areas contains "and") && (areas contains "or")), "Only one of 'and', ',' or 'or' is permitted")
     
     val areaCodes = areas.split("(or)|(and)|(,)").map{ _.toLowerCase.trim match {
-          case "kantone:bern"       => "kantone:2"
-          case "kantone:fribourg"   => "kantone:10"
-          case "kantone:vaud"       => "kantone:22"
-          case "gemeinden:bern"     => "gemeinden:351"
-          case "gemeinden:lausanne" => "gemeinden:5586"
-          case "gemeinden:ecublens" => "gemeinden:1002"
-          case "gemeinden:vulliens" => "gemeinden:2222"
+          case "kantone:bern"       => "region:kantone:2"
+          case "kantone:fribourg"   => "region:kantone:10"
+          case "kantone:vaud"       => "region:kantone:22"
+          case "gemeinden:bern"     => "region:gemeinden:351"
+          case "gemeinden:lausanne" => "region:gemeinden:5586"
+          case "gemeinden:ecublens" => "region:gemeinden:1002"
+          case "gemeinden:vulliens" => "region:gemeinden:2222"
         }
     }
 

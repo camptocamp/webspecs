@@ -20,12 +20,12 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
       "Add data to test against"     ^ Step(importTestData) ^
       "StartEditing"				 ! startEditing ^
       "Add small ${scaled} thumbnail"     ! addSmallThumbnail
-//      "Replace thumbnail with small ${non-scaled} thumbnail" ! addSmallThumbnail ^
-//      "Replace thumbnail with large thumbnail ${scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
-//      "Replace thumbnail with large thumbnail ${non-scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
-//      "Replace thumbnail with large thumbnail ${scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
-//      "Replace thumbnail with large thumbnail ${non-scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
-//      Step (tearDown)
+      "Replace thumbnail with small ${non-scaled} thumbnail" ! addSmallThumbnail ^
+      "Replace thumbnail with large thumbnail ${scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
+      "Replace thumbnail with large thumbnail ${non-scaled large} ${scaled small} thumbnail" ! addLargeThumbnail ^
+      "Replace thumbnail with large thumbnail ${scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
+      "Replace thumbnail with large thumbnail ${non-scaled large} ${non-scaled small} thumbnail" ! addLargeThumbnail ^
+      Step (tearDown)
 
   // allow overriding imported metadata for specific apps like Geocat.ch
   def metadataToImport = "/geonetwork/data/valid-metadata.iso19139.xml"
@@ -51,7 +51,6 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
     val response = SetSmallThumbnail(editValue,img, scaling = scaling).execute()
     editValue = response.value
 
-    println(editValue.getXml)
     
     val imgSrcs = editValue.getXml \\ "img" \@ "src" filter (src => src.contains("resources.get") && src.contains("SwitzerlandSketch"))
 
@@ -60,7 +59,7 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
       GetRequest(url).execute()
     }.foldLeft (success: Result) {(acc, next) => acc and (next must haveA200ResponseCode)}
 
-    (response must haveA200ResponseCode) and (imgSrcs must not (beEmpty)) and (imagesCanBeLoaded)
+    imagesCanBeLoaded and (response must haveA200ResponseCode) and (imgSrcs must not (beEmpty))
   }
 
   def addLargeThumbnail = (spec:String) => {
@@ -86,7 +85,7 @@ class AddRemoveOverviewSpec extends GeonetworkSpecification {
       GetRequest(url).execute()
     }.foldLeft (success: Result) {(acc, next) => acc and (next must haveA200ResponseCode)}
 
-    (response must haveA200ResponseCode) and (imgSrcs must not (beEmpty)) and (imagesCanBeLoaded)  
+    imagesCanBeLoaded and (response must haveA200ResponseCode) and (imgSrcs must not (beEmpty))  
     
 }
     
