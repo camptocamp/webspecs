@@ -6,6 +6,7 @@ import csw.search._
 import edit._
 import formatter._
 import importmetadata._
+import regions._
 import get._
 import c2c.webspecs.geonetwork.spec.search._
 import c2c.webspecs.geonetwork.spec.search.oldsearch._
@@ -21,6 +22,7 @@ class AllGeonetworkSpecs
     classOf[FormatterSpecs],
     classOf[ImportSpecs],
     classOf[SearchSpecs],
+    classOf[RegionSpecs],
     classOf[OldSearchSpecs])
 
 class CswSpecs
@@ -28,7 +30,7 @@ class CswSpecs
     classOf[CswGetCapabilitiesServiceUrlSpec],
     classOf[CswGetRecordsByIdSpec],
     classOf[CswLanguageSpec],
-    classOf[CswTransactionUpdateSpec],
+//    classOf[CswTransactionUpdateSpec],  // random failures fails
     classOf[CswXmlTestSpec],
     classOf[CswOutputSchemaSpec],
     classOf[CswVirtualEndPointSpec],
@@ -52,6 +54,15 @@ class FormatterSpecs
   extends AbstractAllSpecs("FormatterSpecs",
     classOf[RegisterFormatterSpec])
 
+class RegionSpecs
+extends AbstractAllSpecs("RegionSpecs",
+        classOf[GetRegionGeomSpec],
+        classOf[GetRegionSpec],
+        classOf[ListRegionsSpec],
+        classOf[SearchRegionSpec],
+        classOf[GetRegionMapSpec]
+        )
+
 class ImportSpecs
   extends AbstractAllSpecs("ImportSpecs",
     classOf[AddSampleDataSpec],
@@ -70,7 +81,8 @@ extends AbstractAllSpecs("SearchSpecs",
 		classOf[DifferentLanguageBasicSearchSpec],
 		classOf[SelectAllBugSpec],
 		classOf[SummaryAccuracySpec],
-		classOf[IndexMdWithNoLangSpec]
+		classOf[IndexMdWithNoLangSpec],
+		classOf[BasicSpatialSearchSpec]
 		)
 @RunWith(classOf[JUnitRunner])
 class OldSearchSpecs

@@ -33,12 +33,12 @@
       <gmd:citation>
         <gmd:CI_Citation>
           <gmd:title xsi:type="gmd:PT_FreeText_PropertyType">
-                <gco:CharacterString locale="#DE">DETitle44112233</gco:CharacterString>
+                <gco:CharacterString locale="#DE">DETitle{uuid}</gco:CharacterString>
           </gmd:title>
         </gmd:CI_Citation>
       </gmd:citation>
       <gmd:abstract xsi:type="gmd:PT_FreeText_PropertyType">
-            <gco:CharacterString locale="#DE">DEAbstract44112233</gco:CharacterString>
+            <gco:CharacterString locale="#DE">DEAbstract{uuid}</gco:CharacterString>
       </gmd:abstract>
       <gmd:spatialRepresentationType>
           <gmd:MD_SpatialRepresentationTypeCode codeListValue="{spatialRepType}" codeList="http://standards.iso.org/ittf/PubliclyAvailableStandards/ISO_19139_Schemas/resources/Codelist/ML_gmxCodelists.xml#MD_SpatialRepresentationTypeCode"/>

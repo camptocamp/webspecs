@@ -31,9 +31,9 @@ class SearchRegionSpec extends GeonetworkSpecification with AbstractRegionsSpec 
   def createid(i: Int) = i+"-"+datestamp 
   val ids = 0 until extents.size map (createid)
   def importMd = {
-    val bareMd = ResourceLoader.loadDataFromClassPath(bareMdFile, getClass, Map("{{uuid}}" -> "{{uuid}}"))._1
+    val bareMd = ResourceLoader.loadDataFromClassPath(bareMdFile, getClass, Map("{uuid}" -> "{uuid}"))._1
     val mds = extents.zipWithIndex.map{extent =>
-      val md = XML.loadString(bareMd.replace("{{uuid}}", createid(extent._2)))
+      val md = XML.loadString(bareMd.replace("{uuid}", createid(extent._2)))
       new RuleTransformer(new AddExtent(extentParentName, extent._1))(md)
     }
     val ids = mds.map{md =>
@@ -54,7 +54,7 @@ class SearchRegionSpec extends GeonetworkSpecification with AbstractRegionsSpec 
   }
   def xmlBasicSearch = {
     val idParams = ids.map(id => "_OR__uuid" -> id)
-    val within = "relation" -> "within"
+    val within = "relation" -> Within.toString.toLowerCase()
     val region = 'geometry -> ("region:"+region1Id)
     val records = XmlSearch().search(idParams :+ within :+ region :_*).execute().value
     val foundIds = records.records.map{_.uuid}
@@ -72,7 +72,7 @@ def cswBorderSearch = {
 }
 def xmlBorderSearch = {
     val idParams = ids.map(id => "_OR__uuid" -> id)
-            val within = "relation" -> "within"
+            val within = "relation" -> Within.toString.toLowerCase()
     val region = 'geometry -> ("region:"+region1Id+","+region2Id)
     val records = XmlSearch().search(idParams :+ within :+ region :_*).execute().value
     val foundIds = records.records.map{_.uuid}
