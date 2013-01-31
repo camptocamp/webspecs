@@ -36,7 +36,7 @@ class SpatialCswSearchSpec extends SearchSpecification {  def is =
     val (op, areas, expectedMetadata) = extract3(s)
     
     val filterFac = op.trim.toLowerCase() match {
-      case "contained by" => Within(_:String):OgcFilter
+      case "contained by" => csw.Within(_:String):OgcFilter
       case "containing" => Contains(_:String):OgcFilter
     }
     
