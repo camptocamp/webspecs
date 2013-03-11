@@ -60,18 +60,18 @@ trait AbstractSearchOrderSpecSpecification {
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">A ENG EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("eng", <gmd:PT_FreeText>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">B2 ENG EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">E2 ENG EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">Z2 ENG EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("eng", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">G eng is fr</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("eng", <gmd:PT_FreeText>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">b eng en and fr is fr</gmd:LocalisedCharacterString></gmd:textGroup>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">b eng en and fr is en</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">e eng en and fr is fr</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">e eng en and fr is en</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("fre", <gmd:PT_FreeText>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">b fra is fr</gmd:LocalisedCharacterString></gmd:textGroup>
+                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">Ž fra is fr</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
     doImport("fre", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">A FRA EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
@@ -79,56 +79,56 @@ trait AbstractSearchOrderSpecSpecification {
                    </gmd:PT_FreeText>)
     doImport("fre", <gmd:PT_FreeText>
                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#FR">Z3 FRA EN and FR is FR</gmd:LocalisedCharacterString></gmd:textGroup>
-                     <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">B3 FRA EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
+                      <gmd:textGroup><gmd:LocalisedCharacterString locale="#EN">E3 FRA EN and FR is EN</gmd:LocalisedCharacterString></gmd:textGroup>
                    </gmd:PT_FreeText>)
   }
 
   def frTitleSearch = {
     val titles = doSearch("fre")
-    titles must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "B2 ENG EN and FR is FR", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only.inOrder
+    titles must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "E2 ENG EN and FR is FR", "e eng en and fr is fr", "Ž fra is fr", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only.inOrder
   }
   def enTitleSearch = {
     val titles = doSearch("eng")
-    titles must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
+    titles must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "E3 FRA EN and FR is EN", "e eng en and fr is en", "Ž fra is fr", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
   }
   def frTitleDocLocaleSearchOnly = {
     val records = doSearch("fre")
-    records must contain("A FRA EN and FR is FR", "b fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
+    records must contain("A FRA EN and FR is FR", "Ž fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
   }
   def enTitleDocLocaleSearchOnly = {
     val records = doSearch("eng")
-    records must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "Z2 ENG EN and FR is EN", "zz").only.inOrder
+    records must contain("A ENG EN and FR is EN", "e eng en and fr is en", "G eng is fr", "Z2 ENG EN and FR is EN", "zz").only.inOrder
   }
   def frTitleLocaleSearchOnly = {
     val records = doSearch("fre")
-    records must contain("A FRA EN and FR is FR", "b fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
+    records must contain("A FRA EN and FR is FR", "Ž fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
   }
   def enTitleLocaleSearchOnly = {
     val records = doSearch("eng")
     // Note: all docs have abstract in english so searching by locale finds all documents
-    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
+    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "E3 FRA EN and FR is EN", "e eng en and fr is en", "Ž fra is fr", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
   }
   def frTitleSearchSorted = {
     val records = doSearch("fre")
-    (records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "B2 ENG EN and FR is FR", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only) and
-    (records.take(3) must contain("A FRA EN and FR is FR", "b fra is fr", "Z3 FRA EN and FR is FR").only.inOrder) and
-    (records.drop(3) must contain("A ENG EN and FR is FR", "b eng en and fr is fr", "G eng is fr", "zz" ).inOrder) and 
+    (records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "e eng en and fr is fr", "Ž fra is fr", "E2 ENG EN and FR is FR", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only) and
+    (records.take(3) must contain("A FRA EN and FR is FR", "Ž fra is fr", "Z3 FRA EN and FR is FR").only.inOrder) and
+    (records.drop(3) must contain("A ENG EN and FR is FR", "e eng en and fr is fr", "G eng is fr", "zz" ).inOrder) and 
     (records.drop(3) must contain("xx", "yy").inOrder)
   }
   def enTitleSearchSorted = {
     val records = doSearch("eng")
-    (records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only) and
-    (records.take(5) must contain("A ENG EN and FR is EN", "b eng en and fr is en", "G eng is fr", "Z2 ENG EN and FR is EN", "zz").only.inOrder) and 
+    (records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "E3 FRA EN and FR is EN", "e eng en and fr is en", "Ž fra is fr", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only) and
+    (records.take(5) must contain("A ENG EN and FR is EN", "e eng en and fr is en", "G eng is fr", "Z2 ENG EN and FR is EN", "zz").only.inOrder) and 
     (records.drop(5) must contain("xx", "yy").inOrder) and
-    (records.drop(5) must contain("A FRA EN and FR is EN", "b fra is fr", "B3 FRA EN and FR is EN").inOrder)
+    (records.drop(5) must contain("A FRA EN and FR is EN", "E3 FRA EN and FR is EN", "Ž fra is fr").inOrder)
   }
   def frTitleSearchIgnored = {
     val records = doSearch("fre")
-    records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "b eng en and fr is fr", "b fra is fr", "B2 ENG EN and FR is FR", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only.inOrder
+    records must contain("A ENG EN and FR is FR", "A FRA EN and FR is FR", "E2 ENG EN and FR is FR", "e eng en and fr is fr", "Ž fra is fr", "G eng is fr", "xx", "yy", "Z3 FRA EN and FR is FR", "zz").only.inOrder
   }
   def enTitleSearchIgnored = {
     val records = doSearch("eng")
-    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "b eng en and fr is en", "b fra is fr", "B3 FRA EN and FR is EN", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
+    records must contain("A ENG EN and FR is EN", "A FRA EN and FR is EN", "E3 FRA EN and FR is EN", "e eng en and fr is en", "Ž fra is fr", "G eng is fr", "xx", "yy", "Z2 ENG EN and FR is EN", "zz").only.inOrder
   }
 
 }

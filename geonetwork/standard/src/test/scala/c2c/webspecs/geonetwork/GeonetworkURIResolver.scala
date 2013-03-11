@@ -3,8 +3,8 @@ package geonetwork
 
 class GeonetworkURIResolver extends UriResolver {
   def locale = Properties(GeonetConfig.LOCALE_KEY) getOrElse "eng"
+  def baseURL = Properties.testServer
   def apply(uri: String, params: Seq[(String, String)]) = {
-    val baseURL = Properties.testServer
 
     val service =
       if (!uri.startsWith(XLink.PROTOCOL)) uri
