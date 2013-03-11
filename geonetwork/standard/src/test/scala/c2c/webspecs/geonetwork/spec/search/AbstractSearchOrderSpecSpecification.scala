@@ -101,7 +101,7 @@ trait AbstractSearchOrderSpecSpecification {
   }
   def frTitleLocaleSearchOnly = {
     val records = doSearch("fre")
-    records must contain("A FRA EN and FR is FR", "ö fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
+    records must contain("A FRA EN and FR is FR", "é fra is fr", "Z3 FRA EN and FR is FR").only.inOrder
   }
   def enTitleLocaleSearchOnly = {
     val records = doSearch("eng")
