@@ -20,9 +20,10 @@ object CswXmlUtil {
     startPosition: Int = 1,
     maxRecords: Int = 50,
     elementSetName: ElementSetName = full,
+    typeNames: List[String] = List("csw:Record"),
     sortBy: Seq[SortBy] = Nil) = {
     <csw:GetRecords xmlns:csw="http://www.opengis.net/cat/csw/2.0.2" service="CSW" version="2.0.2" resultType={ resultType.toString } startPosition={ startPosition.toString } maxRecords={ maxRecords.toString } outputSchema={ outputSchema.toString }>
-      <csw:Query typeNames="csw:Record">
+      <csw:Query typeNames={typeNames.mkString(",")}>
         <csw:ElementSetName>{ elementSetName }</csw:ElementSetName>
         {
           if (sortBy.nonEmpty) {

@@ -14,9 +14,10 @@ case class CswGetRecordsRequest(filter:NodeSeq=Nil,
                                 maxRecords:Int=50,
                                 url:String="csw",
                                 elementSetName:ElementSetName = full,
+                                typeNames: List[String] = List("csw:Record"),
                                 sortBy:Seq[SortBy] = Nil)
   extends AbstractXmlPostRequest[Any,XmlValue](url, XmlValueFactory) {
 
-  val xmlData = CswXmlUtil.getRecordsXml(filter, resultType, outputSchema, startPosition, maxRecords, elementSetName,sortBy)
-  override def toString() = "CswGetRecordsRequest(<filter>,"+resultType+","+outputSchema+","+startPosition+","+maxRecords+","+elementSetName+")"
+  val xmlData = CswXmlUtil.getRecordsXml(filter, resultType, outputSchema, startPosition, maxRecords, elementSetName,typeNames, sortBy)
+  override def toString() = "CswGetRecordsRequest(<filter>,"+resultType+","+outputSchema+","+startPosition+","+maxRecords+","+elementSetName+",["+typeNames.mkString(",")+"],"+sortBy+")"
 }
