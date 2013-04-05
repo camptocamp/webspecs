@@ -11,7 +11,7 @@ import org.apache.http.entity.mime.content.InputStreamBody
 object ResourceLoader {
   def loadData(resource: URL, replacements: Map[String, String], fileName: String = "") = {
     require(resource != null, "resource is null." + fileName)
-    val string = replacements.foldLeft(Resource.fromURL(resource).slurpString(Codec.UTF8)) {
+    val string = replacements.foldLeft(Resource.fromURL(resource).string) {
       case (string, (key, replacement)) => string.replace(key, replacement)
     }
     val name =
