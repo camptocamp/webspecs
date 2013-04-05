@@ -22,7 +22,7 @@ object BasicHttpValue {
         Right(all.byteArray)
       } catch {
         case e if responseCode > 400 => Left(new IllegalStateException("A response code "+responseCode+" was returned by server, message = "+responseMessage))
-        case e => Left(e)
+        case e: Throwable => Left(e)
       }
     }
     val headers = getAllHeaders.

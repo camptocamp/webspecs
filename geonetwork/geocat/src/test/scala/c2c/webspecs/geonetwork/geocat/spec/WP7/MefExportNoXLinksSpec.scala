@@ -43,7 +43,7 @@ class MefExportNoXLinksSpec extends GeocatSpecification { def is =
 
   def che = {
     val md = entries.filter(_.getName endsWith "metadata.xml")
-    val mdXml = XML.loadString(Resource.fromInputStream(download.getInputStream(md.head)).slurpString)
+    val mdXml = XML.loadString(Resource.fromInputStream(download.getInputStream(md.head)).string)
     println(mdXml)
 	((mdXml \\ "extent" \@ "xlink:href") must beEmpty)
   }

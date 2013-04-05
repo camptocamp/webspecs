@@ -62,7 +62,7 @@ case class User(val idOption:Option[String]=None,
                 profile:UserProfiles.UserProfile=UserProfiles.Guest,
                 contactInstructions:Option[LocalisedString] = None,
                 groups:Traversable[String]=Nil) {
-  require(profile == UserProfiles.Guest && groups.nonEmpty || profile != UserProfiles,
+  require(profile == UserProfiles.Guest && groups.nonEmpty || !UserProfiles.all.contains(profile), 
      "Shared users are not part of groups: profile="+profile+", groups="+(groups mkString ","))
 
   def this(user:User) = this(

@@ -118,7 +118,8 @@ class DownloadMetadataWithMarkupSpec extends GeonetworkSpecification {
   }
   def doSetWikiSettings(settings:NodeSeq) = ExecutionContext.withDefault{ implicit context =>
     config.adminLogin.execute()
-    XmlPostRequest("xml.config.set", <config>{getWikiSettings \ "site"}{settings}</config>).execute() must haveA200ResponseCode
+    val data: NodeSeq = <config>{getWikiSettings \ "site"}{settings}</config>
+    XmlPostRequest("xml.config.set", data).execute() must haveA200ResponseCode
   }
   def resetWikiSetting = doSetWikiSettings(getWikiSettings \ "wiki")
   /**

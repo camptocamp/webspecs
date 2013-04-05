@@ -32,8 +32,9 @@ class UpdateXlinksCachingSpec extends GeocatSpecification { def is =
     
     val mdXml = GetEditingMetadataXml.execute(Id(response.id)).value.getXml
 
-    findNamesWith(mdXml, "firstname").headOption foreach {node => 
-      UpdateSharedObject(node.asInstanceOf[Elem].copy(child = newUser)).execute()
+    findNamesWith(mdXml, "firstname").headOption foreach {node =>
+      val data:Node = node.asInstanceOf[Elem].copy(child = newUser)
+      UpdateSharedObject(data).execute()
     }
     
     response.id
@@ -45,7 +46,7 @@ class UpdateXlinksCachingSpec extends GeocatSpecification { def is =
     findNamesWith(xml, "newFirstName") must haveSize(2)
   }
   
-  val newUser = 
+  val newUser: Node = 
     <che:CHE_CI_ResponsibleParty gco:isoType="gmd:CI_ResponsibleParty">
   <gmd:organisationName xsi:type="gmd:PT_FreeText_PropertyType">
     <gmd:PT_FreeText>

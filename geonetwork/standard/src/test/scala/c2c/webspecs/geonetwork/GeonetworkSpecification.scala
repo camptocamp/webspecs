@@ -48,7 +48,7 @@ trait GeonetworkSpecification extends WebSpecsSpecification[GeonetConfig] with S
     resetSearchSetting
     mdToDelete foreach {id => 
       try {DeleteMetadata.execute(id) }
-      catch { case _ => println("Error deleting: "+ id) }
+      catch { case _: Throwable => println("Error deleting: "+ id) }
     }
 
     SetSequentialExecution(false).execute()

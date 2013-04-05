@@ -38,7 +38,7 @@ class MapfishappSpec extends GeorchestraSpecification {
     implicit val formats = DefaultFormats
     val filePath = 
       try {(parse(json) \\ "filepath").extract[String]}
-      catch { case e => throw new AssertionError("Failed to json: "+json)}
+      catch { case e: Throwable => throw new AssertionError("Failed to json: "+json)}
     
     val sldResponse = GetRequest("mapfishapp/"+filePath).execute()
     (sldResponse must haveA200ResponseCode) and 

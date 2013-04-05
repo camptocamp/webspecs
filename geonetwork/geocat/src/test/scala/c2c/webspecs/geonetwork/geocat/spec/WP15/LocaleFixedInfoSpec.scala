@@ -7,6 +7,7 @@ import org.specs2.specification.Step
 import c2c.webspecs.geonetwork.csw._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import scala.xml.Elem
 
 @RunWith(classOf[JUnitRunner])
 class LocaleFixedInfoSpec extends GeocatSpecification { def is =
@@ -19,7 +20,8 @@ class LocaleFixedInfoSpec extends GeocatSpecification { def is =
   "Fixed info transform should add a id codelistValue attribute to MD_CharacterSetCode with utf-8 value" ! mdCharacterSetCodeHasCodeListValueElem ^
   "Fixed info transform should add a id codelist attribute to MD_CharacterSetCode" ! mdCharacterSetCodeHasCodeListElem ^ Step(tearDown)
   
-  lazy val uploadMd = CswTransactionInsert(
+  lazy val uploadMd = {
+    val data: Elem = 
 <che:CHE_MD_Metadata xmlns:srv="http://www.isotc211.org/2005/srv" xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:che="http://www.geocat.ch/2008/che" xmlns:gco="http://www.isotc211.org/2005/gco" xmlns:gml="http://www.opengis.net/gml" gco:isoType="gmd:MD_Metadata">
   <gmd:fileIdentifier xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <gco:CharacterString>{uuid}</gco:CharacterString>
@@ -59,7 +61,9 @@ class LocaleFixedInfoSpec extends GeocatSpecification { def is =
   <gmd:identificationInfo xmlns:xalan="http://xml.apache.org/xalan" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <che:CHE_MD_DataIdentification gco:isoType="gmd:MD_DataIdentification"/>
   </gmd:identificationInfo>
-</che:CHE_MD_Metadata>).execute()
+</che:CHE_MD_Metadata>
+    CswTransactionInsert(data).execute()
+  }
 
   lazy val uploadedMd = CswGetRecordById(uuid.toString, outputSchema=geocat.OutputSchemas.CheIsoRecord).execute().value.getXml
   lazy val metadataElem = (uploadedMd \\ "CHE_MD_Metadata")
