@@ -72,6 +72,7 @@ class WP3 extends AbstractAllSpecs("WP 3: Shared Object (No UI)",
         classOf[AddXLinksSpec],
         classOf[ImportSpecialExtentsSpec],
         classOf[ProcessImportedMetadataSpec],
+        classOf[DeleteValidatedSharedObjectSpec],
         classOf[EscapeSpecialCharsInUserSpec],
         classOf[ValidateSharedObjectSpec])
 
