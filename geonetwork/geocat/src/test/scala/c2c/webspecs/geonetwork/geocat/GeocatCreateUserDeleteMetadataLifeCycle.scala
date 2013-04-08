@@ -2,6 +2,8 @@ package c2c.webspecs
 package geonetwork
 package geocat
 
+import shared._
+
 class GeocatCreateUserDeleteMetadataLifeCycle(config: GeonetConfig) extends CreateUserDeleteMetadataLifeCycle(config) {
  override def deleteAllMetadata(implicit executionContext:ExecutionContext, uriResolver:UriResolver) = {
    super.deleteAllMetadata;

@@ -3,12 +3,15 @@ package geonetwork
 package geocat
 package spec.WP3
 
+import shared._
 import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 import org.specs2.specification.Step
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
 import c2c.webspecs.geonetwork.edit.AddSites
 import org.specs2.matcher.MustThrownMatchers
+import c2c.webspecs.geonetwork.geocat.shared.CreateNonValidatedUser
+import c2c.webspecs.geonetwork.geocat.shared.DeleteSharedUser
 
 @RunWith(classOf[JUnitRunner]) 
 class ValidateSharedObjectSpec extends GeocatSpecification with MustThrownMatchers { def is = 

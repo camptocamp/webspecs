@@ -3,6 +3,7 @@ package geonetwork
 package geocat
 package spec.WP10
 
+import shared._
 import org.specs2.specification.Step
 import edit.AddSites._
 import org.junit.runner.RunWith

@@ -1,6 +1,16 @@
 package c2c.webspecs
 package geonetwork
-package geocat
+package geocat.shared
+
+import c2c.webspecs.AbstractFormPostRequest
+import c2c.webspecs.BasicHttpValue
+import c2c.webspecs.ExecutionContext
+import c2c.webspecs.Request
+import c2c.webspecs.UriResolver
+import c2c.webspecs.ValueFactory
+import c2c.webspecs.geonetwork.ListUsers
+import c2c.webspecs.geonetwork.User
+import c2c.webspecs.geonetwork.UserValue
 
 abstract class CreateSharedUser(user:User,validated:Boolean)
   extends AbstractFormPostRequest[Any,UserValue](

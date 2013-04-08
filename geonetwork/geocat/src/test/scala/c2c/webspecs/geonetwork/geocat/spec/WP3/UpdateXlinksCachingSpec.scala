@@ -3,6 +3,8 @@ package geonetwork
 package geocat
 package spec.WP3
 
+import shared._
+import shared._
 import org.specs2.specification.Step
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner

@@ -8,6 +8,7 @@ import specification._
 import scala.xml.NodeSeq
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import shared._
 
 @RunWith(classOf[JUnitRunner]) 
 class AddSharedExtentsSpec extends GeocatSpecification { def is =

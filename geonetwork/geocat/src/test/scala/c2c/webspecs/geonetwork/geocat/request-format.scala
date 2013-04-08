@@ -2,6 +2,8 @@ package c2c.webspecs
 package geonetwork
 package geocat
 
+import shared._
+
 case class Format(id:Int, name:String, version:String, validated:Boolean = false)
 
 /**

@@ -9,7 +9,7 @@ import java.util.UUID
 import scala.xml.NodeSeq
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
-
+import shared._
 
 @RunWith(classOf[JUnitRunner]) 
 class AddSharedContactsSpec extends GeocatSpecification() { def is =

@@ -2,6 +2,7 @@ package c2c.webspecs
 package geonetwork
 package geocat
 
+import shared._
 import scala.xml.NodeSeq
 import UserProfiles._
 

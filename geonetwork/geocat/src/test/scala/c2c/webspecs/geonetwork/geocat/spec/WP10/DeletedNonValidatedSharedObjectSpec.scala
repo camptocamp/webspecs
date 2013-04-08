@@ -7,6 +7,7 @@ import org.specs2.specification.Step
 import edit.AddSites._
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import c2c.webspecs.geonetwork.geocat.shared.DeleteSharedUser
 
 @RunWith(classOf[JUnitRunner])
 class DeletedNonValidatedSharedObjectSpec extends AbstractSharedObjectSpec { def is =

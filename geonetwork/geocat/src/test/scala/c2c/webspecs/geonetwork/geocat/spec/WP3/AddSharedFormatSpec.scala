@@ -3,6 +3,7 @@ package geonetwork
 package geocat
 package spec.WP3
 
+import shared._
 import org.specs2._
 import specification._
 import scala.xml.NodeSeq

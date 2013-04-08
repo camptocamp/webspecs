@@ -2,10 +2,14 @@ package c2c.webspecs
 package geonetwork
 package geocat
 
+import shared._
 import java.util.UUID
 import c2c.webspecs.geonetwork.GeonetConfig
 import c2c.webspecs.ExecutionContext
 import scala.xml.Node
+import c2c.webspecs.geonetwork.geocat.shared.CreateValidatedUser
+import c2c.webspecs.geonetwork.geocat.shared.CreateNonValidatedUser
+import c2c.webspecs.geonetwork.geocat.shared.DeleteSharedUser
 
 /**
  * Fixtures that only apply in Geocat

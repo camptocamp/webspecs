@@ -4,6 +4,7 @@ package geocat
 package spec
 package WP10
 
+import shared._
 import org.specs2.specification.Step
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner

@@ -2,11 +2,13 @@ package c2c.webspecs
 package geonetwork
 package geocat
 package spec.WP3
+
 import scala.xml.NodeSeq
 import scala.xml.Node
 import org.specs2.specification.Step
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import shared._
 
 @RunWith(classOf[JUnitRunner]) 
 class ImportSpecialExtentsSpec extends GeocatSpecification { def is =

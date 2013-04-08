@@ -4,6 +4,7 @@ package geocat
 package spec
 package WP10
 
+import shared._
 import edit._
 import AddSites.AddSite
 

@@ -1,6 +1,6 @@
 package c2c.webspecs
 package geonetwork
-package geocat
+package geocat.shared
 
 case class DeleteSharedUser(id:String, forceDelete:Boolean) 
     extends AbstractGetRequest(

@@ -7,6 +7,8 @@ import c2c.webspecs.geonetwork.geocat.GeocatSpecification
 import org.specs2.specification.Step
 import org.junit.runner.RunWith
 import org.specs2.runner.JUnitRunner
+import c2c.webspecs.geonetwork.geocat.shared.CreateNonValidatedUser
+import c2c.webspecs.geonetwork.geocat.shared.DeleteSharedUser
 
 @RunWith(classOf[JUnitRunner])
 class EscapeSpecialCharsInUserSpec extends GeocatSpecification { def is =
