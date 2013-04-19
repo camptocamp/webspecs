@@ -6,3 +6,6 @@ project/boot
 .idea
 .project
 .scala_dependencies
+bin/
+eclipse/
+.cache
