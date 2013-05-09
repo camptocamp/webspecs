@@ -20,7 +20,7 @@ class CswGetCapabilitiesServiceUrlSpec extends GeonetworkSpecification {
 
   def CswTestGetCapabilities = (description: String) => {
     val languageCode = extract1(description)
-    val cswRequest = CswGetCapabilities(url = "http://" + Properties.testServer + "/geonetwork/srv/" + languageCode + "/csw").execute().value.getXml
+    val cswRequest = CswGetCapabilities(url = "http://" + Properties.testServer + "/geonetwork/srv/" + languageCode + "/csw?language="+languageCode).execute().value.getXml
 
     val serviceUrlGet = cswRequest \\ "Capabilities" \\ "Operation" \ "DCP" \ "HTTP" \ "Get" \@ "xlink:href"
     val serviceUrlPost = cswRequest \\ "Capabilities" \\ "Operation" \ "DCP" \ "HTTP" \ "Post" \@ "xlink:href"

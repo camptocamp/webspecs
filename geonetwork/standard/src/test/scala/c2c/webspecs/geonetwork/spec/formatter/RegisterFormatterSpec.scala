@@ -10,6 +10,7 @@ import c2c.webspecs.geonetwork._
 import c2c.webspecs.XmlValue
 import c2c.webspecs.GetRequest
 import org.apache.http.entity.mime.content.InputStreamBody
+import java.io.File
 
 
 @RunWith(classOf[JUnitRunner]) 
@@ -92,13 +93,14 @@ class RegisterFormatterSpec extends GeonetworkSpecification() {  def is =
   } 
   
   val download = (s:String) => {
+    val FS = File.separator
     val format = extract1(s)
     val id = xslId(format)
     val zipValue = GetRequest("metadata.formatter.download", 'id -> id).execute().basicValue.toZipValue
-    
-    (zipValue.fileNames must contain(id+"/config.properties")) and
-        (zipValue.fileNames must contain (id+"/view.xsl")) and
-        (zipValue.fileNames.exists{_.startsWith(id+"/loc")} aka "Loc folder or subFile" must beTrue)
+    val fileNames = zipValue.fileNames 
+    (fileNames must contain(id+FS+"config.properties")) and
+        (fileNames must contain (id+FS+"view.xsl")) and
+        (fileNames.exists{_.startsWith(id+FS+"loc")} aka "Loc folder or subFile" must beTrue)
   }
   
   val bundledLanguage = (s:String) => {
