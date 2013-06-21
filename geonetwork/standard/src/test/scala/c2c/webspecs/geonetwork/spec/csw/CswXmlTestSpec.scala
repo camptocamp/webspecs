@@ -12,7 +12,7 @@ import org.specs2.specification.Step
 class CswXmlTestSpec extends GeonetworkSpecification {
   def is =
     "GeoNetwork-trunk XML testsuite for CSW server".title ^ Step(setup) ^
-      "Load a sample metadata" ^ Step(importMetadataId) ^
+      "Load a sample metadata" ^ Step(importMetadataId) ^ endp ^
       "Perform the csw request in the XML file : ${csw-DescribeRecordWithMD_Metadata}" ! ExecuteXmlTest ^
       "Perform the csw request in the XML file : ${csw-DescribeRecordWithMultipleTypeName}" ! ExecuteXmlTest ^
       "Perform the csw request in the XML file : ${csw-DescribeRecord}" ! ExecuteXmlTest ^

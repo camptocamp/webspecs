@@ -39,7 +39,7 @@ object WebSpecsBuild extends Build
   )
   
   // ------------------------------ Root Project ------------------------------ //
-	lazy val root:Project = Project("root",file(".")).
+	lazy val root:Project = Project("webspecs-root",file(".")).
   aggregate(core,geonetwork,geocat, selenium, apps,geoserver, georchestra).
     aggregate(core, selenium).
     settings(publishArtifact := false)
@@ -60,28 +60,28 @@ object WebSpecsBuild extends Build
   val coreSettings = Seq[Setting[_]](
 	  libraryDependencies ++= coreDependencies)
 	
-	lazy val core = Project("core", file("core")).
+	lazy val core = Project("webspecs-core", file("core")).
 	  dependsOn(selenium).
 	  settings( sharedSettings ++ coreSettings :_*)
   
   // ------------------------------ Geonetwork Project ------------------------------ //
 	 
-	lazy val geonetwork = Project("geonetwork", file("geonetwork/standard")).
+	lazy val geonetwork = Project("webspecs-geonetwork", file("geonetwork/standard")).
 	  dependsOn(core).settings(sharedSettings:_*)
 	  
   // ------------------------------ Geocat Project ------------------------------ //
 
-	lazy val geocat = Project("geocat", file("geonetwork/geocat")).
+	lazy val geocat = Project("webspecs-geocat", file("geonetwork/geocat")).
 	  dependsOn (core, geonetwork % "test->test", selenium) settings (sharedSettings:_*)
 
   // ------------------------------ Geocat Project ------------------------------ //
 
-	lazy val geoserver = Project("geoserver", file("geoserver")).
+	lazy val geoserver = Project("webspecs-geoserver", file("geoserver")).
 	  dependsOn (core, selenium) settings (sharedSettings:_*)
 
   // ------------------------------ Geocat Project ------------------------------ //
 
-	lazy val georchestra = Project("georchestra", file("georchestra")).
+	lazy val georchestra = Project("webspecs-georchestra", file("georchestra")).
 	  dependsOn (geoserver % "test->test", selenium) settings (sharedSettings:_*)
 
   // ------------------------------ Selenium Project ------------------------------ //
@@ -97,11 +97,11 @@ object WebSpecsBuild extends Build
       libraryDependencies ++= coreDependencies
   )
   
-  lazy val selenium = Project("selenium",file("selenium")).
+  lazy val selenium = Project("webspecs-selenium",file("selenium")).
     settings (sharedSettings ++ seleniumSettings :_*)
 
   // ------------------------------ Suites Project ------------------------------ //
-  lazy val apps = Project("apps",file("apps")).
+  lazy val apps = Project("webspecs-apps",file("apps")).
     dependsOn (geocat % "compile->test",geonetwork % "compile->test").
     settings (sharedSettings:_*)
 
@@ -117,7 +117,7 @@ object WebSpecsBuild extends Build
         sources in (georchestra,Test)
 	   ) map { _ ++ _ ++ _ ++ _ ++ _ ++ _ }
     )
-  lazy val docsProj:Project = Project("documentation", file("docsProj")).
+  lazy val docsProj:Project = Project("webspecs-documentation", file("docsProj")).
     dependsOn(core % "compile -> test").
     settings(sharedSettings ++ docsSettings :_*)
 
