@@ -10,7 +10,7 @@ class KeywordFactory(thesaurus:String) extends ValueFactory[String,IsoKeyword] {
       uriResolver:UriResolver): IsoKeyword = {
     rawValue.toXmlValue.withXml{
       keywordXml =>
-        val translationNodes = keywordXml \\ "LocalisedCharacterString"
+        val translationNodes = keywordXml \\ "keyword" \\ "LocalisedCharacterString"
         val translations = translationNodes.toSeq.map{n =>
           ((n \\ "@locale" text).drop(1).toUpperCase, n.text)
         }

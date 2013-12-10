@@ -60,7 +60,7 @@ object GeocatFixture {
       (config.adminLogin then DeleteFormat(true).setIn(id)).execute()(context, uriResolver)
 
     def create(config: GeonetConfig, context: ExecutionContext, uriResolver:UriResolver) = {
-      val formats = (config.adminLogin then AddFormat(name, version) then ListFormats.setIn(name)).execute()(context,uriResolver)
+      val formats = (config.adminLogin then AddFormat(name, version, false) then ListFormats.setIn(name)).execute()(context,uriResolver)
       _id = formats.value.find(_.version == version).get.id
     }
   }

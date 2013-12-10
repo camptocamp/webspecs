@@ -27,7 +27,7 @@ class UpdateXlinksCachingSpec extends GeocatSpecification { def is =
 
   lazy val ImportMdId = {
     config.adminLogin.execute()
-    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/contact_has_repeated_contact.xml",false,getClass,GeocatConstants.GM03_2_TO_CHE_STYLESHEET)._2
+    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/contact_has_repeated_contact.xml",false,getClass,GeocatConstants.GM03_TO_CHE_STYLESHEET)._2
     
     val response = importRequest.execute().value
     registerNewMd(Id(response.id))

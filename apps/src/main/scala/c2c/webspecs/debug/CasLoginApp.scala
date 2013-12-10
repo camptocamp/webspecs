@@ -2,7 +2,6 @@
 package c2c.webspecs
 package debug
 import c2c.webspecs.login.CasLogin
-import c2c.webspecs.geonetwork.GeonetworkSpecification
 
 object CasLoginApp extends WebspecsApp {
     new CasLogin("jeichar","jeichar").execute().value.withXml{xml =>

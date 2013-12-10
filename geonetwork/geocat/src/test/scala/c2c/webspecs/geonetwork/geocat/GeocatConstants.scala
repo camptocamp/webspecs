@@ -12,5 +12,4 @@ object GeocatConstants {
   final val KEYWORD_NAMESPACE = "http://custom.shared.obj.ch/concept#"
   final val HREF_NON_VALIDATED_ROLE_STRING = "http://www.geonetwork.org/non_valid_obj"
   final val GM03_TO_CHE_STYLESHEET = new ImportStyleSheets.ImportStyleSheet("GM03-to-ISO19139CHE.xsl"){}
-  final val GM03_2_TO_CHE_STYLESHEET = new ImportStyleSheets.ImportStyleSheet("GM03_2-to-ISO19139CHE.xsl"){}
 }

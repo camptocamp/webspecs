@@ -21,7 +21,7 @@ class ImportSpec extends GeocatSpecification {
       case "gm03 V1" =>
         ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V1.xml", true, getClass, GM03_V1)._2
       case "gm03 V2" =>
-        ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V2.xml", true, getClass, GM03_V2)._2
+        ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V2.xml", true, getClass, GM03_V1)._2
       case "iso19139.che" =>
         ImportMetadata.defaults(uuid, "/geocat/data/metadata.iso19139.che.xml", true, getClass, NONE)._2
 

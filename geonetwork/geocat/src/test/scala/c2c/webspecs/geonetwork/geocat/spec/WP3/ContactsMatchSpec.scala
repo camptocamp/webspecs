@@ -16,7 +16,7 @@ class ContactsMatchSpec extends GeocatSpecification { def is =
 
 
   lazy val ImportMdId = {
-    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/contact_has_repeated_contact.xml",false,getClass,GeocatConstants.GM03_2_TO_CHE_STYLESHEET)._2
+    val importRequest = ImportMetadata.defaults(uuid,"/geocat/data/contact_has_repeated_contact.xml",false,getClass,GeocatConstants.GM03_TO_CHE_STYLESHEET)._2
     
     val id = importRequest.execute().value.id
     registerNewMd(Id(id))

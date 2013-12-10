@@ -18,9 +18,9 @@ class AddXLinksSpec extends GeocatSpecification { def is =
   "This specification adds XLinks to existing metadata "      										^ Step(setup) ^ 
   																									Step(ImportMdId) ^
   																									testType("contact") ^ 
-  																									testType("format") ^ 
-  																									testType("extent") ^ 
-  																									testType("keyword") ^ 
+//  																									testType("format") ^
+//  																									testType("extent") ^
+//  																									testType("keyword") ^
                                                            											  Step(tearDown)
 
   def testType(name:String):Fragments = {
@@ -97,7 +97,7 @@ class AddXLinksSpec extends GeocatSpecification { def is =
 
   def updateContact = {
     val newLastName = "newLastName"
-    val updateUser = new UpdateSharedUser(userFixture.user.copy(surname = newLastName),true)
+    val updateUser = new UpdateSharedUser(userFixture.user.copy(surname = newLastName),false)
     (config.adminLogin then updateUser).execute()
     val md = GetRawMetadataXml.execute(Id(ImportMdId)).value.getXml
     val lastName = (md \\ AddSites.contact.name \\ "individualLastName").text.trim

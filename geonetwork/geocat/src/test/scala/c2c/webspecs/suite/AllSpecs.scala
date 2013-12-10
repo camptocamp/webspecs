@@ -53,10 +53,6 @@ class WP1 extends AbstractAllSpecs("WP 1: Add CHE Schema",
         classOf[ImportValidationSpec])
 
 @RunWith(classOf[JUnitRunner])
-class WP2 extends AbstractAllSpecs("WP 2: Compares every metadatas from old version against the new one",
-        classOf[CompareGeocat1Metadata])
-
-@RunWith(classOf[JUnitRunner])
 class WP3 extends AbstractAllSpecs("WP 3: Shared Object (No UI)",
         classOf[AccessContactsSpec],
         classOf[AccessExtentsSpec],

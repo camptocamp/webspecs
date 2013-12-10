@@ -19,11 +19,12 @@ class AllGeonetworkSpecs
     classOf[CswSpecs],
     classOf[EditingSpecs],
     classOf[AccessSpecs],
-    classOf[FormatterSpecs],
     classOf[ImportSpecs],
     classOf[SearchSpecs],
     classOf[RegionSpecs],
-    classOf[OldSearchSpecs])
+    classOf[OldSearchSpecs],
+    classOf[FormatterSpecs]
+    )
 
 class CswSpecs
   extends AbstractAllSpecs("CswSpecs",

@@ -1,7 +1,7 @@
 package c2c.webspecs
 package debug
 
-import geonetwork._
+import c2c.webspecs.geonetwork._
 import c2c.webspecs.geonetwork.csw._
 import c2c.webspecs.login.LoginRequest
 import org.apache.http.entity.mime.content.StringBody

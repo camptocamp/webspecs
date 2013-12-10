@@ -23,7 +23,7 @@ class EditContactSpec extends GeocatSeleniumSpecification with ThrownExpectation
     "verify that there are still 3 contacts in metadata"                        ! hasThreeContacts
 
   lazy val ImportMetadata = {
-    val mdId = importMd(1,"/geocat/data/contact_has_repeated_contact.xml", uuid.toString, GeocatConstants.GM03_2_TO_CHE_STYLESHEET).head
+    val mdId = importMd(1,"/geocat/data/contact_has_repeated_contact.xml", uuid.toString, GeocatConstants.GM03_TO_CHE_STYLESHEET).head
     mdId
   }
 

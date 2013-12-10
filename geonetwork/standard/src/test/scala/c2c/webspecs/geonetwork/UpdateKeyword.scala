@@ -9,7 +9,8 @@ object UpdateKeyword {
       "refType" -> "unknown",
       "ref" -> thesaurus,
       "lang" -> lang.toUpperCase(),
-      "prefLab" -> word
+      "label" -> word, // new API
+      "prefLab" -> word // old API
   )
 }
 /**

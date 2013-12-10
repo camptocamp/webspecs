@@ -23,7 +23,7 @@ object ListFormats
         val id = record \ "id" text
         val name = record \ "name" text
         val version = record \ "version" text
-        val validated = (record \ "validated" text).trim.nonEmpty
+        val validated = (record \ "validated" text).trim == 'y'
 
         Format(id.toInt,name.trim,version.trim,validated)
       }
@@ -45,22 +45,24 @@ object GetFormat
 /**
  * Add a new format with given name and version.
  */
-case class AddFormat(name:String,version:String)
+case class AddFormat(name:String,version:String, validated: Boolean = true)
   extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory,
     P("action", "ADD"),
     P("name",name),
     SP("testing",true),
+    SP("validated",if (validated) "y" else "n"),
     P("version",version))
 
 /**
  * Ad a new format with given name and version.
  */
-case class UpdateFormat(id:String,name:String,version:String)
+case class UpdateFormat(id:String,name:String,version:String, validated:Boolean = true)
   extends AbstractGetRequest[Any,XmlValue]("format", XmlValueFactory,
     P("action", "ADD"),
     P("id",id),
     P("name",name),
     SP("testing",true),
+    SP("validated",if (validated) "y" else "n"),
     P("version",version))
 
     

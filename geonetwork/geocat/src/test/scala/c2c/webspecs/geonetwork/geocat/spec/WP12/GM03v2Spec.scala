@@ -24,7 +24,7 @@ class GM03V2Spec extends GeocatSpecification {
 	}
 	
 	lazy val importMetadataId = {
-		val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V2.xml",false, getClass, GeocatImportStyleSheets.GM03_V2)
+		val (_,importMd) = ImportMetadata.defaults(uuid, "/geocat/data/metadata.gm03_V2.xml",false, getClass, GeocatImportStyleSheets.GM03_V1)
 		val md = (importMd then GetRawMetadataXml).execute().value.getXml
 		val response = (md \\ "fileIdentifier").text.trim
 		response

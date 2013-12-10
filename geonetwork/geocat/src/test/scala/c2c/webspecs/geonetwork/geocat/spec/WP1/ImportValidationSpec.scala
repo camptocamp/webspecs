@@ -15,7 +15,7 @@ class ImportValidationSpec  extends GeocatSpecification {  def is =
   "This specification tests the behaviour of importing metadata with the validate option"      ^ Step(setup) ^
       "Importing a fully valid metadata will obviously import correctly"                       ! importFragment(true,  "metadata.iso19139.che.xml") ^
       "Importing an invalid metadata will result in a failed request"                          ! importFragment(false, "metadata.iso19139.che.invalid.xml") ^
-      "Imported a valid metadata but that is not inspire compliate will be imported correctly" ! importFragment(true,  "metadata.iso19139-inspire-invalid.xml") ^ Step(tearDown)
+      "Imported a valid metadata but that is not inspire compliant will be imported correctly" ! importFragment(true,  "metadata.iso19139-inspire-invalid.xml") ^ Step(tearDown)
 
                                                                               
   def importFragment(willImport:Boolean, filename:String) = {

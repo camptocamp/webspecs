@@ -14,7 +14,7 @@ import org.specs2.specification.Fragments
 class MetadataShowSpec extends c2c.webspecs.geonetwork.spec.get.MetadataShowSpec with GeocatSpecification {
 
   override def extraTests: Fragments = "metadata.show should not have xlinks tags" ! noXLinks
-  override def importStyleSheet = GeocatConstants.GM03_2_TO_CHE_STYLESHEET
+  override def importStyleSheet = GeocatConstants.GM03_TO_CHE_STYLESHEET
   override def xmlFile = "/geocat/data/gm03_2_shows_xlinks_when_imported.xml"
 
   def noXLinks = {

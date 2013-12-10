@@ -26,7 +26,7 @@ class UpdateContactViaMetadataUpdate extends GeocatSpecification { def is =
     xml \\ "individualFirstName" filter {n => text(n) startsWith prefix}
   }
   lazy val updatedMetadata = {
-    val id = importMd(1,"/geocat/data/contact_has_repeated_contact.xml", uuid.toString(), GeocatConstants.GM03_2_TO_CHE_STYLESHEET)
+    val id = importMd(1,"/geocat/data/contact_has_repeated_contact.xml", uuid.toString(), GeocatConstants.GM03_TO_CHE_STYLESHEET)
     val editValue = StartEditing().execute(id.head).value
     val request = findNamesWith(editValue.getXml,"firstname").headOption map {elem =>
       val ref = (elem \ "CharacterString" \ "element" head) @@ "ref"

@@ -22,12 +22,10 @@ trait SearchSettingsSpecification {
    * "only_locale", "only_docLocale"
    */
   def setSearchSetting(only:String, sorted:Boolean, ignored:Boolean) = {
-    val data: NodeSeq = 
-  <requestedLanguage>
-    <only>{only}</only>
-    <sorted>{sorted}</sorted>
-    <ignored>{ignored}</ignored>
-  </requestedLanguage>
+    val data: NodeSeq = Seq(
+      <system.requestedLanguage.only>{only}</system.requestedLanguage.only>,
+      <system.requestedLanguage.sorted>{sorted}</system.requestedLanguage.sorted>
+    )
     doSetSearchSettings(data)
   }
 

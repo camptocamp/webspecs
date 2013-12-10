@@ -5,15 +5,15 @@ import c2c.webspecs.ExecutionContext
 
 class CreateUserDeleteMetadataLifeCycle(config: GeonetConfig) extends CreateAsNeededUserLifeCycle(config) {
   override def setup(implicit context: ExecutionContext, uriResolver: UriResolver) = {
-    config.adminLogin.execute()(context, uriResolver)
+    (config.adminLogin.assertPassed()(context, uriResolver))
     
-    SetSequentialExecution(true).execute()
-    SetUseNRTManagerReopenThread(true).execute()
+    SetSequentialExecution(true).assertPassed()
+    SetUseNRTManagerReopenThread(true).assertPassed()
 
     deleteAllMetadata(context, uriResolver)
 
-    SetSequentialExecution(false).execute()
-    SetUseNRTManagerReopenThread(false).execute()
+    SetSequentialExecution(false).assertPassed()
+    SetUseNRTManagerReopenThread(false).assertPassed()
 
     super.setup(context, uriResolver)
   }

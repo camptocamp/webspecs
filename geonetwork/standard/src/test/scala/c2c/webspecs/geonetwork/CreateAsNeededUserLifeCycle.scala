@@ -1,11 +1,13 @@
 package c2c.webspecs
 package geonetwork
-import c2c.webspecs.login.LoginRequest
 
 class CreateAsNeededUserLifeCycle(config:GeonetConfig)  extends SystemLifeCycle {
   import config._
   def setup(implicit context: ExecutionContext, uriResolvers:UriResolver) = {
-    def usesExists = (adminLogin then ListUsers).execute().value.exists(_.username == user)
+    def usesExists = {
+      val users = (adminLogin then ListUsers).execute().value;
+      users.exists(_.username == user)
+    }
     if(!usesExists) {
       adminLogin.assertPassed(None)
       val groupName = Properties("group") getOrElse {throw new IllegalArgumentException("A group configuration parameter is required")}
